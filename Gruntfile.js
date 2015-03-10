@@ -1,3 +1,6 @@
+// CapCrunch Build
+// ==================================================
+
 module.exports = function(grunt) {
   'use strict';
 
@@ -9,7 +12,7 @@ module.exports = function(grunt) {
           sourceMap: true
         },
         files: {
-          'css/core.css': 'css/base.scss'
+          'public/css/core.css': 'public/css/base.scss'
         }
       },
       dist: {
@@ -18,7 +21,7 @@ module.exports = function(grunt) {
           outputStyle: 'compressed'
         },
         files: {
-          'css/dist.css': 'css/base.scss'
+          'public/css/dist.css': 'public/css/base.scss'
         }
       }
     },
@@ -39,23 +42,23 @@ module.exports = function(grunt) {
         browser: true,
         debug: true,
         devel: true,
-        strict: true,
         globals: {
           '$': false,
           'jQuery': true,
           'module': true,
-          'require': false
-        },
-        ignores: ['js/dist.js', 'js/core.min.js']
+          'require': false,
+          'process': false,
+          '__dirname': false
+        }
       },
-      files: ['Gruntfile.js', 'js/core.js']
+      files: ['Gruntfile.js', 'capcrunch.js', 'public/js/core.js']
     },
 
 
     uglify: {
       dist: {
         files: {
-          'js/core.min.js': 'js/core.js'
+          'public/js/core.min.js': 'public/js/core.js'
         }
       }
     },
@@ -66,17 +69,17 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['js/vendor/modernizr.min.js', 'js/vendor/jquery.min.js', 'js/core.min.js'],
-        dest: 'js/dist.js'
+        src: ['public/js/vendor/modernizr.min.js', 'public/js/vendor/jquery.min.js', 'public/js/core.min.js'],
+        dest: 'public/js/dist.js'
       }
     },
 
 
     jasmine: {
       test: {
-        src: 'js/core.js',
+        src: 'public/js/core.js',
         options: {
-          vendor: ['js/vendor/jquery.min.js'],
+          vendor: ['public/js/vendor/jquery.min.js'],
           helpers: ['spec/helpers/jasmine-jquery.js'],
           specs: 'spec/*Spec.js',
           keepRunner: true
@@ -91,25 +94,25 @@ module.exports = function(grunt) {
           context: { ENV: 'DEV' }
         },
         src : 'tmpl/index.html',
-        dest : 'index.html'
+        dest : 'public/index.html'
       },
       dist: {
         options: {
           context: { ENV: 'DIST' }
         },
         src : 'tmpl/index.html',
-        dest : 'index.html'
+        dest : 'public/index.html'
       }
     },
 
 
     watch: {
       sass: {
-        files: ['css/**/*.scss'],
+        files: ['public/css/**/*.scss'],
         tasks: ['sass:dev']
       },
       js: {
-        files: ['Gruntfile.js', 'js/*.js'],
+        files: ['<%= jshint.files %>'],
         tasks: ['jshint']
       },
       test: {
@@ -118,7 +121,7 @@ module.exports = function(grunt) {
       },
       html: {
         files: ['tmpl/**/*.html'],
-        tasks: ['preprocess']
+        tasks: ['preprocess:dev']
       },
       options: {
         livereload: true
@@ -126,6 +129,9 @@ module.exports = function(grunt) {
     }
   });
 
+
+  // Dependencies
+  // --------------------------------------------------
 
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-preprocess');
@@ -135,6 +141,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
+
+  // Tasks
+  // --------------------------------------------------
 
   grunt.registerTask('default', ['sass:dev', 'jshint', 'jasmine', 'preprocess:dev']);
   grunt.registerTask('dev', ['sass:dev', 'jshint', 'jasmine', 'preprocess:dev', 'watch']);

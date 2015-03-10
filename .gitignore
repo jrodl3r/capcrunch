@@ -6,11 +6,10 @@
 .Trashes
 
 #ENV
-.sass-cache
 .grunt
+/design
 /node_modules
-/js/core.min.js
-/js/dist.js
-/css/*.css*
+/public/css/*.css*
+/public/js/core.min.js
+/public/js/dist.js
 _SpecRunner.html
-/index.html

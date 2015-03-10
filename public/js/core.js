@@ -1,4 +1,4 @@
-// Client
+// CapCrunch Client
 // ==================================================
 
 var CC = (function() {
@@ -6,12 +6,8 @@ var CC = (function() {
 
   var CC = {
 
-    name           :  'CapCrunch',
-    version        :  '0.1.0',
-
-
     init: function init() {
-      console.log(this.name + ' v' + this.version);
+      console.log('CapCrunch');
     }
   };
 
@@ -22,10 +18,6 @@ var CC = (function() {
 // Document
 // --------------------------------------------------
 
-(function() {
-  'use strict';
-
-  $(document).ready(function() {
-    CC.init();
-  });
-}());
+$(document).ready(function() {
+  CC.init();
+});
