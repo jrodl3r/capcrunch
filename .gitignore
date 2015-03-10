@@ -1,0 +1,16 @@
+#OSX
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+#ENV
+.sass-cache
+.grunt
+/node_modules
+/js/core.min.js
+/js/dist.js
+/css/*.css*
+_SpecRunner.html
+/index.html
