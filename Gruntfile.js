@@ -43,6 +43,7 @@ module.exports = function(grunt) {
         debug: true,
         devel: true,
         globals: {
+          'io': true,
           '$': false,
           'jQuery': true,
           'module': true,
@@ -51,14 +52,16 @@ module.exports = function(grunt) {
           '__dirname': false
         }
       },
-      files: ['Gruntfile.js', 'capcrunch.js', 'public/js/core.js']
+      files: ['Gruntfile.js',
+              'server.js',
+              'public/js/client.js']
     },
 
 
     uglify: {
       dist: {
         files: {
-          'public/js/core.min.js': 'public/js/core.js'
+          'public/js/client.min.js': 'public/js/client.js'
         }
       }
     },
@@ -69,7 +72,10 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['public/js/vendor/modernizr.min.js', 'public/js/vendor/jquery.min.js', 'public/js/core.min.js'],
+        src: ['public/js/vendor/modernizr.min.js',
+              'public/js/vendor/socket.io.min.js',
+              'public/js/vendor/jquery.min.js',
+              'public/js/client.min.js'],
         dest: 'public/js/dist.js'
       }
     },
@@ -77,9 +83,10 @@ module.exports = function(grunt) {
 
     jasmine: {
       test: {
-        src: 'public/js/core.js',
+        src: 'public/js/client.js',
         options: {
-          vendor: ['public/js/vendor/jquery.min.js'],
+          vendor:  ['public/js/vendor/jquery.min.js',
+                    'public/js/vendor/socket.io.min.js'],
           helpers: ['spec/helpers/jasmine-jquery.js'],
           specs: 'spec/*Spec.js',
           keepRunner: true
@@ -93,14 +100,14 @@ module.exports = function(grunt) {
         options: {
           context: { ENV: 'DEV' }
         },
-        src : 'tmpl/index.html',
+        src :  'tmpl/index.html',
         dest : 'public/index.html'
       },
       dist: {
         options: {
           context: { ENV: 'DIST' }
         },
-        src : 'tmpl/index.html',
+        src :  'tmpl/index.html',
         dest : 'public/index.html'
       }
     },

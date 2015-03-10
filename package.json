@@ -2,6 +2,7 @@
   "name": "capcrunch",
   "version": "0.2.0",
   "author": "John Rodler <john@jrod.io>",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/jrodl3r/capcrunch.git"
@@ -10,7 +11,7 @@
     "node": "0.12.x"
   },
   "scripts": {
-    "start": "nodemon capcrunch.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "express": "^4.11.0",

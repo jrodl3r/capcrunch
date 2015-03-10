@@ -23,9 +23,27 @@ if (env !== 'development') {
 // Routes
 // --------------------------------------------------
 
+// default
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+// testing
+if (env === 'test' || env === 'development') {
+  // runner
+  app.get('/test', function (req, res) {
+    res.sendFile(__dirname + '/_SpecRunner.html');
+  });
+  // fixtures
+  app.get('/tmpl/inc/:filename', function (req, res) {
+    res.sendFile(__dirname + '/tmpl/inc/' + req.params.filename);
+  });
+  // test assets
+  app.use('/.grunt', express.static(__dirname + '/.grunt'));
+  app.use('/spec', express.static(__dirname + '/spec'));
+}
+
+// assets
 app.use('/public', express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
@@ -36,7 +54,7 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 io.sockets.on('connection', function (socket) {
   console.log('Connected (' + (new Date()).toLocaleString() + ')');
 
-  // TODO
+  socket.emit('test', 'Socket.io');
 
   socket.on('disconnect', function () {
     console.log('Disconnected (' + new Date() + ')');

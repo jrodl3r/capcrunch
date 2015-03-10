@@ -10,6 +10,6 @@
 /design
 /node_modules
 /public/css/*.css*
-/public/js/core.min.js
+/public/js/client.min.js
 /public/js/dist.js
 _SpecRunner.html

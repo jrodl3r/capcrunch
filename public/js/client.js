@@ -7,7 +7,10 @@ var CC = (function() {
   var CC = {
 
     init: function init() {
-      console.log('CapCrunch');
+      this.socket = io.connect();
+      this.socket.on('test', function(msg) {
+        console.log('CapCrunch » ' + msg);
+      });
     }
   };
 
