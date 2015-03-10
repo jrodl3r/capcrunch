@@ -1,6 +1,6 @@
-#### NEXT (Did You Uptick Version?)
+#### NEXT (Did You Uptick Version? » v0.1.1)
 - 'public asset structure'
-- 'grunt-unCSS'
+- 'grunt-unCSS + grunt-newer'
 - 'Typekit'
 - 'client module pattern (Browserify or Webpack)'
 - 'client framework (React)'
@@ -17,4 +17,5 @@
 
 
 #### READY
+- 'placeholder favicon'
 - 'initial build'

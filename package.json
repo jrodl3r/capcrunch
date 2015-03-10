@@ -1,20 +1,20 @@
 {
   "name": "capcrunch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "John Rodler <john@jrod.io>",
   "repository": {
     "type": "git",
     "url": "git://github.com/jrodl3r/capcrunch.git"
   },
   "devDependencies": {
-    "grunt": "^x.x.x",
-    "grunt-sass": "^x.x.x",
-    "grunt-preprocess": "^x.x.x",
-    "grunt-contrib-jshint": "^x.x.x",
-    "grunt-contrib-jasmine": "^x.x.x",
-    "grunt-contrib-concat": "^x.x.x",
-    "grunt-contrib-uglify": "^x.x.x",
-    "grunt-contrib-watch": "^x.x.x",
-    "time-grunt": "^x.x.x"
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-jasmine": "^0.8.2",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-preprocess": "^4.1.0",
+    "grunt-sass": "^0.18.1",
+    "time-grunt": "^1.1.0"
   }
 }
