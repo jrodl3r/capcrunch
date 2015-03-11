@@ -1,20 +1,26 @@
-#### NEXT » Did You Uptick Version? » [v0.2.1]
-- 'grunt-unCSS + grunt-newer + minify Font Awesome'
-- 'client module pattern (Browserify / Webpack)'
-- 'client framework / middleware (React / Socket.io)'
+
+
+#### NEXT » Did You Uptick Version? » [v0.2.2]
+
 - 'database (MongoDB, Mongoose)'
 - 'database schema + model'
-- 'team/player data + images'
+- 'team, player and salary data + image scraping (Cherrio)'
 - 'core interface layout'
 - 'drag-n-drop logic'
-- 'Typekit'
+- 'Typekit, grunt-Modernizr'
 
 
-#### LATER
-- 'later'
+
+#### NOW
+
+- 'client module management (Browserify / Webpack)'
+- 'client framework + middleware (React / Socket.io)'
+
 
 
 #### READY
+
+- 'update grunt (watch newer, uncss, cssmin, preprocess) [v0.2.2]'
 - 'hookup node middleware + testing (Socket.io, Jasmine) [v0.2.1]'
 - 'setup node server (Express, Socket.io) + restructure public assets [v0.2.0]'
 - 'update docs, favicon, dependencies [v0.1.1]'

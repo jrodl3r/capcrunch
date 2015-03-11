@@ -6,6 +6,9 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
 
+    pkg: grunt.file.readJSON('package.json'),
+
+
     sass: {
       dev: {
         options: {
@@ -17,11 +20,31 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          sourceMap: false,
-          outputStyle: 'compressed'
+          sourceMap: false
         },
         files: {
           'public/css/dist.css': 'public/css/base.scss'
+        }
+      }
+    },
+
+
+    uncss: {
+      dist: {
+        options: {
+          report: 'gzip'
+        },
+        files: {
+          'public/css/dist.css': ['http://localhost:3000']
+        }
+      }
+    },
+
+
+    cssmin: {
+      dist: {
+        files: {
+          'public/css/dist.css': ['public/css/dist.css']
         }
       }
     },
@@ -52,14 +75,14 @@ module.exports = function(grunt) {
           '__dirname': false
         }
       },
-      files: ['Gruntfile.js',
-              'server.js',
-              'public/js/client.js']
+      all: {
+        src: ['Gruntfile.js', 'server.js', 'public/js/client.js']
+      }
     },
 
 
     uglify: {
-      dist: {
+      all: {
         files: {
           'public/js/client.min.js': 'public/js/client.js'
         }
@@ -96,6 +119,9 @@ module.exports = function(grunt) {
 
 
     preprocess: {
+      options: {
+        context: { VERSION: '<%= pkg.version %>' }
+      },
       dev: {
         options: {
           context: { ENV: 'DEV' }
@@ -119,11 +145,11 @@ module.exports = function(grunt) {
         tasks: ['sass:dev']
       },
       js: {
-        files: ['<%= jshint.files %>'],
-        tasks: ['jshint']
+        files: ['<%= jshint.all.src %>'],
+        tasks: ['lint']
       },
       test: {
-        files: ['spec/**/*.js', 'tmpl/**/*.html'],
+        files: ['spec/**/*.js'],
         tasks: ['test']
       },
       html: {
@@ -140,22 +166,29 @@ module.exports = function(grunt) {
   // Dependencies
   // --------------------------------------------------
 
-  grunt.loadNpmTasks('grunt-sass');
-  grunt.loadNpmTasks('grunt-preprocess');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-preprocess');
+  grunt.loadNpmTasks('grunt-newer');
+  grunt.loadNpmTasks('grunt-uncss');
+  grunt.loadNpmTasks('grunt-sass');
 
 
   // Tasks
   // --------------------------------------------------
 
-  grunt.registerTask('default', ['sass:dev', 'jshint', 'jasmine', 'preprocess:dev']);
-  grunt.registerTask('dev', ['sass:dev', 'jshint', 'jasmine', 'preprocess:dev', 'watch']);
-  grunt.registerTask('dist', ['sass:dist', 'jshint', 'jasmine', 'uglify', 'concat', 'preprocess:dist']);
-  grunt.registerTask('test', ['jshint', 'jasmine']);
+  grunt.registerTask('default', ['sass:dev', 'test', 'preprocess:dev']);
+  grunt.registerTask('dev',     ['sass:dev', 'lint', 'preprocess:dev', 'watch']);
+  grunt.registerTask('dist',    ['sass:dist', 'test', 'zip', 'preprocess:dist', 'css']);
+  grunt.registerTask('minify',  ['newer:uglify:all']);
+  grunt.registerTask('lint',    ['newer:jshint:all']);
+  grunt.registerTask('test',    ['lint', 'jasmine']);
+  grunt.registerTask('zip',     ['minify', 'concat']);
+  grunt.registerTask('css',     ['uncss', 'cssmin']);
 
 
   require('time-grunt')(grunt);

@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="description" content="CapCrunch">
+    <meta name="description" content="CapCrunch v<!-- @echo VERSION -->">
     <title>CapCrunch</title>
     <!-- @if ENV='DEV' -->
-    <link rel="stylesheet" href="/public/css/core.css">
+    <link rel="stylesheet" href="public/css/core.css">
     <!-- @endif -->
     <!-- @if ENV='DIST' -->
-    <link rel="stylesheet" href="/public/css/dist.css">
+    <link rel="stylesheet" href="public/css/dist.css">
     <!-- @endif -->
   </head>
   <body>
@@ -22,14 +22,13 @@
       </div>
     </div>
     <!-- @if ENV='DEV' -->
-    <script src="/public/js/vendor/modernizr.min.js"></script>
-    <script src="/public/js/vendor/socket.io.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/public/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="/public/js/client.js"></script>
+    <script src="public/js/vendor/modernizr.min.js"></script>
+    <script src="public/js/vendor/socket.io.min.js"></script>
+    <script src="public/js/vendor/jquery.min.js"></script>
+    <script src="public/js/client.js"></script>
     <!-- @endif -->
     <!-- @if ENV='DIST' -->
-    <script src="/public/js/dist.js"></script>
+    <script src="public/js/dist.js"></script>
     <!-- @endif -->
   </body>
 </html>
