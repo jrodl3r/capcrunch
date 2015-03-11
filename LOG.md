@@ -2,10 +2,9 @@
 
 #### NEXT » Did You Uptick Version? » [v0.2.2]
 
-- 'database (MongoDB, Mongoose)'
-- 'database schema + model'
-- 'team, player and salary data + image scraping (Cherrio)'
-- 'core interface layout'
+- 'database model/schema (MongoDB, Mongoose)'
+- 'team/player data scraping (salary, images)'
+- 'prototype interface'
 - 'drag-n-drop logic'
 - 'Typekit, grunt-Modernizr'
 
@@ -13,9 +12,7 @@
 
 #### NOW
 
-- 'client module management (Browserify / Webpack)'
-- 'client framework + middleware (React / Socket.io)'
-
+- 'client templating + module systems (React, Browserify/Webpack)'
 
 
 #### READY
