@@ -44,7 +44,7 @@ if (env === 'test' || env === 'development') {
 }
 
 // assets
-app.use('/public', express.static(__dirname + '/public'));
+app.use('/', express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
@@ -54,7 +54,7 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 io.sockets.on('connection', function (socket) {
   console.log('Connected (' + (new Date()).toLocaleString() + ')');
 
-  socket.emit('test', 'Socket.io');
+  socket.emit('init', 'Socket.io');
 
   socket.on('disconnect', function () {
     console.log('Disconnected (' + new Date() + ')');

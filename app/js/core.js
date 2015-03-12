@@ -1,6 +1,13 @@
 // CapCrunch Client
 // ==================================================
 
+var $     = require('jquery'),
+    utils = require('./utils');
+
+
+// Core
+// --------------------------------------------------
+
 var CC = (function() {
   'use strict';
 
@@ -8,8 +15,10 @@ var CC = (function() {
 
     init: function init() {
       this.socket = io.connect();
-      this.socket.on('test', function(msg) {
-        console.log('CapCrunch » ' + msg);
+      this.socket.on('init', function(msg) {
+        utils.init('Utilities');
+        console.log('[' + msg + ' Loaded]');
+        console.log('[CapCrunch Loaded]');
       });
     }
   };
