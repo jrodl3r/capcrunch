@@ -1,22 +1,36 @@
 // Core Styles
 // ==================================================
 
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: $font-family;
   color: $default-color;
 }
 
-h1 {
-  padding: 0 20px;
+#main {
+  max-width: 90%;
+  margin: 0 auto;
+}
 
-  i {
-    padding-right: 8px;
-  }
+header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #000;
 
-  span {
-    color: $alt-color;
-    font-size: 11px;
-    font-weight: 200;
-    padding-left: 5px;
+  h1 {
+    padding: 0 20px;
+
+    i {
+      padding-right: 8px;
+    }
+
+    span {
+      color: $alt-color;
+      font-size: 11px;
+      font-weight: 200;
+      padding-left: 5px;
+    }
   }
 }

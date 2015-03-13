@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "__DEV__": true,
+    "__SERVER__": true,
+    "React", false,
+    "io", false,
+    "$", false
+  },
+  "rules": {
+    // Strict mode
+    "strict": [2, "global"],
+
+    // Code style
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+
+    // Preferences
+    "no-mixed-requires": false,
+    "no-multi-spaces": false,
+    "no-unused-vars": false,
+    "key-spacing": false,
+    "no-trailing-spaces": false,
+    "camelcase": false
+  }
+}

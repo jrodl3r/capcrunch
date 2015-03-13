@@ -1,35 +1,24 @@
-// CapCrunch Client
+// CapCrunch Core
 // ==================================================
+'use strict';
 
-var $     = require('jquery'),
-    utils = require('./utils');
+var Utils = require('./utils'),
 
+    Core = {
 
-// Core
-// --------------------------------------------------
+      init: function init() {
 
-var CC = (function() {
-  'use strict';
-
-  var CC = {
-
-    init: function init() {
-      this.socket = io.connect();
-      this.socket.on('init', function(msg) {
-        utils.init('Utilities');
-        console.log('[' + msg + ' Loaded]');
-        console.log('[CapCrunch Loaded]');
-      });
-    }
-  };
-
-  return CC;
-})();
+        this.socket = io.connect();
+        this.socket.on('init', function() {
+          Utils.init('CapCrunch');
+        });
+      }
+    };
 
 
-// Document
+// Init
 // --------------------------------------------------
 
 $(document).ready(function() {
-  CC.init();
+  Core.init();
 });

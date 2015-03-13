@@ -1,15 +1,13 @@
-var Utils = (function() {
+// CapCrunch Utilities
+// ==================================================
+'use strict';
 
-  var Utils = {
+var Utils = {
 
-    init: function(msg) {
+  init: (msg) => {
 
-      console.log('[' + msg + ' Loaded]');
-    }
-  };
-  
-  return Utils;
-
-}());
+    console.log('[' + msg + ' Loaded]');
+  }
+};
 
 module.exports = Utils;

@@ -1,70 +1,107 @@
 // CapCrunch Build
 // ==================================================
+'use strict';
 
 var gulp        = require('gulp'),
     glob        = require('glob'),
     del         = require('del'),
+    chalk       = require('chalk'),
     browserify  = require('browserify'),
+    watchify    = require('watchify'),
+    babelify    = require('babelify'),
     sequence    = require('run-sequence'),
     source      = require('vinyl-source-stream'),
+    buffer      = require('vinyl-buffer'),
     $           = require('gulp-load-plugins')(),
     pkg         = require('./package.json'),
+    state       = process.env.NODE_ENV || 'development',
     env         = {
-      flag      : process.env.NODE_ENV,
-      prod      : (this.flag === 'production'),
-      dev       : (this.flag !== 'production' || this.flag !== 'test')
+      prod      : (state === 'production'),
+      dev       : (state === 'development' || state === 'test')
     };
 
 
-// default
-gulp.task('default', ['clean', 'js', 'sass', 'jade', 'watch']);
+// Tasks
+// --------------------------------------------------
 
-
-// ship
-gulp.task('ship', ['clean', 'jade'], function(cb) {
-  env.prod = true;
-  env.dev  = false;
-  sequence(['js', 'sass'], cb);
+gulp.task('default', function() {
+  $.util.log(chalk.green('Run "gulp watch", "gulp dev" or "gulp ship"'));
 });
 
-
-// clean
-gulp.task('clean', function(cb) {
-  del(['public/js/*.js', 'public/css/*.css', 'public/index.html'], cb);
+gulp.task('dev', ['clean'], function() {
+  gulp.start(['jade', 'sass', 'watch', 'watchify']);
 });
 
+gulp.task('ship', ['clean'], function(cb) {
+  env = { prod: true, dev: false };
+  sequence(['jade', 'sass', 'browserify'], cb);
+});
 
-// watch
 gulp.task('watch', function() {
   $.livereload.listen({ quiet: true });
-  gulp.watch(['gulpfile.js', 'server.js', 'app/js/**/*.js'], ['js']);
-  gulp.watch('app/sass/**/*.scss', ['sass']);
   gulp.watch('app/templates/**/*.jade', ['jade']);
+  gulp.watch('app/sass/**/*.scss', ['sass']);
+});
+
+gulp.task('clean', function(cb) {
+  del(['public/js/*.js*', 'public/css/*.css*'], cb);
 });
 
 
-// javascript
-gulp.task('js', function() {
-  return browserify({
-      entries : ['./app/js/core.js'],
-      debug   : env.dev
-    })
+// JavaScript
+// --------------------------------------------------
+
+gulp.task('watchify', function() {
+  var running, bundler = watchify(browserify(['./app/js/app.jsx', './app/js/core.js'], watchify.args));
+
+  function rebundle() {
+    var timer = $.duration('Finished ' + chalk.cyan('\'watchify\'') + ' after');
+    if (running) { $.util.log('Starting ' + chalk.cyan('\'watchify\'') + '...'); }
+    running = true;
+
+    return bundler
+      .bundle()
+      .on('error', $.notify.onError())
+      .pipe(source('app.js'))
+      .pipe(buffer())
+      .pipe($.sourcemaps.init({ loadMaps: true }))
+      .pipe($.sourcemaps.write('.'))
+      .pipe(gulp.dest('public/js'))
+      .pipe(timer)
+      .pipe($.size({ title: 'watchify' }))
+      .pipe($.livereload());
+  }
+
+  bundler.transform(babelify)
+  .on('update', rebundle);
+  return rebundle();
+});
+
+gulp.task('browserify', function() {
+  return browserify(['./app/js/app.jsx', './app/js/core.js'])
+    .transform(babelify)
     .bundle()
-    .pipe(source('bundle.js'))
-    .pipe($.if(env.prod, $.streamify($.uglify())))
+    .on('error', $.notify.onError())
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe($.uglify())
     .pipe(gulp.dest('public/js'))
-    .pipe($.streamify($.size({ title: 'js' })))
-    .pipe($.livereload());
+    .pipe($.size({ title: 'browserify' }));
 });
 
 
-// sass
+// Sass
+// --------------------------------------------------
+
 gulp.task('sass', function() {
   return gulp.src('app/sass/base.scss')
     .pipe($.if(env.dev, $.sourcemaps.init()))
     .pipe($.sass({ errLogToConsole: true }))
-    .pipe($.if(env.dev, $.sourcemaps.write('.')))
+    .on('error', $.notify.onError())
+    //.pipe($.autoprefixer('last 1 version'))
+    .pipe($.rename('core.css'))
     .pipe($.if(env.prod, $.uncss({ html: glob.sync('public/*.html') })))
+    .pipe($.if(env.dev, $.sourcemaps.write('.')))
     .pipe($.if(env.prod, $.csso()))
     .pipe(gulp.dest('public/css'))
     .pipe($.size({ title: 'sass' }))
@@ -72,31 +109,13 @@ gulp.task('sass', function() {
 });
 
 
-// jade
+// Jade
+// --------------------------------------------------
+
 gulp.task('jade', function() {
-  return gulp.src('app/templates/index.jade')
+  return gulp.src('app/templates/*.jade')
     .pipe($.jade({ locals: pkg }))
     .pipe(gulp.dest('public'))
     .pipe($.size({ title: 'jade' }))
     .pipe($.livereload());
 });
-
-
-
-
-// grunt
-
-/*  jshint: {
-    options: { curly: true, eqeqeq: true, immed: true, loopfunc: true, latedef: true, newcap: true, noarg: true, sub: true, undef: true, unused: true, browser: true, debug: true, devel: true,
-      globals: { 'io': true, '$': false, 'jQuery': true, 'module': true, 'require': false, 'process': false, '__dirname': false } },
-    all: { src: ['Gruntfile.js', 'server.js', 'public/js/client.js'] }
-
-  jasmine: {
-    test: { src: 'public/js/client.js', options: {
-        vendor:  ['public/js/vendor/jquery.min.js', 'public/js/vendor/socket.io.min.js'],
-        helpers: ['spec/helpers/jasmine-jquery.js'],
-        specs: 'spec/*Spec.js', keepRunner: true } }
-
-  watch: {
-    js: { files: ['<%= jshint.all.src %>'], tasks: ['lint'] },
-    test: { files: ['spec/../.....js'], tasks: ['test'] } */
