@@ -14,12 +14,13 @@ $default-color                 :    #000;
 $alt-color                     :    #999;
 
 
-// Breakpoints
+// Dimensions
 // --------------------------------------------------
 
-$bp-small                      :    500px;
-$bp-medium                     :    800px;
-$bp-large                      :    1000px;
+$header-height                 :    80px;
+$page-width                    :    1000px;
+$content-width                 :    960px;
+$min-height                    :    560px;
 
 
 // Animation

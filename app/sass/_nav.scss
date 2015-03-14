@@ -5,7 +5,41 @@
 // --------------------------------------------------
 
 header {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  float: left;
+  height: $header-height;
+  width: 100%;
+  min-width: $page-width;
+  margin: 0 auto;
+  color: #FFF;
+  background: #000;
 
+  .inner {
+    height: inherit;
+    width: $page-width;
+    margin: 0 auto;
+  }
+
+  h1 {
+    float: left;
+    height: $header-height;
+    width: 50%;
+    margin: 0;
+    padding-left: 20px;
+    line-height: $header-height;
+  }
+
+  #team-menu {
+    float: right;
+    height: $header-height;
+    width: 50%;
+    padding-right: 30px;
+    line-height: $header-height;
+    text-align: right;
+  }
 }
 
 
@@ -13,5 +47,11 @@ header {
 // --------------------------------------------------
 
 footer {
-
+  height: 30px;
+  width: 100%;
+  line-height: 30px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #BBB;
 }

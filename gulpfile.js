@@ -98,7 +98,7 @@ gulp.task('sass', function() {
     .pipe($.if(env.dev, $.sourcemaps.init()))
     .pipe($.sass({ errLogToConsole: true }))
     .on('error', $.notify.onError())
-    //.pipe($.autoprefixer('last 1 version'))
+    .pipe($.autoprefixer('last 2 versions'))
     .pipe($.rename('core.css'))
     .pipe($.if(env.prod, $.uncss({ html: glob.sync('public/*.html') })))
     .pipe($.if(env.dev, $.sourcemaps.write('.')))

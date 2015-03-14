@@ -1,24 +1,27 @@
 
 
-#### NEXT » Did You Uptick Version? » [v0.3.1]
+#### NEXT » Did You Uptick Version? » [v0.3.2]
 
-- 'database model/schema (MongoDB, Mongoose)'
-- 'team/player data scraping (salary, images)'
 - 'Typekit + gulp asset management (fonts, images)'
-- 'X-browser + feature detection (autoprefixer/Compass, Modernizr, gulp-newer)'
+- 'feature detection (Modernizr)'
 - 'Heroku + CodeShip build deployment'
+- 'analytics'
+- 'design'
+- 'Round #1 » private sharing/testing (friends, twitter dm, etc)'
+- 'Round #2 » public release (forums, twitter, reactjs, etc)'
 
 
 #### NOW
 
-- '/app/server.js => /server.js'
-- 'gulp src + dest path object'
+- 'drag-n-drop (React)'
 - 'unit testing (Jest / Jasmine)'
-- 'prototype interface + drag-n-drop logic'
+- 'database model/schema (MongoDB, Mongoose)'
+- 'team/player data scraping (salary, images)'
 
 
 #### READY
 
+- 'setup base layout structure (autoprefixer) [v0.3.2]'
 - 'setup templating, transpiling, linting (React, Babel, ESLint) [v0.3.1]'
 - 'upgrade build system (gulp, Browserify, Jade) [v0.3.0]'
 - 'update grunt (watch newer, uncss, cssmin, preprocess) [v0.2.2]'

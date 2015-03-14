@@ -10,9 +10,16 @@ html.no-js(lang='en')
   body
     #main
       include partials/header.jade
-      .content
-        #app
-        footer
+      #app
+        .wrap
+          #roster-menu.area
+            each i in [1,2,3,4,5,6]
+              .panel Menu
+          #roster.area
+            .panel Forwards
+            .panel Defense
+            .panel Goalies
+      include partials/footer.jade
     script(src='js/vendor/socket.io.min.js')
     script(src='js/vendor/react.min.js')
     script(src='js/vendor/jquery.min.js')

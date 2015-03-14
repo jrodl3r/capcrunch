@@ -1,36 +1,76 @@
 // Core Styles
 // ==================================================
 
-*, *:before, *:after {
+* {
   box-sizing: border-box;
 }
 
+body, html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
+  min-width: $page-width;
   font-family: $font-family;
   color: $default-color;
 }
 
+ul {
+  list-style: none;
+}
+
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+  &:focus {
+    outline: none;
+  }
+}
+
 #main {
-  max-width: 90%;
+  height: 100%;
+  min-height: $min-height;
+  width: $page-width;
+  max-width: $page-width;
   margin: 0 auto;
 }
 
-header {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #000;
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-  h1 {
-    padding: 0 20px;
+  .wrap {
+    display: flex;
+    flex: 1 1 auto;
+    width: $content-width;
+    margin: $header-height auto 0;
 
-    i {
-      padding-right: 8px;
+    > div {
+      flex-direction: column;
+    }
+  }
+
+  .area {
+    background: rgba(0,0,0, .1);
+  }
+
+  .panel {
+    height: 80px;
+    width: inherit;
+    margin-bottom: 20px;
+    line-height: 80px;
+    text-align: center;
+    background: rgba(0,0,0, .25);
+
+    &:first-of-type {
+      margin-top: 20px;
     }
 
-    span {
-      color: $alt-color;
-      font-size: 11px;
-      font-weight: 200;
-      padding-left: 5px;
+    &:last-of-type {
+      margin-bottom: 0;
     }
   }
 }
