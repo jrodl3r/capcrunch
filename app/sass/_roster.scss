@@ -1,11 +1,323 @@
 // Roster Styles
 // ==================================================
 
-#roster-menu {
-  width: 300px;
-  margin-right: 20px;
+
+// Panels
+// --------------------------------------------------
+
+.panel {
+  position: relative;
+  float: left;
+  width: inherit;
+  margin-bottom: $page-spacing;
+  background: rgba(0,0,0, .025);
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px 0 rgba(0,0,0, .05) inset;
+  overflow: hidden;
+  cursor: default;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .title {
+    height: 30px;
+    line-height: 30px;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    background: #000;
+  }
+
+  .inner {
+    width: inherit;
+    color: #777;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+  }
 }
+
+
+// Sidebar / Control Panels
+// --------------------------------------------------
+
+#menu {
+  width: 300px;
+  margin-right: $page-spacing;
+
+  .panel .inner {
+    min-height: 172px;
+    max-height: 220px;
+    overflow-x: hidden;
+  }
+
+  .panel.inactive .inner {
+    min-height: 0px;
+    height: 0;
+  }
+
+  .panel.short .inner {
+    min-height: 112px;
+  }
+}
+
+#share {
+  float: left;
+  width: inherit;
+  margin: 30px 0;
+
+  input, button {
+    float: left;
+    height: 32px;
+    border-radius: $border-radius;
+  }
+
+  input {
+    width: 220px;
+    padding: 15px 10px;
+    margin-right: 10px;
+    line-height: 32px;
+    font-size: 16px;
+    border: 1px solid $alt-color;
+  }
+
+  button {
+    width: 70px;
+    color: #FFF;
+    line-height: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    background: #000;
+    border: none;
+
+    &:hover {
+      background: $alt-color;
+    }
+  }
+}
+
+
+// Player Listing / Tables
+// --------------------------------------------------
+
+.player-list {
+
+  ul {
+    position: relative;
+    top: 22px;
+    float: left;
+    height: 100%;
+    max-height: 150px;
+    padding: 0 10px;
+    overflow-y: scroll;
+  }
+
+  &.short ul {
+    max-height: 100px;
+  }
+
+  .header, .row {
+    float: left;
+    width: 100%;
+  }
+
+  .name, .shot, .salary {
+    float: left;
+    padding: 0 10px;
+    text-align: left;
+  }
+
+  .shot, .salary {
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .header {
+    position: absolute;
+    z-index: 2;
+    height: 22px;
+    padding: 0 10px;
+    line-height: 23px;
+    color: #F6F6F6;
+    font-size: 11px;
+    background: #BBB;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+
+    .shot, .salary {
+      padding-right: 0;
+    }
+  }
+
+  .row {
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #EEE;
+    cursor: pointer;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    //&:hover {
+      //background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #FFF 100%);
+      //cursor: pointer;
+    //}
+
+    .shot, .salary {
+      font-weight: normal;
+    }
+  }
+
+  .name {
+    width: 65%;
+  }
+  .shot {
+    width: 13%;
+  }
+  .salary {
+    width: 22%;
+  }
+}
+
+
+// Lineup / Depth Chart
+// --------------------------------------------------
 
 #roster {
   width: 640px;
+}
+
+.panel.group {
+  margin-top: 30px;
+  background: rgba(0, 0, 0, 0.06);
+  //box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  //background: #F6F6F6;
+  //background: rgba(0, 0, 0, 0.05);
+  //box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05) inset;
+  box-shadow: none;
+  overflow: visible;
+
+  .inner {
+    float: left;
+    padding-top: 10px;
+  }
+
+  .title {
+    float: left;
+    width: 100%;
+    margin-top: -30px;
+    color: #DDD;
+    font-size: 12px;
+    background: none;
+  }
+
+  .left, .center, .right {
+    float: left;
+    height: $tile-height;
+    width: 33%;
+  }
+
+  .center {
+    margin: 0 .5%;
+  }
+
+  .line {
+    position: relative;
+    float: left;
+    height: $tile-height;
+    width: 100%;
+    margin-bottom: 10px;
+
+    .title {
+      position: absolute;
+      right: -25px;
+      display: block;
+      height: $tile-height;
+      width: 30px;
+      margin-top: 0;
+      line-height: $tile-height;
+      text-align: right;
+      color: #EEE;
+
+      &.goalie {
+        width: 20px;
+        right: -20px;
+      }
+
+      &.starter {
+        right: initial;
+        left: -18px;
+        text-align: left;
+      }
+    }
+  }
+}
+
+.panel.defense {
+  width: 440px;
+  margin-left: 100px;
+
+  .left, .right {
+    width: 50%;
+  }
+
+  .left .tile {
+    float: right;
+    margin-right: 5px;
+  }
+
+  .right .tile {
+    float: left;
+    margin-left: 5px;
+  }
+}
+
+.tile {
+  height: inherit;
+  width: 200px;
+  margin: 0 auto;
+  background: #FFF;
+  border: 1px solid #E5E5E5;
+  border-radius: $border-radius;
+  box-shadow: 0 0 4px 0 rgba(0,0,0, .1) inset;
+
+  &.active {
+    background: linear-gradient(to top, #F6F6F6 0%, #FFF 100%);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &.inactive {
+    background: linear-gradient(to top, rgba(255,255,255, 0) 0%, rgba(255,255,255, .5) 100%);
+    border: 2px dashed #DDD;
+  }
+
+  .left & {
+    margin-left: 10px;
+  }
+
+  .right & {
+    margin-right: 10px;
+  }
+}
+
+
+// Lineup Stats / Totals
+// --------------------------------------------------
+
+#stats {
+  float: left;
+  height: 32px;
+  width: inherit;
+  margin: 30px 0;
+  line-height: 32px;
+  color: #DDD;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px dashed #DDD;
+  border-radius: $border-radius;
 }

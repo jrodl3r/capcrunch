@@ -10,20 +10,22 @@ $font-family                   :    Helvetica, Arial, sans-serif;
 // Colors
 // --------------------------------------------------
 
-$default-color                 :    #000;
+$font-color                    :    #000;
 $alt-color                     :    #999;
 
 
 // Dimensions
 // --------------------------------------------------
 
-$header-height                 :    80px;
-$page-width                    :    1000px;
-$content-width                 :    960px;
-$min-height                    :    560px;
+$header-height                 :    60px;
+$page-spacing                  :    20px;
+$page-width                    :    1020px;
+$content-width                 :    $page-width - ($page-spacing * 2);
+$tile-height                   :    55px;
+$border-radius                 :    3px;
 
 
 // Animation
 // --------------------------------------------------
 
-$default-timer                 :    .4s;
+$hover-duration                :    .3s;

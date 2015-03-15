@@ -1,4 +1,14 @@
 header
   .inner
     h1 CapCrunch
-    #team-menu Menu
+    nav
+      ul
+        li
+          select#team-select
+            option(value='none', selected, disabled) Select Team
+            each team, i in locals.data.teams
+              option(value=i) #{team.name}
+        li
+          a.payroll(href='#') Payroll
+        li
+          a.roster.active(href='#') Roster

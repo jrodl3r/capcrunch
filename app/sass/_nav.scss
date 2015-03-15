@@ -28,17 +28,55 @@ header {
     height: $header-height;
     width: 50%;
     margin: 0;
-    padding-left: 20px;
+    padding-left: 30px;
     line-height: $header-height;
+    font-size: 22px;
+    cursor: default;
   }
 
-  #team-menu {
+  nav {
     float: right;
     height: $header-height;
     width: 50%;
     padding-right: 30px;
     line-height: $header-height;
     text-align: right;
+
+    ul {
+      float: right;
+    }
+
+    li {
+      float: right;
+      height: inherit;
+    }
+
+    a {
+      display: block;
+      height: inherit;
+      padding-right: 35px;
+      line-height: inherit;
+      color: #FFF;
+      font-size: 16px;
+      text-decoration: none;
+
+      &:hover {
+        color: #CCC;
+      }
+
+      &.active {
+        color: $alt-color;
+        cursor: default;
+      }
+    }
+
+    select {
+      float: right;
+      width: 180px;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #000;
+    }
   }
 }
 
@@ -48,10 +86,12 @@ header {
 
 footer {
   height: 30px;
-  width: 100%;
+  width: $page-width;
+  padding-right: 10px;
   line-height: 30px;
-  text-align: center;
+  text-align: right;
+  color: #E5E5E5;
   font-size: 10px;
   font-weight: bold;
-  color: #BBB;
+  cursor: default;
 }

@@ -1,0 +1,145 @@
+{
+  "teams": {
+    "ANA": {
+      "name": "Anaheim Ducks"
+    },
+    "ARI": {
+      "name": "Arizona Coyotes"
+    },
+    "BOS": {
+      "name": "Boston Bruins"
+    },
+    "BUF": {
+      "name": "Buffalo Sabres"
+    },
+    "CGY": {
+      "name": "Calgary Flames"
+    },
+    "CAR": {
+      "name": "Carolina Hurricanes"
+    },
+    "CHI": {
+      "name": "Chicago Blackhawks"
+    },
+    "COL": {
+      "name": "Colorado Avalanche"
+    },
+    "CLB": {
+      "name": "Columbus Blue Jackets"
+    },
+    "DAL": {
+      "name": "Dallas Stars"
+    },
+    "DET": {
+      "name": "Detroit Red Wings"
+    },
+    "EDM": {
+      "name": "Edmonton Oilers"
+    },
+    "FLA": {
+      "name": "Florida Panthers"
+    },
+    "LAK": {
+      "name": "Los Angeles Kings"
+    },
+    "MIN": {
+      "name": "Minnesota Wild"
+    },
+    "MTL": {
+      "name": "Montreal Canadiens"
+    },
+    "NAS": {
+      "name": "Nashville Predators"
+    },
+    "NJD": {
+      "name": "New Jersey Devils"
+    },
+    "NYI": {
+      "name": "New York Islanders"
+    },
+    "NYR": {
+      "name": "New York Rangers"
+    },
+    "OTT": {
+      "name": "Ottawa Senators"
+    },
+    "PHI": {
+      "name": "Philadelphia Flyers"
+    },
+    "PIT": {
+      "name": "Pittsburgh Penguins"
+    },
+    "SJS": {
+      "name": "San Jose Sharks"
+    },
+    "STL": {
+      "name": "St. Louis Blues"
+    },
+    "TBL": {
+      "name": "Tampa Bay Lightning"
+    },
+    "TOR": {
+      "name": "Toronto Maple Leafs"
+    },
+    "VAN": {
+      "name": "Vancouver Canucks"
+    },
+    "WAS": {
+      "name": "Washington Capitals"
+    },
+    "WPG": {
+      "name": "Winnipeg Jets"
+    }
+  },
+  "players": {
+    "BUF": {
+      "goalies": [
+        { "name": "Hackett, Matt" },
+        { "name": "Lindback, Anders" },
+        { "name": "Johnson, Chad" }
+      ],
+      "defensemen": [
+        { "name": "Benoit, Andre" },
+        { "name": "Bogosian, Zach" },
+        { "name": "Gorges, Josh" },
+        { "name": "Meszaros, Andrej" },
+        { "name": "Ristolainen, Rasmus" },
+        { "name": "Strachan, Tyson" },
+        { "name": "Weber, Mike" },
+        { "name": "Zadorov, Nikita" }
+      ],
+      "forwards": [
+        { "name": "D'Amigo, Jerry" },
+        { "name": "Dalpe, Zac" },
+        { "name": "Deslauriers, Nicolas" },
+        { "name": "Ellis, Matt" },
+        { "name": "Ennis, Tyler" },
+        { "name": "Foligno, Marcus" },
+        { "name": "Gionta, Brian" },
+        { "name": "Girgensons, Zemgus" },
+        { "name": "Hodgson, Cody" },
+        { "name": "Kaleta, Patrick" },
+        { "name": "Kane, Evander" },
+        { "name": "Larsson, Johan" },
+        { "name": "McCormick, Cody" },
+        { "name": "Moulson, Matt" },
+        { "name": "Schaller, Tim" },
+        { "name": "Varone, Philip" }
+      ],
+      "prospects": [
+        { "name": "Austin, Brady" },
+        { "name": "Bailey, Justin" },
+        { "name": "Baptiste, Nicholas" },
+        { "name": "Carrier, William" },
+        { "name": "Catenacci, Daniel" },
+        { "name": "Grigorenko, Mikhail" },
+        { "name": "Kea, Justin" },
+        { "name": "Leduc, Jerome" },
+        { "name": "McCabe, Jake" },
+        { "name": "Pysyk, Mark" },
+        { "name": "Reinhart, Sam" },
+        { "name": "Sundher, Kevin" }
+      ]
+    }
+  }
+}

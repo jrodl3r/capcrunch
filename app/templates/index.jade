@@ -4,21 +4,175 @@ html.no-js(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
-    meta(name='description', content='CapCrunch v#{locals.version}')
-    title CapCrunch v#{locals.version}
+    meta(name='description', content='CapCrunch v#{locals.pkg.version}')
+    title CapCrunch v#{locals.pkg.version}
     link(rel='stylesheet', href='css/core.css')
   body
     #main
       include partials/header.jade
       #app
         .wrap
-          #roster-menu.area
-            each i in [1,2,3,4,5,6]
-              .panel Menu
-          #roster.area
-            .panel Forwards
-            .panel Defense
-            .panel Goalies
+          #menu.section
+            #share
+              input(type='text' placeholder='Roster Name')
+              button Share
+            #forwards-list.panel.player-list
+              .title Forwards
+              .inner
+                .header
+                  .name Player
+                  .shot Shot
+                  .salary Salary
+                ul
+                  each forward, i in locals.data.players.BUF.forwards
+                    li.row
+                      .name #{forward.name}
+                      .shot L
+                      .salary 9.999
+            #defense-list.panel.player-list
+              .title Defense
+              .inner
+                .header
+                  .name Player
+                  .shot Shot
+                  .salary Salary
+                ul
+                  each defenseman, i in locals.data.players.BUF.defensemen
+                    li.row
+                      .name #{defenseman.name}
+                      .shot L
+                      .salary 9.999
+            #goalies-list.panel.short.player-list
+              .title Goalies
+              .inner
+                .header
+                  .name Player
+                  .shot Shot
+                  .salary Salary
+                ul
+                  each goalie, i in locals.data.players.BUF.goalies
+                    li.row
+                      .name #{goalie.name}
+                      .shot L
+                      .salary 9.999
+            #prospects-list.panel.player-list
+              .title Prospects
+              .inner
+                .header
+                  .name Player
+                  .shot Shot
+                  .salary Salary
+                ul
+                  each prospect, i in locals.data.players.BUF.prospects
+                    li.row
+                      .name #{prospect.name}
+                      .shot L
+                      .salary 9.999
+            #trades.panel.inactive
+              .title Trades
+              .inner
+                p [Trade Control]
+            #freeagents.panel.inactive
+              .title Free Agents
+              .inner
+                p [Free Agents Control]
+            #createplayer.panel.inactive
+              .title Create Player
+              .inner
+                p [Create Player Control]
+          #roster.section
+            #stats Cap Stats
+            #forwards.panel.group
+              .title
+                .left LW
+                .center C
+                .right RW
+              .inner
+                #forwards-1.line
+                  .left
+                    .tile
+                      // Left Winger
+                  .center
+                    .tile
+                      // Center
+                  .right
+                    .tile
+                      // Right Winger
+                  .title L1
+                #forwards-2.line
+                  .left
+                    .tile
+                      // Left Winger
+                  .center
+                    .tile
+                      // Center
+                  .right
+                    .tile
+                      // Right Winger
+                  .title L2
+                #forwards-3.line
+                  .left
+                    .tile
+                      // Left Winger
+                  .center
+                    .tile
+                      // Center
+                  .right
+                    .tile
+                      // Right Winger
+                  .title L3
+                #forwards-4.line
+                  .left
+                    .tile
+                      // Left Winger
+                  .center
+                    .tile
+                      // Center
+                  .right
+                    .tile
+                      // Right Winger
+                  .title L4
+            #defense.panel.group.defense
+              .title
+                .left LD
+                .right RD
+              .inner
+                #defense-1.line
+                  .left
+                    .tile
+                      // Left Defender
+                  .right
+                    .tile
+                      // Right Defender
+                  .title P1
+                #defense-2.line
+                  .left
+                    .tile
+                      // Left Defender
+                  .right
+                    .tile
+                      // Right Defender
+                  .title P2
+                #defense-3.line
+                  .left
+                    .tile
+                      // Left Defender
+                  .right
+                    .tile
+                      // Right Defender
+                  .title P3
+            #goalies-group.panel.group.defense
+              .title G
+              .inner
+                #goalie-1.line
+                  .left
+                    .tile
+                      // Starting Goaltender
+                  .title.goalie.starter S
+                  .right
+                    .tile
+                      // Backup Goaltender
+                  .title.goalie B
       include partials/footer.jade
     script(src='js/vendor/socket.io.min.js')
     script(src='js/vendor/react.min.js')
