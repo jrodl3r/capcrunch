@@ -1,6 +1,6 @@
 
 
-#### NEXT » Did You Uptick Version? » [v0.3.4]
+#### NEXT » Did You Uptick Version? » [v0.3.5]
 
 - 'Typekit + gulp asset management (fonts, images)'
 - 'feature detection (Modernizr)'
@@ -8,21 +8,22 @@
 - 'analytics'
 - 'design'
 - 'Round #1 » private sharing/testing (friends, twitter dm, etc)'
-- 'Round #2 » public release (forums, twitter, reactjs, etc)'
+- 'Round #2 » public release (forums, twitter, reactjs, http://goo.gl/06SsOZ, etc)'
 - 'prototype layout: minor team roster/lineup [?]'
 
 
 #### NOW
 
-- 'prototype: collapsable panels, payroll table + player tiles [v0.3.5]'
-- 'drag-n-drop (React)'
-- 'unit testing (Jest / Jasmine)'
-- 'database model/schema (MongoDB, Mongoose)'
 - 'team/player data scraping (salary, images)'
+- 'drag-n-drop (React)'
+- 'database model/schema (MongoDB, Mongoose)'
+- 'prototype: collapsable panels'
+- 'unit testing (Jest / Jasmine)'
 
 
 #### READY
 
+- 'setup payroll table + player tiles [v0.3.5]'
 - 'setup roster/payroll view switching logic [v0.3.4]'
 - 'player list + roster panel layout [v0.3.3]'
 - 'setup base layout structure (autoprefixer) [v0.3.2]'

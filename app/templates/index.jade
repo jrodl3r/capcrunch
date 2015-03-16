@@ -12,7 +12,62 @@ html.no-js(lang='en')
       include partials/header.jade
       #app
         .wrap
-          #payroll.section Payroll
+          #payroll.section
+            h2 Buffalo Sabres
+            .inner
+              table
+                tr.header
+                  td.player
+                  td.cap Cap Hit
+                  td.year 14/15
+                  td.year 15/16
+                  td.year 16/17
+                  td.year 17/18
+                  td.year 18/19
+                  td.year 19/20
+                  td.year 20/21
+                  td.year 21/22
+                  td.year 22/23
+                tr.title
+                  td Forwards
+                  td.cap 99.999
+                  td(colspan='9')
+                each forward, i in locals.data.players.BUF.forwards
+                  tr.player
+                    td #{forward.name}
+                    td.cap 9.999
+                    each i in [1,2,3,4,5,6,7,8,9]
+                      td 9.999
+                tr.title
+                  td Defensemen
+                  td.cap 99.999
+                  td(colspan='9')
+                each defender, i in locals.data.players.BUF.defensemen
+                  tr.player
+                    td #{defender.name}
+                    td.cap 9.999
+                    each i in [1,2,3,4,5,6,7,8,9]
+                      td 9.999
+                tr.title
+                  td Goalies
+                  td.cap 99.999
+                  td(colspan='9')
+                each goalie, i in locals.data.players.BUF.goalies
+                  tr.player
+                    td #{goalie.name}
+                    td.cap 9.999
+                    each i in [1,2,3,4,5,6,7,8,9]
+                      td 9.999
+                tr.title
+                  td Prospects
+                  td.cap 99.999
+                  td(colspan='9')
+                each prospect, i in locals.data.players.BUF.prospects
+                  tr.player
+                    td #{prospect.name}
+                    td.cap 9.999
+                    each i in [1,2,3,4,5,6,7,8,9]
+                      td 9.999
           #menu.section.active
             #share
               input(type='text' placeholder='Roster Name')
@@ -93,12 +148,33 @@ html.no-js(lang='en')
                   .left
                     .tile
                       // Left Winger
+                      .player
+                        .photo
+                          img(src='img/players/ennis-tyler.png')
+                        .info
+                          .name Tyler Ennis
+                            .shot L
+                          .salary 9.999
                   .center
                     .tile
                       // Center
+                      .player
+                        .photo
+                          img(src='img/players/girgensons-zemgus.png')
+                        .info
+                          .name Zemgus Girgensons
+                            .shot R
+                          .salary 9.999
                   .right
                     .tile
                       // Right Winger
+                      .player
+                        .photo
+                          img(src='img/players/gionta-brian.png')
+                        .info
+                          .name Brian Gionta
+                            .shot R
+                          .salary 9.999
                   .title L1
                 #forwards-2.line
                   .left
@@ -142,9 +218,23 @@ html.no-js(lang='en')
                   .left
                     .tile
                       // Left Defender
+                      .player
+                        .photo
+                          img(src='img/players/bogosian-zach.png')
+                        .info
+                          .name Zach Bogosian
+                            .shot L
+                          .salary 9.999
                   .right
                     .tile
                       // Right Defender
+                      .player
+                        .photo
+                          img(src='img/players/ristolainen-rasmus.png')
+                        .info
+                          .name Rasmus Ristolainen
+                            .shot R
+                          .salary 9.999
                   .title P1
                 #defense-2.line
                   .left

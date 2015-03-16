@@ -56,7 +56,6 @@
     opacity: 1;
   }
 
-
   .panel .inner {
     min-height: 172px;
     max-height: 220px;
@@ -211,12 +210,9 @@
 
 .panel.group {
   margin-top: 30px;
-  background: rgba(0, 0, 0, 0.06);
-  //box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-  //background: #F6F6F6;
-  //background: rgba(0, 0, 0, 0.05);
-  //box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05) inset;
-  box-shadow: none;
+  background: whitesmoke;
+  //background: rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05) inset;
   overflow: visible;
 
   &.defense {
@@ -293,19 +289,74 @@
   border-radius: $border-radius;
   box-shadow: 0 0 4px 0 rgba(0,0,0, .1) inset;
 
-  &.active {
-    background: linear-gradient(to top, #F6F6F6 0%, #FFF 100%);
-    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
-  }
-
   &.inactive {
     background: linear-gradient(to top, rgba(255,255,255, 0) 0%, rgba(255,255,255, .5) 100%);
     border: 2px dashed #DDD;
   }
-}
 
-.player {
-  // TODO ««««
+  .player {
+    width: 198px;
+    height: inherit;
+    background: linear-gradient(to top, #EEE 0%, #FFF 100%);
+    border-radius: $border-radius;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0, 0.25);
+    cursor: grab;
+
+    &:hover {
+      background: linear-gradient(to top, #E9E9E9 0%, #FFF 100%);
+    }
+
+    .photo {
+      float: left;
+      height: inherit;
+      width: 57px;
+
+      img {
+        float: left;
+        height: 47px;
+        width: 47px;
+        margin: 4px;
+        background: #EEE;
+        border-radius: $border-radius;
+      }
+    }
+
+    .info {
+      float: left;
+      width: 138px;
+      margin-left: 2px;
+
+      .name {
+        float: left;
+        width: 130px;
+        height: 25px;
+        padding-left: 5px;
+        line-height: 25px;
+        font-size: 11px;
+        text-align: left;
+        border-bottom: 1px solid #EEE;
+        margin-top: 2px;
+        color: #888;
+      }
+
+      .shot {
+        float: right;
+        margin-right: 2px;
+        color: #DDD;
+        font-size: 10px;
+      }
+
+      .salary {
+        float: left;
+        width: 130px;
+        padding-left: 6px;
+        padding-top: 5px;
+        color: #BBB;
+        font-size: 10px;
+        text-align: left;
+      }
+    }
+  }
 }
 
 

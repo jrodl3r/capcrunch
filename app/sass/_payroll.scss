@@ -6,14 +6,84 @@
   z-index: 3;
   width: 960px;
   height: 0;
-  overflow: scroll;
   opacity: 0;
   transition: .25s;
-
-  background: #EEE;
 
   &.active {
     height: 100%;
     opacity: 1;
+  }
+
+  h2 {
+    height: 32px;
+    width: 100%;
+    margin: 30px 0;
+  }
+
+  .inner {
+    position: absolute;
+    top: 72px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0, 0.025);
+    border-radius: $border-radius;
+    box-shadow: 0 0 10px 0 rgba(0,0,0, .05) inset;
+    overflow-y: scroll;
+  }
+}
+
+#payroll table {
+  float: left;
+  min-width: 100%;
+  border-radius: $border-radius;
+  overflow: scroll;
+
+  tr {
+    height: 20px;
+    font-size: 11px;
+    text-align: center;
+
+    &.header {
+      color: #FFF;
+      background: #000;
+      font-weight: bold;
+
+      td {
+        padding-top: 10px;
+        background: transparent;
+        border: none;
+      }
+    }
+
+    &.title {
+      color: #EEE;
+      font-weight: bold;
+      background: #666;
+
+      td.cap {
+        background: #555;
+      }
+    }
+
+    &.player td {
+      border-bottom: 1px solid #EEE;
+    }
+
+    &.player:last-of-type td {
+      border-bottom: none;
+    }
+  }
+
+  td {
+    padding: 6px 10px;
+
+    &:first-of-type {
+      text-align: left;
+    }
+
+    &.cap {
+      background: #F6F6F6;
+    }
   }
 }

@@ -93,21 +93,6 @@
   },
   "players": {
     "BUF": {
-      "goalies": [
-        { "name": "Hackett, Matt" },
-        { "name": "Lindback, Anders" },
-        { "name": "Johnson, Chad" }
-      ],
-      "defensemen": [
-        { "name": "Benoit, Andre" },
-        { "name": "Bogosian, Zach" },
-        { "name": "Gorges, Josh" },
-        { "name": "Meszaros, Andrej" },
-        { "name": "Ristolainen, Rasmus" },
-        { "name": "Strachan, Tyson" },
-        { "name": "Weber, Mike" },
-        { "name": "Zadorov, Nikita" }
-      ],
       "forwards": [
         { "name": "D'Amigo, Jerry" },
         { "name": "Dalpe, Zac" },
@@ -125,6 +110,21 @@
         { "name": "Moulson, Matt" },
         { "name": "Schaller, Tim" },
         { "name": "Varone, Philip" }
+      ],
+      "defensemen": [
+        { "name": "Benoit, Andre" },
+        { "name": "Bogosian, Zach" },
+        { "name": "Gorges, Josh" },
+        { "name": "Meszaros, Andrej" },
+        { "name": "Ristolainen, Rasmus" },
+        { "name": "Strachan, Tyson" },
+        { "name": "Weber, Mike" },
+        { "name": "Zadorov, Nikita" }
+      ],
+      "goalies": [
+        { "name": "Hackett, Matt" },
+        { "name": "Lindback, Anders" },
+        { "name": "Johnson, Chad" }
       ],
       "prospects": [
         { "name": "Austin, Brady" },
