@@ -101,7 +101,10 @@ gulp.task('sass', function() {
     .on('error', $.notify.onError())
     .pipe($.autoprefixer('last 2 versions'))
     .pipe($.rename('core.css'))
-    .pipe($.if(env.prod, $.uncss({ html: glob.sync('public/*.html') })))
+    .pipe($.if(env.prod, $.uncss({
+      html: glob.sync('public/*.html'),
+      ignore: ['#payroll.active']
+    })))
     .pipe($.if(env.dev, $.sourcemaps.write('.')))
     .pipe($.if(env.prod, $.csso()))
     .pipe(gulp.dest('public/css'))
