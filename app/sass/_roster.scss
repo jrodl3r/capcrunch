@@ -46,8 +46,16 @@
 // --------------------------------------------------
 
 #menu {
+  position: relative;
   width: 300px;
   margin-right: $page-spacing;
+  opacity: 0;
+  transition: .25s;
+
+  &.active {
+    opacity: 1;
+  }
+
 
   .panel .inner {
     min-height: 172px;
@@ -83,6 +91,10 @@
     line-height: 32px;
     font-size: 16px;
     border: 1px solid $alt-color;
+
+    &::placeholder {
+      color: #DDD;
+    }
   }
 
   button {
@@ -156,7 +168,7 @@
     height: 30px;
     line-height: 30px;
     border-bottom: 1px solid #EEE;
-    cursor: pointer;
+    cursor: grab;
 
     &:last-of-type {
       border-bottom: none;
@@ -189,6 +201,12 @@
 
 #roster {
   width: 640px;
+  opacity: 0;
+  transition: .25s;
+
+  &.active {
+    opacity: 1;
+  }
 }
 
 .panel.group {
@@ -201,6 +219,11 @@
   box-shadow: none;
   overflow: visible;
 
+  &.defense {
+    width: 430px;
+    margin-left: 105px;
+  }
+
   .inner {
     float: left;
     padding-top: 10px;
@@ -210,7 +233,7 @@
     float: left;
     width: 100%;
     margin-top: -30px;
-    color: #DDD;
+    color: #D5D5D5;
     font-size: 12px;
     background: none;
   }
@@ -218,11 +241,16 @@
   .left, .center, .right {
     float: left;
     height: $tile-height;
-    width: 33%;
+    width: 200px;
+    margin-right: 10px;
   }
 
-  .center {
-    margin: 0 .5%;
+  .left {
+    margin-left: 10px;
+  }
+
+  .right {
+    margin-right: 0;
   }
 
   .line {
@@ -241,7 +269,7 @@
       margin-top: 0;
       line-height: $tile-height;
       text-align: right;
-      color: #EEE;
+      color: #E5E5E5;
 
       &.goalie {
         width: 20px;
@@ -257,29 +285,9 @@
   }
 }
 
-.panel.defense {
-  width: 440px;
-  margin-left: 100px;
-
-  .left, .right {
-    width: 50%;
-  }
-
-  .left .tile {
-    float: right;
-    margin-right: 5px;
-  }
-
-  .right .tile {
-    float: left;
-    margin-left: 5px;
-  }
-}
-
 .tile {
   height: inherit;
   width: 200px;
-  margin: 0 auto;
   background: #FFF;
   border: 1px solid #E5E5E5;
   border-radius: $border-radius;
@@ -294,14 +302,10 @@
     background: linear-gradient(to top, rgba(255,255,255, 0) 0%, rgba(255,255,255, .5) 100%);
     border: 2px dashed #DDD;
   }
+}
 
-  .left & {
-    margin-left: 10px;
-  }
-
-  .right & {
-    margin-right: 10px;
-  }
+.player {
+  // TODO ««««
 }
 
 

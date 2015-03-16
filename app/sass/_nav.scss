@@ -54,7 +54,7 @@ header {
     a {
       display: block;
       height: inherit;
-      padding-right: 35px;
+      padding: 0 17px;
       line-height: inherit;
       color: #FFF;
       font-size: 16px;
@@ -74,6 +74,7 @@ header {
       float: right;
       width: 180px;
       margin-top: 20px;
+      margin-left: 17px;
       font-size: 16px;
       color: #000;
     }
@@ -86,7 +87,8 @@ header {
 
 footer {
   height: 30px;
-  width: $page-width;
+  width: $content-width;
+  margin: 0 auto;
   padding-right: 10px;
   line-height: 30px;
   text-align: right;

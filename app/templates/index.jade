@@ -3,7 +3,7 @@ html.no-js(lang='en')
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
+    meta(name='viewport', content='width=device-width, initial-scale=1, minimum-scale=.8')
     meta(name='description', content='CapCrunch v#{locals.pkg.version}')
     title CapCrunch v#{locals.pkg.version}
     link(rel='stylesheet', href='css/core.css')
@@ -12,7 +12,8 @@ html.no-js(lang='en')
       include partials/header.jade
       #app
         .wrap
-          #menu.section
+          #payroll.section Payroll
+          #menu.section.active
             #share
               input(type='text' placeholder='Roster Name')
               button Share
@@ -80,7 +81,7 @@ html.no-js(lang='en')
               .title Create Player
               .inner
                 p [Create Player Control]
-          #roster.section
+          #roster.section.active
             #stats Cap Stats
             #forwards.panel.group
               .title

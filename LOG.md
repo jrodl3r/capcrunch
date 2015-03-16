@@ -1,6 +1,6 @@
 
 
-#### NEXT » Did You Uptick Version? » [v0.3.3]
+#### NEXT » Did You Uptick Version? » [v0.3.4]
 
 - 'Typekit + gulp asset management (fonts, images)'
 - 'feature detection (Modernizr)'
@@ -14,8 +14,7 @@
 
 #### NOW
 
-- 'prototype: roster/payroll view switching logic [v0.3.4]'
-- 'prototype: collapsable menu panels'
+- 'prototype: collapsable panels, payroll table + player tiles [v0.3.5]'
 - 'drag-n-drop (React)'
 - 'unit testing (Jest / Jasmine)'
 - 'database model/schema (MongoDB, Mongoose)'
@@ -24,6 +23,7 @@
 
 #### READY
 
+- 'setup roster/payroll view switching logic [v0.3.4]'
 - 'player list + roster panel layout [v0.3.3]'
 - 'setup base layout structure (autoprefixer) [v0.3.2]'
 - 'setup templating, transpiling, linting (React, Babel, ESLint) [v0.3.1]'

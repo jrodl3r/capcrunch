@@ -1,0 +1,19 @@
+// Payroll Styles
+// ==================================================
+
+#payroll {
+  position: absolute;
+  z-index: 3;
+  width: 960px;
+  height: 0;
+  overflow: scroll;
+  opacity: 0;
+  transition: .25s;
+
+  background: #EEE;
+
+  &.active {
+    height: 100%;
+    opacity: 1;
+  }
+}
