@@ -7,10 +7,10 @@ var Utils = require('./utils');
 var Core = {
 
   init: function init() {
-    this.socket = io.connect();
-    this.socket.on('init', function() {
-      Utils.init('CapCrunch');
-    });
+    // this.socket = io.connect();
+    // this.socket.on('init', function() {
+    //   Utils.init('CapCrunch');
+    // });
     this.interact();
   },
 
