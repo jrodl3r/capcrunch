@@ -25,6 +25,7 @@
     "no-unused-vars": false,
     "key-spacing": false,
     "no-trailing-spaces": false,
-    "camelcase": false
+    "camelcase": false,
+    "no-empty": false
   }
 }

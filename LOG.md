@@ -1,6 +1,6 @@
 
 
-#### NEXT » Did You Uptick Version? » [v0.3.5]
+#### NEXT » Did You Uptick Version? » [v0.3.6]
 
 - 'Typekit + gulp asset management (fonts, images)'
 - 'feature detection (Modernizr)'
@@ -10,19 +10,25 @@
 - 'Round #1 » private sharing/testing (friends, twitter dm, etc)'
 - 'Round #2 » public release (forums, twitter, reactjs, http://goo.gl/06SsOZ, etc)'
 - 'prototype layout: minor team roster/lineup [?]'
+- 'updater tool check existing player jersey + shot'
 
 
 #### NOW
 
-- 'team/player data scraping (salary, images)'
-- 'drag-n-drop (React)'
-- 'database model/schema (MongoDB, Mongoose)'
+- 'prototype: team-select player data update logic'
 - 'prototype: collapsable panels'
+- 'convert UI to React components [v0.4.0]'
+- 'drag-n-drop (React)'
+- 'component/session state + share'
+- 'database model/schema (MongoDB, Mongoose)'
+- 'migrate JSON into database'
+- 'socket.io data pipeline'
 - 'unit testing (Jest / Jasmine)'
 
 
 #### READY
 
+- 'data updater tool (Cheerio) [v0.3.6]'
 - 'setup payroll table + player tiles [v0.3.5]'
 - 'setup roster/payroll view switching logic [v0.3.4]'
 - 'player list + roster panel layout [v0.3.3]'

@@ -7,9 +7,11 @@
 
 #ENV
 .grunt
+node_modules
 /design
-/node_modules
 /public/css/*.css*
 /public/js/*.js*
 /public/*.html
+/tools/updater/data
+/tools/updater/img
 /*.html

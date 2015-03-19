@@ -1,0 +1,10 @@
+{
+  "name": "capcrunch-updater",
+  "version": "0.0.1",
+  "author": "John Rodler <john@jrod.io>",
+  "main": "app.js",
+  "dependencies": {
+    "cheerio": "^0.18.0",
+    "request": "^2.53.0"
+  }
+}
