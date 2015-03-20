@@ -14,7 +14,7 @@ var gulp        = require('gulp'),
     buffer      = require('vinyl-buffer'),
     $           = require('gulp-load-plugins')(),
     pkg         = require('./package.json'),
-    team_data   = require('./models/data/test.json'),
+    teams       = require('./app/locals/teams.json'),
     state       = process.env.NODE_ENV || 'development',
     env         = {
       prod      : (state === 'production'),
@@ -118,7 +118,7 @@ gulp.task('sass', function() {
 
 gulp.task('jade', function() {
   return gulp.src('app/templates/*.jade')
-    .pipe($.jade({ locals: { 'pkg' : pkg, 'data' : team_data } }))
+    .pipe($.jade({ locals: { 'pkg' : pkg, 'data' : teams } }))
     .on('error', $.notify.onError())
     .pipe(gulp.dest('public'))
     .pipe($.size({ title: 'jade' }))
