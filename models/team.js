@@ -4,7 +4,7 @@
 
 var mongoose = require('mongoose');
 
-var teamSchema = mongoose.Schema({
+var teamSchema = new mongoose.Schema({
       id: String,
       name: String,
       cap: {

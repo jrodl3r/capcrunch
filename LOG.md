@@ -1,6 +1,6 @@
 
 
-#### NEXT » Did You Uptick Version? » [v0.3.7]
+#### NEXT » Did You Uptick Version? » [v0.3.8]
 
 - 'Typekit + gulp asset management (fonts, images)'
 - 'Heroku + CodeShip build deployment'
@@ -9,24 +9,30 @@
 - 'feature detection (Modernizr)'
 - 'Round #1 » private sharing/testing (friends, twitter dm, etc)'
 - 'Round #2 » public release (forums, twitter, reactjs, http://goo.gl/06SsOZ, etc)'
-- 'prototype layout: minor team roster/lineup [?]'
-
-- 'updater: check for existing player jersey/shot'
-- 'updater: add empty jersey/shot if missing'
+- 'minor team roster/lineup'
+- 'collapsable panels'
 
 
 #### NOW
 
-- 'socket.io pipeline/fetching, team-select payroll/player data population [v0.3.8]'
-- 'collapsable panels [v0.3.9]'
 - 'convert UI to React components [v0.4.0]'
+- 'team-select payroll/player data population'
 - 'player item drag-n-drop (React) [v0.4.1]'
+- 'show `Choose Team ⤴︎` when clicking Payroll before team-select'
+- 'cap stats calculator panel + logic'
+- 'trade player panel + logic'
+- 'create player panel + logic'
 - 'component/session state + share'
 - 'unit testing (Jest / Jasmine)'
+- 'updater: mongo data auto-importer logic'
+- 'updater: check for existing player jersey/shot'
+- 'updater: add empty jersey/shot if missing'
+- 'mongoose Team schema getTeam statics/method'
 
 
 #### READY
 
+- 'socket.io pipeline/fetching [v0.3.8]'
 - 'migrate JSON + setup model/schema (MongoDB, Mongoose) [v0.3.7]'
 - 'data updater tool (Cheerio) [v0.3.6]'
 - 'setup payroll table + player tiles [v0.3.5]'
