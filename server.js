@@ -26,6 +26,11 @@ if (env === 'development') {
     if (err) { console.error(err); }
     else { console.log('Connected to mongodb'); }
   });
+} else if (env === 'production') {
+  mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/cc', function(err) {
+    if (err) { console.error(err); }
+    else { console.log('Connected to mongodb'); }
+  });
 }
 
 
