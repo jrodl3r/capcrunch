@@ -8,8 +8,18 @@
     "__DEV__": true,
     "__SERVER__": true,
     "React", false,
+    "socket", false,
     "io", false,
-    "$", false
+    "$", false,
+
+    // Temp (ESLint JSX Bug)
+    "App": false,
+    "Team": false,
+    "TeamMenu": true,
+    "Payroll": true,
+    "Roster": true,
+    "RosterMenu": true,
+    "Footer": true
   },
   "rules": {
     // Strict mode
@@ -26,6 +36,7 @@
     "key-spacing": false,
     "no-trailing-spaces": false,
     "camelcase": false,
-    "no-empty": false
+    "no-empty": false,
+    "comma-spacing": false
   }
 }

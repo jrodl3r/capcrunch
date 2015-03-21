@@ -1,6 +1,6 @@
 
 
-#### NEXT » Did You Uptick Version? » [v0.3.8]
+#### NEXT » Did You Uptick Version? » [v0.4.0]
 
 - 'Typekit + gulp asset management (fonts, images)'
 - 'Heroku + CodeShip build deployment'
@@ -10,14 +10,15 @@
 - 'Round #1 » private sharing/testing (friends, twitter dm, etc)'
 - 'Round #2 » public release (forums, twitter, reactjs, http://goo.gl/06SsOZ, etc)'
 - 'minor team roster/lineup'
+- 'payroll table sticky headers'
 - 'collapsable panels'
+- 'inactive players panel: show positions in place of jersey number'
+- 'reset panel + payroll scroll-position on team-select change'
 
 
 #### NOW
 
-- 'convert UI to React components [v0.4.0]'
-- 'team-select payroll/player data population'
-- 'player item drag-n-drop (React) [v0.4.1]'
+- 'player item drag-n-drop (React)'
 - 'show `Choose Team ⤴︎` when clicking Payroll before team-select'
 - 'cap stats calculator panel + logic'
 - 'trade player panel + logic'
@@ -32,6 +33,7 @@
 
 #### READY
 
+- 'convert UI to React (team-select-menu, payroll, player-panels) [v0.4.0]'
 - 'socket.io pipeline/fetching [v0.3.8]'
 - 'migrate JSON + setup model/schema (MongoDB, Mongoose) [v0.3.7]'
 - 'data updater tool (Cheerio) [v0.3.6]'

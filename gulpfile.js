@@ -14,7 +14,6 @@ var gulp        = require('gulp'),
     buffer      = require('vinyl-buffer'),
     $           = require('gulp-load-plugins')(),
     pkg         = require('./package.json'),
-    teams       = require('./app/locals/teams.json'),
     state       = process.env.NODE_ENV || 'development',
     env         = {
       prod      : (state === 'production'),
@@ -101,10 +100,10 @@ gulp.task('sass', function() {
     .on('error', $.notify.onError())
     .pipe($.autoprefixer('last 2 versions'))
     .pipe($.rename('core.css'))
-    .pipe($.if(env.prod, $.uncss({
-      html: glob.sync('public/*.html'),
-      ignore: ['#payroll.active']
-    })))
+    // .pipe($.if(env.prod, $.uncss({
+    //   html: glob.sync('public/*.html'),
+    //   ignore: ['#payroll.active']
+    // })))
     .pipe($.if(env.dev, $.sourcemaps.write('.')))
     .pipe($.if(env.prod, $.csso()))
     .pipe(gulp.dest('public/css'))
@@ -118,7 +117,7 @@ gulp.task('sass', function() {
 
 gulp.task('jade', function() {
   return gulp.src('app/templates/*.jade')
-    .pipe($.jade({ locals: { 'pkg' : pkg, 'data' : teams } }))
+    .pipe($.jade({ locals: { 'pkg' : pkg } }))
     .on('error', $.notify.onError())
     .pipe(gulp.dest('public'))
     .pipe($.size({ title: 'jade' }))

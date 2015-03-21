@@ -50,7 +50,7 @@ io.sockets.on('connection', function (socket) {
     Team.find({ id : team_id }, function (err, data) {
       if (err) { console.error(err); }
       else {
-        socket.emit('load team', team_id, data);
+        socket.emit('load team', data[0]);
         console.log('Team Loaded: ' + data[0].name + ' (' + moment().format(timestamp) + ')');
       }
     });
