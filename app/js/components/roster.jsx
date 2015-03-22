@@ -19,7 +19,7 @@ var Roster = React.createClass({
                   <div className="tile">
                     <!-- Left Winger-->
                     <div className="player">
-                      <div className="photo"><img src="img/players/ennis-tyler.png"/></div>
+                      <div className="photo"><img src="http://img.capcrunch.io/players/Ennis-Tyler.png"/></div>
                       <div className="info">
                         <div className="name">Tyler Ennis
                           <div className="shot">L</div>
@@ -33,7 +33,7 @@ var Roster = React.createClass({
                   <div className="tile">
                     <!-- Center-->
                     <div className="player">
-                      <div className="photo"><img src="img/players/girgensons-zemgus.png"/></div>
+                      <div className="photo"><img src="http://img.capcrunch.io/players/Girgensons-Zemgus.png"/></div>
                       <div className="info">
                         <div className="name">Zemgus Girgensons
                           <div className="shot">R</div>
@@ -47,7 +47,7 @@ var Roster = React.createClass({
                   <div className="tile">
                     <!-- Right Winger-->
                     <div className="player">
-                      <div className="photo"><img src="img/players/gionta-brian.png"/></div>
+                      <div className="photo"><img src="http://img.capcrunch.io/players/Gionta-Brian.png"/></div>
                       <div className="info">
                         <div className="name">Brian Gionta
                           <div className="shot">R</div>
@@ -126,7 +126,7 @@ var Roster = React.createClass({
                   <div className="tile">
                     <!-- Left Defender-->
                     <div className="player">
-                      <div className="photo"><img src="img/players/bogosian-zach.png"/></div>
+                      <div className="photo"><img src="http://img.capcrunch.io/players/Bogosian-Zach.png"/></div>
                       <div className="info">
                         <div className="name">Zach Bogosian
                           <div className="shot">L</div>
@@ -140,7 +140,7 @@ var Roster = React.createClass({
                   <div className="tile">
                     <!-- Right Defender-->
                     <div className="player">
-                      <div className="photo"><img src="img/players/ristolainen-rasmus.png"/></div>
+                      <div className="photo"><img src="http://img.capcrunch.io/players/Ristolainen-Rasmus.png"/></div>
                       <div className="info">
                         <div className="name">Rasmus Ristolainen
                           <div className="shot">R</div>

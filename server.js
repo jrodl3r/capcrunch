@@ -38,6 +38,10 @@ if (env === 'development') {
 // --------------------------------------------------
 
 app.get('/', function (req, res) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 app.use('/', express.static(path.join(__dirname, '/public')));
