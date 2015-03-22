@@ -13,7 +13,6 @@ var gulp        = require('gulp'),
     source      = require('vinyl-source-stream'),
     buffer      = require('vinyl-buffer'),
     $           = require('gulp-load-plugins')(),
-    pkg         = require('./package.json'),
     state       = process.env.NODE_ENV || 'development',
     env         = {
       prod      : (state === 'production'),
@@ -35,6 +34,10 @@ gulp.task('dev', ['clean'], function() {
 gulp.task('ship', ['clean'], function(cb) {
   env = { prod: true, dev: false };
   sequence(['jade', 'sass', 'browserify'], cb);
+});
+
+gulp.task('heroku', ['clean'], function(cb) {
+  sequence(['jade-post', 'sass-post', 'browserify-post'], cb);
 });
 
 gulp.task('watch', function() {
@@ -89,6 +92,16 @@ gulp.task('browserify', function() {
     .pipe($.size({ title: 'browserify' }));
 });
 
+gulp.task('browserify-post', function() {
+  return browserify(['./app/js/app.jsx', './app/js/core.js'])
+    .transform(babelify)
+    .bundle()
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe($.uglify())
+    .pipe(gulp.dest('public/js'));
+});
+
 
 // Sass
 // --------------------------------------------------
@@ -107,15 +120,30 @@ gulp.task('sass', function() {
     .pipe($.if(env.dev, $.livereload()));
 });
 
+gulp.task('sass-post', function() {
+  return gulp.src('app/sass/base.scss')
+    .pipe($.sass({ errLogToConsole: true }))
+    .pipe($.autoprefixer('last 2 versions'))
+    .pipe($.rename('core.css'))
+    .pipe($.csso())
+    .pipe(gulp.dest('public/css'));
+});
+
 
 // Jade
 // --------------------------------------------------
 
 gulp.task('jade', function() {
   return gulp.src('app/templates/*.jade')
-    .pipe($.jade({ locals: { 'pkg' : pkg } }))
-    //.on('error', $.notify.onError())
+    .pipe($.jade())
+    .on('error', $.notify.onError())
     .pipe(gulp.dest('public'))
-    //.pipe($.size({ title: 'jade' }))
+    .pipe($.size({ title: 'jade' }))
     .pipe($.if(env.dev, $.livereload()));
+});
+
+gulp.task('jade-post', function() {
+  return gulp.src('app/templates/*.jade')
+    .pipe($.jade())
+    .pipe(gulp.dest('public'));
 });
