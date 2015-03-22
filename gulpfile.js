@@ -114,8 +114,8 @@ gulp.task('sass', function() {
 gulp.task('jade', function() {
   return gulp.src('app/templates/*.jade')
     .pipe($.jade({ locals: { 'pkg' : pkg } }))
-    .on('error', $.notify.onError())
+    //.on('error', $.notify.onError())
     .pipe(gulp.dest('public'))
-    .pipe($.size({ title: 'jade' }))
+    //.pipe($.size({ title: 'jade' }))
     .pipe($.if(env.dev, $.livereload()));
 });
