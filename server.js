@@ -31,9 +31,9 @@ if (env === 'development') {
     if (err) { console.error(err); }
     else { console.log('Connected to mongodb (' + moment().format(timestamp) + ')'); }
   });
-  io.on('connection', function() {
-    io.set('transports', ['xhr-polling']);
-  });
+  // io.on('connection', function() {
+  //   io.set('transports', ['xhr-polling', 'jsonp-polling']);
+  // });
 }
 
 

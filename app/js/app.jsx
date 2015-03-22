@@ -6,8 +6,8 @@ var TeamMenu    = require('./components/team-menu.jsx'),
     Payroll     = require('./components/payroll.jsx'),
     Roster      = require('./components/roster.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
-    Version     = '0.4.0',
-    Socket      = io.connect();
+    Socket      = io.connect(),
+    Version     = '0.4.0';
 
 
 var App = React.createClass({
