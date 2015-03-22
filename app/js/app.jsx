@@ -7,12 +7,7 @@ var TeamMenu    = require('./components/team-menu.jsx'),
     Roster      = require('./components/roster.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
     Version     = '0.4.0',
-    Socket      = null;
-
-// Redirect Sockets to Subdomain on Prod
-if (/capcrunch.io/.test(location.hostname)) {
-  Socket = io.connect('ws.capcrunch.io');
-} else { Socket = io.connect(); }
+    Socket      = io.connect();
 
 
 var App = React.createClass({
