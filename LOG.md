@@ -1,14 +1,16 @@
+#### RELEASE
+
+- 'Round #1 » private sharing/testing (friends, twitter dm, etc)'
+- 'Round #2 » public release (forums, twitter, reactjs, http://goo.gl/06SsOZ, etc)'
 
 
 #### NEXT » Did You Uptick Version? » [v0.4.0]
 
-- 'Typekit + gulp asset management (fonts, images)'
-- 'CodeShip build testing + deployment'
-- 'analytics'
 - 'design'
+- 'analytics'
 - 'feature detection (Modernizr)'
-- 'Round #1 » private sharing/testing (friends, twitter dm, etc)'
-- 'Round #2 » public release (forums, twitter, reactjs, http://goo.gl/06SsOZ, etc)'
+- 'CodeShip build testing + deployment'
+- 'Typekit + gulp asset management (fonts, images)'
 - 'minor team roster/lineup'
 - 'payroll table sticky headers'
 - 'collapsable panels'
@@ -18,7 +20,6 @@
 
 #### NOW
 
-- 'setup Heroku gulp postinstall step + restore /public .gitignore'
 - 'player item drag-n-drop (React)'
 - 'show `Choose Team ⤴︎` when clicking Payroll before team-select'
 - 'cap stats calculator panel + logic'
@@ -34,6 +35,7 @@
 
 #### READY
 
+- 'setup Heroku gulp postinstall + restore /public .gitignore'
 - 'setup Heroku server w/ production url'
 - 'convert UI to React (team-select-menu, payroll, player-panels) [v0.4.0]'
 - 'socket.io pipeline/fetching [v0.3.8]'

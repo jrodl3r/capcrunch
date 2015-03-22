@@ -9,9 +9,9 @@
 .grunt
 node_modules
 /design
-#/public/css/*.css*
-#/public/js/*.js*
-#/public/*.html
+/public/css/*.css*
+/public/js/*.js*
+/public/*.html
 /tools/updater/data
 /tools/updater/img
 /*.html

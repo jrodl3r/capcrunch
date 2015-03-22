@@ -15,14 +15,14 @@ var express     = require('express'),
     env         = process.env.NODE_ENV || 'development',
     port        = process.env.PORT || 3000;
 
-server.listen(port);
 
-
-// Database
+// Connect
 // --------------------------------------------------
 
+server.listen(port);
+
 if (env === 'development') {
-  mongoose.connect('mongodb://ccadmin:voodoo69@localhost/cc', function(err) {
+  mongoose.connect('mongodb://localhost/cc', function(err) {
     if (err) { console.error(err); }
     else { console.log('Connected to mongodb (' + moment().format(timestamp) + ')'); }
   });
@@ -31,9 +31,6 @@ if (env === 'development') {
     if (err) { console.error(err); }
     else { console.log('Connected to mongodb (' + moment().format(timestamp) + ')'); }
   });
-  // io.on('connection', function() {
-  //   io.set('transports', ['xhr-polling', 'jsonp-polling']);
-  // });
 }
 
 
@@ -52,7 +49,7 @@ app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
 io.sockets.on('connection', function (socket) {
   // connected
-  console.log('Connected (' + moment().format(timestamp) + ')');
+  // console.log('Connected (' + moment().format(timestamp) + ')');
   // load team data
   socket.on('get team', function (team_id) {
     Team.find({ id : team_id }, function (err, data) {
