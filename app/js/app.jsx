@@ -6,8 +6,13 @@ var TeamMenu    = require('./components/team-menu.jsx'),
     Payroll     = require('./components/payroll.jsx'),
     Roster      = require('./components/roster.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
-    Pkg         = require('../../package.json'),
-    Socket      = io.connect();
+    Version     = '0.4.0',
+    Socket      = null;
+
+// Redirect Sockets to Subdomain on Prod
+if (/capcrunch.io/.test(location.hostname)) {
+  Socket = io.connect('ws.capcrunch.io');
+} else { Socket = io.connect(); }
 
 
 var App = React.createClass({
@@ -31,7 +36,7 @@ var App = React.createClass({
       };
     },
     getDefaultProps: function() {
-      return { version: Pkg.version };
+      return {};
     },
     handleChangeTeam: function(team_id) {
       this.setState({ activeTeam: team_id });
@@ -51,7 +56,7 @@ var App = React.createClass({
               <Roster teamData={this.state.teamData} />
             </div>
           </div>
-          <footer>CapCrunch v{this.props.version}</footer>
+          <footer>CapCrunch {Version}</footer>
         </div>
       );
     }

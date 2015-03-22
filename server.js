@@ -18,18 +18,18 @@ var express     = require('express'),
 server.listen(port);
 
 
-// Database (TODO: Verify Authentication)
+// Database
 // --------------------------------------------------
 
 if (env === 'development') {
   mongoose.connect('mongodb://ccadmin:voodoo69@localhost/cc', function(err) {
     if (err) { console.error(err); }
-    else { console.log('Connected to mongodb'); }
+    else { console.log('Connected to mongodb (' + moment().format(timestamp) + ')'); }
   });
 } else if (env === 'production') {
   mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/cc', function(err) {
     if (err) { console.error(err); }
-    else { console.log('Connected to mongodb'); }
+    else { console.log('Connected to mongodb (' + moment().format(timestamp) + ')'); }
   });
 }
 
@@ -48,8 +48,6 @@ app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 // --------------------------------------------------
 
 io.sockets.on('connection', function (socket) {
-  console.log('Connected (' + moment().format(timestamp) + ')');
-
   // load team data
   socket.on('get team', function (team_id) {
     Team.find({ id : team_id }, function (err, data) {
@@ -60,7 +58,7 @@ io.sockets.on('connection', function (socket) {
       }
     });
   });
-
+  // disconnect
   socket.on('disconnect', function () {
     console.log('Disconnected (' + moment().format(timestamp) + ')');
   });

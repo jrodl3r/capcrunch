@@ -3,7 +3,7 @@
 #### NEXT » Did You Uptick Version? » [v0.4.0]
 
 - 'Typekit + gulp asset management (fonts, images)'
-- 'Heroku + CodeShip build deployment'
+- 'CodeShip build testing + deployment'
 - 'analytics'
 - 'design'
 - 'feature detection (Modernizr)'
@@ -18,6 +18,7 @@
 
 #### NOW
 
+- 'setup Heroku gulp postinstall step + restore /public .gitignore'
 - 'player item drag-n-drop (React)'
 - 'show `Choose Team ⤴︎` when clicking Payroll before team-select'
 - 'cap stats calculator panel + logic'
@@ -33,6 +34,7 @@
 
 #### READY
 
+- 'setup Heroku server w/ production url'
 - 'convert UI to React (team-select-menu, payroll, player-panels) [v0.4.0]'
 - 'socket.io pipeline/fetching [v0.3.8]'
 - 'migrate JSON + setup model/schema (MongoDB, Mongoose) [v0.3.7]'
