@@ -31,6 +31,9 @@ if (env === 'development') {
     if (err) { console.error(err); }
     else { console.log('Connected to mongodb (' + moment().format(timestamp) + ')'); }
   });
+  io.on('connection', function() {
+    io.set('transports', ['xhr-polling']);
+  });
 }
 
 
@@ -48,6 +51,8 @@ app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 // --------------------------------------------------
 
 io.sockets.on('connection', function (socket) {
+  // connected
+  console.log('Connected (' + moment().format(timestamp) + ')');
   // load team data
   socket.on('get team', function (team_id) {
     Team.find({ id : team_id }, function (err, data) {
@@ -58,7 +63,7 @@ io.sockets.on('connection', function (socket) {
       }
     });
   });
-  // disconnect
+  // disconnected
   socket.on('disconnect', function () {
     console.log('Disconnected (' + moment().format(timestamp) + ')');
   });
