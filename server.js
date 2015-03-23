@@ -6,6 +6,7 @@ var express     = require('express'),
     app         = express(),
     server      = require('http').createServer(app),
     io          = require('socket.io').listen(server),
+    compression = require('compression'),
     favicon     = require('serve-favicon'),
     path        = require('path'),
     moment      = require('moment'),
@@ -40,6 +41,7 @@ if (env === 'development') {
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
+app.use(compression());
 app.use('/', express.static(path.join(__dirname, '/public')));
 app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 

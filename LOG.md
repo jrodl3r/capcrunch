@@ -35,6 +35,7 @@
 
 #### READY
 
+- 'Setup Gzip Compression'
 - 'Minor UI Cleanup (details in LOG.md) [v0.4.1]'
 - 'roster share textbox placeholder logic'
 - 'swap jQuery out for (lighter) Zepto'
