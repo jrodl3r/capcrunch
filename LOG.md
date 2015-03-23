@@ -4,37 +4,43 @@
 - 'Round #2 » public release (forums, twitter, reactjs, http://goo.gl/06SsOZ, etc)'
 
 
-#### NEXT » Did You Uptick Version? » [v0.4.0]
+#### LATER » Did You Uptick Version? » [v0.4.1]
 
 - 'design'
-- 'analytics'
-- 'feature detection (Modernizr)'
-- 'CodeShip build testing + deployment'
+- 'analytics + monitoring'
 - 'Typekit + gulp asset management (fonts, images)'
 - 'minor team roster/lineup'
-- 'payroll table sticky headers'
-- 'collapsable panels'
 - 'inactive players panel: show positions in place of jersey number'
 - 'reset panel + payroll scroll-position on team-select change'
+- 'collapsable menu panels'
 
 
 #### NOW
 
+- 'updater: mongo collection builder + importer'
+- 'updater: check for existing player jersey/shot'
+- 'updater: add empty jersey/shot if missing'
+- 'updater: add new player data (position, age, nationality)'
+- 'player list item hover view/draggable [?]'
 - 'player item drag-n-drop (React)'
-- 'show `Choose Team ⤴︎` when clicking Payroll before team-select'
+- 'payroll table sticky headers'
+- 'payroll UFA/RFA cell styles'
+- 'panel scrollbar consistency'
+- 'component/session state + share'
 - 'cap stats calculator panel + logic'
 - 'trade player panel + logic'
 - 'create player panel + logic'
-- 'component/session state + share'
 - 'unit testing (Jest / Jasmine)'
-- 'updater: mongo data auto-importer logic'
-- 'updater: check for existing player jersey/shot'
-- 'updater: add empty jersey/shot if missing'
-- 'mongoose Team schema getTeam statics/method'
 
 
 #### READY
 
+- 'Minor UI Cleanup (details in LOG.md) [v0.4.1]'
+- 'roster share textbox placeholder logic'
+- 'swap jQuery out for (lighter) Zepto'
+- 'replace core.js + utils.js w/ ui.js'
+- 'show `Select Team ⤴︎` reminder when clicking Payroll before selecting team'
+- 'distill roster-menu into sub-component panels (share, trade, create)'
 - 'setup Heroku gulp postinstall + restore /public .gitignore'
 - 'setup Heroku server w/ production url'
 - 'convert UI to React (team-select-menu, payroll, player-panels) [v0.4.0]'

@@ -1,13 +1,12 @@
-// CapCrunch Team Select Header Menu (Component)
+// CapCrunch Team Select Menu / Header (Component)
 // ==================================================
 'use strict';
 
-var Teams = require('../static/teams.js');
-
+var TeamList = require('../static/teams.js');
 
 var TeamMenu = React.createClass({
     getDefaultProps: function() {
-      return { teams: Teams };
+      return { teams: TeamList };
     },
     handleChangeTeam: function(e) {
       var team_id = e.target.value;
@@ -28,10 +27,10 @@ var TeamMenu = React.createClass({
                     })}
                   </select>
                 </li>
-                <!-- TODO -->
                 <li><a href="#" className="payroll">Payroll</a></li>
                 <li><a href="#" className="roster active">Roster</a></li>
               </ul>
+              <div id="team-select-reminder">Select Team<span className="arrow">&#10548;</span></div>
             </nav>
           </div>
         </header>

@@ -18,43 +18,16 @@ var Roster = React.createClass({
                 <div className="left">
                   <div className="tile">
                     <!-- Left Winger-->
-                    <div className="player">
-                      <div className="photo"><img src="http://img.capcrunch.io/players/Ennis-Tyler.png"/></div>
-                      <div className="info">
-                        <div className="name">Tyler Ennis
-                          <div className="shot">L</div>
-                        </div>
-                        <div className="salary">9.999</div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="center">
                   <div className="tile">
                     <!-- Center-->
-                    <div className="player">
-                      <div className="photo"><img src="http://img.capcrunch.io/players/Girgensons-Zemgus.png"/></div>
-                      <div className="info">
-                        <div className="name">Zemgus Girgensons
-                          <div className="shot">R</div>
-                        </div>
-                        <div className="salary">9.999</div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="right">
                   <div className="tile">
                     <!-- Right Winger-->
-                    <div className="player">
-                      <div className="photo"><img src="http://img.capcrunch.io/players/Gionta-Brian.png"/></div>
-                      <div className="info">
-                        <div className="name">Brian Gionta
-                          <div className="shot">R</div>
-                        </div>
-                        <div className="salary">9.999</div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="title">L1</div>
@@ -125,29 +98,11 @@ var Roster = React.createClass({
                 <div className="left">
                   <div className="tile">
                     <!-- Left Defender-->
-                    <div className="player">
-                      <div className="photo"><img src="http://img.capcrunch.io/players/Bogosian-Zach.png"/></div>
-                      <div className="info">
-                        <div className="name">Zach Bogosian
-                          <div className="shot">L</div>
-                        </div>
-                        <div className="salary">9.999</div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="right">
                   <div className="tile">
                     <!-- Right Defender-->
-                    <div className="player">
-                      <div className="photo"><img src="http://img.capcrunch.io/players/Ristolainen-Rasmus.png"/></div>
-                      <div className="info">
-                        <div className="name">Rasmus Ristolainen
-                          <div className="shot">R</div>
-                        </div>
-                        <div className="salary">9.999</div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="title">P1</div>

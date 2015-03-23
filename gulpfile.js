@@ -55,7 +55,7 @@ gulp.task('clean', function(cb) {
 // --------------------------------------------------
 
 gulp.task('watchify', function() {
-  var running, bundler = watchify(browserify(['./app/js/app.jsx', './app/js/core.js'], watchify.args));
+  var running, bundler = watchify(browserify(['./app/js/app.jsx', './app/js/ui.js'], watchify.args));
 
   function rebundle() {
     var timer = $.duration('Finished ' + chalk.cyan('\'watchify\'') + ' after');
@@ -81,7 +81,7 @@ gulp.task('watchify', function() {
 });
 
 gulp.task('browserify', function() {
-  return browserify(['./app/js/app.jsx', './app/js/core.js'])
+  return browserify(['./app/js/app.jsx', './app/js/ui.js'])
     .transform(babelify)
     .bundle()
     .on('error', $.notify.onError())
@@ -93,7 +93,7 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('browserify-post', function() {
-  return browserify(['./app/js/app.jsx', './app/js/core.js'])
+  return browserify(['./app/js/app.jsx', './app/js/ui.js'])
     .transform(babelify)
     .bundle()
     .pipe(source('app.js'))

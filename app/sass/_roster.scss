@@ -207,15 +207,18 @@
   }
 
   .empty {
-    height: 100px;
-    line-height: 100px;
+    position: relative;
+    margin: 35px auto 0;
+    height: 20px;
+    width: 105px;
+    line-height: 20px;
     text-align: center;
     color: #CCC;
 
     span.arrow {
-      position: relative;
+      position: absolute;
       top: -3px;
-      left: 2px;
+      right: 0;
     }
   }
 }
