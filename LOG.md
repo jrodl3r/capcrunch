@@ -1,10 +1,17 @@
 #### RELEASE
 
 - 'Round #1 » private sharing/testing (gchat, dm, nhl#s)'
-- 'Round #2 » public release (HF, HN, #reactjs, http://goo.gl/06SsOZ, http://goo.gl/VYF5sg)'
+- 'Round #2 » public release (HF, HN, #reactjs)
+  - http://goo.gl/06SsOZ
+  - http://goo.gl/VYF5sg
+  - https://twitter.com/TGfireandice/status/578747221308370944
+  - http://fireandice.northjersey.com
+  - http://war-on-ice.com
+  - http://mirtle.blogspot.ca/2015/03/matthew-wuest-1979-2015.html
+  - http://www.inlouwetrust.com/2015/3/23/8272707/who-else-other-than-the-nhl-can-try-to-make-a-new-capgeek
 
 
-#### LATER » Did You Uptick Version? » [v0.4.2]
+#### LATER » Did You Uptick Version? » [v0.4.3]
 
 - 'design'
 - 'analytics + monitoring'
@@ -13,7 +20,7 @@
 - 'React: SEO friendly SSR markup'
 - 'React: Panel update transition animations'
 - 'inactive players panel: show positions in place of jersey number'
-- 'reset panel scroll position on team change'
+- 'panel scrollbar consistency'
 - 'collapsable menu panels'
 - 'disable user-select'
 
@@ -28,8 +35,7 @@
 - 'player list item / roster drag-n-drop (React)'
 - 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
-- 'panel scrollbar consistency'
-- 'distill roster-menu player list panels into repeatable sub-components'
+- 'reset panel scroll position on team change'
 - 'component/session state + share'
 - 'cap stats calculator panel + logic'
 - 'trade player panel + logic'
@@ -39,6 +45,7 @@
 
 #### READY
 
+- 'distill roster-menu player-list panels into sub-components [v0.4.3]'
 - 'cleanup production build + setup payroll dynamic height [v0.4.2]'
 - 'setup gzip compression'
 - 'Minor UI Cleanup (details in LOG.md) [v0.4.1]'

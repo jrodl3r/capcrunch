@@ -7,13 +7,13 @@ var UI = {
   payroll_header_height : 92,
   payroll_height        : 0,
 
-  init: () => {
+  init: function() {
     // toggle roster/payroll
     $('a.payroll, a.roster').on('click', UI.toggleView);
   },
 
   // toggle roster/payroll
-  toggleView: (e) => {
+  toggleView: function(e) {
     var target = $(e.target);
     e.preventDefault();
     if (!target.hasClass('active')) {
@@ -48,7 +48,7 @@ var UI = {
   },
 
   // update payroll height
-  updatePayrollHeight: () => {
+  updatePayrollHeight: function() {
     // don't update unless payroll is active
     if ($('a.payroll').hasClass('active')) {
       UI.payroll_height = $('#team-payroll').height();
@@ -58,9 +58,11 @@ var UI = {
   },
 
   // restore payroll height
-  resetPayrollHeight: () => {
+  resetPayrollHeight: function() {
     $('#payroll .inner, #app .wrap').css('height', 'auto');
   }
 };
+
+$(document).ready(UI.init);
 
 module.exports = UI;

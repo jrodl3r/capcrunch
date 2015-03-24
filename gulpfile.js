@@ -4,9 +4,9 @@
 
 var gulp        = require('gulp'),
     del         = require('del'),
-    browserify  = require('browserify'),
     watchify    = require('watchify'),
     babelify    = require('babelify'),
+    browserify  = require('browserify'),
     sequence    = require('run-sequence'),
     source      = require('vinyl-source-stream'),
     buffer      = require('vinyl-buffer'),
@@ -114,7 +114,7 @@ gulp.task('sass', function() {
 gulp.task('jade', function() {
   return gulp.src('app/templates/*.jade')
     .pipe($.jade())
-    //.on('error', logError)
+    .on('error', logError)
     .pipe(gulp.dest('public'))
     .pipe($.if(env.dev, $.size({ title: 'jade' })))
     .pipe($.if(env.dev, $.livereload()));

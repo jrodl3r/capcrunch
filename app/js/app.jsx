@@ -6,14 +6,13 @@ var TeamMenu    = require('./components/team-menu.jsx'),
     Payroll     = require('./components/payroll.jsx'),
     Roster      = require('./components/roster.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
-    UI          = require('./ui.js'),
-    Socket      = io.connect(),
-    Version     = '0.4.2';
+    Socket      = io.connect();
 
 
 var App = React.createClass({
     getInitialState: function() {
       Socket.on('load team', this.loadTeamData);
+
       return {
         activeTeam: '',
         teamData: {
@@ -48,12 +47,10 @@ var App = React.createClass({
               <Roster teamData={this.state.teamData} />
             </div>
           </div>
-          <footer>CapCrunch {Version}</footer>
+          <footer>CapCrunch.io</footer>
         </div>
       );
     }
   });
 
 React.render(<App />, document.body);
-
-$(document).ready(UI.init);

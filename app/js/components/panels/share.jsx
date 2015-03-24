@@ -1,4 +1,4 @@
-// CapCrunch Share Panel (Roster Menu)
+// CapCrunch Share Roster Panel (Roster Menu)
 // ==================================================
 'use strict';
 
@@ -6,7 +6,7 @@ var SharePanel = React.createClass({
     render: function() {
       return (
         <div id="share">
-          <input type="text" placeholder={this.props.teamData.name ? this.props.teamData.name : 'Roster Name'} />
+          <input type="text" placeholder={this.props.teamName ? this.props.teamName : 'Roster Name'} />
           <button>Share</button>
         </div>
       );
