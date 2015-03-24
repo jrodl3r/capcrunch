@@ -44,11 +44,9 @@
     bottom: 0;
     left: 0;
     background: #F8F8F8;
-    //border: 1px solid #444;
     border-radius: $border-radius;
-    //box-shadow: 0 0 10px 0 rgba(0,0,0, .05) inset, 0 0 1px 0 rgba(0,0,0, .35);
     box-shadow: 0 0 10px 0 rgba(0,0,0, .05) inset;
-    overflow-y: scroll;
+    overflow: hidden;
   }
 }
 

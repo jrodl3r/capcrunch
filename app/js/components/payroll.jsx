@@ -2,8 +2,12 @@
 // ==================================================
 'use strict';
 
+var UI = require('../ui.js');
 
 var Payroll = React.createClass({
+    componentDidUpdate: function() {
+      UI.updatePayrollHeight();
+    },
     render: function() {
       return (
         <div id="payroll" className="section">

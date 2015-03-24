@@ -6,13 +6,14 @@ var TeamMenu    = require('./components/team-menu.jsx'),
     Payroll     = require('./components/payroll.jsx'),
     Roster      = require('./components/roster.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
+    UI          = require('./ui.js'),
     Socket      = io.connect(),
-    Version     = '0.4.1';
+    Version     = '0.4.2';
 
 
 var App = React.createClass({
     getInitialState: function() {
-      Socket.on('load team', this.loadTeam);
+      Socket.on('load team', this.loadTeamData);
       return {
         activeTeam: '',
         teamData: {
@@ -29,12 +30,12 @@ var App = React.createClass({
         }
       };
     },
-    handleChangeTeam: function(team_id) {
-      this.setState({ activeTeam: team_id });
-      Socket.emit('get team', team_id);
+    handleChangeTeam: function(id) {
+      Socket.emit('get team', id);
+      this.setState({ activeTeam: id });
     },
-    loadTeam: function(team_obj) {
-      this.setState({ teamData: team_obj });
+    loadTeamData: function(data) {
+      this.setState({ teamData: data });
     },
     render: function() {
       return (
@@ -54,3 +55,5 @@ var App = React.createClass({
   });
 
 React.render(<App />, document.body);
+
+$(document).ready(UI.init);

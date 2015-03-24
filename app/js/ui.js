@@ -2,9 +2,10 @@
 // ==================================================
 'use strict';
 
-var Teams = require('./static/teams.js');
-
 var UI = {
+
+  payroll_header_height : 92,
+  payroll_height        : 0,
 
   init: () => {
     // toggle roster/payroll
@@ -28,6 +29,7 @@ var UI = {
           target.addClass('active');
           $('a.roster').removeClass('active');
           $('#menu, #roster').toggleClass('active');
+          UI.updatePayrollHeight();
           setTimeout(() => {
             $('#payroll').toggleClass('active');
           }, 300);
@@ -38,11 +40,27 @@ var UI = {
         $('a.payroll').removeClass('active');
         $('#payroll').toggleClass('active');
         setTimeout(() => {
+          UI.resetPayrollHeight();
           $('#menu, #roster').toggleClass('active');
         }, 300);
       }
     }
+  },
+
+  // update payroll height
+  updatePayrollHeight: () => {
+    // don't update unless payroll is active
+    if ($('a.payroll').hasClass('active')) {
+      UI.payroll_height = $('#team-payroll').height();
+      $('#payroll .inner').css('height', UI.payroll_height);
+      $('#app .wrap').css('height', UI.payroll_height + UI.payroll_header_height);
+    }
+  },
+
+  // restore payroll height
+  resetPayrollHeight: () => {
+    $('#payroll .inner, #app .wrap').css('height', 'auto');
   }
 };
 
-$(document).ready(UI.init);
+module.exports = UI;

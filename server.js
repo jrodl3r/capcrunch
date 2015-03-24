@@ -32,7 +32,7 @@ if (env === 'development') {
     if (err) { console.error(err); }
     else { console.log('Connected to mongodb (' + moment().format(timestamp) + ')'); }
   });
-}
+} else if (env === 'testing') { /* TODO */ }
 
 
 // Routes
@@ -41,7 +41,7 @@ if (env === 'development') {
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
-app.use(compression());
+if (env === 'production') { app.use(compression()); }
 app.use('/', express.static(path.join(__dirname, '/public')));
 app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
@@ -52,6 +52,7 @@ app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 io.sockets.on('connection', function (socket) {
   // connected
   // console.log('Connected (' + moment().format(timestamp) + ')');
+
   // load team data
   socket.on('get team', function (team_id) {
     Team.find({ id : team_id }, function (err, data) {
@@ -62,6 +63,7 @@ io.sockets.on('connection', function (socket) {
       }
     });
   });
+
   // disconnected
   socket.on('disconnect', function () {
     console.log('Disconnected (' + moment().format(timestamp) + ')');

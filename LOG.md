@@ -1,31 +1,35 @@
 #### RELEASE
 
-- 'Round #1 » private sharing/testing (friends, twitter dm, etc)'
-- 'Round #2 » public release (forums, twitter, reactjs, http://goo.gl/06SsOZ, etc)'
+- 'Round #1 » private sharing/testing (gchat, dm, nhl#s)'
+- 'Round #2 » public release (HF, HN, #reactjs, http://goo.gl/06SsOZ, http://goo.gl/VYF5sg)'
 
 
-#### LATER » Did You Uptick Version? » [v0.4.1]
+#### LATER » Did You Uptick Version? » [v0.4.2]
 
 - 'design'
 - 'analytics + monitoring'
 - 'Typekit + gulp asset management (fonts, images)'
 - 'minor team roster/lineup'
+- 'React: SEO friendly SSR markup'
+- 'React: Panel update transition animations'
 - 'inactive players panel: show positions in place of jersey number'
-- 'reset panel + payroll scroll-position on team-select change'
+- 'reset panel scroll position on team change'
 - 'collapsable menu panels'
+- 'disable user-select'
 
 
 #### NOW
 
-- 'updater: mongo collection builder + importer'
-- 'updater: check for existing player jersey/shot'
-- 'updater: add empty jersey/shot if missing'
-- 'updater: add new player data (position, age, nationality)'
-- 'player list item hover view/draggable [?]'
-- 'player item drag-n-drop (React)'
-- 'payroll table sticky headers'
+- 'Tools: mongo collection builder + importer'
+- 'Tools: add check for existing player jersey/shot'
+- 'Tools: add empty/nbsp jersey/shot if missing'
+- 'Tools: get new player data (position, age, nationality)'
+- 'player list item hover view/draggable'
+- 'player list item / roster drag-n-drop (React)'
+- 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
 - 'panel scrollbar consistency'
+- 'distill roster-menu player list panels into repeatable sub-components'
 - 'component/session state + share'
 - 'cap stats calculator panel + logic'
 - 'trade player panel + logic'
@@ -35,7 +39,8 @@
 
 #### READY
 
-- 'Setup Gzip Compression'
+- 'cleanup production build + setup payroll dynamic height [v0.4.2]'
+- 'setup gzip compression'
 - 'Minor UI Cleanup (details in LOG.md) [v0.4.1]'
 - 'roster share textbox placeholder logic'
 - 'swap jQuery out for (lighter) Zepto'
