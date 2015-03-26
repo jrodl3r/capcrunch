@@ -12,26 +12,30 @@ var RosterMenu = React.createClass({
       return (
         <div id="menu" className="section active">
           <SharePanel teamName={this.props.teamData.name} />
-          <PlayersPanel
-            playerType="Forwards"
-            panelId="forwards-list"
+          <PlayersPanel playerType="Forwards" panelId="forwards-list"
             playerData={this.props.teamData.players.forwards}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd} />
-          <PlayersPanel
-            playerType="Defense"
-            panelId="defense-list"
-            playerData={this.props.teamData.players.defensemen} />
-          <PlayersPanel
-            playerType="Goalies"
-            panelId="goalies-list"
-            playerData={this.props.teamData.players.goaltenders} />
-          <PlayersPanel
-            playerType="Inactive"
-            panelId="inactive-list"
-            playerData={this.props.teamData.players.inactive} />
+          <PlayersPanel playerType="Defense" panelId="defense-list"
+            playerData={this.props.teamData.players.defensemen}
+            handleMouseDown={this.props.onMouseDown}
+            handleMouseUp={this.props.onMouseUp}
+            handleDragStart={this.props.onDragStart}
+            handleDragEnd={this.props.onDragEnd} />
+          <PlayersPanel playerType="Goalies" panelId="goalies-list"
+            playerData={this.props.teamData.players.goaltenders}
+            handleMouseDown={this.props.onMouseDown}
+            handleMouseUp={this.props.onMouseUp}
+            handleDragStart={this.props.onDragStart}
+            handleDragEnd={this.props.onDragEnd} />
+          <PlayersPanel playerType="Inactive" panelId="inactive-list"
+            playerData={this.props.teamData.players.inactive}
+            handleMouseDown={this.props.onMouseDown}
+            handleMouseUp={this.props.onMouseUp}
+            handleDragStart={this.props.onDragStart}
+            handleDragEnd={this.props.onDragEnd} />
           <TradePanel />
           <CreatePanel />
         </div>

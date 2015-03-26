@@ -2,6 +2,29 @@
 // ==================================================
 'use strict';
 
+var PlayerItem = React.createClass({
+  render: function() {
+    var playerData = this.props.playerData;
+
+    return (
+      <div className={ playerData.state !== 'empty' ? 'player active' : 'player'}>
+    { playerData.state !== 'empty'
+      ? <div className="inner">
+          <div className="photo">
+            <img src={ playerData.image ? playerData.image : 'http://img.capcrunch.io/players/default.png' }/>
+          </div>
+          <div className="info">
+            <div className="name">{playerData.firstname.charAt(0)}. {playerData.lastname}</div>
+            <div className="shot">{playerData.shot}</div>
+            <div className="salary">{playerData.contract}</div>
+          </div>
+        </div>
+      : <div className="empty"></div> }
+      </div>
+    );
+  }
+});
+
 var Roster = React.createClass({
     handleDragEnter: function(e) {
       this.props.onDragEnter(e);
@@ -9,23 +32,7 @@ var Roster = React.createClass({
     handleDragLeave: function(e) {
       this.props.onDragLeave(e);
     },
-    handleDrop: function(e) {
-      this.props.onDropItem(e);
-    },
     render: function() {
-      var rosterPlayer = (
-        <div className="player">
-          <div className="photo">
-            <img src="http://img.capcrunch.io/players/Ennis-Tyler.png" />
-          </div>
-          <div className="info">
-            <div className="name">Tyler Ennis</div>
-            <div className="shot">L</div>
-            <div className="salary">9.999</div>
-          </div>
-        </div>
-      );
-
       return (
         <div id="roster" className="section active">
           <div id="stats">Cap Stats</div>
@@ -38,78 +45,96 @@ var Roster = React.createClass({
             <div className="inner">
               <div id="F1" className="line">
                 <div className="left">
-                  <div id="F11" className="tile" data-state="open"
+                  <div id="F1L" className="tile" data-state=""
                     onDragEnter={this.handleDragEnter}
-                    onDragLeave={this.handleDragLeave}
-                    onDrop={this.handleDrop}>
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F1L} />
                   </div>
                 </div>
                 <div className="center">
-                  <div id="F12" className="tile" data-state="open"
+                  <div id="F1C" className="tile" data-state=""
                     onDragEnter={this.handleDragEnter}
-                    onDragLeave={this.handleDragLeave}
-                    onDrop={this.handleDrop}>
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F1C} />
                   </div>
                 </div>
                 <div className="right">
-                  <div id="F13" className="tile" data-state="open"
+                  <div id="F1R" className="tile" data-state=""
                     onDragEnter={this.handleDragEnter}
-                    onDragLeave={this.handleDragLeave}
-                    onDrop={this.handleDrop}>
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F1R} />
                   </div>
                 </div>
                 <div className="title">L1</div>
               </div>
               <div id="F2" className="line">
                 <div className="left">
-                  <div className="tile">
-                    <!-- Left Winger-->
+                  <div id="F2L" className="tile" data-state=""
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F2L} />
                   </div>
                 </div>
                 <div className="center">
-                  <div className="tile">
-                    <!-- Center-->
+                  <div id="F2C" className="tile" data-state=""
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F2C} />
                   </div>
                 </div>
                 <div className="right">
-                  <div className="tile">
-                    <!-- Right Winger-->
+                  <div id="F2R" className="tile" data-state=""
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F2R} />
                   </div>
                 </div>
                 <div className="title">L2</div>
               </div>
               <div id="F3" className="line">
                 <div className="left">
-                  <div className="tile">
-                    <!-- Left Winger-->
+                  <div id="F3L" className="tile" data-state=""
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F3L} />
                   </div>
                 </div>
                 <div className="center">
-                  <div className="tile">
-                    <!-- Center-->
+                  <div id="F3C" className="tile" data-state=""
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F3C} />
                   </div>
                 </div>
                 <div className="right">
-                  <div className="tile">
-                    <!-- Right Winger-->
+                  <div id="F3R" className="tile" data-state=""
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F3R} />
                   </div>
                 </div>
                 <div className="title">L3</div>
               </div>
               <div id="F4" className="line">
                 <div className="left">
-                  <div className="tile">
-                    <!-- Left Winger-->
+                  <div id="F4L" className="tile" data-state=""
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F4L} />
                   </div>
                 </div>
                 <div className="center">
-                  <div className="tile">
-                    <!-- Center-->
+                  <div id="F4C" className="tile" data-state=""
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F4C} />
                   </div>
                 </div>
                 <div className="right">
-                  <div className="tile">
-                    <!-- Right Winger-->
+                  <div id="F4R" className="tile" data-state=""
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}>
+                    <PlayerItem playerData={this.props.rosterData.F4R} />
                   </div>
                 </div>
                 <div className="title">L4</div>

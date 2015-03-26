@@ -14,42 +14,41 @@ var App = React.createClass({
       Socket.on('load team', this.loadTeamData);
 
       return {
-        activeTeam: '',
-        teamData: {
-          id: '',
-          name: '',
-          cap: { hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
-          players: {
-            forwards: [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
-            defensemen: [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
-            goaltenders: [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
-            other: [{ lastname: '', firstname: '', contract: ['']}],
-            inactive: [{ lastname: '', firstname: '', contract: ['']}]
+        activeTeam : '',
+        teamData   : {
+          id       : '',
+          name     : '',
+          cap      : { hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
+          players  : {
+            forwards    : [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
+            defensemen  : [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
+            goaltenders : [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
+            other       : [{ lastname: '', firstname: '', contract: ['']}],
+            inactive    : [{ lastname: '', firstname: '', contract: ['']}]
           }
         },
-        rosterData: {
-          id: '',
-          name: '',
-          lineup: {
-            F1: [{ lastname: '', firstname: '', contract: '', shot: '', jersey: '', image: '' }],
-            F2: [{ lastname: '', firstname: '', contract: '', shot: '', jersey: '', image: '' }],
-            F3: [{ lastname: '', firstname: '', contract: '', shot: '', jersey: '', image: '' }],
-            F4: [{ lastname: '', firstname: '', contract: '', shot: '', jersey: '', image: '' }],
-            D1: [{ lastname: '', firstname: '', contract: '', shot: '', jersey: '', image: '' }],
-            D2: [{ lastname: '', firstname: '', contract: '', shot: '', jersey: '', image: '' }],
-            D3: [{ lastname: '', firstname: '', contract: '', shot: '', jersey: '', image: '' }],
-            G1: [{ lastname: '', firstname: '', contract: '', jersey: '', image: '' }]
-          }
+        rosterId   : '',
+        rosterName : '',
+        rosterData : {
+          F1L : { state: 'empty' }, F1C: { state: 'empty' }, F1R: { state: 'empty' },
+          F2L : { state: 'empty' }, F2C: { state: 'empty' }, F2R: { state: 'empty' },
+          F3L : { state: 'empty' }, F3C: { state: 'empty' }, F3R: { state: 'empty' },
+          F4L : { state: 'empty' }, F4C: { state: 'empty' }, F4R: { state: 'empty' },
+          D1L : { state: 'empty' }, D1R: { state: 'empty' },
+          D2L : { state: 'empty' }, D2R: { state: 'empty' },
+          D3L : { state: 'empty' }, D3R: { state: 'empty' },
+          G1L : { state: 'empty' }, G1R: { state: 'empty' }
+          //F1: { lastname: 'Benyhanna', firstname: 'Fubu', contract: '0.000', shot: 'R', jersey: '36', image: 'http://img.capcrunch.io/players/Kaleta-Patrick.png' },
         }
       };
     },
     getDefaultProps: function() {
       return {
-        curDragTarget: null,
-        draggedPlayer: null
+        lastDropZoneId : '',
+        curDropZone    : null,
+        curDragItem    : null
       };
     },
-    // Team Select Menu
     handleChangeTeam: function(id) {
       Socket.emit('get team', id);
       this.setState({ activeTeam: id });
@@ -57,49 +56,71 @@ var App = React.createClass({
     loadTeamData: function(data) {
       this.setState({ teamData: data });
     },
+
     // Roster Grid
-    // handleDragOver: function(e) {},
     handleDragEnter: function(e) {
-      if (e.currentTarget.dataset.state !== 'full') {
-        e.currentTarget.className = 'tile hover';
-        this.props.curDragTarget = e.currentTarget;
+      var dropZone = e.currentTarget;
+      if (!dropZone.dataset.state) {
+        dropZone.className = 'tile hover';
+        this.props.curDropZone = dropZone;
       }
+      this.props.lastDropZoneId = '';
+      //console.log('drag enter (' + dropZone.id + ')');
     },
     handleDragLeave: function(e) {
-      if (e.currentTarget.dataset.state !== 'full') {
-        e.currentTarget.className = 'tile';
-      }
+      var lastDropZone = e.currentTarget;
+      lastDropZone.className = 'tile';
+      setTimeout(function() {
+        this.props.lastDropZoneId = lastDropZone.id;
+        //console.log('drag leave (' + this.props.lastDropZoneId + ')');
+      }.bind(this), 100);
     },
+
     // Roster Menu
     handleMouseDown: function(e) {
-      e.currentTarget.className = 'item dragging';
+      e.currentTarget.className = 'item clicked';
+      //console.log('mouse down');
     },
     handleMouseUp: function(e) {
-      //if (!this.props.draggedPlayer) {
       e.currentTarget.className = 'item';
       e.currentTarget.parentNode.className = 'row';
-      //}
+      //console.log('mouse up');
     },
     handleDragStart: function(e) {
-      this.props.draggedPlayer = e.currentTarget;
-      this.props.draggedPlayer.parentNode.className = 'row engaged';
+      var dragItem = e.currentTarget;
+      dragItem.parentNode.className = 'row engaged';
       e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/html', e.currentTarget);
-      //console.log('drag start');
+      e.dataTransfer.setData('text/html', dragItem);
+      this.props.curDragItem = dragItem;
+      this.props.lastDropZoneId = '';
+      //console.log('drag start (' + this.props.lastDropZoneId + ')');
     },
     handleDragEnd: function(e) {
-      if (this.props.curDragTarget && this.props.curDragTarget.dataset.state !== 'full') {
-        e.currentTarget.parentNode.className = 'row removed';
-        this.props.curDragTarget.dataset.state = 'full';
-        // ...
-        this.props.curDragTarget.innerHTML = e.currentTarget.dataset.id;
-        // ...
+      var dragData = {},
+          dragItem = e.currentTarget,
+          dropZone = this.props.curDropZone;
+      //console.log(dropZone.id, this.props.lastDropZoneId);
+      if (!dropZone.dataset.state && dropZone.id !== this.props.lastDropZoneId) {
+        dragItem.parentNode.className = 'row removed';
+        dropZone.dataset.state = 'active';
+        dragData = {
+          lastname  : dragItem.dataset.lastname,
+          firstname : dragItem.dataset.firstname,
+          contract  : dragItem.dataset.contract,
+          shot      : dragItem.dataset.shot,
+          jersey    : dragItem.dataset.jersey,
+          image     : dragItem.dataset.image
+        };
+        this.state.rosterData[dropZone.id] = dragData;
+        this.setState();
+        //console.log('tile filled (' + dragItem.dataset.id + ')');
       } else {
-        this.props.draggedPlayer.className = 'item';
-        this.props.draggedPlayer.parentNode.className = 'row';
+        dragItem.className = 'item';
+        dragItem.parentNode.className = 'row';
+        //console.log('tile not filled');
       }
-      this.props.draggedPlayer = null;
     },
+
     render: function() {
       return (
         <div id="main">
@@ -114,7 +135,7 @@ var App = React.createClass({
                 onDragStart={this.handleDragStart}
                 onDragEnd={this.handleDragEnd} />
               <Roster
-                teamData={this.state.rosterData}
+                rosterData={this.state.rosterData}
                 onDragEnter={this.handleDragEnter}
                 onDragLeave={this.handleDragLeave} />
             </div>

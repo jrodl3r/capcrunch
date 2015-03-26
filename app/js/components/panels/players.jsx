@@ -16,8 +16,12 @@ var PlayersPanel = React.createClass({
                   onMouseUp={this.props.handleMouseUp}
                   onDragStart={this.props.handleDragStart}
                   onDragEnd={this.props.handleDragEnd}
-                  data-id={player.jersey}
-                  reactKey={i}>
+                  data-firstname={player.firstname}
+                  data-lastname={player.lastname}
+                  data-contract={player.contract[0]}
+                  data-jersey={player.jersey}
+                  data-image={player.image}
+                  data-shot={player.shot}>
                   <div className="name">
                     <span className="jersey">{player.jersey}</span>
                     {player.lastname}, {player.firstname}

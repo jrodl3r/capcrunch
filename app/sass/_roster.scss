@@ -179,7 +179,7 @@
     line-height: 30px;
     border-bottom: 1px solid #EEE;
     opacity: 1;
-    transition: .25s;
+    transition: .1s;
 
     &:last-of-type {
       border-bottom: none;
@@ -188,11 +188,11 @@
 
   .item {
     position: relative;
-    height: 29px;
-    line-height: 29px;
+    height: 30px;
+    line-height: 30px;
     opacity: 1;
     overflow: hidden;
-    cursor: grab;
+    //cursor: grab;
   }
 
   .jersey {
@@ -217,8 +217,7 @@
     text-indent: 7px;
     white-space: nowrap;
     text-overflow: ellipsis;
-    //border-radius: $border-radius;
-    transition: .2s;
+    transition: .1s;
   }
 
   .shot, .salary {
@@ -228,7 +227,7 @@
     font-weight: normal;
     overflow: hidden;
     opacity: 1;
-    transition: .1s;
+    //transition: .01s;
   }
 
   .salary {
@@ -238,8 +237,8 @@
   // Drag-n-Drop
 
   .engaged {
-    opacity: .2;
-    border-color: #C8C8C8;
+    opacity: .3;
+    border-color: #E5E5E5;
   }
 
   .removed {
@@ -248,11 +247,10 @@
     overflow: hidden;
   }
 
-
-  .dragging {
+  .clicked {
     width: 100%;
     color: #777;
-    cursor: grabbing;
+    //cursor: grabbing;
 
     .jersey {
       color: #999;
@@ -262,14 +260,15 @@
       left: 20%;
       text-indent: 30px;
       color: #444;
-      background: linear-gradient(to right, #F8F8F8 0%, #EEE 100%);
+      background: linear-gradient(to right, rgba(255,255,255, 0) 0%, #E8E8E8 100%);
     }
 
     .shot, .salary {
-      width: 0;
+      /* width: 0;
       padding: 0;
       font-size: 0;
-      opacity: 0;
+      opacity: 0; */
+      display: none;
     }
   }
 }
@@ -395,6 +394,10 @@
 
     &.active {
       height: inherit;
+    }
+
+    .inner {
+      padding: 0;
     }
 
     .photo {

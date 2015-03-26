@@ -13,7 +13,7 @@
   - https://twitter.com/chrismpeters/status/578977478875553792
 
 
-#### LATER » Did You Uptick Version? » [v0.4.3]
+#### LATER » Did You Uptick Version? » [v0.4.4]
 
 - 'design'
 - 'analytics + monitoring'
@@ -32,9 +32,7 @@
 
 #### NOW
 
-- 'roster grid player item data management'
 - 'roster grid player item drag-n-drop'
--  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.4.4] «
 - 'reset panel scroll position on team change'
 - 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
@@ -51,6 +49,7 @@
 
 #### READY
 
+- 'initial roster grid player item data management [v0.4.4]'
 - 'initial player list drag-n-drop'
 - 'distill roster-menu player-list panels into sub-components [v0.4.3]'
 - 'cleanup production build + setup payroll dynamic height [v0.4.2]'
