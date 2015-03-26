@@ -15,7 +15,11 @@ var RosterMenu = React.createClass({
           <PlayersPanel
             playerType="Forwards"
             panelId="forwards-list"
-            playerData={this.props.teamData.players.forwards} />
+            playerData={this.props.teamData.players.forwards}
+            handleMouseDown={this.props.onMouseDown}
+            handleMouseUp={this.props.onMouseUp}
+            handleDragStart={this.props.onDragStart}
+            handleDragEnd={this.props.onDragEnd} />
           <PlayersPanel
             playerType="Defense"
             panelId="defense-list"

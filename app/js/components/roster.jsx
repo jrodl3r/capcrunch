@@ -3,7 +3,29 @@
 'use strict';
 
 var Roster = React.createClass({
+    handleDragEnter: function(e) {
+      this.props.onDragEnter(e);
+    },
+    handleDragLeave: function(e) {
+      this.props.onDragLeave(e);
+    },
+    handleDrop: function(e) {
+      this.props.onDropItem(e);
+    },
     render: function() {
+      var rosterPlayer = (
+        <div className="player">
+          <div className="photo">
+            <img src="http://img.capcrunch.io/players/Ennis-Tyler.png" />
+          </div>
+          <div className="info">
+            <div className="name">Tyler Ennis</div>
+            <div className="shot">L</div>
+            <div className="salary">9.999</div>
+          </div>
+        </div>
+      );
+
       return (
         <div id="roster" className="section active">
           <div id="stats">Cap Stats</div>
@@ -14,25 +36,31 @@ var Roster = React.createClass({
               <div className="right">RW</div>
             </div>
             <div className="inner">
-              <div id="forwards-1" className="line">
+              <div id="F1" className="line">
                 <div className="left">
-                  <div className="tile">
-                    <!-- Left Winger-->
+                  <div id="F11" className="tile" data-state="open"
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}
+                    onDrop={this.handleDrop}>
                   </div>
                 </div>
                 <div className="center">
-                  <div className="tile">
-                    <!-- Center-->
+                  <div id="F12" className="tile" data-state="open"
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}
+                    onDrop={this.handleDrop}>
                   </div>
                 </div>
                 <div className="right">
-                  <div className="tile">
-                    <!-- Right Winger-->
+                  <div id="F13" className="tile" data-state="open"
+                    onDragEnter={this.handleDragEnter}
+                    onDragLeave={this.handleDragLeave}
+                    onDrop={this.handleDrop}>
                   </div>
                 </div>
                 <div className="title">L1</div>
               </div>
-              <div id="forwards-2" className="line">
+              <div id="F2" className="line">
                 <div className="left">
                   <div className="tile">
                     <!-- Left Winger-->
@@ -50,7 +78,7 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">L2</div>
               </div>
-              <div id="forwards-3" className="line">
+              <div id="F3" className="line">
                 <div className="left">
                   <div className="tile">
                     <!-- Left Winger-->
@@ -68,7 +96,7 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">L3</div>
               </div>
-              <div id="forwards-4" className="line">
+              <div id="F4" className="line">
                 <div className="left">
                   <div className="tile">
                     <!-- Left Winger-->
@@ -94,7 +122,7 @@ var Roster = React.createClass({
               <div className="right">RD</div>
             </div>
             <div className="inner">
-              <div id="defense-1" className="line">
+              <div id="D1" className="line">
                 <div className="left">
                   <div className="tile">
                     <!-- Left Defender-->
@@ -107,7 +135,7 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">P1</div>
               </div>
-              <div id="defense-2" className="line">
+              <div id="D2" className="line">
                 <div className="left">
                   <div className="tile">
                     <!-- Left Defender-->
@@ -120,7 +148,7 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">P2</div>
               </div>
-              <div id="defense-3" className="line">
+              <div id="D3" className="line">
                 <div className="left">
                   <div className="tile">
                     <!-- Left Defender-->
@@ -138,7 +166,7 @@ var Roster = React.createClass({
           <div id="goalies-group" className="panel group defense">
             <div className="title">G</div>
             <div className="inner">
-              <div id="goalie-1" className="line">
+              <div id="G1" className="line">
                 <div className="left">
                   <div className="tile">
                     <!-- Starting Goaltender-->

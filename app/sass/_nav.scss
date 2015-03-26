@@ -92,6 +92,7 @@ header {
       font-weight: bold;
       color: #000;
       opacity: 0;
+      cursor: default;
       transition: .35s;
 
       &.active {
@@ -118,8 +119,12 @@ footer {
   padding-right: 10px;
   line-height: 30px;
   text-align: right;
-  color: #E5E5E5;
+  color: #DDD;
   font-size: 10px;
   font-weight: bold;
   cursor: default;
+
+  span.version {
+    color: #EEE;
+  }
 }

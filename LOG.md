@@ -9,6 +9,8 @@
   - http://war-on-ice.com
   - http://mirtle.blogspot.ca/2015/03/matthew-wuest-1979-2015.html
   - http://www.inlouwetrust.com/2015/3/23/8272707/who-else-other-than-the-nhl-can-try-to-make-a-new-capgeek
+  - https://twitter.com/bruce_arthur/status/578716668484005888
+  - https://twitter.com/chrismpeters/status/578977478875553792
 
 
 #### LATER » Did You Uptick Version? » [v0.4.3]
@@ -17,8 +19,11 @@
 - 'analytics + monitoring'
 - 'Typekit + gulp asset management (fonts, images)'
 - 'minor team roster/lineup'
+- 'unit testing (Jest / Jasmine)'
 - 'React: SEO friendly SSR markup'
 - 'React: Panel update transition animations'
+- 'pre-cache player images on team select'
+- 'feature detection: `if (!Modernizr.draganddrop)` (gulp-modernizr)'
 - 'inactive players panel: show positions in place of jersey number'
 - 'panel scrollbar consistency'
 - 'collapsable menu panels'
@@ -27,24 +32,26 @@
 
 #### NOW
 
+- 'roster grid player item data management'
+- 'roster grid player item drag-n-drop'
+-  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.4.4] «
+- 'reset panel scroll position on team change'
+- 'payroll table sticky headers (thead>tr>th)'
+- 'payroll UFA/RFA cell styles'
+-  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.4.5] «
+- 'component/session state + share'
+- 'cap stats calculator panel + logic'
 - 'Tools: mongo collection builder + importer'
 - 'Tools: add check for existing player jersey/shot'
 - 'Tools: add empty/nbsp jersey/shot if missing'
-- 'Tools: get new player data (position, age, nationality)'
-- 'player list item hover view/draggable'
-- 'player list item / roster drag-n-drop (React)'
-- 'payroll table sticky headers (thead>tr>th)'
-- 'payroll UFA/RFA cell styles'
-- 'reset panel scroll position on team change'
-- 'component/session state + share'
-- 'cap stats calculator panel + logic'
+- 'Tools: get new player data (position, age, nationality, ID)'
 - 'trade player panel + logic'
 - 'create player panel + logic'
-- 'unit testing (Jest / Jasmine)'
 
 
 #### READY
 
+- 'initial player list drag-n-drop'
 - 'distill roster-menu player-list panels into sub-components [v0.4.3]'
 - 'cleanup production build + setup payroll dynamic height [v0.4.2]'
 - 'setup gzip compression'
