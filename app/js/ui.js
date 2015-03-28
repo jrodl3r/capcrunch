@@ -10,6 +10,10 @@ var UI = {
   init: function() {
     // toggle roster/payroll
     $('a.payroll, a.roster').on('click', UI.toggleView);
+
+    setTimeout(function() {
+      $('#team-select').val('CHI').change();
+    }, 300);
   },
 
   // toggle roster/payroll

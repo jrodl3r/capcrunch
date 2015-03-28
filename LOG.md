@@ -24,22 +24,17 @@
 - 'React: Panel update transition animations'
 - 'pre-cache player images on team select'
 - 'feature detection: `if (!Modernizr.draganddrop)` (gulp-modernizr)'
-- 'inactive players panel: show positions in place of jersey number'
 - 'panel scrollbar consistency'
 - 'collapsable menu panels'
-- 'disable user-select'
 
 
-#### NOW » Did You Uptick Version? » [v0.5.0]
+#### NOW » Did You Uptick Version? » [v0.5.1]
 
-- 'fix DnD event timers'
 - 'add DnD item drag handles'
 - 'setup team-specific player item hiding'
--  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.5.1] «
 - 'update roster grid data management'
 - 'roster grid player item drag-n-drop'
 - 'roster grid player item removal/adjustment'
--  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.5.2] «
 - 'reset panel scroll position on team change'
 - 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
@@ -51,6 +46,7 @@
 
 #### READY
 
+- 'fix DnD event timers [v0.5.1]'
 - 'Update Data Utility + Database Schema + Player Data (details in LOG.md) [v0.5.0]'
 - 'update player data (ID, TEAM, POS, AGE, NATION)'
 - 'backup/update dev + prod DB'
@@ -60,6 +56,7 @@
 - 'cleanup production build + setup payroll dynamic height [v0.4.2]'
 - 'setup gzip compression'
 - 'Minor UI Cleanup (details in LOG.md) [v0.4.1]'
+- 'disable user-select'
 - 'roster share textbox placeholder logic'
 - 'swap jQuery out for (lighter) Zepto'
 - 'replace core.js + utils.js w/ ui.js'
@@ -88,9 +85,9 @@
 #### NOTES
 
 ###### Local DB Backup
-$ mongoexport -d cc -c teams -o backup.json -v (--pretty)
+$ mongoexport -d cc -c teams -o backup.json (-v --pretty)
 
-###### Local DB Import/Rebuild
+###### Local DB Rebuild + Import
 $ mongo --shell
 $ use cc
 $ db.teams.drop()

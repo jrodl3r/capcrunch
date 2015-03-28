@@ -38,7 +38,6 @@ var App = React.createClass({
           D2L : { state: 'empty' }, D2R: { state: 'empty' },
           D3L : { state: 'empty' }, D3R: { state: 'empty' },
           G1L : { state: 'empty' }, G1R: { state: 'empty' }
-          //F1: { lastname: 'Benyhanna', firstname: 'Fubu', contract: '0.000', shot: 'R', jersey: '36', image: 'http://img.capcrunch.io/players/Kaleta-Patrick.png' },
         }
       };
     },
@@ -49,6 +48,8 @@ var App = React.createClass({
         curDragItem    : null
       };
     },
+
+    // Team Select
     handleChangeTeam: function(id) {
       Socket.emit('get team', id);
       this.setState({ activeTeam: id });
@@ -58,33 +59,37 @@ var App = React.createClass({
     },
 
     // Roster Grid
-    handleDragEnter: function(e) {
+    handleGridDragEnter: function(e) {
+      if (this.props.curDropZone) {
+        this.props.lastDropZoneId = '';
+        //console.log('grid enter (' + this.props.curDropZone.id + ')');
+      }
+    },
+    handleTileDragEnter: function(e) {
+      e.stopPropagation();
       var dropZone = e.currentTarget;
       if (!dropZone.dataset.state) {
         dropZone.className = 'tile hover';
         this.props.curDropZone = dropZone;
       }
-      this.props.lastDropZoneId = '';
-      //console.log('drag enter (' + dropZone.id + ')');
+      this.props.lastDropZoneId = dropZone.id;
+      //console.log('drag enter (cur: ' + dropZone.id + ' / last: ' + this.props.lastDropZoneId + ')');
     },
-    handleDragLeave: function(e) {
-      var lastDropZone = e.currentTarget;
-      lastDropZone.className = 'tile';
-      setTimeout(function() {
-        this.props.lastDropZoneId = lastDropZone.id;
-        //console.log('drag leave (' + this.props.lastDropZoneId + ')');
-      }.bind(this), 100);
+    handleTileDragLeave: function(e) {
+      e.currentTarget.className = 'tile';
+      //console.log('drag leave (' + this.props.lastDropZoneId + ')');
     },
 
     // Roster Menu
     handleMouseDown: function(e) {
       e.currentTarget.className = 'item clicked';
-      //console.log('mouse down');
+      //console.log('mouse down (' + e.currentTarget.dataset.jersey + ')');
     },
     handleMouseUp: function(e) {
+      // TODO [Remove All 'clicked']
       e.currentTarget.className = 'item';
       e.currentTarget.parentNode.className = 'row';
-      //console.log('mouse up');
+      //console.log('mouse up (' + e.currentTarget.dataset.jersey + ')');
     },
     handleDragStart: function(e) {
       var dragItem = e.currentTarget;
@@ -93,14 +98,14 @@ var App = React.createClass({
       e.dataTransfer.setData('text/html', dragItem);
       this.props.curDragItem = dragItem;
       this.props.lastDropZoneId = '';
-      //console.log('drag start (' + this.props.lastDropZoneId + ')');
+      //console.log('drag start');
     },
     handleDragEnd: function(e) {
       var dragData = {},
           dragItem = e.currentTarget,
           dropZone = this.props.curDropZone;
-      //console.log(dropZone.id, this.props.lastDropZoneId);
-      if (!dropZone.dataset.state && dropZone.id !== this.props.lastDropZoneId) {
+      //console.log('drag end: (cur zone: ' + dropZone.id + ' / last zone: ' + this.props.lastDropZoneId + ')');
+      if (!dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         dragItem.parentNode.className = 'row removed';
         dropZone.dataset.state = 'active';
         dragData = {
@@ -113,11 +118,11 @@ var App = React.createClass({
         };
         this.state.rosterData[dropZone.id] = dragData;
         this.setState();
-        //console.log('tile filled (' + dragItem.dataset.id + ')');
+        //console.log('tile filled (' + dragItem.dataset.jersey + ' » ' + dropZone.id + ')');
       } else {
         dragItem.className = 'item';
         dragItem.parentNode.className = 'row';
-        //console.log('tile not filled');
+        //console.log('no tile action');
       }
     },
 
@@ -136,11 +141,12 @@ var App = React.createClass({
                 onDragEnd={this.handleDragEnd} />
               <Roster
                 rosterData={this.state.rosterData}
-                onDragEnter={this.handleDragEnter}
-                onDragLeave={this.handleDragLeave} />
+                onGridDragEnter={this.handleGridDragEnter}
+                onTileDragEnter={this.handleTileDragEnter}
+                onTileDragLeave={this.handleTileDragLeave} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.4.4</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.5.1</span></footer>
         </div>
       );
     }
