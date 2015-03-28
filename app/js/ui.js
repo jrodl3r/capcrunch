@@ -10,10 +10,12 @@ var UI = {
   init: function() {
     // toggle roster/payroll
     $('a.payroll, a.roster').on('click', UI.toggleView);
-
-    setTimeout(function() {
-      $('#team-select').val('CHI').change();
-    }, 300);
+    // player-list mouseup catchall
+    $('#app').on('mouseup', UI.unhighlightItems);
+    // testing
+    // setTimeout(function() {
+    //   $('#team-select').val('CHI').change();
+    // }, 300);
   },
 
   // toggle roster/payroll
@@ -64,6 +66,11 @@ var UI = {
   // restore payroll height
   resetPayrollHeight: function() {
     $('#payroll .inner, #app .wrap').css('height', 'auto');
+  },
+
+  // player-list mouseup catchall
+  unhighlightItems: function() {
+    $('#menu .player-list .item.clicked').removeClass('clicked');
   }
 };
 

@@ -20,22 +20,21 @@
 - 'Typekit + gulp asset management (fonts, images)'
 - 'minor team roster/lineup'
 - 'unit testing (Jest / Jasmine)'
-- 'React: SEO friendly SSR markup'
-- 'React: Panel update transition animations'
+- 'SEO friendly ReactJS SSR markup'
 - 'pre-cache player images on team select'
 - 'feature detection: `if (!Modernizr.draganddrop)` (gulp-modernizr)'
 - 'panel scrollbar consistency'
 - 'collapsable menu panels'
 
 
-#### NOW » Did You Uptick Version? » [v0.5.2]
+#### NOW » Did You Uptick Version? » [v0.5.4]
 
 - 'light-up roster grid (open) tiles onDrag'
-- 'setup team-specific player item hiding'
+- 'reset panel scroll position on team change'
+- 'panel update transition fade effect'
 - 'update roster grid data management'
 - 'roster grid player item drag-n-drop'
 - 'roster grid player item removal/adjustment'
-- 'reset panel scroll position on team change'
 - 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
 - 'component/session state + share'
@@ -46,6 +45,8 @@
 
 #### READY
 
+- 'setup team-specific player item hiding [v0.5.3]'
+- 'fix missed drag / item stays selected bug'
 - 'hotfix item drag bg-gradient + inner-click drag event blocking'
 - 'add player list item drag handles [v0.5.2]'
 - 'fix DnD event timers [v0.5.1]'

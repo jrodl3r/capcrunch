@@ -14,12 +14,13 @@ var App = React.createClass({
       Socket.on('load team', this.loadTeamData);
 
       return {
-        activeTeam : '',
-        teamData   : {
-          id       : '',
-          name     : '',
-          cap      : { hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
-          players  : {
+        activeTeam      : '',
+        activePlayers   : [],
+        teamData        : {
+          id            : '',
+          name          : '',
+          cap           : { hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
+          players       : {
             forwards    : [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
             defensemen  : [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
             goaltenders : [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
@@ -27,17 +28,17 @@ var App = React.createClass({
             inactive    : [{ lastname: '', firstname: '', contract: ['']}]
           }
         },
-        rosterId   : '',
-        rosterName : '',
-        rosterData : {
-          F1L : { state: 'empty' }, F1C: { state: 'empty' }, F1R: { state: 'empty' },
-          F2L : { state: 'empty' }, F2C: { state: 'empty' }, F2R: { state: 'empty' },
-          F3L : { state: 'empty' }, F3C: { state: 'empty' }, F3R: { state: 'empty' },
-          F4L : { state: 'empty' }, F4C: { state: 'empty' }, F4R: { state: 'empty' },
-          D1L : { state: 'empty' }, D1R: { state: 'empty' },
-          D2L : { state: 'empty' }, D2R: { state: 'empty' },
-          D3L : { state: 'empty' }, D3R: { state: 'empty' },
-          G1L : { state: 'empty' }, G1R: { state: 'empty' }
+        rosterId        : '',
+        rosterName      : '',
+        rosterData      : {
+          F1L           : { state: 'empty' }, F1C: { state: 'empty' }, F1R: { state: 'empty' },
+          F2L           : { state: 'empty' }, F2C: { state: 'empty' }, F2R: { state: 'empty' },
+          F3L           : { state: 'empty' }, F3C: { state: 'empty' }, F3R: { state: 'empty' },
+          F4L           : { state: 'empty' }, F4C: { state: 'empty' }, F4R: { state: 'empty' },
+          D1L           : { state: 'empty' }, D1R: { state: 'empty' },
+          D2L           : { state: 'empty' }, D2R: { state: 'empty' },
+          D3L           : { state: 'empty' }, D3R: { state: 'empty' },
+          G1L           : { state: 'empty' }, G1R: { state: 'empty' }
         }
       };
     },
@@ -86,7 +87,6 @@ var App = React.createClass({
       //console.log('mouse down (' + e.currentTarget.dataset.jersey + ')');
     },
     handleMouseUp: function(e) {
-      // TODO [Remove All 'clicked']
       e.currentTarget.className = 'item';
       e.currentTarget.parentNode.className = 'row';
       //console.log('mouse up (' + e.currentTarget.dataset.jersey + ')');
@@ -105,17 +105,20 @@ var App = React.createClass({
           dragItem = e.currentTarget,
           dropZone = this.props.curDropZone;
       //console.log('drag end: (cur zone: ' + dropZone.id + ' / last zone: ' + this.props.lastDropZoneId + ')');
-      if (!dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
+      if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         dragItem.parentNode.className = 'row removed';
+        dragItem.className = 'item';
         dropZone.dataset.state = 'active';
         dragData = {
           lastname  : dragItem.dataset.lastname,
           firstname : dragItem.dataset.firstname,
           contract  : dragItem.dataset.contract,
-          shot      : dragItem.dataset.shot,
           jersey    : dragItem.dataset.jersey,
-          image     : dragItem.dataset.image
+          image     : dragItem.dataset.image,
+          shot      : dragItem.dataset.shot,
+          id        : dragItem.dataset.id
         };
+        this.state.activePlayers.push(dragData.id);
         this.state.rosterData[dropZone.id] = dragData;
         this.setState();
         //console.log('tile filled (' + dragItem.dataset.jersey + ' » ' + dropZone.id + ')');
@@ -135,6 +138,7 @@ var App = React.createClass({
               <Payroll teamData={this.state.teamData} />
               <RosterMenu
                 teamData={this.state.teamData}
+                activePlayers={this.state.activePlayers}
                 onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}
                 onDragStart={this.handleDragStart}
@@ -146,7 +150,7 @@ var App = React.createClass({
                 onTileDragLeave={this.handleTileDragLeave} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.5.2</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.5.4</span></footer>
         </div>
       );
     }

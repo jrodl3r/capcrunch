@@ -13,7 +13,7 @@ var PlayersPanel = React.createClass({
           isSkater    = playerType === 'Goalies' || playerType === 'Inactive' ? true : false,
           playerItems = this.props.playerData.map(function(player, i) {
             return (
-              <li className="row">
+              <li className={ this.props.activePlayers.indexOf(player.id) !== -1 ? 'row removed' : 'row'}>
                 <div className="item"
                   draggable={true}
                   onMouseDown={this.props.handleMouseDown}
@@ -25,7 +25,8 @@ var PlayersPanel = React.createClass({
                   data-contract={player.contract[0]}
                   data-jersey={player.jersey}
                   data-image={player.image}
-                  data-shot={player.shot}>
+                  data-shot={player.shot}
+                  data-id={player.id}>
                   <div className="name" onMouseDown={this.blockDrag}>
                     <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
                     {player.lastname}, {player.firstname}

@@ -14,24 +14,28 @@ var RosterMenu = React.createClass({
           <SharePanel teamName={this.props.teamData.name} />
           <PlayersPanel playerType="Forwards" panelId="forwards-list"
             playerData={this.props.teamData.players.forwards}
+            activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd} />
           <PlayersPanel playerType="Defense" panelId="defense-list"
             playerData={this.props.teamData.players.defensemen}
+            activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd} />
           <PlayersPanel playerType="Goalies" panelId="goalies-list"
             playerData={this.props.teamData.players.goaltenders}
+            activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd} />
           <PlayersPanel playerType="Inactive" panelId="inactive-list"
             playerData={this.props.teamData.players.inactive}
+            activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}

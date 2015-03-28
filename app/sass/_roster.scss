@@ -227,8 +227,8 @@
   }
 
   .name, .shot, .salary, .handle {
-    display: inline-table;
-    height: 28px;
+    float: left;
+    height: 29px;
     padding: 0 10px;
     text-align: left;
   }
@@ -240,6 +240,7 @@
     text-indent: 7px;
     white-space: nowrap;
     text-overflow: ellipsis;
+    overflow: hidden;
     transition: .1s;
   }
 
@@ -255,7 +256,7 @@
   }
 
   .salary {
-    width: 52px;
+    width: 53px;
     margin-right: 12px;
     //background: #69f;
   }
@@ -289,7 +290,7 @@
 
     .name {
       margin-left: 92px;
-      width: 160px;
+      width: 173px;
       text-indent: 30px;
       color: #444;
       //background: #f09;
