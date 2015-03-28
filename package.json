@@ -1,6 +1,6 @@
 {
   "name": "capcrunch",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "John Rodler <john@jrod.io>",
   "main": "server.js",
   "repository": {

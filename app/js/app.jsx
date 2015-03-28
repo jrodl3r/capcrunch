@@ -146,7 +146,7 @@ var App = React.createClass({
                 onTileDragLeave={this.handleTileDragLeave} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.5.1</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.5.2</span></footer>
         </div>
       );
     }

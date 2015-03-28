@@ -139,7 +139,7 @@
     float: left;
     height: 100%;
     max-height: 150px;
-    width: 100%;
+    width: 300px;
     padding: 0 10px;
     overflow-y: scroll;
   }
@@ -150,20 +150,21 @@
 
   .header, .row, .item {
     float: left;
-    width: 100%;
+    width: 280px;
   }
 
   .header {
     position: absolute;
     z-index: 2;
     height: 22px;
+    width: 300px;
     padding: 0 10px;
     color: #F6F6F6;
     font-size: 11px;
     background: #BBB;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
 
-    .name, .shot, .salary {
+    .name, .shot, .salary, .handle {
       height: 22px;
       line-height: 23px;
     }
@@ -171,6 +172,10 @@
     .shot, .salary {
       padding-right: 0;
       font-weight: bold;
+    }
+
+    .handle {
+      position: relative;
     }
   }
 
@@ -192,7 +197,23 @@
     line-height: 30px;
     opacity: 1;
     overflow: hidden;
-    //cursor: grab;
+
+    .shot, .salary {
+      color: #999;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .handle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: url(../img/drag-handle.svg) center center no-repeat;
+      //background: #f69 url(../img/drag-handle.svg) center center no-repeat;
+      background-size: 5px;
+      opacity: .2;
+      cursor: grab;
+    }
   }
 
   .jersey {
@@ -204,7 +225,7 @@
     text-align: center;
   }
 
-  .name, .shot, .salary {
+  .name, .shot, .salary, .handle {
     display: inline-table;
     height: 28px;
     padding: 0 10px;
@@ -213,7 +234,8 @@
 
   .name {
     position: relative;
-    width: 65%;
+    width: 177px;
+    //background: #f69;
     text-indent: 7px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -221,20 +243,27 @@
   }
 
   .shot, .salary {
-    width: 13%;
-    padding-right: 0;
+    width: 35px;
+    //background: #6f9;
+    padding: 0;
     text-align: center;
     font-weight: normal;
     overflow: hidden;
     opacity: 1;
-    //transition: .01s;
+    transition: .001s;
   }
 
   .salary {
-    width: 22%;
+    width: 52px;
+    margin-right: 12px;
+    //background: #69f;
   }
 
-  // Drag-n-Drop
+  .handle {
+    width: 15px;
+    padding: 0;
+    transition: .1s;
+  }
 
   .engaged {
     opacity: .3;
@@ -248,12 +277,8 @@
   }
 
   .clicked {
-    width: 100%;
-    color: #777;
-    //cursor: grabbing;
-
     //&:-webkit-drag {
-      //background: #60f;
+    //  border-radius: 5px;
     //}
 
     .jersey {
@@ -261,18 +286,23 @@
     }
 
     .name {
-      left: 20%;
+      margin-left: 92px;
+      width: 160px;
       text-indent: 30px;
       color: #444;
-      background: linear-gradient(to right, rgba(255,255,255, 0) 0%, #E8E8E8 100%);
+      background: linear-gradient(to right, rgba(255,255,255, 0) 0%, #EAEAEA 100%);
+      //background: #f09;
     }
 
     .shot, .salary {
-      /* width: 0;
-      padding: 0;
-      font-size: 0;
-      opacity: 0; */
       display: none;
+    }
+
+    .handle {
+      background: #EAEAEA url(../img/drag-handle.svg) center center no-repeat;
+      background-size: 5px;
+      opacity: 1;
+      cursor: grabbing;
     }
   }
 }

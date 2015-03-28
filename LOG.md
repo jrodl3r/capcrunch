@@ -28,9 +28,9 @@
 - 'collapsable menu panels'
 
 
-#### NOW » Did You Uptick Version? » [v0.5.1]
+#### NOW » Did You Uptick Version? » [v0.5.2]
 
-- 'add DnD item drag handles'
+- 'light-up roster grid (open) tiles onDrag'
 - 'setup team-specific player item hiding'
 - 'update roster grid data management'
 - 'roster grid player item drag-n-drop'
@@ -46,6 +46,7 @@
 
 #### READY
 
+- 'add player list item drag handles [v0.5.2]'
 - 'fix DnD event timers [v0.5.1]'
 - 'Update Data Utility + Database Schema + Player Data (details in LOG.md) [v0.5.0]'
 - 'update player data (ID, TEAM, POS, AGE, NATION)'
