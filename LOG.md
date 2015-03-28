@@ -46,6 +46,7 @@
 
 #### READY
 
+- 'hotfix item drag bg-gradient + inner-click drag event blocking'
 - 'add player list item drag handles [v0.5.2]'
 - 'fix DnD event timers [v0.5.1]'
 - 'Update Data Utility + Database Schema + Player Data (details in LOG.md) [v0.5.0]'

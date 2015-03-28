@@ -4,6 +4,7 @@
 
 var PlayersPanel = React.createClass({
     blockDrag: function(e) {
+      e.preventDefault();
       e.stopPropagation();
     },
     render: function() {

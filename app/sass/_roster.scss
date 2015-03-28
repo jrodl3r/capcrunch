@@ -197,6 +197,7 @@
     line-height: 30px;
     opacity: 1;
     overflow: hidden;
+    transition: .1s;
 
     .shot, .salary {
       color: #999;
@@ -277,6 +278,7 @@
   }
 
   .clicked {
+    background: linear-gradient(to right, rgba(255,255,255, 0) 35%, #EAEAEA 100%);
     //&:-webkit-drag {
     //  border-radius: 5px;
     //}
@@ -290,7 +292,6 @@
       width: 160px;
       text-indent: 30px;
       color: #444;
-      background: linear-gradient(to right, rgba(255,255,255, 0) 0%, #EAEAEA 100%);
       //background: #f09;
     }
 
@@ -299,9 +300,7 @@
     }
 
     .handle {
-      background: #EAEAEA url(../img/drag-handle.svg) center center no-repeat;
-      background-size: 5px;
-      opacity: 1;
+      opacity: .5;
       cursor: grabbing;
     }
   }
