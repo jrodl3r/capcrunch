@@ -1,6 +1,5 @@
 // CapCrunch Data Updater Tool
 // ======================================================
-//
 // COMMANDS :
 // ------------------------------------------------------
 //          » TYPE=get node app.js     | (Get HMTL)
@@ -8,6 +7,7 @@
 //          » TYPE=info node app.js    | (Player Info)
 //          » TYPE=images node app.js  | (Player Images)
 //          » TYPE=merge node app.js   | (Merge JSON)
+//          » TYPE=c_merge node app.js | (Custom Merge)
 // ------------------------------------------------------
 'use strict';
 
@@ -19,6 +19,7 @@ var request     = require('request'),
     names       = ['Anaheim Ducks', 'Arizona Coyotes', 'Boston Bruins', 'Buffalo Sabres', 'Calgary Flames', 'Carolina Hurricanes', 'Chicago Blackhawks', 'Colorado Avalanche', 'Columbus Blue Jackets', 'Dallas Stars', 'Detroit Red Wings', 'Edmonton Oilers', 'Florida Panthers', 'Los Angeles Kings', 'Minnesota Wild', 'Montreal Canadiens', 'Nashville Predators', 'New Jersey Devils', 'New York Islanders', 'New York Rangers', 'Ottawa Senators', 'Philadelphia Flyers', 'Pittsburgh Penguins', 'San Jose Sharks', 'St. Louis Blues', 'Tampa Bay Lightning', 'Toronto Maple Leafs', 'Vancouver Canucks', 'Washington Capitals', 'Winnipeg Jets'],
     league_obj  = {},
     team_obj    = {},
+    new_obj     = {},
     cur_team    = 0,
     players_obj = {},
     player      = {},
@@ -33,12 +34,19 @@ var request     = require('request'),
     scan_player = false,
     scan_goalie = false,
     group_count = 0,
-    jersey      = /#(\d+)/,
+    groups      = ['forwards', 'defensemen', 'goaltenders', 'other', 'inactive'],
     righty      = /Shoots: R/,
     lefty       = /Shoots: L/,
+    age         = /(Age\: )(\d+)/,
+    nation      = /(nat_)([a-z]+)(\.gif)/,
+    jersey      = /(Jersey Number\: )(\d+)/,
+    player_id   = /(\/player_stats\/)(\d+)(-)/,
+    position    = /(Position: )(Left|Center|Right|Defence|Goaltender)/,
     interval,
     stream,
     image,
+    title,
+    href,
     url,
     key,
     $;
@@ -111,6 +119,50 @@ function savePayrolls() {
         $(this).children('.future-year').each(function() {
           cur_player.contract.push($(this).text().trim());
         });
+        // team
+        cur_player.team = teams[cur_team];
+        // id
+        href = $(this).children('.team-cell').children('a').attr('href');
+        if (player_id.test(href)) {
+          cur_player.id = player_id.exec(href)[2];
+        }
+        // age
+        title = $(this).children('.team-cell').children('a').attr('title');
+        if (age.test(title)) {
+          cur_player.age = age.exec(title)[2];
+        } else {
+          cur_player.age = '';
+        }
+        // nation
+        if (nation.test(title)) {
+          cur_player.nation = nation.exec(title)[2].toUpperCase();
+        } else {
+          cur_player.nation = '';
+        }
+        // position
+        if (position.test(title)) {
+          if (position.exec(title)[2] === 'Left') {
+            cur_player.position = 'LW';
+          } else if (position.exec(title)[2] === 'Center') {
+            cur_player.position = 'C';
+          } else if (position.exec(title)[2] === 'Right') {
+            cur_player.position = 'RW';
+          } else if (position.exec(title)[2] === 'Defence') {
+            cur_player.position = 'D';
+          } else if (position.exec(title)[2] === 'Goaltender') {
+            cur_player.position = 'G';
+          }
+        } else {
+          cur_player.position = '';
+        }
+        // jersey
+        if (jersey.test(title) && jersey.exec(title)[2] !== '0') {
+          cur_player.jersey = jersey.exec(title)[2];
+        } else {
+          cur_player.jersey = '';
+        }
+        // status (active/inactive/injured/traded/waived/retired/buyout/overage/outside)
+        cur_player.status = $(this).children('.team-cell').children('a').attr('class');
       }
     });
     // write json data
@@ -169,10 +221,8 @@ function updatePlayerInfo() {
           player.shot = 'L';
         } else if (righty.test(html)) {
           player.shot = 'R';
-        }
-        // jersey number
-        if (jersey.exec(html)) {
-          player.jersey = jersey.exec(html)[1];
+        } else {
+          player.shot = '';
         }
         // next player
         cur_player++;
@@ -250,6 +300,7 @@ function getPlayerImages() {
         setTimeout(getPlayerImages, 7000);
       })
       .pipe(stream);
+    // [Manual Mode]
     // console.log('Player Image Saved (' + image + ') [' + cur_player + '/' + num_players + ']');
     // player.image = 'http://img.capcrunch.io/players/' + image;
     // cur_player++;
@@ -270,26 +321,73 @@ function getPlayerImages() {
 }
 
 // Compile Data (data.json)
-function mergeData() {
+function mergeData(flag) {
 
   if (!cur_team) { console.log('Starting Merge... (Hold on to your butts)'); }
 
-  if (cur_team < teams.length) {
-    fs.readFile('data/teams/' + teams[cur_team] + '-img.json', function(err, data) {
-      if (!err) {
-        team_obj = JSON.parse(data);
-        league_obj[teams[cur_team]] = team_obj[teams[cur_team]];
-        cur_team++;
-        mergeData();
-      } else { console.error(err); }
-    });
-  } else if (cur_team === teams.length) {
-    // fs.writeFile('data/data.json', JSON.stringify(league_obj, null, ' '), function(fs_err) {
-    fs.writeFile('data/data.json', JSON.stringify(league_obj), function(fs_err) {
-      if (!fs_err) {
-        console.log('DONE!');
-      } else { return console.error(fs_err); }
-    });
+  // Custom Merge/Update
+  if (flag === 'custom') {
+    if (cur_team < teams.length) {
+      fs.readFile('data/teams/' + teams[cur_team] + '.json', function(new_err, new_data) {
+        if (!new_err) {
+          new_obj = JSON.parse(new_data);
+          fs.readFile('data/teams/' + teams[cur_team] + '-img.json', function(err, data) {
+            if (!err) {
+              var i, j;
+              team_obj = JSON.parse(data);
+              for (i = 0; i < groups.length; i++) {
+                for (j = 0; j < new_obj[teams[cur_team]].players[groups[i]].length; j++) {
+                  // shot
+                  if (team_obj[teams[cur_team]].players[groups[i]][j].shot) {
+                    new_obj[teams[cur_team]].players[groups[i]][j].shot = team_obj[teams[cur_team]].players[groups[i]][j].shot;
+                  } else {
+                    new_obj[teams[cur_team]].players[groups[i]][j].shot = '';
+                  }
+                  // image
+                  if (team_obj[teams[cur_team]].players[groups[i]][j].image) {
+                    new_obj[teams[cur_team]].players[groups[i]][j].image = team_obj[teams[cur_team]].players[groups[i]][j].image;
+                  } else {
+                    new_obj[teams[cur_team]].players[groups[i]][j].image = '';
+                  }
+                  // jersey
+                  if (!new_obj[teams[cur_team]].players[groups[i]][j].jersey && team_obj[teams[cur_team]].players[groups[i]][j].jersey) {
+                    new_obj[teams[cur_team]].players[groups[i]][j].jersey = team_obj[teams[cur_team]].players[groups[i]][j].jersey;
+                  }
+                }
+              }
+              new_obj = new_obj[teams[cur_team]];
+              new_obj.id = teams[cur_team];
+              fs.writeFile('data/prod/' + teams[cur_team] + '.json', JSON.stringify(new_obj, null, '\t'), function(fs_err) {
+                if (!fs_err) {
+                  cur_team++;
+                  mergeData('custom');
+                } else { return console.error(fs_err); }
+              });
+            } else { console.error(err); }
+          });
+        } else { console.error(new_err); }
+      });
+    } else if (cur_team === teams.length) { console.log('DONE!'); }
+
+  // Default Merge
+  } else {
+    if (cur_team < teams.length) {
+      fs.readFile('data/teams/' + teams[cur_team] + '-img.json', function(err, data) {
+        if (!err) {
+          team_obj = JSON.parse(data);
+          league_obj[teams[cur_team]] = team_obj[teams[cur_team]];
+          cur_team++;
+          mergeData('default');
+        } else { console.error(err); }
+      });
+    } else if (cur_team === teams.length) {
+      // fs.writeFile('data/data.json', JSON.stringify(league_obj, null, '\t'), function(fs_err)...
+      fs.writeFile('data/data.json', JSON.stringify(league_obj), function(fs_err) {
+        if (!fs_err) {
+          console.log('DONE!');
+        } else { return console.error(fs_err); }
+      });
+    }
   }
 }
 
@@ -303,7 +401,9 @@ if (TYPE === 'get') {
 } else if (TYPE === 'images') {
   getPlayerImages();
 } else if (TYPE === 'merge') {
-  mergeData();
+  mergeData('default');
+} else if (TYPE === 'c_merge') {
+  mergeData('custom');
 } else {
   console.log(TYPE);
 }

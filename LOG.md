@@ -13,7 +13,7 @@
   - https://twitter.com/chrismpeters/status/578977478875553792
 
 
-#### LATER » Did You Uptick Version? » [v0.4.4]
+#### LATER
 
 - 'design'
 - 'analytics + monitoring'
@@ -30,25 +30,30 @@
 - 'disable user-select'
 
 
-#### NOW
+#### NOW » Did You Uptick Version? » [v0.5.0]
 
+- 'fix DnD event timers'
+- 'add DnD item drag handles'
+- 'setup team-specific player item hiding'
+-  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.5.1] «
+- 'update roster grid data management'
 - 'roster grid player item drag-n-drop'
+- 'roster grid player item removal/adjustment'
+-  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.5.2] «
 - 'reset panel scroll position on team change'
 - 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
--  »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.4.5] «
 - 'component/session state + share'
 - 'cap stats calculator panel + logic'
-- 'Tools: mongo collection builder + importer'
-- 'Tools: add check for existing player jersey/shot'
-- 'Tools: add empty/nbsp jersey/shot if missing'
-- 'Tools: get new player data (position, age, nationality, ID)'
 - 'trade player panel + logic'
 - 'create player panel + logic'
 
 
 #### READY
 
+- 'Update Data Utility + Database Schema + Player Data (details in LOG.md) [v0.5.0]'
+- 'update player data (ID, TEAM, POS, AGE, NATION)'
+- 'backup/update dev + prod DB'
 - 'initial roster grid player item data management [v0.4.4]'
 - 'initial player list drag-n-drop'
 - 'distill roster-menu player-list panels into sub-components [v0.4.3]'
@@ -77,3 +82,24 @@
 - 'setup node server (Express, Socket.io) + restructure public assets [v0.2.0]'
 - 'update docs, favicon, dependencies [v0.1.1]'
 - 'initial build'
+
+
+
+#### NOTES
+
+###### Local DB Backup
+$ mongoexport -d cc -c teams -o backup.json -v (--pretty)
+
+###### Local DB Import/Rebuild
+$ mongo --shell
+$ use cc
+$ db.teams.drop()
+$ db.createCollection('teams')
+$ exit
+$ mongoimport --db cc --collection teams --type json --file TEAM_ID.json --jsonArray
+
+###### Prod DB Backup
+$ mongoexport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p nmqh43ko5r8p3qkgjull6p0v1a -o backup.json
+
+###### Prod DB Import
+$ mongoimport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p nmqh43ko5r8p3qkgjull6p0v1a --file teams.json
