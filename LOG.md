@@ -17,34 +17,38 @@
 
 - 'design'
 - 'analytics + monitoring'
+- 'node jade view engine'
 - 'Typekit + gulp asset management (fonts, images)'
 - 'minor team roster/lineup'
 - 'unit testing (Jest / Jasmine)'
 - 'SEO friendly ReactJS SSR markup'
-- 'pre-cache player images on team select'
-- 'feature detection: `if (!Modernizr.draganddrop)` (gulp-modernizr)'
-- 'panel scrollbar consistency'
-- 'collapsable menu panels'
+- 'player image CDN / redundancy'
 
 
-#### NOW » Did You Uptick Version? » [v0.5.4]
+#### NOW » Did You Uptick Version? » [v0.5.5]
 
-- 'light-up roster grid (open) tiles onDrag'
-- 'reset panel scroll position on team change'
-- 'panel update transition fade effect'
-- 'update roster grid data management'
-- 'roster grid player item drag-n-drop'
-- 'roster grid player item removal/adjustment'
+- 'roster grid tile drag-n-drop'
+- 'roster grid tile removal'
+- 'panel scroll position reset on team change'
+- 'panel transition fade effect on team change'
+- 'http-auth user authentication'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
-- 'component/session state + share'
+- 'session state / share roster model + logic'
 - 'cap stats calculator panel + logic'
 - 'trade player panel + logic'
 - 'create player panel + logic'
+- 'free agents panel + logic'
+- 'panel scrollbar consistency'
+- 'panel expand/collapse logic'
+- 'pre-cache player images on team select'
+- 'feature detection: if (!Modernizr.draganddrop)'
 
 
 #### READY
 
+- 'light-up roster grid tiles onDragStart/Over [v0.5.4]'
 - 'setup team-specific player item hiding [v0.5.3]'
 - 'fix missed drag / item stays selected bug'
 - 'hotfix item drag bg-gradient + inner-click drag event blocking'

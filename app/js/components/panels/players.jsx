@@ -23,9 +23,11 @@ var PlayersPanel = React.createClass({
                   data-firstname={player.firstname}
                   data-lastname={player.lastname}
                   data-contract={player.contract[0]}
+                  data-position={player.position}
                   data-jersey={player.jersey}
                   data-image={player.image}
                   data-shot={player.shot}
+                  data-type={playerType}
                   data-id={player.id}>
                   <div className="name" onMouseDown={this.blockDrag}>
                     <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>

@@ -69,7 +69,7 @@ var App = React.createClass({
     handleTileDragEnter: function(e) {
       e.stopPropagation();
       var dropZone = e.currentTarget;
-      if (!dropZone.dataset.state) {
+      if (dropZone.dataset.state !== 'active') {
         dropZone.className = 'tile hover';
         this.props.curDropZone = dropZone;
       }
@@ -77,8 +77,30 @@ var App = React.createClass({
       //console.log('drag enter (cur: ' + dropZone.id + ' / last: ' + this.props.lastDropZoneId + ')');
     },
     handleTileDragLeave: function(e) {
-      e.currentTarget.className = 'tile';
+      var dropZone = e.currentTarget;
+      if (dropZone.dataset.state !== 'active') {
+        e.currentTarget.className = 'tile';
+      }
       //console.log('drag leave (' + this.props.lastDropZoneId + ')');
+    },
+    highlightGrid: function(flag, type, pos) {
+      if (flag === 'on') {
+        if (type === 'Forwards' || pos && /LW|C|RW/.test(pos)) {
+          document.getElementById('forwards').className = 'panel group dragging';
+        } else if (type === 'Defense' || pos && /D/.test(pos)) {
+          document.getElementById('defense').className = 'panel group defense dragging';
+        } else if (type === 'Goalies' || pos && /G/.test(pos)) {
+          document.getElementById('goalies').className = 'panel group defense dragging';
+        } else {
+          document.getElementById('forwards').className = 'panel group dragging';
+          document.getElementById('defense').className = 'panel group defense dragging';
+          document.getElementById('goalies').className = 'panel group defense dragging';
+        }
+      } else {
+        document.getElementById('forwards').className = 'panel group';
+        document.getElementById('defense').className = 'panel group defense';
+        document.getElementById('goalies').className = 'panel group defense';
+      }
     },
 
     // Roster Menu
@@ -98,6 +120,7 @@ var App = React.createClass({
       e.dataTransfer.setData('text/html', dragItem);
       this.props.curDragItem = dragItem;
       this.props.lastDropZoneId = '';
+      this.highlightGrid('on', dragItem.dataset.type, dragItem.dataset.position);
       //console.log('drag start');
     },
     handleDragEnd: function(e) {
@@ -108,6 +131,7 @@ var App = React.createClass({
       if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         dragItem.parentNode.className = 'row removed';
         dragItem.className = 'item';
+        dropZone.className = 'tile active';
         dropZone.dataset.state = 'active';
         dragData = {
           lastname  : dragItem.dataset.lastname,
@@ -127,6 +151,7 @@ var App = React.createClass({
         dragItem.parentNode.className = 'row';
         //console.log('no tile action');
       }
+      this.highlightGrid('off');
     },
 
     render: function() {
@@ -150,7 +175,7 @@ var App = React.createClass({
                 onTileDragLeave={this.handleTileDragLeave} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.5.4</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.5.5</span></footer>
         </div>
       );
     }

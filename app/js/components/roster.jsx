@@ -194,7 +194,7 @@ var Roster = React.createClass({
               </div>
             </div>
           </div>
-          <div id="goalies-group" className="panel group defense">
+          <div id="goalies" className="panel group defense">
             <div className="title">G</div>
             <div className="inner">
               <div id="G1" className="line">

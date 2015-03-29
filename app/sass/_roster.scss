@@ -397,19 +397,22 @@
   height: inherit;
   width: 200px;
   background: #FFF;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #DDD;
   border-radius: $border-radius;
   box-shadow: 0 0 4px 0 rgba(0,0,0, .1) inset;
-  transition: .3s;
+  transition: background .25s, box-shadow .25s;
 
-  &.hover {
-    border: 1px dashed #CCC;
+  .dragging &:not(.active) {
+    background: #F9F9F9;
+    border: 1px dashed #BBB;
     box-shadow: none;
   }
 
-  &.inactive {
-    background: linear-gradient(to top, rgba(255,255,255, 0) 0%, rgba(255,255,255, .5) 100%);
-    border: 2px dashed #DDD;
+  &.hover:not(.active) {
+    background: #FFF;
+    //border: 1px dashed #CCC;
+    border: 1px dashed #D5D5D5;
+    box-shadow: 0 0 15px 0 rgba(0,0,0, .06) inset;
   }
 
   .player {
