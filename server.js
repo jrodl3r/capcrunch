@@ -6,6 +6,7 @@ var express     = require('express'),
     app         = express(),
     server      = require('http').createServer(app),
     io          = require('socket.io').listen(server),
+    auth        = require('http-auth'),
     compression = require('compression'),
     favicon     = require('serve-favicon'),
     path        = require('path'),
@@ -14,7 +15,11 @@ var express     = require('express'),
     mongoose    = require('mongoose'),
     Team        = require('./models/team.js'),
     env         = process.env.NODE_ENV || 'development',
-    port        = process.env.PORT || 3000;
+    port        = process.env.PORT || 3000,
+    admin       = auth.basic({
+      realm: 'Restricted',
+      file: path.join(__dirname, 'data/users.htpasswd')
+    });
 
 
 // Connect
@@ -38,10 +43,13 @@ if (env === 'development') {
 // Routes
 // --------------------------------------------------
 
+if (env === 'production') {
+  app.use(auth.connect(admin));
+  app.use(compression());
+}
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
-if (env === 'production') { app.use(compression()); }
 app.use('/', express.static(path.join(__dirname, '/public')));
 app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
