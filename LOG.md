@@ -15,30 +15,26 @@
 
 #### LATER
 
-- 'design'
-- 'analytics + monitoring'
-- 'node jade view engine'
 - 'minor team roster/lineup'
-- 'Typekit + gulp asset management (fonts, images)'
 - 'message-board sharing widget (dynamic image generator)'
 - 'player-list + payroll player details onHover'
+- 'analytics + monitoring'
+- 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
 - 'SEO friendly ReactJS SSR markup'
-- 'player image CDN / redundancy'
-- 'fix list-item double-click selection bug'
+- 'player image CDN (uptime/redundancy/speed)'
+- 'typekit + icomoon.io + gulp asset management (fonts, images)'
 
 
 #### NOW » Did You Uptick Version? » [v0.5.7]
 
 - 'cleanup panel player-list details'
-- 'style team-select dropdown'
-- 'panel scroll position reset on team change'
 - 'panel transition fade effect on team change'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'panel scroll position reset on team change'
 - 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
-- 'session state / share roster model + logic'
 - 'cap stats calculator panel + logic'
+- 'session state / share roster model + logic'
 - 'trade player panel + logic'
 - 'create player panel + logic'
 - 'free agents panel + logic'
@@ -46,10 +42,14 @@
 - 'panel expand/collapse logic'
 - 'pre-cache player images on team select'
 - 'feature detection: if (!Modernizr.draganddrop)'
+- 'logo / interface design + implementation'
+- 'fix list-item double-click selection bug'
+- 'fix safari textbox focus bug'
 
 
 #### READY
 
+- 'style team-select dropdown'
 - 'roster grid tile removal [v0.5.6]'
 - 'add free agents panel component placeholder'
 - 'swap font-awesome icons for arrows + pointers'
