@@ -18,20 +18,24 @@
 - 'design'
 - 'analytics + monitoring'
 - 'node jade view engine'
-- 'Typekit + gulp asset management (fonts, images)'
 - 'minor team roster/lineup'
+- 'Typekit + gulp asset management (fonts, images)'
+- 'message-board sharing widget (dynamic image generator)'
+- 'player-list + payroll player details onHover'
 - 'unit testing (Jest / Jasmine)'
 - 'SEO friendly ReactJS SSR markup'
 - 'player image CDN / redundancy'
+- 'fix list-item double-click selection bug'
 
 
-#### NOW » Did You Uptick Version? » [v0.5.5]
+#### NOW » Did You Uptick Version? » [v0.5.6]
 
-- 'roster grid tile drag-n-drop'
-- 'roster grid tile removal'
+- 'roster grid tile removal [v0.5.6]'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'cleanup panel player-list details'
+- 'style team-select dropdown'
 - 'panel scroll position reset on team change'
 - 'panel transition fade effect on team change'
-- 'http-auth user authentication'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
@@ -48,6 +52,10 @@
 
 #### READY
 
+- 'roster grid tile movement drag-n-drop [v0.5.5]'
+- 'cleanup roster grid highlighting'
+- 'cleanup react player data management (stop passing data attributes)'
+- 'http-auth user authentication'
 - 'light-up roster grid tiles onDragStart/Over [v0.5.4]'
 - 'setup team-specific player item hiding [v0.5.3]'
 - 'fix missed drag / item stays selected bug'

@@ -20,7 +20,6 @@ var PlayersPanel = React.createClass({
                   onMouseUp={this.props.handleMouseUp}
                   onDragStart={this.props.handleDragStart}
                   onDragEnd={this.props.handleDragEnd}
-                  data-jersey={player.jersey}
                   data-type={playerType}
                   data-index={i}>
                   <div className="name" onMouseDown={this.blockDrag}>

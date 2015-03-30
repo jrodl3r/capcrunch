@@ -10,12 +10,10 @@ var UI = {
   init: function() {
     // toggle roster/payroll
     $('a.payroll, a.roster').on('click', UI.toggleView);
-    // player-list mouseup catchall
+    // roster mouseup catchall
     $('#app').on('mouseup', UI.unhighlightItems);
     // testing
-    // setTimeout(function() {
-    //   $('#team-select').val('CHI').change();
-    // }, 300);
+    // $('#team-select').val('CHI').change();
   },
 
   // toggle roster/payroll
@@ -71,6 +69,8 @@ var UI = {
   // player-list mouseup catchall
   unhighlightItems: function() {
     $('#menu .player-list .item.clicked').removeClass('clicked');
+    $('#roster .player.active.clicked').removeClass('clicked');
+    $('#roster .panel.group.dragging').removeClass('dragging');
   }
 };
 

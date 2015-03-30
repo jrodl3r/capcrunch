@@ -9,15 +9,16 @@ var PlayerItem = React.createClass({
   },
   render: function() {
     var playerData = this.props.playerData;
-
     return (
-      <div className={ playerData.state !== 'empty' ? 'player active' : 'player' }
+      <div className={ playerData.id ? 'player active' : 'player' }
         draggable={true}
+        onMouseOut={this.props.handlePlayerMouseOut}
+        onMouseOver={this.props.handlePlayerMouseOver}
         onMouseDown={this.props.handlePlayerMouseDown}
         onMouseUp={this.props.handlePlayerMouseUp}
         onDragStart={this.props.handlePlayerDragStart}
         onDragEnd={this.props.handlePlayerDragEnd}>
-    { playerData.state !== 'empty'
+    { playerData.id
       ? <div className="inner">
           <div className="photo">
             <img src={ playerData.image ? playerData.image : 'http://img.capcrunch.io/players/default.png' }/>
@@ -58,6 +59,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F1L}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -70,6 +73,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F1C}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -82,6 +87,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F1R}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -97,6 +104,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F2L}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -109,6 +118,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F2C}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -121,6 +132,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F2R}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -136,6 +149,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F3L}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -148,6 +163,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F3C}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -160,6 +177,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F3R}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -175,6 +194,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F4L}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -187,6 +208,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F4C}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -199,6 +222,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.F4R}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -222,6 +247,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.D1L}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -234,6 +261,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.D1R}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -249,6 +278,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.D2L}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -261,6 +292,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.D2R}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -276,6 +309,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.D3L}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -288,6 +323,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.D3R}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -308,6 +345,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.G1L}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
@@ -321,6 +360,8 @@ var Roster = React.createClass({
                     onDragLeave={this.props.onTileDragLeave}>
                     <PlayerItem
                       playerData={this.props.rosterData.G1R}
+                      handlePlayerMouseOut={this.props.onPlayerMouseOut}
+                      handlePlayerMouseOver={this.props.onPlayerMouseOver}
                       handlePlayerMouseDown={this.props.onPlayerMouseDown}
                       handlePlayerMouseUp={this.props.onPlayerMouseUp}
                       handlePlayerDragStart={this.props.onPlayerDragStart}
