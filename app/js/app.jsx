@@ -41,9 +41,11 @@ var App = React.createClass({
         curDropZone    : null,
         curDragItem    : null,
         curDragPlayer  : null,
-        originDropZone : null
+        originDropZone : null,
+        benchPlayer    : false
       };
     },
+
     // Team Select
     handleChangeTeam: function(id) {
       Socket.emit('get team', id);
@@ -51,9 +53,10 @@ var App = React.createClass({
     },
     loadTeamData: function(data) {
       this.setState({ teamData: data });
-      // [TODO: Add Panel Transition Effect - Fade-In/Out]
+      // [TODO: Add Panel Transition Fade-In/Out Effect]
       // [TODO: Reset Panel Scroll Position]
     },
+
     // Roster Grid
     highlightGrid: function(flag, type, pos) {
       if (flag === 'on') {
@@ -79,7 +82,10 @@ var App = React.createClass({
         this.props.lastDropZoneId = '';
         //console.log('grid enter (' + this.props.curDropZone.id + ')');
       }
+      this.props.benchPlayer = false;
     },
+
+    // Roster Tiles
     handleTileDragEnter: function(e) {
       e.stopPropagation();
       var dropZone = e.currentTarget;
@@ -88,6 +94,7 @@ var App = React.createClass({
         this.props.curDropZone = dropZone;
       }
       this.props.lastDropZoneId = dropZone.id;
+      this.props.benchPlayer = false;
       //console.log('drag enter (cur: ' + dropZone.id + ' / last: ' + this.props.lastDropZoneId + ')');
     },
     handleTileDragLeave: function(e) {
@@ -97,24 +104,30 @@ var App = React.createClass({
       }
       //console.log('drag leave (' + this.props.lastDropZoneId + ')');
     },
+
+    // Roster Players
     handlePlayerMouseOver: function(e) {
-      e.currentTarget.className = 'player active hover';
+      if (e.currentTarget.parentNode.dataset.state === 'active') {
+        e.currentTarget.className = 'player active hover';
+      }
     },
     handlePlayerMouseOut: function(e) {
-      e.currentTarget.className = 'player active';
+      if (e.currentTarget.parentNode.dataset.state === 'active') {
+        e.currentTarget.className = 'player active';
+      }
     },
     handlePlayerMouseDown: function(e) {
       e.currentTarget.className = 'player active clicked';
       this.props.curDragPlayer = this.state.rosterData[e.currentTarget.parentNode.id];
       this.highlightGrid('on', this.props.curDragPlayer.type, this.props.curDragPlayer.position);
-      //console.log('player mouse down');
+      this.showPlayerBench();
     },
     handlePlayerMouseUp: function(e) {
       e.currentTarget.className = 'player active';
       e.currentTarget.parentNode.className = 'tile active';
       this.props.curDragPlayer = null;
       this.highlightGrid('off');
-      //console.log('player mouse up');
+      this.hidePlayerBench();
     },
     handlePlayerDragStart: function(e) {
       var playerItem = e.currentTarget;
@@ -122,14 +135,22 @@ var App = React.createClass({
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setData('text/html', playerItem);
       this.props.originDropZone = playerItem.parentNode;
+      this.props.benchPlayer = false;
       //console.log('player drag start (' + this.props.curDragPlayer.jersey + ' / ' + this.props.curDragPlayer.type + ')');
     },
     handlePlayerDragEnd: function(e) {
-      var playerItem = e.currentTarget,
-          dropZone   = this.props.curDropZone;
+      var playerItem    = e.currentTarget,
+          dropZone      = this.props.curDropZone,
+          activePlayers = this.state.activePlayers;
       //console.log('player drag end: (' + this.props.curDragPlayer.id + ' on ' + dropZone.id + ')');
-      if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
-        playerItem.className = 'player';
+      if (this.props.benchPlayer) {
+        activePlayers.splice(activePlayers.indexOf(this.state.rosterData[this.props.originDropZone.id].id), 1);
+        this.state.rosterData[this.props.originDropZone.id] = {};
+        this.setState();
+        playerItem.parentNode.className = 'tile';
+        playerItem.parentNode.dataset.state = '';
+        console.log('player benched');
+      } else if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         playerItem.parentNode.className = 'tile';
         dropZone.className = 'tile active';
         dropZone.dataset.state = 'active';
@@ -137,30 +158,41 @@ var App = React.createClass({
         this.state.rosterData[this.props.originDropZone.id] = {};
         this.state.rosterData[dropZone.id] = this.props.curDragPlayer;
         this.setState();
-        // [TODO: Remove PlayerItem / rosterData + activePlayers]
         //console.log('moved player (' + this.props.curDragPlayer.jersey + ' to ' + dropZone.id + ')');
       } else {
-        playerItem.className = 'player active';
+        playerItem.className = 'player active hover';
         playerItem.parentNode.className = 'tile active';
         //console.log('no player movement');
       }
       this.props.curDragPlayer = null;
       this.props.originDropZone = null;
+      this.props.benchPlayer = false;
       this.highlightGrid('off');
+      this.hidePlayerBench();
     },
+
+    // Bench Player
+    showPlayerBench: function() {
+      document.getElementById('menu').className = 'section active show-bench';
+    },
+    hidePlayerBench: function() {
+      document.getElementById('menu').className = 'section active';
+    },
+    handleBenchDragEnter: function() {
+      this.props.benchPlayer = true;
+    },
+
     // Roster Menu
     handleMouseDown: function(e) {
       var dragItem   = e.currentTarget,
           playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
       dragItem.className = 'item clicked';
       this.highlightGrid('on', dragItem.dataset.type, playerData.position);
-      //console.log('mouse down');
     },
     handleMouseUp: function(e) {
       e.currentTarget.className = 'item';
       e.currentTarget.parentNode.className = 'row';
       this.highlightGrid('off');
-      //console.log('mouse up');
     },
     handleDragStart: function(e) {
       var dragItem = e.currentTarget;
@@ -194,6 +226,7 @@ var App = React.createClass({
       }
       this.highlightGrid('off');
     },
+
     render: function() {
       return (
         <div id="main">
@@ -207,7 +240,9 @@ var App = React.createClass({
                 onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}
                 onDragStart={this.handleDragStart}
-                onDragEnd={this.handleDragEnd} />
+                onDragEnd={this.handleDragEnd}
+                onBenchDragEnter={this.handleBenchDragEnter}
+                onBenchDragLeave={this.handleBenchDragLeave} />
               <Roster
                 rosterData={this.state.rosterData}
                 onGridDragEnter={this.handleGridDragEnter}
@@ -221,7 +256,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.5.5</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.5.6</span></footer>
         </div>
       );
     }

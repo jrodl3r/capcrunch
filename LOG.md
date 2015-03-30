@@ -28,10 +28,8 @@
 - 'fix list-item double-click selection bug'
 
 
-#### NOW » Did You Uptick Version? » [v0.5.6]
+#### NOW » Did You Uptick Version? » [v0.5.7]
 
-- 'roster grid tile removal [v0.5.6]'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'style team-select dropdown'
 - 'panel scroll position reset on team change'
@@ -52,6 +50,9 @@
 
 #### READY
 
+- 'roster grid tile removal [v0.5.6]'
+- 'add free agents panel component placeholder'
+- 'swap font-awesome icons for arrows + pointers'
 - 'roster grid tile movement drag-n-drop [v0.5.5]'
 - 'cleanup roster grid highlighting'
 - 'cleanup react player data management (stop passing data attributes)'

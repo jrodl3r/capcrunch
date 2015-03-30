@@ -13,7 +13,7 @@ var UI = {
     // roster mouseup catchall
     $('#app').on('mouseup', UI.unhighlightItems);
     // testing
-    // $('#team-select').val('CHI').change();
+    //$('#team-select').val('CHI').change();
   },
 
   // toggle roster/payroll

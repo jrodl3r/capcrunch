@@ -84,13 +84,13 @@ header {
       z-index: 4;
       position: absolute;
       top: 65px;
-      right: 215px;
+      right: 218px;
       height: 20px;
       width: 120px;
       line-height: 20px;
       font-size: 12px;
       font-weight: bold;
-      color: #000;
+      color: #BBB;
       opacity: 0;
       cursor: default;
       transition: .35s;
@@ -99,10 +99,12 @@ header {
         opacity: 1;
       }
 
-      .arrow {
-        position: absolute;
+      i {
+        position: relative;
         top: -3px;
-        right: -17px;
+        right: -2px;
+        transform: rotate(-35deg);
+        font-size: 13px;
       }
     }
   }

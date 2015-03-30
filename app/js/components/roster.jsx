@@ -10,7 +10,7 @@ var PlayerItem = React.createClass({
   render: function() {
     var playerData = this.props.playerData;
     return (
-      <div className={ playerData.id ? 'player active' : 'player' }
+      <div className={ playerData.id ? 'player active hover' : 'player' }
         draggable={true}
         onMouseOut={this.props.handlePlayerMouseOut}
         onMouseOver={this.props.handlePlayerMouseOver}

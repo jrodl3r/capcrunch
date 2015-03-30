@@ -2,10 +2,11 @@
 // ==================================================
 'use strict';
 
-var SharePanel   = require('./panels/share.jsx'),
-    PlayersPanel = require('./panels/players.jsx'),
-    TradePanel   = require('./panels/trade.jsx'),
-    CreatePanel  = require('./panels/create.jsx');
+var SharePanel     = require('./panels/share.jsx'),
+    PlayersPanel   = require('./panels/players.jsx'),
+    TradePanel     = require('./panels/trade.jsx'),
+    FreeAgentPanel = require('./panels/freeagents.jsx'),
+    CreatePanel    = require('./panels/create.jsx');
 
 var RosterMenu = React.createClass({
     render: function() {
@@ -18,29 +19,34 @@ var RosterMenu = React.createClass({
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
-            handleDragEnd={this.props.onDragEnd} />
+            handleDragEnd={this.props.onDragEnd}
+            handleBenchDragEnter={this.props.onBenchDragEnter} />
           <PlayersPanel playerType="defensemen" panelTitle="Defense" panelId="defense-list"
             playerData={this.props.teamData.players.defensemen}
             activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
-            handleDragEnd={this.props.onDragEnd} />
+            handleDragEnd={this.props.onDragEnd}
+            handleBenchDragEnter={this.props.onBenchDragEnter} />
           <PlayersPanel playerType="goaltenders" panelTitle="Goalies" panelId="goalies-list"
             playerData={this.props.teamData.players.goaltenders}
             activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
-            handleDragEnd={this.props.onDragEnd} />
+            handleDragEnd={this.props.onDragEnd}
+            handleBenchDragEnter={this.props.onBenchDragEnter} />
           <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
             playerData={this.props.teamData.players.inactive}
             activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
-            handleDragEnd={this.props.onDragEnd} />
+            handleDragEnd={this.props.onDragEnd}
+            handleBenchDragEnter={this.props.onBenchDragEnter} />
           <TradePanel />
+          <FreeAgentPanel />
           <CreatePanel />
         </div>
       );

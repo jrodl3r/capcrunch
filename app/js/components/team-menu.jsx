@@ -30,7 +30,7 @@ var TeamMenu = React.createClass({
                 <li><a href="#" className="payroll">Payroll</a></li>
                 <li><a href="#" className="roster active">Roster</a></li>
               </ul>
-              <div id="team-select-reminder">Select Team<span className="arrow">&#10548;</span></div>
+              <div id="team-select-reminder">Select Team <i className="fa fa-hand-o-right"></i></div>
             </nav>
           </div>
         </header>
