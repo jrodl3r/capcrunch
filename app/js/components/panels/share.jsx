@@ -6,7 +6,7 @@ var SharePanel = React.createClass({
     render: function() {
       return (
         <div id="share">
-          <input type="text" placeholder={this.props.teamName ? this.props.teamName : 'Roster Name'} />
+          <input id="roster-name" type="text" placeholder={this.props.teamName ? this.props.teamName : 'Roster Name'} />
           <button>Share</button>
         </div>
       );

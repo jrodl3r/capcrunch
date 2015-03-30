@@ -12,22 +12,7 @@ var TeamMenu    = require('./components/team-menu.jsx'),
 var App = React.createClass({
     getInitialState: function() {
       Socket.on('load team', this.loadTeamData);
-
       return {
-        activeTeam      : '',
-        activePlayers   : [],
-        teamData        : {
-          id            : '',
-          name          : '',
-          cap           : { hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
-          players       : {
-            forwards    : [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
-            defensemen  : [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
-            goaltenders : [{ lastname: '', firstname: '', contract: [''], shot: '', jersey: '', image: '' }],
-            other       : [{ lastname: '', firstname: '', contract: ['']}],
-            inactive    : [{ lastname: '', firstname: '', contract: ['']}]
-          }
-        },
         rosterId        : '',
         rosterName      : '',
         rosterData      : {
@@ -39,6 +24,14 @@ var App = React.createClass({
           D2L           : { state: 'empty' }, D2R: { state: 'empty' },
           D3L           : { state: 'empty' }, D3R: { state: 'empty' },
           G1L           : { state: 'empty' }, G1R: { state: 'empty' }
+        },
+        activeTeam      : '',
+        activePlayers   : [],
+        teamData        : {
+          id            : '',
+          name          : '',
+          cap           : { hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
+          players       : { forwards: [], defensemen: [], goaltenders: [], other: [], inactive: []}
         }
       };
     },
@@ -46,7 +39,8 @@ var App = React.createClass({
       return {
         lastDropZoneId : '',
         curDropZone    : null,
-        curDragItem    : null
+        curDragItem    : null,
+        curDragPlayer  : null
       };
     },
 
@@ -83,13 +77,61 @@ var App = React.createClass({
       }
       //console.log('drag leave (' + this.props.lastDropZoneId + ')');
     },
+
+
+
+
+    handlePlayerMouseDown: function(e) {
+      e.currentTarget.className = 'player active clicked';
+      this.props.curDragPlayer = this.state.rosterData[e.currentTarget.parentNode.id]; // [XXX: Will break on missed drag]
+      this.highlightGrid('on', this.props.curDragPlayer.type, this.props.curDragPlayer.position);
+      // ...
+      // console.log('player mouse down');
+    },
+    handlePlayerMouseUp: function(e) {
+      e.currentTarget.className = 'player active';
+      e.currentTarget.parentNode.className = 'tile active';
+      this.props.curDragPlayer = null;
+      this.highlightGrid('off');
+      // ...
+      // console.log('player mouse up');
+    },
+    handlePlayerDragStart: function(e) {
+      var playerItem = e.currentTarget;
+      playerItem.parentNode.className = 'tile active engaged';
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', playerItem);
+      // ...
+      //console.log('player drag start (' + this.props.curDragPlayer.jersey + ' / ' + this.props.curDragPlayer.type + ')');
+    },
+    handlePlayerDragEnd: function(e) {
+      e.currentTarget.className = 'player active';
+      e.currentTarget.parentNode.className = 'tile active';
+
+      // if curDropZone is empty...
+      // ..remove item from dragStart tile
+      // ..update rosterData at both positions
+      // ..activePlayers stays the same
+
+      // ..unless dragged back to player panels
+      // ..then remove player from rosterData + activePlayers
+
+      this.props.curDragPlayer = null;
+      this.highlightGrid('off');
+      // ...
+      console.log('player drag end');
+    },
+
+
+
+
     highlightGrid: function(flag, type, pos) {
       if (flag === 'on') {
-        if (type === 'Forwards' || pos && /LW|C|RW/.test(pos)) {
+        if (type === 'forwards' || pos && /LW|C|RW/.test(pos)) {
           document.getElementById('forwards').className = 'panel group dragging';
-        } else if (type === 'Defense' || pos && /D/.test(pos)) {
+        } else if (type === 'defensemen' || pos && /D/.test(pos)) {
           document.getElementById('defense').className = 'panel group defense dragging';
-        } else if (type === 'Goalies' || pos && /G/.test(pos)) {
+        } else if (type === 'goaltenders' || pos && /G/.test(pos)) {
           document.getElementById('goalies').className = 'panel group defense dragging';
         } else {
           document.getElementById('forwards').className = 'panel group dragging';
@@ -103,15 +145,22 @@ var App = React.createClass({
       }
     },
 
+
+
     // Roster Menu
     handleMouseDown: function(e) {
-      e.currentTarget.className = 'item clicked';
-      //console.log('mouse down (' + e.currentTarget.dataset.jersey + ')');
+      var dragItem   = e.currentTarget,
+          playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
+      dragItem.className = 'item clicked';
+      this.highlightGrid('on', dragItem.dataset.type, playerData.position);
+      // ...
+      console.log('mouse down (' + playerData.jersey + ')');
     },
     handleMouseUp: function(e) {
       e.currentTarget.className = 'item';
       e.currentTarget.parentNode.className = 'row';
-      //console.log('mouse up (' + e.currentTarget.dataset.jersey + ')');
+      this.highlightGrid('off');
+      console.log('mouse up (' + e.currentTarget.dataset.jersey + ')');
     },
     handleDragStart: function(e) {
       var dragItem = e.currentTarget;
@@ -120,30 +169,23 @@ var App = React.createClass({
       e.dataTransfer.setData('text/html', dragItem);
       this.props.curDragItem = dragItem;
       this.props.lastDropZoneId = '';
-      this.highlightGrid('on', dragItem.dataset.type, dragItem.dataset.position);
-      //console.log('drag start');
+      // ...
+      //console.log('item drag start');
     },
     handleDragEnd: function(e) {
-      var dragData = {},
-          dragItem = e.currentTarget,
-          dropZone = this.props.curDropZone;
+      var playerData = {},
+          dragItem   = e.currentTarget,
+          dropZone   = this.props.curDropZone;
       //console.log('drag end: (cur zone: ' + dropZone.id + ' / last zone: ' + this.props.lastDropZoneId + ')');
       if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         dragItem.parentNode.className = 'row removed';
         dragItem.className = 'item';
         dropZone.className = 'tile active';
         dropZone.dataset.state = 'active';
-        dragData = {
-          lastname  : dragItem.dataset.lastname,
-          firstname : dragItem.dataset.firstname,
-          contract  : dragItem.dataset.contract,
-          jersey    : dragItem.dataset.jersey,
-          image     : dragItem.dataset.image,
-          shot      : dragItem.dataset.shot,
-          id        : dragItem.dataset.id
-        };
-        this.state.activePlayers.push(dragData.id);
-        this.state.rosterData[dropZone.id] = dragData;
+        playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
+        playerData.type = dragItem.dataset.type;
+        this.state.activePlayers.push(playerData.id);
+        this.state.rosterData[dropZone.id] = playerData;
         this.setState();
         //console.log('tile filled (' + dragItem.dataset.jersey + ' » ' + dropZone.id + ')');
       } else {
@@ -172,7 +214,11 @@ var App = React.createClass({
                 rosterData={this.state.rosterData}
                 onGridDragEnter={this.handleGridDragEnter}
                 onTileDragEnter={this.handleTileDragEnter}
-                onTileDragLeave={this.handleTileDragLeave} />
+                onTileDragLeave={this.handleTileDragLeave}
+                onPlayerMouseDown={this.handlePlayerMouseDown}
+                onPlayerMouseUp={this.handlePlayerMouseUp}
+                onPlayerDragStart={this.handlePlayerDragStart}
+                onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
           <footer>CapCrunch.io <span className="version">v0.5.5</span></footer>

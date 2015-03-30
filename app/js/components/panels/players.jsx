@@ -8,9 +8,9 @@ var PlayersPanel = React.createClass({
       e.stopPropagation();
     },
     render: function() {
-      var haveData    = this.props.playerData[0].firstname ? true : false,
+      var haveData    = this.props.playerData[0] ? true : false,
           playerType  = this.props.playerType,
-          isSkater    = playerType === 'Goalies' || playerType === 'Inactive' ? true : false,
+          isSkater    = playerType !== 'goaltenders' || playerType !== 'inactive' ? false : true,
           playerItems = this.props.playerData.map(function(player, i) {
             return (
               <li className={ this.props.activePlayers.indexOf(player.id) !== -1 ? 'row removed' : 'row'}>
@@ -20,15 +20,9 @@ var PlayersPanel = React.createClass({
                   onMouseUp={this.props.handleMouseUp}
                   onDragStart={this.props.handleDragStart}
                   onDragEnd={this.props.handleDragEnd}
-                  data-firstname={player.firstname}
-                  data-lastname={player.lastname}
-                  data-contract={player.contract[0]}
-                  data-position={player.position}
                   data-jersey={player.jersey}
-                  data-image={player.image}
-                  data-shot={player.shot}
                   data-type={playerType}
-                  data-id={player.id}>
+                  data-index={i}>
                   <div className="name" onMouseDown={this.blockDrag}>
                     <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
                     {player.lastname}, {player.firstname}
@@ -44,8 +38,8 @@ var PlayersPanel = React.createClass({
           }.bind(this));
 
       return (
-        <div id={this.props.panelId} className={ playerType === 'Goalies' ? 'panel short player-list' : 'panel player-list' }>
-          <div className="title">{playerType}</div>
+        <div id={this.props.panelId} className={ playerType === 'goaltenders' ? 'panel short player-list' : 'panel player-list' }>
+          <div className="title">{this.props.panelTitle}</div>
       { haveData
         ? <div className="inner">
             <div className="header">
