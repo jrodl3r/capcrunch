@@ -9,6 +9,7 @@
   - http://war-on-ice.com
   - http://mirtle.blogspot.ca/2015/03/matthew-wuest-1979-2015.html
   - http://www.inlouwetrust.com/2015/3/23/8272707/who-else-other-than-the-nhl-can-try-to-make-a-new-capgeek
+  - http://thehockeywriters.com/the-dream-team-an-nhl-11-case-study
   - https://twitter.com/bruce_arthur/status/578716668484005888
   - https://twitter.com/chrismpeters/status/578977478875553792
 
@@ -18,6 +19,7 @@
 - 'minor team roster/lineup'
 - 'message-board sharing widget (dynamic image generator)'
 - 'player-list + payroll player details onHover'
+- 'next/new feature user voting'
 - 'analytics + monitoring'
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
@@ -25,36 +27,39 @@
 - 'player image CDN (uptime/redundancy/speed)'
 - 'typekit + icomoon.io + gulp asset management (fonts, images)'
 - 'add player group line drag action (drag over + icon to reveal)'
+- 'editable player tile info (salary) + add to LTIR button'
+- 'clear/reset roster button'
+- 'sticky cap stats panel'
 
 
 #### NOW » Did You Uptick Version? » [v0.6.0]
 
+- 'payroll player-status icon labels'
 - 'payroll table sticky headers (thead>tr>th)'
-- 'payroll UFA/RFA cell styles'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.6.1] »»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
-- 'panel scroll position reset on team change'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'panel scroll reset on team change'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.6.2] »»
 - 'share roster socket db model + logic'
 - 'share roster socket.io REST API'
 - 'session state clear + restore (cookies / local storage?)'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.6.6] »»
 - 'trade player panel + logic [v0.7.0]'
 - 'free agents panel + logic [v0.7.5]'
 - 'create player panel + logic [v0.8.0]'
 - 'panel scrollbar consistency'
 - 'panel expand/collapse logic'
-- 'pre-cache player images on team select'
+- 'pre-cache player images on player item hover'
 - 'feature detection: if (!Modernizr.draganddrop)'
 - 'logo / interface design + implementation'
 - 'fix list-item double-click selection bug'
 - 'fix safari textbox focus bug'
-- 'sticky cap stats panel'
 
 
 #### READY
 
+- 'cleanup payroll table, add UFA/RFA cell styles'
 - 'cap stats calculator panel + logic [v0.6.0]'
 - 'style bench/remove-player hover'
 - 'style team-select dropdown'

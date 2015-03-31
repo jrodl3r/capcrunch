@@ -143,6 +143,7 @@ var App = React.createClass({
       // Bench Player
       if (this.props.benchPlayer) {
         activePlayers.splice(activePlayers.indexOf(this.state.rosterData[this.props.originDropZone.id].id), 1);
+        // TODO Add updateCapStats Method
         this.state.rosterData.hit = (parseFloat(this.state.rosterData.hit) - parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
         this.state.rosterData.space = (parseFloat(this.state.rosterData.space) + parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
         this.state.rosterData[this.props.originDropZone.id] = {};
@@ -219,6 +220,7 @@ var App = React.createClass({
         playerData.type = dragItem.dataset.type;
         this.state.activePlayers.push(playerData.id);
         this.state.rosterData[dropZone.id] = playerData;
+        // TODO Add updateCapStats Method
         this.state.rosterData.hit = (parseFloat(this.state.rosterData.hit) + parseFloat(playerData.contract[0])).toFixed(3);
         this.state.rosterData.space = (parseFloat(this.state.rosterData.space) - parseFloat(playerData.contract[0])).toFixed(3);
         this.setState();

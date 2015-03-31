@@ -21,6 +21,11 @@
     line-height: 32px;
     cursor: default;
     transition: .1s;
+
+    margin-bottom: 0;
+    padding-bottom: 30px;
+    background: #FFF;
+    box-sizing: initial;
   }
 
   .cap-stats {
@@ -48,14 +53,20 @@ table {
   overflow: scroll;
 
   tr {
-    height: 20px;
+    height: 35px;
     font-size: 11px;
     text-align: center;
+    //transition: .3s;
+
+    &:nth-child(odd) {
+      background: #F4F4F4;
+    }
 
     td {
       width: 75px;
       padding: 6px 10px;
       cursor: default;
+      //transition: .3s;
 
       &:first-of-type {
         width: 205px;
@@ -65,81 +76,133 @@ table {
 
       &.cap {
         width: 80px;
-        background: #DDD;
+        background: #CCC;
+
+        /* &:before {
+          position: absolute;
+          top: 0;
+          left: -8px;
+          height: 100%;
+          width: 8px;
+          content: ' ';
+          box-shadow: -8px 0 8px -8px rgba(0,0,0, .12) inset;
+        } */
+      }
+
+      &.UFA span, &.RFA span {
+        display: inline-block;
+        width: 100%;
+        color: #409922;
+        line-height: 23px;
+        font-size: 9px;
+        font-weight: bold;
+        background: #BBEFBB;
+        border-radius: $border-radius;
+      }
+
+      &.RFA span {
+        color: #BD3D3D;
+        background: #F7C8C8;
       }
     }
 
     &.header {
+      height: 40px;
       color: #FFF;
       background: #000;
       font-weight: bold;
 
-      td {
-        padding-top: 10px;
+      th {
+        font-size: 10px;
         background: transparent;
+        cursor: default;
+
+        &.cap {
+          font-size: 11px;
+        }
       }
     }
 
     &.title {
-      color: #EEE;
+      height: 28px;
+      color: #CCC;
       font-weight: bold;
       background: #666;
 
+      i {
+        position: relative;
+        top: 1px;
+        color: #AAA;
+        font-size: 13px;
+        padding-right: 8px;
+      }
+
       td.cap {
-        background: #555;
+        position: relative;
+        background: #545454;
+
+        /* &:before {
+          box-shadow: -8px 0 8px -8px rgba(0,0,0, .55) inset;
+        } */
       }
     }
 
     &.player {
+      color: #444;
 
-      &.forward {
-        border-top: none;
-
-        & ~ .forward {
-          border-top: 1px solid #EEE;
-        }
+      &:nth-child(odd) td.cap {
+        background: #EAEAEA;
       }
 
-      &.defender {
-        border-top: none;
+      &:hover {
+        color: #000;
+        background: rgba(1,131,218, .1);
 
-        & ~ .defender {
-          border-top: 1px solid #EEE;
+        td.cap {
+          color: #000;
+          background: rgba(1,131,218, .1);
+
+          /* &:before {
+            box-shadow: -8px 0 8px -8px rgba(1,131,218, .25) inset;
+          } */
         }
-      }
 
-      &.goaltender {
-        border-top: none;
-
-        & ~ .goaltender {
-          border-top: 1px solid #EEE;
+        td.UFA span, td.RFA span {
+          color: #15487B;
+          background: #BBD5EF;
+          box-shadow: none;
+          opacity: .7;
         }
-      }
 
-      &.other {
-        border-top: none;
-
-        & ~ .other {
-          border-top: 1px solid #EEE;
+        .jersey {
+          color: #AAA;
         }
-      }
-
-      &.inactive {
-        border-top: none;
-
-        & ~ .inactive {
-          border-top: 1px solid #EEE;
-        }
-      }
-
-      &:nth-child(even) {
-        background: #F4F4F4;
       }
 
       td.cap {
-        background: #E5E5E5;
+        position: relative;
+        background: #ECECEC;
         font-weight: bold;
         color: #666;
+      }
+
+      .jersey {
+        position: relative;
+        display: inline-block;
+        left: -4px;
+        width: 16px;
+        color: #D6D6D6;
+        font-size: 10px;
+        text-align: center;
+        //transition: .3s;
+      }
+    }
+
+    &.overage {
+      color: #AAA;
+
+      td.cap {
+        color: #AAA;
       }
     }
   }
