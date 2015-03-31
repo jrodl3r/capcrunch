@@ -24,17 +24,21 @@
 - 'SEO friendly ReactJS SSR markup'
 - 'player image CDN (uptime/redundancy/speed)'
 - 'typekit + icomoon.io + gulp asset management (fonts, images)'
+- 'add player group line drag action (drag over + icon to reveal)'
 
 
-#### NOW » Did You Uptick Version? » [v0.5.7]
+#### NOW » Did You Uptick Version? » [v0.6.0]
 
+- 'payroll table sticky headers (thead>tr>th)'
+- 'payroll UFA/RFA cell styles'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
 - 'panel scroll position reset on team change'
-- 'payroll table sticky headers (thead>tr>th)'
-- 'payroll UFA/RFA cell styles'
-- 'cap stats calculator panel + logic [v0.6.0]'
-- 'session state / share roster model + logic'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'share roster socket db model + logic'
+- 'share roster socket.io REST API'
+- 'session state clear + restore (cookies / local storage?)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade player panel + logic [v0.7.0]'
 - 'free agents panel + logic [v0.7.5]'
@@ -46,10 +50,12 @@
 - 'logo / interface design + implementation'
 - 'fix list-item double-click selection bug'
 - 'fix safari textbox focus bug'
+- 'sticky cap stats panel'
 
 
 #### READY
 
+- 'cap stats calculator panel + logic [v0.6.0]'
 - 'style bench/remove-player hover'
 - 'style team-select dropdown'
 - 'roster grid tile removal [v0.5.6]'

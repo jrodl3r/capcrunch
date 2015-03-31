@@ -44,7 +44,21 @@ var Roster = React.createClass({
     render: function() {
       return (
         <div id="roster" className="section active" onDragEnter={this.props.onGridDragEnter}>
-          <div id="stats">Cap Stats</div>
+          <div id="roster-stats" className={ this.props.activePlayers.length ? 'cap-stats active' : 'cap-stats' }>
+            <div id="rcap-player-count" className="section">
+          { this.props.activePlayers.length ? <span>Roster Players <span className="value">{this.props.activePlayers.length}</span></span> : '' }
+            </div>
+            <div id="rcap-payroll-total" className="section">
+          { this.props.activePlayers.length ? <span>Payroll Total <span className="value">{this.props.rosterData.hit}</span></span> : '' }
+            </div>
+            <div id="rcap-cap-space" className="section">
+          { this.props.activePlayers.length ? <span>Cap Space <span className="value">{this.props.rosterData.space}</span></span> : '' }
+            </div>
+            <div id="rcap-salary-cap" className="section">
+          { this.props.activePlayers.length ? <span>Salary Cap <span className="value">{this.props.leagueData.cap}</span></span> : '' }
+            </div>
+          { !this.props.activePlayers.length ? <span className="placeholder">Cap Stats</span> : '' }
+          </div>
           <div id="forwards" className="panel group">
             <div className="title">
               <div className="left">LW</div>

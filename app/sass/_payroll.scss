@@ -21,20 +21,11 @@
     line-height: 32px;
     cursor: default;
     transition: .1s;
+  }
 
-    .stats {
-      float: right;
-      height: 32px;
-      width: 600px;
-      margin: 0;
-      line-height: 32px;
-      color: #DDD;
-      font-size: 13px;
-      font-weight: bold;
-      text-align: center;
-      border: 1px dashed #DDD;
-      border-radius: $border-radius;
-    }
+  .cap-stats {
+    float: right;
+    //width: 600px;
   }
 
   .inner {

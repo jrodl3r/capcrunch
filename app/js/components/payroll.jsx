@@ -9,9 +9,27 @@ var Payroll = React.createClass({
       UI.updatePayrollHeight();
     },
     render: function() {
+      var playerData = this.props.teamData.players;
       return (
         <div id="payroll" className="section">
-          <h2>{this.props.teamData.name} <div className="stats">Cap Stats</div></h2>
+          <h2>{this.props.teamData.name}
+            <div id="payroll-stats" className="cap-stats active">
+              <div id="pcap-player-count" className="section">
+                Roster Players <span className="value">
+                  {playerData.forwards.length + playerData.defensemen.length + playerData.goaltenders.length}
+                </span>
+              </div>
+              <div id="pcap-payroll-total" className="section">
+                Payroll Total <span className="value">{this.props.teamData.cap.hit}</span>
+              </div>
+              <div id="pcap-cap-space" className="section">
+                Cap Space <span className="value">{this.props.teamData.cap.space}</span>
+              </div>
+              <div id="pcap-salary-cap" className="section">
+                Salary Cap <span className="value">{this.props.leagueData.cap}</span>
+              </div>
+            </div>
+          </h2>
           <div className="inner">
             <table id="team-payroll">
               <tbody>
@@ -33,7 +51,7 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.forwards}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {this.props.teamData.players.forwards.map(function(forward) {
+                {playerData.forwards.map(function(forward) {
                   return (
                     <tr className="player forward">
                       <td>{forward.lastname}, {forward.firstname}</td>
@@ -48,7 +66,7 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.defensemen}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {this.props.teamData.players.defensemen.map(function(defender) {
+                {playerData.defensemen.map(function(defender) {
                   return (
                     <tr className="player defender">
                       <td>{defender.lastname}, {defender.firstname}</td>
@@ -63,7 +81,7 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.goaltenders}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {this.props.teamData.players.goaltenders.map(function(goaltender) {
+                {playerData.goaltenders.map(function(goaltender) {
                   return (
                     <tr className="player goaltender">
                       <td>{goaltender.lastname}, {goaltender.firstname}</td>
@@ -78,7 +96,7 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.other}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {this.props.teamData.players.other.map(function(player) {
+                {playerData.other.map(function(player) {
                   if (player.firstname) {
                     return (
                       <tr className="player other">
@@ -104,7 +122,7 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.inactive}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {this.props.teamData.players.inactive.map(function(player) {
+                {playerData.inactive.map(function(player) {
                   return (
                     <tr className="player inactive">
                       <td>{player.lastname}, {player.firstname}</td>

@@ -16,7 +16,7 @@ var TeamMenu = React.createClass({
       return (
         <header>
           <div className="inner">
-            <h1>CapCrunch</h1>
+            <h1>CapCrunch <span className="beta-tag">beta</span></h1>
             <nav id="team-menu">
               <ul>
                 <li>
