@@ -54,8 +54,13 @@ var PlayersPanel = React.createClass({
         : <div className="inner">
             <div className="team-select-reminder">Select Team <i className="fa fa-hand-o-right"></i></div>
           </div> }
-          <div className="bench-player" onDragEnter={this.props.handleBenchDragEnter}>
-            <i className="fa fa-rotate-left"></i> Bench / Remove</div>
+          <div className="bench-player">
+            <i className="fa fa-rotate-left"></i> Bench / Remove
+            <div className="cover"
+              onDragEnter={this.props.handleBenchDragEnter}
+              onDragLeave={this.props.handleBenchDragLeave}>
+            </div>
+          </div>
         </div>
       );
     }

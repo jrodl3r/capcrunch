@@ -20,7 +20,8 @@ var RosterMenu = React.createClass({
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd}
-            handleBenchDragEnter={this.props.onBenchDragEnter} />
+            handleBenchDragEnter={this.props.onBenchDragEnter}
+            handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="defensemen" panelTitle="Defense" panelId="defense-list"
             playerData={this.props.teamData.players.defensemen}
             activePlayers={this.props.activePlayers}
@@ -28,7 +29,8 @@ var RosterMenu = React.createClass({
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd}
-            handleBenchDragEnter={this.props.onBenchDragEnter} />
+            handleBenchDragEnter={this.props.onBenchDragEnter}
+            handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="goaltenders" panelTitle="Goalies" panelId="goalies-list"
             playerData={this.props.teamData.players.goaltenders}
             activePlayers={this.props.activePlayers}
@@ -36,7 +38,8 @@ var RosterMenu = React.createClass({
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd}
-            handleBenchDragEnter={this.props.onBenchDragEnter} />
+            handleBenchDragEnter={this.props.onBenchDragEnter}
+            handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
             playerData={this.props.teamData.players.inactive}
             activePlayers={this.props.activePlayers}
@@ -44,7 +47,8 @@ var RosterMenu = React.createClass({
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd}
-            handleBenchDragEnter={this.props.onBenchDragEnter} />
+            handleBenchDragEnter={this.props.onBenchDragEnter}
+            handleBenchDragLeave={this.props.onBenchDragLeave} />
           <TradePanel />
           <FreeAgentPanel />
           <CreatePanel />

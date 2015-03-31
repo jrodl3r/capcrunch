@@ -149,7 +149,7 @@ var App = React.createClass({
         this.setState();
         playerItem.parentNode.className = 'tile';
         playerItem.parentNode.dataset.state = '';
-        console.log('player benched');
+        //console.log('player benched');
       } else if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         playerItem.parentNode.className = 'tile';
         dropZone.className = 'tile active';
@@ -178,8 +178,12 @@ var App = React.createClass({
     hidePlayerBench: function() {
       document.getElementById('menu').className = 'section active';
     },
-    handleBenchDragEnter: function() {
+    handleBenchDragEnter: function(e) {
       this.props.benchPlayer = true;
+      e.currentTarget.parentNode.className = 'bench-player hover';
+    },
+    handleBenchDragLeave: function(e) {
+      e.currentTarget.parentNode.className = 'bench-player';
     },
 
     // Roster Menu

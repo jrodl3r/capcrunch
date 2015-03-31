@@ -335,11 +335,17 @@
   overflow: hidden;
   transition: opacity .3s, height 0s .3s;
 
+  &.hover {
+    color: #AAA;
+    border-color: #999;
+    box-shadow: 0 0 70px 0 rgba(0,0,0, .06) inset;
+  }
+
   .show-bench & {
     z-index: 3;
     height: 172px;
     opacity: 1;
-    transition: opacity .3s;
+    transition: opacity .3s, color .3s, box-shadow .3s;
   }
 
   .panel.short & {
@@ -354,6 +360,14 @@
   i {
     font-size: 14px;
     padding-right: 5px;
+  }
+
+  .cover {
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    height: 100%;
+    width: 100%;
   }
 }
 

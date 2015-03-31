@@ -33,11 +33,12 @@
 - 'panel scroll position reset on team change'
 - 'payroll table sticky headers (thead>tr>th)'
 - 'payroll UFA/RFA cell styles'
-- 'cap stats calculator panel + logic'
+- 'cap stats calculator panel + logic [v0.6.0]'
 - 'session state / share roster model + logic'
-- 'trade player panel + logic'
-- 'create player panel + logic'
-- 'free agents panel + logic'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'trade player panel + logic [v0.7.0]'
+- 'free agents panel + logic [v0.7.5]'
+- 'create player panel + logic [v0.8.0]'
 - 'panel scrollbar consistency'
 - 'panel expand/collapse logic'
 - 'pre-cache player images on team select'
@@ -49,6 +50,7 @@
 
 #### READY
 
+- 'style bench/remove-player hover'
 - 'style team-select dropdown'
 - 'roster grid tile removal [v0.5.6]'
 - 'add free agents panel component placeholder'
