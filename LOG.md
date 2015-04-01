@@ -32,11 +32,10 @@
 - 'sticky cap stats panel'
 
 
-#### NOW » Did You Uptick Version? » [v0.6.0]
+#### NOW » Did You Uptick Version? » [v0.6.1]
 
-- 'payroll player-status icon labels'
 - 'payroll table sticky headers (thead>tr>th)'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.6.1] »»
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.6.2] »»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
 - 'panel scroll reset on team change'
@@ -59,6 +58,7 @@
 
 #### READY
 
+- 'payroll player-status icon labels'
 - 'cleanup payroll table, add UFA/RFA cell styles'
 - 'cap stats calculator panel + logic [v0.6.0]'
 - 'style bench/remove-player hover'

@@ -139,7 +139,7 @@ table {
 
       td.cap {
         position: relative;
-        background: #545454;
+        background: linear-gradient(to top, #545454 0%, #333 100%);
 
         /* &:before {
           box-shadow: -8px 0 8px -8px rgba(0,0,0, .55) inset;
@@ -148,7 +148,7 @@ table {
     }
 
     &.player {
-      color: #444;
+      color: #333;
 
       &:nth-child(odd) td.cap {
         background: #EAEAEA;
@@ -157,6 +157,10 @@ table {
       &:hover {
         color: #000;
         background: rgba(1,131,218, .1);
+
+        i {
+          color: #BBD5EF;
+        }
 
         td.cap {
           color: #000;
@@ -195,6 +199,42 @@ table {
         font-size: 10px;
         text-align: center;
         //transition: .3s;
+      }
+
+      /*i {
+        float: right;
+        padding: 2px 4px;
+        color: #FFF;
+        font-size: 8px;
+        font-style: normal;
+        text-transform: uppercase;
+        background: linear-gradient(to top, #888 0%, #545454 100%);
+        border-radius: $border-radius;
+      }*/
+
+      i {
+        float: right;
+        width: 13px;
+        color: #D6D6D6;
+        font-size: 13px;
+        text-align: center;
+        transition: .3s;
+
+        &:hover {
+          color: #AAA;
+        }
+
+        &.fa-heartbeat {
+          color: #EAB1B1;
+
+          &:hover {
+            color: #CD6363;
+          }
+        }
+
+        &.fa-suitcase {
+          font-size: 12px;
+        }
       }
     }
 
