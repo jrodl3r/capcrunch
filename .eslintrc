@@ -7,10 +7,10 @@
   "globals": {
     "__DEV__": true,
     "__SERVER__": true,
-    "React", false,
-    "socket", false,
-    "io", false,
-    "$", false,
+    "React": false,
+    "socket": false,
+    "io": false,
+    "$": false,
 
     // Temp (ESLint JSX Bug)
     "App": false,
@@ -37,6 +37,7 @@
     "no-trailing-spaces": false,
     "camelcase": false,
     "no-empty": false,
-    "comma-spacing": false
+    "comma-spacing": false,
+    "indent": false
   }
 }
