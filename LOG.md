@@ -28,25 +28,24 @@
 - 'typekit + icomoon.io + gulp asset management (fonts, images)'
 - 'add player group line drag action (drag over + icon to reveal)'
 - 'editable player tile info (salary) + add to LTIR button'
-- 'clear/reset roster button'
-- 'sticky cap stats panel'
+- 'sticky cap stats panel + payroll table headers'
 
 
 #### NOW » Did You Uptick Version? » [v0.6.1]
 
-- 'payroll table sticky headers (thead>tr>th)'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.6.2] »»
-- 'cleanup panel player-list details'
-- 'panel transition fade effect on team change'
-- 'panel scroll reset on team change'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.6.2] »»
 - 'share roster socket db model + logic'
 - 'share roster socket.io REST API'
 - 'session state clear + restore (cookies / local storage?)'
+- 'clear/reset roster button'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'cleanup panel player-list details'
+- 'panel transition fade effect on team change'
+- 'panel scroll reset on team change'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.6.6] »»
 - 'trade player panel + logic [v0.7.0]'
 - 'free agents panel + logic [v0.7.5]'
 - 'create player panel + logic [v0.8.0]'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'panel scrollbar consistency'
 - 'panel expand/collapse logic'
 - 'pre-cache player images on player item hover'

@@ -396,6 +396,7 @@
   &.active {
     background: #FAFAFA;
     border: 1px solid #F5F5F5;
+    transition: background .3s .35s;
 
     .section {
       width: 25%;
@@ -414,6 +415,7 @@
     text-align: left;
     font-size: 11px;
     opacity: 0;
+    transition: opacity .35s, width 0s .25s;
   }
 
   span {
