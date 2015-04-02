@@ -13,6 +13,7 @@ var SharePanel = React.createClass({
         return false;
       }
       // TODO: Single-Space ONLY + Block Enter Key
+      // TODO: Add Team Name value if not default
     },
     render: function() {
       var placeholder = this.props.rosterInfo.name || this.props.teamData.name;

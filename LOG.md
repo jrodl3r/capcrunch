@@ -31,9 +31,13 @@
 - 'sticky cap stats panel + payroll table headers (try clone reveal?)'
 
 
-#### NOW » Did You Uptick Version? » [v0.6.2]
+#### NOW » Did You Uptick Version? » [v0.6.3]
 
-- 'advanced share-roster logic + layout'
+- 'load team + roster error notifications'
+- 'share roster input validation'
+- 'share roster user dialog'
+- 'setup production user rosters db collection'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'session state clear + restore (cookies / local storage?)'
 - 'clear/reset roster button'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
@@ -50,12 +54,16 @@
 - 'pre-cache player images on player item hover'
 - 'feature detection: if (!Modernizr.draganddrop)'
 - 'logo / interface design + implementation'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'cleanup player tile components'
 - 'fix list-item double-click selection bug'
 - 'fix safari textbox focus bug'
+- 'fix right click player tile bug'
 
 
 #### READY
 
+- 'update codebase to accommodate new share roster feature [v0.6.2]'
 - 'initial share-roster logic + db model [v0.6.1]'
 - 'payroll player-status icon labels'
 - 'cleanup payroll table, add UFA/RFA cell styles'

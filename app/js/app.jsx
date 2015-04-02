@@ -12,23 +12,25 @@ var TeamMenu    = require('./components/team-menu.jsx'),
 var App = React.createClass({
     getInitialState: function() {
       return {
-        activeTeam    : '',
-        activePlayers : [],
-        rosterInfo    : {
-          id          : '',
-          name        : '',
-          hit         : '0.000',
-          space       : '69.000'
+        dragging       : false,
+        activeTeam     : '',
+        activePlayers  : [],
+        curDragPlayer  : {},
+        rosterInfo     : {
+          id           : '',
+          name         : '',
+          hit          : '0.000',
+          space        : '69.000'
         },
-        rosterData    : {
-          F1L : {}, F1C : {}, F1R : {},
-          F2L : {}, F2C : {}, F2R : {},
-          F3L : {}, F3C : {}, F3R : {},
-          F4L : {}, F4C : {}, F4R : {},
-          D1L : {}, D1R : {},
-          D2L : {}, D2R : {},
-          D3L : {}, D3R : {},
-          G1L : {}, G1R : {}
+        rosterData : {
+               F1L : { status: 'empty' }, F1C : { status: 'empty' }, F1R : { status: 'empty' },
+               F2L : { status: 'empty' }, F2C : { status: 'empty' }, F2R : { status: 'empty' },
+               F3L : { status: 'empty' }, F3C : { status: 'empty' }, F3R : { status: 'empty' },
+               F4L : { status: 'empty' }, F4C : { status: 'empty' }, F4R : { status: 'empty' },
+               D1L : { status: 'empty' }, D1R : { status: 'empty' },
+               D2L : { status: 'empty' }, D2R : { status: 'empty' },
+               D3L : { status: 'empty' }, D3R : { status: 'empty' },
+               G1L : { status: 'empty' }, G1R : { status: 'empty' }
         },
         teamData   : {
           id       : '',
@@ -47,38 +49,37 @@ var App = React.createClass({
       return {
         lastDropZoneId : '',
         curDropZone    : null,
-        curDragItem    : null,
-        curDragPlayer  : null,
         originDropZone : null,
         benchPlayer    : false
       };
     },
     componentDidMount: function() {
-      Socket.on('load team', this.loadTeamData);
-      Socket.on('load roster', this.loadRosterData);
-      Socket.on('roster saved', this.showShareModal);
       if (this.parseRosterURI()) {
         Socket.emit('get roster', this.state.rosterInfo.id);
       }
+      Socket.on('load team', this.loadTeamData);
+      Socket.on('load roster', this.loadRosterData);
+      Socket.on('roster saved', this.showShareModal);
     },
 
     // Team Select
     handleChangeTeam: function(id) {
       Socket.emit('get team', id);
-      this.setState({ activeTeam: id });
+      this.state.activeTeam = id;
+      this.setState();
     },
     loadTeamData: function(data) {
-      if (data !== 'error') {
-        this.setState({ teamData: data });
+      if (data && data !== 'error') {
+        this.state.teamData = data;
+        this.setState();
+        // TODO Panel Transition Effect
+        // TODO Reset Panel Scroll Position
       } else {
-        console.log('Load Team ERROR');
-        // TODO HandleLoadTeamError
+        console.log('Load Team ERROR'); // TODO HandleLoadTeamError (Notifications)
       }
-      // TODO Panel Transition Effect
-      // TODO Reset Panel Scroll Position
     },
 
-    // Share Roster
+    // TODO Share Roster User Dialog
     showShareModal: function(roster_id) {
       console.log('roster saved: ' + roster_id);
     },
@@ -86,12 +87,15 @@ var App = React.createClass({
       e.preventDefault();
       var rosterData = {},
           rosterName = this.state.rosterInfo.name || this.state.teamData.name;
-      rosterData.name = rosterName;
-      rosterData.activeTeam = this.state.activeTeam;
+      // TODO Verify Share Roster User Data (Notification: insuficient data/name/etc)
+      rosterData.name          = rosterName;
+      rosterData.hit           = this.state.rosterInfo.hit;
+      rosterData.space         = this.state.rosterInfo.space;
+      rosterData.activeTeam    = this.state.activeTeam;
       rosterData.activePlayers = this.state.activePlayers;
-      rosterData.trades = this.state.leagueData.trades;
-      rosterData.created = this.state.leagueData.created;
-      rosterData.lines  = this.state.rosterData;
+      rosterData.trades        = this.state.leagueData.trades;
+      rosterData.created       = this.state.leagueData.created;
+      rosterData.lines         = this.state.rosterData;
       Socket.emit('save roster', rosterData);
     },
     parseRosterURI: function() {
@@ -100,18 +104,27 @@ var App = React.createClass({
         this.state.rosterInfo.id = roster_id;
         this.setState();
         return true;
-      } else { return false; }
+      } else {
+        return false;
+      }
     },
     loadRosterData: function(data) {
-      if (data !== 'error') {
-        console.log('load roster: ' + data.name);
-        //this.setState({ rosterData: data });
-
-        // TODO Update Roster + UI
-
+      if (data && data !== 'error') {
+        this.state.rosterInfo.name    = data.name;
+        this.state.rosterInfo.hit     = data.hit;
+        this.state.rosterInfo.space   = data.space;
+        this.state.activePlayers      = data.activePlayers;
+        this.state.leagueData.trades  = data.trades;
+        this.state.leagueData.created = data.created;
+        for (var pos in this.state.rosterData) {
+          if (data.lines.hasOwnProperty(pos)) {
+            this.state.rosterData[pos] = data.lines[pos];
+          }
+        }
+        document.getElementById('team-select').value = data.activeTeam;
+        this.handleChangeTeam(data.activeTeam);
       } else {
-        console.log('Load Roster ERROR');
-        // TODO HandleLoadRosterError
+        console.log('Load Roster ERROR'); // TODO HandleLoadRosterError (Notifications)
       }
     },
 
@@ -172,25 +185,27 @@ var App = React.createClass({
       }
     },
     handlePlayerMouseDown: function(e) {
+      var playerItem = this.state.rosterData[e.currentTarget.parentNode.id];
       e.currentTarget.className = 'player active clicked';
-      this.props.curDragPlayer = this.state.rosterData[e.currentTarget.parentNode.id];
-      this.highlightGrid('on', this.props.curDragPlayer.type, this.props.curDragPlayer.position);
+      this.highlightGrid('on', playerItem.type, playerItem.position);
       this.showPlayerBench();
     },
     handlePlayerMouseUp: function(e) {
       e.currentTarget.className = 'player active';
       e.currentTarget.parentNode.className = 'tile active';
-      this.props.curDragPlayer = null;
       this.highlightGrid('off');
       this.hidePlayerBench();
     },
     handlePlayerDragStart: function(e) {
       var playerItem = e.currentTarget;
-      playerItem.parentNode.className = 'tile active engaged';
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setData('text/html', playerItem);
       this.props.originDropZone = playerItem.parentNode;
+      this.props.originDropZone.className = 'tile active engaged';
       this.props.benchPlayer = false;
+      this.state.curDragPlayer = this.state.rosterData[e.currentTarget.parentNode.id];
+      this.state.dragging = true;
+      this.setState();
     },
     handlePlayerDragEnd: function(e) {
       var playerItem    = e.currentTarget,
@@ -202,29 +217,27 @@ var App = React.createClass({
         // TODO Add updateCapStats Method
         this.state.rosterInfo.hit = (parseFloat(this.state.rosterInfo.hit) - parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
         this.state.rosterInfo.space = (parseFloat(this.state.rosterInfo.space) + parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
-        this.state.rosterData[this.props.originDropZone.id] = {};
-        this.setState();
-        playerItem.parentNode.className = 'tile';
-        playerItem.parentNode.dataset.state = '';
+        this.state.rosterData[this.props.originDropZone.id] = { status: 'empty' };
+        this.props.originDropZone.className = 'tile';
+        this.props.originDropZone.dataset.state = '';
       // Move Player
       } else if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
-        playerItem.parentNode.className = 'tile';
         dropZone.className = 'tile active';
         dropZone.dataset.state = 'active';
+        this.props.originDropZone.className = 'tile';
         this.props.originDropZone.dataset.state = '';
-        this.state.rosterData[this.props.originDropZone.id] = {};
-        this.state.rosterData[dropZone.id] = this.props.curDragPlayer;
-        this.setState();
-      // Undo Move
+        this.state.rosterData[this.props.originDropZone.id] = { status: 'empty' };
+        this.state.rosterData[dropZone.id] = this.state.curDragPlayer;
       } else {
         playerItem.className = 'player active hover';
-        playerItem.parentNode.className = 'tile active';
+        this.props.originDropZone.className = 'tile active';
       }
-      this.props.curDragPlayer = null;
       this.props.originDropZone = null;
       this.props.benchPlayer = false;
       this.highlightGrid('off');
       this.hidePlayerBench();
+      this.state.dragging = false;
+      this.setState();
     },
 
     // Bench Player
@@ -248,6 +261,8 @@ var App = React.createClass({
           playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
       dragItem.className = 'item clicked';
       this.highlightGrid('on', dragItem.dataset.type, playerData.position);
+      this.state.curDragPlayer = playerData;
+      this.setState();
     },
     handleMouseUp: function(e) {
       e.currentTarget.className = 'item';
@@ -259,14 +274,12 @@ var App = React.createClass({
       dragItem.parentNode.className = 'row engaged';
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setData('text/html', dragItem);
-      this.props.curDragItem = dragItem;
       this.props.lastDropZoneId = '';
     },
     handleDragEnd: function(e) {
       var playerData = {},
           dragItem   = e.currentTarget,
           dropZone   = this.props.curDropZone;
-      // Add Player
       if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         dragItem.parentNode.className = 'row removed';
         dragItem.className = 'item';
@@ -280,7 +293,6 @@ var App = React.createClass({
         this.state.rosterInfo.hit = (parseFloat(this.state.rosterInfo.hit) + parseFloat(playerData.contract[0])).toFixed(3);
         this.state.rosterInfo.space = (parseFloat(this.state.rosterInfo.space) - parseFloat(playerData.contract[0])).toFixed(3);
         this.setState();
-      // Undo Add
       } else {
         dragItem.className = 'item';
         dragItem.parentNode.className = 'row';
@@ -309,10 +321,12 @@ var App = React.createClass({
                 onBenchDragEnter={this.handleBenchDragEnter}
                 onBenchDragLeave={this.handleBenchDragLeave} />
               <Roster
+                dragging={this.state.dragging}
                 rosterInfo={this.state.rosterInfo}
                 rosterData={this.state.rosterData}
                 leagueData={this.state.leagueData}
                 activePlayers={this.state.activePlayers}
+                curDragPlayer={this.state.curDragPlayer}
                 onGridDragEnter={this.handleGridDragEnter}
                 onTileDragEnter={this.handleTileDragEnter}
                 onTileDragLeave={this.handleTileDragLeave}
@@ -324,7 +338,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.6.1</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.6.3</span></footer>
         </div>
       );
     }

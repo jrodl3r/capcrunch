@@ -142,7 +142,11 @@
           color: #777;
         }
 
-        .jersey, .shot, .salary {
+        .jersey {
+          color: #D6D6D6;
+        }
+
+        .shot, .salary {
           color: #CCC;
         }
       }
@@ -217,7 +221,7 @@
       .jersey {
         float: right;
         padding-right: 1px;
-        color: #DDD;
+        color: #CCC;
         font-size: 10px;
       }
 
