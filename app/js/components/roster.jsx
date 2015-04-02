@@ -49,10 +49,10 @@ var Roster = React.createClass({
           { this.props.activePlayers.length ? <span>Roster Players <span className="value">{this.props.activePlayers.length}</span></span> : '' }
             </div>
             <div id="rcap-payroll-total" className="section">
-          { this.props.activePlayers.length ? <span>Payroll Total <span className="value">{this.props.rosterData.hit}</span></span> : '' }
+          { this.props.activePlayers.length ? <span>Payroll Total <span className="value">{this.props.rosterInfo.hit}</span></span> : '' }
             </div>
             <div id="rcap-cap-space" className="section">
-          { this.props.activePlayers.length ? <span>Cap Space <span className="value">{this.props.rosterData.space}</span></span> : '' }
+          { this.props.activePlayers.length ? <span>Cap Space <span className="value">{this.props.rosterInfo.space}</span></span> : '' }
             </div>
             <div id="rcap-salary-cap" className="section">
           { this.props.activePlayers.length ? <span>Salary Cap <span className="value">{this.props.leagueData.cap}</span></span> : '' }

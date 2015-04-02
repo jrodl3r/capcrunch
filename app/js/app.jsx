@@ -11,30 +11,36 @@ var TeamMenu    = require('./components/team-menu.jsx'),
 
 var App = React.createClass({
     getInitialState: function() {
-      Socket.on('load team', this.loadTeamData);
       return {
-        activeTeam      : '',
-        activePlayers   : [],
-        rosterId        : '',
-        rosterName      : '',
-        rosterData      : {
-          hit: '0.000', space: '69.000',
-          F1L: {}, F1C: {}, F1R: {},
-          F2L: {}, F2C: {}, F2R: {},
-          F3L: {}, F3C: {}, F3R: {},
-          F4L: {}, F4C: {}, F4R: {},
-          D1L: {}, D1R: {},
-          D2L: {}, D2R: {},
-          D3L: {}, D3R: {},
-          G1L: {}, G1R: {}
+        activeTeam    : '',
+        activePlayers : [],
+        rosterInfo    : {
+          id          : '',
+          name        : '',
+          hit         : '0.000',
+          space       : '69.000'
         },
-        teamData        : {
-          id            : '',
-          name          : '',
-          cap           : { hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
-          players       : { forwards: [], defensemen: [], goaltenders: [], other: [], inactive: [] }
+        rosterData    : {
+          F1L : {}, F1C : {}, F1R : {},
+          F2L : {}, F2C : {}, F2R : {},
+          F3L : {}, F3C : {}, F3R : {},
+          F4L : {}, F4C : {}, F4R : {},
+          D1L : {}, D1R : {},
+          D2L : {}, D2R : {},
+          D3L : {}, D3R : {},
+          G1L : {}, G1R : {}
         },
-        leagueData      : { cap: '69.000' }
+        teamData   : {
+          id       : '',
+          name     : '',
+          cap      : { hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
+          players  : { forwards: [], defensemen: [], goaltenders: [], other: [], inactive: [] }
+        },
+        leagueData : {
+          cap      : '69.000',
+          trades   : [],
+          created  : []
+        }
       };
     },
     getDefaultProps: function() {
@@ -47,6 +53,14 @@ var App = React.createClass({
         benchPlayer    : false
       };
     },
+    componentDidMount: function() {
+      Socket.on('load team', this.loadTeamData);
+      Socket.on('load roster', this.loadRosterData);
+      Socket.on('roster saved', this.showShareModal);
+      if (this.parseRosterURI()) {
+        Socket.emit('get roster', this.state.rosterInfo.id);
+      }
+    },
 
     // Team Select
     handleChangeTeam: function(id) {
@@ -54,9 +68,51 @@ var App = React.createClass({
       this.setState({ activeTeam: id });
     },
     loadTeamData: function(data) {
-      this.setState({ teamData: data });
+      if (data !== 'error') {
+        this.setState({ teamData: data });
+      } else {
+        console.log('Load Team ERROR');
+        // TODO HandleLoadTeamError
+      }
       // TODO Panel Transition Effect
       // TODO Reset Panel Scroll Position
+    },
+
+    // Share Roster
+    showShareModal: function(roster_id) {
+      console.log('roster saved: ' + roster_id);
+    },
+    handleRosterSubmit: function(e) {
+      e.preventDefault();
+      var rosterData = {},
+          rosterName = this.state.rosterInfo.name || this.state.teamData.name;
+      rosterData.name = rosterName;
+      rosterData.activeTeam = this.state.activeTeam;
+      rosterData.activePlayers = this.state.activePlayers;
+      rosterData.trades = this.state.leagueData.trades;
+      rosterData.created = this.state.leagueData.created;
+      rosterData.lines  = this.state.rosterData;
+      Socket.emit('save roster', rosterData);
+    },
+    parseRosterURI: function() {
+      var roster_id = decodeURI(location.pathname.substr(1));
+      if (roster_id) {
+        this.state.rosterInfo.id = roster_id;
+        this.setState();
+        return true;
+      } else { return false; }
+    },
+    loadRosterData: function(data) {
+      if (data !== 'error') {
+        console.log('load roster: ' + data.name);
+        //this.setState({ rosterData: data });
+
+        // TODO Update Roster + UI
+
+      } else {
+        console.log('Load Roster ERROR');
+        // TODO HandleLoadRosterError
+      }
     },
 
     // Roster Grid
@@ -144,8 +200,8 @@ var App = React.createClass({
       if (this.props.benchPlayer) {
         activePlayers.splice(activePlayers.indexOf(this.state.rosterData[this.props.originDropZone.id].id), 1);
         // TODO Add updateCapStats Method
-        this.state.rosterData.hit = (parseFloat(this.state.rosterData.hit) - parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
-        this.state.rosterData.space = (parseFloat(this.state.rosterData.space) + parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
+        this.state.rosterInfo.hit = (parseFloat(this.state.rosterInfo.hit) - parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
+        this.state.rosterInfo.space = (parseFloat(this.state.rosterInfo.space) + parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
         this.state.rosterData[this.props.originDropZone.id] = {};
         this.setState();
         playerItem.parentNode.className = 'tile';
@@ -221,8 +277,8 @@ var App = React.createClass({
         this.state.activePlayers.push(playerData.id);
         this.state.rosterData[dropZone.id] = playerData;
         // TODO Add updateCapStats Method
-        this.state.rosterData.hit = (parseFloat(this.state.rosterData.hit) + parseFloat(playerData.contract[0])).toFixed(3);
-        this.state.rosterData.space = (parseFloat(this.state.rosterData.space) - parseFloat(playerData.contract[0])).toFixed(3);
+        this.state.rosterInfo.hit = (parseFloat(this.state.rosterInfo.hit) + parseFloat(playerData.contract[0])).toFixed(3);
+        this.state.rosterInfo.space = (parseFloat(this.state.rosterInfo.space) - parseFloat(playerData.contract[0])).toFixed(3);
         this.setState();
       // Undo Add
       } else {
@@ -243,7 +299,9 @@ var App = React.createClass({
                 leagueData={this.state.leagueData} />
               <RosterMenu
                 teamData={this.state.teamData}
+                rosterInfo={this.state.rosterInfo}
                 activePlayers={this.state.activePlayers}
+                onRosterSubmit={this.handleRosterSubmit}
                 onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}
                 onDragStart={this.handleDragStart}
@@ -251,6 +309,7 @@ var App = React.createClass({
                 onBenchDragEnter={this.handleBenchDragEnter}
                 onBenchDragLeave={this.handleBenchDragLeave} />
               <Roster
+                rosterInfo={this.state.rosterInfo}
                 rosterData={this.state.rosterData}
                 leagueData={this.state.leagueData}
                 activePlayers={this.state.activePlayers}

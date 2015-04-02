@@ -28,13 +28,12 @@
 - 'typekit + icomoon.io + gulp asset management (fonts, images)'
 - 'add player group line drag action (drag over + icon to reveal)'
 - 'editable player tile info (salary) + add to LTIR button'
-- 'sticky cap stats panel + payroll table headers'
+- 'sticky cap stats panel + payroll table headers (try clone reveal?)'
 
 
-#### NOW » Did You Uptick Version? » [v0.6.1]
+#### NOW » Did You Uptick Version? » [v0.6.2]
 
-- 'share roster socket db model + logic'
-- 'share roster socket.io REST API'
+- 'advanced share-roster logic + layout'
 - 'session state clear + restore (cookies / local storage?)'
 - 'clear/reset roster button'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
@@ -57,6 +56,7 @@
 
 #### READY
 
+- 'initial share-roster logic + db model [v0.6.1]'
 - 'payroll player-status icon labels'
 - 'cleanup payroll table, add UFA/RFA cell styles'
 - 'cap stats calculator panel + logic [v0.6.0]'

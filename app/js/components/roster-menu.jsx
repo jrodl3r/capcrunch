@@ -12,7 +12,10 @@ var RosterMenu = React.createClass({
     render: function() {
       return (
         <div id="menu" className="section active">
-          <SharePanel teamName={this.props.teamData.name} />
+          <SharePanel
+            teamData={this.props.teamData}
+            rosterInfo={this.props.rosterInfo}
+            handleRosterSubmit={this.props.onRosterSubmit} />
           <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
             playerData={this.props.teamData.players.forwards}
             activePlayers={this.props.activePlayers}
