@@ -26,7 +26,7 @@ header {
   h1 {
     float: left;
     height: $header-height;
-    width: 50%;
+    width: 240px;
     margin: 0;
     padding-left: 30px;
     line-height: $header-height;
@@ -40,11 +40,32 @@ header {
     }
   }
 
+  #notify {
+    float: left;
+    height: 40px;
+    width: 350px;
+    margin-top: 10px;
+    color: #CF6C6C;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255,0,0, 1);
+    border-radius: 20px;
+    cursor: default;
+    opacity: 0;
+    transition: 1s;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+
   nav {
     position: relative;
     float: right;
     height: $header-height;
-    width: 50%;
+    width: 400px;
     padding-right: 30px;
     line-height: $header-height;
     text-align: right;

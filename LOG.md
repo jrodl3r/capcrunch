@@ -31,9 +31,8 @@
 - 'sticky cap stats panel + payroll table headers (try clone reveal?)'
 
 
-#### NOW » Did You Uptick Version? » [v0.6.4]
+#### NOW » Did You Uptick Version? » [v0.6.5]
 
-- 'load team + roster error notifications'
 - 'share roster input validation'
 - 'share roster user dialog'
 - 'setup production user rosters db collection'
@@ -63,6 +62,7 @@
 
 #### READY
 
+- 'load team + roster error notifications [v0.6.4]'
 - 'generate unique roster id on mongo-save [v0.6.3]'
 - 'update codebase to accommodate new share roster feature [v0.6.2]'
 - 'initial share-roster logic + db model [v0.6.1]'

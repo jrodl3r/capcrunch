@@ -62,6 +62,15 @@ var App = React.createClass({
       Socket.on('roster saved', this.showShareModal);
     },
 
+    // Helpers
+    showNotification: function(msg) {
+      document.getElementById('notify').innerText = msg;
+      document.getElementById('notify').className = 'active';
+      setTimeout(function() {
+        document.getElementById('notify').className = '';
+      }, 4000);
+    },
+
     // Team Select
     handleChangeTeam: function(id) {
       Socket.emit('get team', id);
@@ -75,7 +84,7 @@ var App = React.createClass({
         // TODO Panel Transition Effect
         // TODO Reset Panel Scroll Position
       } else {
-        console.log('Load Team ERROR'); // TODO HandleLoadTeamError (Notifications)
+        this.showNotification('Sorry, There was an error loading that team.');
       }
     },
 
@@ -125,7 +134,7 @@ var App = React.createClass({
         document.getElementById('team-select').value = data.activeTeam;
         this.handleChangeTeam(data.activeTeam);
       } else {
-        console.log('Load Roster ERROR'); // TODO HandleLoadRosterError (Notifications)
+        this.showNotification('Sorry, I can\'t find that roster in our records.');
       }
     },
 
@@ -339,7 +348,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.6.3</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.6.5</span></footer>
         </div>
       );
     }
