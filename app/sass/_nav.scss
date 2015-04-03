@@ -45,12 +45,10 @@ header {
     height: 40px;
     width: 350px;
     margin-top: 10px;
-    color: #CF6C6C;
     font-size: 12px;
     font-weight: bold;
     line-height: 40px;
     text-align: center;
-    text-shadow: 0 0 10px rgba(255,0,0, 1);
     border-radius: 20px;
     cursor: default;
     opacity: 0;
@@ -58,6 +56,21 @@ header {
 
     &.active {
       opacity: 1;
+    }
+
+    &.error {
+      color: #CF6C6C;
+      text-shadow: 0 0 10px rgba(255,0,0, 1);
+    }
+
+    &.tip {
+      color: #75A0FF;
+      text-shadow: 0 0 10px rgb(93,163,244, 1);
+    }
+
+    &.success {
+      color: #6CCF6C;
+      text-shadow: 0 0 10px rgba(0,255,0, 1);
     }
   }
 

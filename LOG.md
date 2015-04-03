@@ -29,13 +29,14 @@
 - 'add player group line drag action (drag over + icon to reveal)'
 - 'editable player tile info (salary) + add to LTIR button'
 - 'sticky cap stats panel + payroll table headers (try clone reveal?)'
+- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 
 
-#### NOW » Did You Uptick Version? » [v0.6.5]
+#### NOW » Did You Uptick Version? » [v0.6.6]
 
-- 'share roster input validation'
 - 'share roster user dialog'
-- 'setup production user rosters db collection'
+- 'share roster submit 60sec delay'
+- 'migrate share-roster to prod + setup mongo collection'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'session state clear + restore (cookies / local storage?)'
 - 'clear/reset roster button'
@@ -43,10 +44,10 @@
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
 - 'panel scroll reset on team change'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.6.6] »»
-- 'trade player panel + logic [v0.7.0]'
-- 'free agents panel + logic [v0.7.5]'
-- 'create player panel + logic [v0.8.0]'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'trade player panel + logic'
+- 'free agents panel + logic'
+- 'create player panel + logic'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'panel scrollbar consistency'
 - 'panel expand/collapse logic'
@@ -56,12 +57,12 @@
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup + distill player/roster components'
 - 'fix list-item double-click selection bug'
-- 'fix safari textbox focus bug'
 - 'fix right click player tile bug'
 
 
 #### READY
 
+- 'share roster input validation [v0.6.5]'
 - 'load team + roster error notifications [v0.6.4]'
 - 'generate unique roster id on mongo-save [v0.6.3]'
 - 'update codebase to accommodate new share roster feature [v0.6.2]'

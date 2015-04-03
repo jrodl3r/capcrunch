@@ -63,9 +63,15 @@ var App = React.createClass({
     },
 
     // Helpers
-    showNotification: function(msg) {
+    showNotification: function(type, msg) {
+      if (type === 'error') {
+        document.getElementById('notify').className = 'active error';
+      } else if (type === 'tip') {
+        document.getElementById('notify').className = 'active tip';
+      } else if (type === 'success') {
+        document.getElementById('notify').className = 'active success';
+      }
       document.getElementById('notify').innerText = msg;
-      document.getElementById('notify').className = 'active';
       setTimeout(function() {
         document.getElementById('notify').className = '';
       }, 4000);
@@ -84,29 +90,34 @@ var App = React.createClass({
         // TODO Panel Transition Effect
         // TODO Reset Panel Scroll Position
       } else {
-        this.showNotification('Sorry, There was an error loading that team.');
+        this.showNotification('error', 'Sorry, There was an error loading that team.');
       }
     },
 
     // Share Roster
-    // TODO Share Roster User Dialog
     showShareModal: function(roster_id) {
+
+      // TODO Share Roster User Dialog
+
       console.log('roster saved: ' + roster_id);
     },
     handleRosterSubmit: function(e) {
       e.preventDefault();
       var rosterData = {},
           rosterName = this.state.rosterInfo.name || this.state.teamData.name;
-      // TODO Verify Share Roster User Data (Notification: insuficient data/name/etc)
-      rosterData.name          = rosterName;
-      rosterData.hit           = this.state.rosterInfo.hit;
-      rosterData.space         = this.state.rosterInfo.space;
-      rosterData.activeTeam    = this.state.activeTeam;
-      rosterData.activePlayers = this.state.activePlayers;
-      rosterData.trades        = this.state.leagueData.trades;
-      rosterData.created       = this.state.leagueData.created;
-      rosterData.lines         = this.state.rosterData;
-      Socket.emit('save roster', rosterData);
+      if (this.state.activePlayers.length > 10) {
+        rosterData.name          = rosterName;
+        rosterData.hit           = this.state.rosterInfo.hit;
+        rosterData.space         = this.state.rosterInfo.space;
+        rosterData.activeTeam    = this.state.activeTeam;
+        rosterData.activePlayers = this.state.activePlayers;
+        rosterData.trades        = this.state.leagueData.trades;
+        rosterData.created       = this.state.leagueData.created;
+        rosterData.lines         = this.state.rosterData;
+        Socket.emit('save roster', rosterData);
+      } else {
+        this.showNotification('tip', 'Try adding a few more players to your roster first.');
+      }
     },
     parseRosterURI: function() {
       var roster_id = decodeURI(location.pathname.substr(1));
@@ -134,7 +145,7 @@ var App = React.createClass({
         document.getElementById('team-select').value = data.activeTeam;
         this.handleChangeTeam(data.activeTeam);
       } else {
-        this.showNotification('Sorry, I can\'t find that roster in our records.');
+        this.showNotification('error', 'Sorry, I can\'t find that roster in the system.');
       }
     },
 
@@ -348,7 +359,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.6.5</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.6.6</span></footer>
         </div>
       );
     }
