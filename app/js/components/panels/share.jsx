@@ -20,7 +20,7 @@ var SharePanel = React.createClass({
       var placeholder = this.props.rosterInfo.name || this.props.teamData.name;
       return (
         <div id="share">
-          <form onSubmit={this.props.handleRosterSubmit}>
+          <form id="share-form" className="active" onSubmit={this.props.handleRosterSubmit}>
             <input id="roster-name" type="text"
               placeholder={ placeholder ? placeholder : 'Roster Name' }
               onKeyPress={this.checkRosterNameInput}
@@ -28,6 +28,17 @@ var SharePanel = React.createClass({
               onPaste={this.blockPaste} />
             <button onClick={this.props.handleRosterSubmit}>Share</button>
           </form>
+          <div id="share-dialog">
+            <h3 id="share-loading" className="active">Saving Roster <i className="fa fa-cog fa-spin"></i></h3>
+            <div id="share-confirm">
+              <h3>Show off your GM skills...</h3>
+              <p>Share your roster with friends for the win.</p>
+              <input id="roster-url" type="text" value={this.props.rosterInfo.link} />
+              <button id="twitter-share"><i className="fa fa-twitter"></i> Share on Twitter</button>
+              <button id="facebook-share"><i className="fa fa-facebook"></i> Share on Facebook</button>
+              <a id="roster-link" target="_blank" href={this.props.rosterInfo.link}><i className="fa fa-link"></i></a>
+            </div>
+          </div>
         </div>
       );
     }

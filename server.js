@@ -104,7 +104,7 @@ io.sockets.on('connection', function(socket) {
       roster_data.name_id = roster_data.name.replace(/\s/g, '').toLowerCase();
       Roster.count({ name_id : roster_data.name_id }, function(count_err, count) {
         if (count_err) {
-          socket.emit('save roster', 'error');
+          socket.emit('roster saved', 'error');
           console.error(count_err);
         } else {
           if (count) { roster_data.id = roster_data.name_id + count; }
@@ -112,10 +112,10 @@ io.sockets.on('connection', function(socket) {
           var new_roster = new Roster(roster_data);
           new_roster.save(function(err) {
             if (err) {
-              socket.emit('save roster', 'error');
+              socket.emit('roster saved', 'error');
               console.error(err);
             } else {
-              socket.emit('roster saved', roster_data.id);
+              socket.emit('roster saved', 'success', roster_data.id);
               console.log('Roster Saved: ' + roster_data.name + ' [' + roster_data.id + '] (' + moment().format(timestamp) + ')');
             }
           });

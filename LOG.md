@@ -30,29 +30,27 @@
 - 'editable player tile info (salary) + add to LTIR button'
 - 'sticky cap stats panel + payroll table headers (try clone reveal?)'
 - 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
+- 'session state clear + restore (cookies / local storage?)'
+- 'share roster user submission delay'
 
 
-#### NOW » Did You Uptick Version? » [v0.6.6]
+#### NOW » Did You Uptick Version? » [v0.6.7]
 
-- 'share roster user dialog'
-- 'share roster submit 60sec delay'
 - 'migrate share-roster to prod + setup mongo collection'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'session state clear + restore (cookies / local storage?)'
+- 'create player panel + logic'
 - 'clear/reset roster button'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
 - 'panel scroll reset on team change'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade player panel + logic'
 - 'free agents panel + logic'
-- 'create player panel + logic'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'panel scrollbar consistency'
 - 'panel expand/collapse logic'
 - 'pre-cache player images on player item hover'
-- 'feature detection: if (!Modernizr.draganddrop)'
+- 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
 - 'logo / interface design + implementation'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup + distill player/roster components'
@@ -62,6 +60,7 @@
 
 #### READY
 
+- 'share roster user dialog [v0.6.6]'
 - 'share roster input validation [v0.6.5]'
 - 'load team + roster error notifications [v0.6.4]'
 - 'generate unique roster id on mongo-save [v0.6.3]'

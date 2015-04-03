@@ -19,6 +19,7 @@ var App = React.createClass({
         rosterInfo     : {
           id           : '',
           name         : '',
+          link         : '',
           hit          : '0.000',
           space        : '69.000'
         },
@@ -59,7 +60,7 @@ var App = React.createClass({
       }
       Socket.on('load team', this.loadTeamData);
       Socket.on('load roster', this.loadRosterData);
-      Socket.on('roster saved', this.showShareModal);
+      Socket.on('roster saved', this.showShareDialog);
     },
 
     // Helpers
@@ -95,11 +96,19 @@ var App = React.createClass({
     },
 
     // Share Roster
-    showShareModal: function(roster_id) {
-
-      // TODO Share Roster User Dialog
-
-      console.log('roster saved: ' + roster_id);
+    showShareDialog: function(status, roster_id) {
+      if (status === 'loading') {
+        document.getElementById('share-form').className = '';
+        document.getElementById('share-dialog').className = 'active';
+      } else if (status === 'success') {
+        document.getElementById('share-loading').className = '';
+        document.getElementById('share-confirm').className = 'active';
+        this.state.rosterInfo.link = 'http://' + location.host + '/' + roster_id;
+        this.setState();
+      } else if (status === 'error') {
+        // TODO Handle Share Error
+        console.log('share error');
+      }
     },
     handleRosterSubmit: function(e) {
       e.preventDefault();
@@ -114,7 +123,10 @@ var App = React.createClass({
         rosterData.trades        = this.state.leagueData.trades;
         rosterData.created       = this.state.leagueData.created;
         rosterData.lines         = this.state.rosterData;
-        Socket.emit('save roster', rosterData);
+        this.showShareDialog('loading');
+        setTimeout(function() {
+          Socket.emit('save roster', rosterData);
+        }, 1000);
       } else {
         this.showNotification('tip', 'Try adding a few more players to your roster first.');
       }
@@ -359,7 +371,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.6.6</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.6.7</span></footer>
         </div>
       );
     }
