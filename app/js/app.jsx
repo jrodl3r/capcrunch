@@ -79,6 +79,7 @@ var App = React.createClass({
       }
     },
 
+    // Share Roster
     // TODO Share Roster User Dialog
     showShareModal: function(roster_id) {
       console.log('roster saved: ' + roster_id);
@@ -128,52 +129,7 @@ var App = React.createClass({
       }
     },
 
-    // Roster Grid
-    highlightGrid: function(flag, type, pos) {
-      if (flag === 'on') {
-        if (type === 'forwards' || pos && /LW|C|RW/.test(pos)) {
-          document.getElementById('forwards').className = 'panel group dragging';
-        } else if (type === 'defensemen' || pos && /D/.test(pos)) {
-          document.getElementById('defense').className = 'panel group defense dragging';
-        } else if (type === 'goaltenders' || pos && /G/.test(pos)) {
-          document.getElementById('goalies').className = 'panel group defense dragging';
-        } else {
-          document.getElementById('forwards').className = 'panel group dragging';
-          document.getElementById('defense').className = 'panel group defense dragging';
-          document.getElementById('goalies').className = 'panel group defense dragging';
-        }
-      } else {
-        document.getElementById('forwards').className = 'panel group';
-        document.getElementById('defense').className = 'panel group defense';
-        document.getElementById('goalies').className = 'panel group defense';
-      }
-    },
-    handleGridDragEnter: function(e) {
-      if (this.props.curDropZone) {
-        this.props.lastDropZoneId = '';
-      }
-      this.props.benchPlayer = false;
-    },
-
-    // Roster Tiles
-    handleTileDragEnter: function(e) {
-      e.stopPropagation();
-      var dropZone = e.currentTarget;
-      if (dropZone.dataset.state !== 'active') {
-        dropZone.className = 'tile hover';
-        this.props.curDropZone = dropZone;
-      }
-      this.props.lastDropZoneId = dropZone.id;
-      this.props.benchPlayer = false;
-    },
-    handleTileDragLeave: function(e) {
-      var dropZone = e.currentTarget;
-      if (dropZone.dataset.state !== 'active') {
-        e.currentTarget.className = 'tile';
-      }
-    },
-
-    // Roster Players
+    // Player Tiles
     handlePlayerMouseOver: function(e) {
       if (e.currentTarget.parentNode.dataset.state === 'active') {
         e.currentTarget.className = 'player active hover';
@@ -240,7 +196,7 @@ var App = React.createClass({
       this.setState();
     },
 
-    // Bench Player
+    // Bench/Remove Player
     showPlayerBench: function() {
       document.getElementById('menu').className = 'section active show-bench';
     },
@@ -255,7 +211,52 @@ var App = React.createClass({
       e.currentTarget.parentNode.className = 'bench-player';
     },
 
-    // Roster Menu
+    // Roster Grid
+    highlightGrid: function(flag, type, pos) {
+      if (flag === 'on') {
+        if (type === 'forwards' || pos && /LW|C|RW/.test(pos)) {
+          document.getElementById('forwards').className = 'panel group dragging';
+        } else if (type === 'defensemen' || pos && /D/.test(pos)) {
+          document.getElementById('defense').className = 'panel group defense dragging';
+        } else if (type === 'goaltenders' || pos && /G/.test(pos)) {
+          document.getElementById('goalies').className = 'panel group defense dragging';
+        } else {
+          document.getElementById('forwards').className = 'panel group dragging';
+          document.getElementById('defense').className = 'panel group defense dragging';
+          document.getElementById('goalies').className = 'panel group defense dragging';
+        }
+      } else {
+        document.getElementById('forwards').className = 'panel group';
+        document.getElementById('defense').className = 'panel group defense';
+        document.getElementById('goalies').className = 'panel group defense';
+      }
+    },
+    handleGridDragEnter: function(e) {
+      if (this.props.curDropZone) {
+        this.props.lastDropZoneId = '';
+      }
+      this.props.benchPlayer = false;
+    },
+
+    // Grid Tiles
+    handleTileDragEnter: function(e) {
+      e.stopPropagation();
+      var dropZone = e.currentTarget;
+      if (dropZone.dataset.state !== 'active') {
+        dropZone.className = 'tile hover';
+        this.props.curDropZone = dropZone;
+      }
+      this.props.lastDropZoneId = dropZone.id;
+      this.props.benchPlayer = false;
+    },
+    handleTileDragLeave: function(e) {
+      var dropZone = e.currentTarget;
+      if (dropZone.dataset.state !== 'active') {
+        e.currentTarget.className = 'tile';
+      }
+    },
+
+    // Player Items
     handleMouseDown: function(e) {
       var dragItem   = e.currentTarget,
           playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
