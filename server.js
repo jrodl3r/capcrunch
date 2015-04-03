@@ -47,13 +47,22 @@ if (env === 'development') {
 if (env === 'production') {
   app.use(auth.connect(admin));
   app.use(compression());
+  app.get('/', function(req, res) {
+    console.log('User Connected [' + req.user + '] (' + moment().format(timestamp) + ')');
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+  });
+  app.get('/:roster', function(req, res) {
+    console.log('User Connected [' + req.user + '] (' + moment().format(timestamp) + ')');
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+  });
+} else {
+  app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+  });
+  app.get('/:roster', function(req, res) {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+  });
 }
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
-});
-app.get('/:roster', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/index.html'));
-});
 app.use('/', express.static(path.join(__dirname, '/public')));
 app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
@@ -120,6 +129,6 @@ io.sockets.on('connection', function(socket) {
 
   // disconnected
   socket.on('disconnect', function() {
-    console.log('Disconnected (' + moment().format(timestamp) + ')');
+    console.log('User Disconnected (' + moment().format(timestamp) + ')');
   });
 });
