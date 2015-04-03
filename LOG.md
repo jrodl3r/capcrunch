@@ -31,7 +31,7 @@
 - 'sticky cap stats panel + payroll table headers (try clone reveal?)'
 
 
-#### NOW » Did You Uptick Version? » [v0.6.3]
+#### NOW » Did You Uptick Version? » [v0.6.4]
 
 - 'load team + roster error notifications'
 - 'share roster input validation'
@@ -55,7 +55,7 @@
 - 'feature detection: if (!Modernizr.draganddrop)'
 - 'logo / interface design + implementation'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'cleanup player tile components'
+- 'cleanup + distill player/roster components'
 - 'fix list-item double-click selection bug'
 - 'fix safari textbox focus bug'
 - 'fix right click player tile bug'
@@ -63,6 +63,7 @@
 
 #### READY
 
+- 'generate unique roster id on mongo-save [v0.6.3]'
 - 'update codebase to accommodate new share roster feature [v0.6.2]'
 - 'initial share-roster logic + db model [v0.6.1]'
 - 'payroll player-status icon labels'

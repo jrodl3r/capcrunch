@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var rosterSchema = new mongoose.Schema({
       id: String,
       name: String,
+      name_id: String,
       hit: String,
       space: String,
       activeTeam: String,
