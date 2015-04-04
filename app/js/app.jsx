@@ -1,4 +1,4 @@
-// CapCrunch App (React)
+// CapCrunch App
 // ==================================================
 'use strict';
 
@@ -24,20 +24,20 @@ var App = React.createClass({
           space        : '69.000'
         },
         rosterData : {
-               F1L : { status: 'empty' }, F1C : { status: 'empty' }, F1R : { status: 'empty' },
-               F2L : { status: 'empty' }, F2C : { status: 'empty' }, F2R : { status: 'empty' },
-               F3L : { status: 'empty' }, F3C : { status: 'empty' }, F3R : { status: 'empty' },
-               F4L : { status: 'empty' }, F4C : { status: 'empty' }, F4R : { status: 'empty' },
-               D1L : { status: 'empty' }, D1R : { status: 'empty' },
-               D2L : { status: 'empty' }, D2R : { status: 'empty' },
-               D3L : { status: 'empty' }, D3R : { status: 'empty' },
-               G1L : { status: 'empty' }, G1R : { status: 'empty' }
+               F1L : { status : 'empty' }, F1C : { status : 'empty' }, F1R : { status : 'empty' },
+               F2L : { status : 'empty' }, F2C : { status : 'empty' }, F2R : { status : 'empty' },
+               F3L : { status : 'empty' }, F3C : { status : 'empty' }, F3R : { status : 'empty' },
+               F4L : { status : 'empty' }, F4C : { status : 'empty' }, F4R : { status : 'empty' },
+               D1L : { status : 'empty' }, D1R : { status : 'empty' },
+               D2L : { status : 'empty' }, D2R : { status : 'empty' },
+               D3L : { status : 'empty' }, D3R : { status : 'empty' },
+               G1L : { status : 'empty' }, G1R : { status : 'empty' }
         },
         teamData   : {
           id       : '',
           name     : '',
-          cap      : { hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
-          players  : { forwards: [], defensemen: [], goaltenders: [], other: [], inactive: [] }
+          cap      : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
+          players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [], created : [] }
         },
         leagueData : {
           cap      : '69.000',
@@ -86,8 +86,23 @@ var App = React.createClass({
     },
     loadTeamData: function(data) {
       if (data && data !== 'error') {
-        this.state.teamData = data;
-        this.setState();
+        data.players.created = [];
+        for (var i = 0; i < this.state.leagueData.created.length; i++) {
+          if (this.state.leagueData.created[i].team === data.id) {
+            data.players.created.push(this.state.leagueData.created[i]);
+          }
+        }
+        this.setState({ teamData: data });
+
+        // this.state.teamData = data;
+        // this.state.teamData.players.created = [];
+        // this.state.leagueData.created.map(function(player, i) {
+        //   if (player.team === this.state.activeTeam) {
+        //     this.state.teamData.players.created.push(player);
+        //   }
+        // }.bind(this));
+        // this.setState();
+
         // TODO Panel Transition Effect
         // TODO Reset Panel Scroll Position
       } else {
@@ -159,6 +174,25 @@ var App = React.createClass({
       } else {
         this.showNotification('error', 'Sorry, I can\'t find that roster in the system.');
       }
+    },
+
+    // Transactions
+    handleCreatePlayer: function(player) {
+      player.id = 9900 + this.state.leagueData.created.length;
+      player.team = this.state.activeTeam;
+      this.state.leagueData.created.push(player);
+      this.state.teamData.players.created.push(player);
+      this.setState();
+
+      // var updateLeagueCreatedPlayers = React.addons.update(this.state, {
+      //   leagueData: { created: { $push: [player] }}
+      // });
+      // this.setState(updateLeagueCreatedPlayers);
+      //
+      // var updateTeamCreatedPlayers = React.addons.update(this.state, {
+      //   teamData: { players: { created: { $push: [player] }}}
+      // });
+      // this.setState(updateTeamCreatedPlayers);
     },
 
     // Player Tiles
@@ -320,6 +354,7 @@ var App = React.createClass({
         dropZone.dataset.state = 'active';
         playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
         playerData.type = dragItem.dataset.type;
+        // TODO Update Array Mutation
         this.state.activePlayers.push(playerData.id);
         this.state.rosterData[dropZone.id] = playerData;
         // TODO Add updateCapStats Method
@@ -352,7 +387,8 @@ var App = React.createClass({
                 onDragStart={this.handleDragStart}
                 onDragEnd={this.handleDragEnd}
                 onBenchDragEnter={this.handleBenchDragEnter}
-                onBenchDragLeave={this.handleBenchDragLeave} />
+                onBenchDragLeave={this.handleBenchDragLeave}
+                onCreatePlayer={this.handleCreatePlayer} />
               <Roster
                 dragging={this.state.dragging}
                 rosterInfo={this.state.rosterInfo}
@@ -371,7 +407,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.6.7</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.7.0</span></footer>
         </div>
       );
     }

@@ -1,11 +1,11 @@
-// CapCrunch Free Agents Tab (Transactions Panel)
+// CapCrunch Trade Player Tab (Transactions Panel)
 // ==================================================
 'use strict';
 
-var FreeAgents = React.createClass({
+var Trades = React.createClass({
     render: function() {
       return (
-        <div id="freeagents" className="tab-area">
+        <div id="trades" className="tab-area">
           <div className="inner">
             Coming Soon <i className="fa fa-thumbs-o-up"></i>
           </div>
@@ -14,4 +14,4 @@ var FreeAgents = React.createClass({
     }
 });
 
-module.exports = FreeAgents;
+module.exports = Trades;

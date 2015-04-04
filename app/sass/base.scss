@@ -1,12 +1,15 @@
-// CapCrunch Assembler
+// CapCrunch Sass Assembler
 // ==================================================
 
 @import 'normalize';
 @import 'variables';
-@import 'mixins';
 @import 'fonts';
 @import 'core';
 @import 'nav';
 @import 'panels';
+@import 'panels/share';
+@import 'panels/players';
+@import 'panels/transactions';
+@import 'capstats';
 @import 'roster';
 @import 'payroll';

@@ -1,4 +1,4 @@
-// Roster Styles
+// Roster Grid
 // ==================================================
 
 #roster {
@@ -15,77 +15,6 @@
   }
 }
 
-.panel.group {
-  margin-top: 30px;
-  background: whitesmoke;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05) inset;
-  overflow: visible;
-
-  &.defense {
-    width: 430px;
-    margin-left: 105px;
-  }
-
-  .inner {
-    float: left;
-    padding-top: 10px;
-  }
-
-  .title {
-    float: left;
-    width: 100%;
-    margin-top: -30px;
-    color: #D5D5D5;
-    font-size: 12px;
-    background: none;
-  }
-
-  .left, .center, .right {
-    float: left;
-    height: $tile-height;
-    width: 200px;
-    margin-right: 10px;
-  }
-
-  .left {
-    margin-left: 10px;
-  }
-
-  .right {
-    margin-right: 0;
-  }
-
-  .line {
-    position: relative;
-    float: left;
-    height: $tile-height;
-    width: 100%;
-    margin-bottom: 10px;
-
-    .title {
-      position: absolute;
-      right: -25px;
-      display: block;
-      height: $tile-height;
-      width: 30px;
-      margin-top: 0;
-      line-height: $tile-height;
-      text-align: right;
-      color: #E5E5E5;
-
-      &.goalie {
-        width: 20px;
-        right: -20px;
-      }
-
-      &.starter {
-        right: initial;
-        left: -18px;
-        text-align: left;
-      }
-    }
-  }
-}
 
 // Player Tiles
 // --------------------------------------------------

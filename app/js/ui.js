@@ -8,21 +8,22 @@ var UI = {
   payroll_height        : 0,
 
   init: function() {
-    // toggle roster/payroll
-    $('a.payroll, a.roster').on('click', UI.toggleView);
+    // toggle roster/payroll views
+    $('#team-menu').on('click', 'li a', UI.toggleView);
     // roster mouseup catchall
     $('#app').on('mouseup', UI.unhighlightItems);
+    // toggle transactions tabs
+    $('#transactions-menu').on('click', 'li a', UI.toggleTransactionsView);
     // testing
     //$('#team-select').val('CHI').change();
   },
 
-  // toggle roster/payroll
+  // toggle roster/payroll views
   toggleView: function(e) {
-    var target = $(e.target);
     e.preventDefault();
-    if (!target.hasClass('active')) {
+    if (!$(this).hasClass('active')) {
       // show payroll
-      if (target.hasClass('payroll')) {
+      if ($(this).hasClass('payroll')) {
         // show reminder if no team is selected
         if ($('#team-select').val() === 'Select Team') {
           $('#team-select-reminder').addClass('active');
@@ -30,7 +31,7 @@ var UI = {
             $('#team-select-reminder').removeClass('active');
           });
         } else {
-          target.addClass('active');
+          $(this).addClass('active');
           $('a.roster').removeClass('active');
           $('#menu, #roster').toggleClass('active');
           UI.updatePayrollHeight();
@@ -40,7 +41,7 @@ var UI = {
         }
       // show roster
       } else {
-        target.addClass('active');
+        $(this).addClass('active');
         $('a.payroll').removeClass('active');
         $('#payroll').toggleClass('active');
         setTimeout(() => {
@@ -71,6 +72,15 @@ var UI = {
     $('#menu .player-list .item.clicked').removeClass('clicked');
     $('#roster .player.active.clicked').removeClass('clicked');
     $('#roster .panel.group.dragging').removeClass('dragging');
+  },
+
+  // toggle transactions tab menu
+  toggleTransactionsView: function() {
+    $('#transactions-menu a, #transactions .tab-area').removeClass('active');
+    $(this).addClass('active');
+    $('#' + $(this).attr('data-tabview')).addClass('active');
+    $('#transactions > .inner').removeClass('createplayer-active freeagents-active trades-active');
+    $('#transactions > .inner').addClass($(this).attr('data-tabview') + '-active');
   }
 };
 

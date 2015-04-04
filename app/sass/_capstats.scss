@@ -1,0 +1,60 @@
+// Cap Stats
+// ==================================================
+
+.cap-stats {
+  float: left;
+  height: 32px;
+  width: 640px;
+  color: #CCC;
+  line-height: 30px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  background: #FFF;
+  border: 1px dashed #DDD;
+  border-radius: $border-radius;
+  overflow: hidden;
+  transition: background .3s;
+
+  &.active {
+    background: #FAFAFA;
+    border: 1px solid #F5F5F5;
+    transition: background .3s .35s;
+
+    .section {
+      width: 25%;
+      padding-left: 20px;
+      opacity: 1;
+      transition: opacity .35s .25s, width 0s;
+    }
+  }
+
+  .section {
+    float: left;
+    width: 0;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    text-align: left;
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity .35s, width 0s .25s;
+  }
+
+  span {
+    float: left;
+    height: inherit;
+    line-height: inherit;
+    cursor: default;
+  }
+
+  .value {
+    padding-left: 10px;
+    color: #999;
+    font-size: 13px;
+  }
+
+  .placeholder {
+    width: 100%;
+  }
+}

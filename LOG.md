@@ -35,9 +35,9 @@
 - 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 
 
-#### NOW » Did You Uptick Version? » [v0.7.0]
+#### NOW » Did You Uptick Version? » [v0.7.1]
 
-- 'create player panel + logic [v0.7.0]'
+- 'create player panel + logic [v0.7.1]'
 - 'trade player panel + logic [v0.7.x]'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'clear/reset roster button'
@@ -59,6 +59,7 @@
 
 #### READY
 
+- 'initial transactions panel/tabs + create player logic [v0.7.0]'
 - 'add timezone config to node log timers + uptick mongoose rev'
 - 'migrate share-roster to prod + setup mongo collection'
 - 'share roster user dialog [v0.6.6]'

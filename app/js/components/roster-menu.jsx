@@ -1,12 +1,10 @@
-// CapCrunch Roster Menu (Component)
+// CapCrunch Roster Menu
 // ==================================================
 'use strict';
 
-var SharePanel     = require('./panels/share.jsx'),
-    PlayersPanel   = require('./panels/players.jsx'),
-    TradePanel     = require('./panels/trade.jsx'),
-    FreeAgentPanel = require('./panels/freeagents.jsx'),
-    CreatePanel    = require('./panels/create.jsx');
+var SharePanel        = require('./panels/share.jsx'),
+    PlayersPanel      = require('./panels/players.jsx'),
+    TransactionsPanel = require('./panels/transactions.jsx');
 
 var RosterMenu = React.createClass({
     render: function() {
@@ -44,6 +42,7 @@ var RosterMenu = React.createClass({
             handleBenchDragEnter={this.props.onBenchDragEnter}
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
+            teamData={this.props.teamData}
             playerData={this.props.teamData.players.inactive}
             activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
@@ -52,9 +51,8 @@ var RosterMenu = React.createClass({
             handleDragEnd={this.props.onDragEnd}
             handleBenchDragEnter={this.props.onBenchDragEnter}
             handleBenchDragLeave={this.props.onBenchDragLeave} />
-          <TradePanel />
-          <FreeAgentPanel />
-          <CreatePanel />
+          <TransactionsPanel
+            handleCreatePlayer={this.props.onCreatePlayer} />
         </div>
       );
     }

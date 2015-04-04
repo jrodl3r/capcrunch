@@ -1,0 +1,132 @@
+// Transactions Panel
+// ==================================================
+
+#transactions {
+
+  #transactions-menu {
+    height: $transactions-menu-height;
+    width: 300px;
+    background: #BBB;
+
+    li {
+      float: left;
+      height: 26px;
+      width: 100px;
+      margin: 0;
+      line-height: 26px;
+
+      a {
+        float: left;
+        height: inherit;
+        width: 100%;
+        color: #E5E5E5;
+        font-size: 11px;
+        line-height: inherit;
+        text-align: center;
+        cursor: pointer;
+        background: linear-gradient(to top, rgba(0,0,0, 0) 20%, rgba(0,0,0, .2) 100%);
+        transition: .3s;
+
+        &:hover {
+          color: #555;
+          //background: linear-gradient(to top, rgba(0,0,0, 0) 20%, rgba(0,0,0, .25) 100%);
+        }
+
+        &.active, &.active:hover {
+          color: #555;
+          background: linear-gradient(to top, #F8F8F8 20%, #CCC 100%);
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  &.panel .inner {
+    height: auto;
+    min-height: initial;
+    max-height: initial;
+    width: 300px;
+    transition: height .5s;
+
+    &.trades-active {
+      height: $trades-height + $transactions-menu-height;
+    }
+
+    &.freeagents-active {
+      height: $freeagents-height + $transactions-menu-height;
+    }
+
+    &.createplayer-active {
+      height: $createplayer-height + $transactions-menu-height;
+    }
+
+    .tab-area {
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity .4s, height 0s .4s;
+
+      &.active {
+        opacity: 1;
+        transition: opacity .5s .4s, height 0s .4s;
+      }
+
+      .inner {
+        height: 100%;
+      }
+    }
+
+    #trades, #freeagents {
+
+      &.tab-area.active {
+        height: $trades-height;
+      }
+
+      .inner {
+        color: #CCC;
+        line-height: $trades-height;
+
+        i {
+          padding-left: 2px;
+          font-size: 15px;
+        }
+      }
+    }
+
+    #createplayer {
+
+      &.tab-area.active {
+        height: $createplayer-height;
+      }
+
+      .inner {}
+    }
+  }
+}
+
+
+// Trades
+// --------------------------------------------------
+
+#trades {
+
+
+}
+
+
+// Free Agents
+// --------------------------------------------------
+
+#freeagents {
+
+
+}
+
+
+// Create Player
+// --------------------------------------------------
+
+#createplayer {
+
+
+}

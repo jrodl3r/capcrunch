@@ -8,10 +8,12 @@ var PlayersPanel = React.createClass({
       e.stopPropagation();
     },
     render: function() {
-      var haveData    = this.props.playerData[0] ? true : false,
-          playerType  = this.props.playerType,
-          isSkater    = playerType !== 'goaltenders' || playerType !== 'inactive' ? false : true,
-          playerItems = this.props.playerData.map(function(player, i) {
+      var haveData       = this.props.playerData[0] ? true : false,
+          playerType     = this.props.playerType,
+          isActive       = playerType !== 'inactive' ? true : false,
+          isSkater       = playerType !== 'goaltenders' || playerType !== 'inactive' ? false : true,
+          haveCreated    = this.props.teamData && this.props.teamData.players.created ? true : false,
+          playerItems    = this.props.playerData.map(function(player, i) {
             return (
               <li className={ this.props.activePlayers.indexOf(player.id) !== -1 ? 'row removed' : 'row'}>
                 <div className="item"
@@ -35,6 +37,30 @@ var PlayersPanel = React.createClass({
               </li>
             );
           }.bind(this));
+          if (haveCreated) {
+            var createdPlayers = this.props.teamData.players.created.map(function(player, i) {
+              return (
+                <li className={ this.props.activePlayers.indexOf(player.id) !== -1 ? 'row removed' : 'row'}>
+                  <div className="item"
+                    draggable={true}
+                    onMouseDown={this.props.handleMouseDown}
+                    onMouseUp={this.props.handleMouseUp}
+                    onDragStart={this.props.handleDragStart}
+                    onDragEnd={this.props.handleDragEnd}
+                    data-type="created"
+                    data-index={i}>
+                    <div className="name" onMouseDown={this.blockDrag}>
+                      <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
+                      {player.lastname}, {player.firstname}
+                    </div>
+                    <div className="shot" onMouseDown={this.blockDrag}>&nbsp;</div>
+                    <div className="salary" onMouseDown={this.blockDrag}>{ player.contract[0] === '0.000' ? '-' : player.contract[0] }</div>
+                    <div className="handle">&nbsp;</div>
+                  </div>
+                </li>
+              );
+            }.bind(this));
+          }
 
       return (
         <div id={this.props.panelId} className={ playerType === 'goaltenders' ? 'panel short player-list' : 'panel player-list' }>
@@ -49,7 +75,10 @@ var PlayersPanel = React.createClass({
               <div className="salary">Salary</div>
               <div className="handle">&nbsp;</div>
             </div>
-            <ul>{playerItems}</ul>
+            <ul>
+              { haveCreated ? {createdPlayers} : null }
+              {playerItems}
+            </ul>
           </div>
         : <div className="inner">
             <div className="team-select-reminder">Select Team <i className="fa fa-hand-o-right"></i></div>
