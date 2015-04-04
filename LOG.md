@@ -23,29 +23,27 @@
 - 'analytics + monitoring'
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
+- 'free agents panel + logic'
 - 'SEO friendly ReactJS SSR markup'
 - 'player image CDN (uptime/redundancy/speed)'
 - 'typekit + icomoon.io + gulp asset management (fonts, images)'
 - 'add player group line drag action (drag over + icon to reveal)'
 - 'editable player tile info (salary) + add to LTIR button'
 - 'sticky cap stats panel + payroll table headers (try clone reveal?)'
-- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 - 'session state clear + restore (cookies / local storage?)'
-- 'share roster user submission delay'
+- 'share roster user submission delay + spam protection'
+- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 
 
-#### NOW » Did You Uptick Version? » [v0.6.7]
+#### NOW » Did You Uptick Version? » [v0.7.0]
 
-- 'migrate share-roster to prod + setup mongo collection'
+- 'create player panel + logic [v0.7.0]'
+- 'trade player panel + logic [v0.7.x]'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'create player panel + logic'
 - 'clear/reset roster button'
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
 - 'panel scroll reset on team change'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'trade player panel + logic'
-- 'free agents panel + logic'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'panel scrollbar consistency'
 - 'panel expand/collapse logic'
@@ -53,6 +51,7 @@
 - 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
 - 'logo / interface design + implementation'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'wire-up twitter + facebook share buttons'
 - 'cleanup + distill player/roster components'
 - 'fix list-item double-click selection bug'
 - 'fix right click player tile bug'
@@ -60,6 +59,8 @@
 
 #### READY
 
+- 'add timezone config to node log timers + uptick mongoose rev'
+- 'migrate share-roster to prod + setup mongo collection'
 - 'share roster user dialog [v0.6.6]'
 - 'share roster input validation [v0.6.5]'
 - 'load team + roster error notifications [v0.6.4]'

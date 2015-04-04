@@ -10,8 +10,9 @@ var express     = require('express'),
     compression = require('compression'),
     favicon     = require('serve-favicon'),
     path        = require('path'),
-    moment      = require('moment'),
+    moment      = require('moment-timezone'),
     timestamp   = 'MMMM Do YYYY, h:mm:ss a',
+    timezone    = 'America/New_York',
     mongoose    = require('mongoose'),
     Team        = require('./models/team.js'),
     Roster      = require('./models/roster.js'),
@@ -31,12 +32,12 @@ server.listen(port);
 if (env === 'development') {
   mongoose.connect('mongodb://localhost/cc', function(err) {
     if (err) { console.error(err); }
-    else { console.log('Connected to mongodb (' + moment().format(timestamp) + ')'); }
+    else { console.log('Connected to mongodb (' + moment.tz(timezone).format(timestamp) + ')'); }
   });
 } else if (env === 'production') {
   mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/cc', function(err) {
     if (err) { console.error(err); }
-    else { console.log('Connected to mongodb (' + moment().format(timestamp) + ')'); }
+    else { console.log('Connected to mongodb (' + moment.tz(timezone).format(timestamp) + ')'); }
   });
 } else if (env === 'testing') { /* TODO */ }
 
@@ -48,11 +49,11 @@ if (env === 'production') {
   app.use(auth.connect(admin));
   app.use(compression());
   app.get('/', function(req, res) {
-    console.log('User Connected [' + req.user + '] (' + moment().format(timestamp) + ')');
+    console.log('User Connected [' + req.user + '] (' + moment.tz(timezone).format(timestamp) + ')');
     res.sendFile(path.join(__dirname, '/public/index.html'));
   });
   app.get('/:roster', function(req, res) {
-    console.log('User Connected [' + req.user + '] (' + moment().format(timestamp) + ')');
+    console.log('User Connected [' + req.user + '] (' + moment.tz(timezone).format(timestamp) + ')');
     res.sendFile(path.join(__dirname, '/public/index.html'));
   });
 } else {
@@ -77,10 +78,10 @@ io.sockets.on('connection', function(socket) {
     Team.find({ id : team_id }, function(err, data) {
       if (err || !data[0]) {
         socket.emit('load team', 'error');
-        console.error(err || 'Load Team Failed: ' + team_id + ' (' + moment().format(timestamp) + ')');
+        console.error(err || 'Load Team Failed: ' + team_id + ' (' + moment.tz(timezone).format(timestamp) + ')');
       } else {
         socket.emit('load team', data[0]);
-        console.log('Team Loaded: ' + data[0].name + ' (' + moment().format(timestamp) + ')');
+        console.log('Team Loaded: ' + data[0].name + ' (' + moment.tz(timezone).format(timestamp) + ')');
       }
     });
   });
@@ -90,10 +91,10 @@ io.sockets.on('connection', function(socket) {
     Roster.find({ id : roster_id }, function(err, data) {
       if (err || !data[0]) {
         socket.emit('load roster', 'error');
-        console.error(err || 'Load Roster Failed: ' + roster_id + ' (' + moment().format(timestamp) + ')');
+        console.error(err || 'Load Roster Failed: ' + roster_id + ' (' + moment.tz(timezone).format(timestamp) + ')');
       } else {
         socket.emit('load roster', data[0]);
-        console.log('Roster Loaded: ' + data[0].name + ' [' + data[0].id + '] (' + moment().format(timestamp) + ')');
+        console.log('Roster Loaded: ' + data[0].name + ' [' + data[0].id + '] (' + moment.tz(timezone).format(timestamp) + ')');
       }
     });
   });
@@ -116,7 +117,7 @@ io.sockets.on('connection', function(socket) {
               console.error(err);
             } else {
               socket.emit('roster saved', 'success', roster_data.id);
-              console.log('Roster Saved: ' + roster_data.name + ' [' + roster_data.id + '] (' + moment().format(timestamp) + ')');
+              console.log('Roster Saved: ' + roster_data.name + ' [' + roster_data.id + '] (' + moment.tz(timezone).format(timestamp) + ')');
             }
           });
         }
@@ -129,6 +130,6 @@ io.sockets.on('connection', function(socket) {
 
   // disconnected
   socket.on('disconnect', function() {
-    console.log('User Disconnected (' + moment().format(timestamp) + ')');
+    console.log('User Disconnected (' + moment.tz(timezone).format(timestamp) + ')');
   });
 });
