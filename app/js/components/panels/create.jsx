@@ -15,17 +15,23 @@ var CreatePlayer = React.createClass({
         this.props.playerData.lastname = playerData.lastname.trim();
         this.props.handleCreatePlayer(this.props.playerData);
       } else {
-        
+
+
         // TODO Notify User
         console.log('add missing data!');
+
 
       }
     },
     checkPlayerNameInput: function(e) {
       var str = e.target.value,
           key = String.fromCharCode(e.charCode);
+      // two-dots/dashes/spaces max-total
+      if (str.match(/\./g) && str.match(/\./g).length > 1 && /\./.test(key)) { return false; }
+      if (str.match(/\-/g) && str.match(/\-/g).length > 1 && /\-/.test(key)) { return false; }
+      if (str.match(/\s/g) && str.match(/\s/g).length > 1 && /\s/.test(key)) { return false; }
       // letters/dashes/spaces/dots + block enter key + single-dash/dot
-      if (!/[a-zA-Z]|-|\s|\./.test(key) || e.charCode === 13) { return false; }
+      else if (!/[a-zA-Z]|-|\s|\./.test(key) || e.charCode === 13) { return false; }
       else if (/-|\./.test(key) && /-|\.|\s/.test(str.substr(str.length - 1))) { return false; }
       // single-space (following letters/dots)
       else if (/\s/.test(key) && /-|\s/.test(str.substr(str.length - 1))) { return false; }
@@ -49,7 +55,10 @@ var CreatePlayer = React.createClass({
     },
     checkPlayerJerseyInput: function(e) {
       var str = e.target.value,
-          key = String.fromCharCode(e.charCode);
+          key = String.fromCharCode(e.charCode),
+          sel = window.getSelection().toString();
+      // allow text-selection overwrite
+      if (sel && str.indexOf(sel) > -1 && /\d/.test(key)) { return true; }
       // numbers only + block enter key + two-digit max-length
       if (!/\d/.test(key) || e.charCode === 13 || str.length === 2) { return false; }
     },
@@ -58,7 +67,10 @@ var CreatePlayer = React.createClass({
     },
     checkPlayerSalaryInput: function(e) {
       var str = e.target.value,
-          key = String.fromCharCode(e.charCode);
+          key = String.fromCharCode(e.charCode),
+          sel = window.getSelection().toString();
+      // allow text-selection overwrite
+      if (sel && str.indexOf(sel) > -1 && /\d/.test(key)) { return true; }
       // numbers/single-dot only + block enter key + six-digit max-length
       if (!/\d|\./.test(key) || e.charCode === 13 || str.length === 6) { return false; }
       // starts with digit
@@ -71,6 +83,10 @@ var CreatePlayer = React.createClass({
       else if (str.length === 2 && /\d{2}/.test(str) && !/\./.test(key)) { return false; }
       // prevent 4 decimal-places on single-digit millions
       else if (str.length === 5 && /\d{1}\.\d{3}/.test(str)) { return false; }
+    },
+    formatSalary: function(e) {
+      var str = e.target.value;
+      e.target.value = parseFloat(str).toFixed(3);
     },
     changePlayerSalaryDuration: function(e) {
       var duration = parseInt(e.target.value);
@@ -86,7 +102,6 @@ var CreatePlayer = React.createClass({
       return (
         <div id="createplayer" className="tab-area active">
           <div className="inner">
-
             <input id="create-player-fname" type="text" placeholder="First Name"
               onKeyPress={this.checkPlayerNameInput}
               onChange={this.changePlayerFirstName}
@@ -108,17 +123,17 @@ var CreatePlayer = React.createClass({
               <option value="D">D</option>
               <option value="G">G</option>
             </select>
-            <input id="create-player-jersey" type="number" placeholder="99"
+            <input id="create-player-jersey" type="number" placeholder="Jersey"
               onKeyPress={this.checkPlayerJerseyInput}
               onChange={this.changePlayerJersey}
               onPaste={this.blockPaste} />
-            <input id="create-player-salary" type="number" step="1.000" placeholder="0.000"
+            <input id="create-player-salary" type="number" step="0.100" min="0.100" max="99.999" placeholder="Salary"
               onKeyPress={this.checkPlayerSalaryInput}
               onChange={this.changePlayerSalary}
+              onBlur={this.formatSalary}
               onPaste={this.blockPaste} />
             <select id="create-player-salary-length" onChange={this.changePlayerSalaryDuration}>
-              <option selected disabled>Years</option>
-              <option value="1">1yr</option>
+              <option selected value="1">1yr</option>
               <option value="2">2yr</option>
               <option value="3">3yr</option>
               <option value="4">4yr</option>

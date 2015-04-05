@@ -1,12 +1,13 @@
 #### RELEASE
 
-- 'Round #1 » private sharing/testing (gchat, dm, nhl#s)'
+- 'Round #1 » private sharing/testing (gchat, dm, nhl#s, JSmeetup)'
 - 'Round #2 » public release (HF, HN, #reactjs)
   - http://goo.gl/06SsOZ
   - http://goo.gl/VYF5sg
   - https://twitter.com/TGfireandice/status/578747221308370944
   - http://fireandice.northjersey.com
   - http://war-on-ice.com
+  - http://diebytheblade.com
   - http://mirtle.blogspot.ca/2015/03/matthew-wuest-1979-2015.html
   - http://www.inlouwetrust.com/2015/3/23/8272707/who-else-other-than-the-nhl-can-try-to-make-a-new-capgeek
   - http://thehockeywriters.com/the-dream-team-an-nhl-11-case-study
@@ -17,33 +18,35 @@
 #### LATER
 
 - 'minor team roster/lineup'
+- 'share roster text-only output'
 - 'message-board sharing widget (dynamic image generator)'
+- 'add more create player panel options (nation, age, image)'
 - 'player-list + payroll player details onHover'
-- 'next/new feature user voting'
-- 'analytics + monitoring'
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
 - 'free agents panel + logic'
-- 'SEO friendly ReactJS SSR markup'
-- 'player image CDN (uptime/redundancy/speed)'
 - 'typekit + icomoon.io + gulp asset management (fonts, images)'
-- 'add player group line drag action (drag over + icon to reveal)'
+- 'add new line drag-action [IR/Backup] (drag over + icon to reveal)'
 - 'editable player tile info (salary) + add to LTIR button'
 - 'sticky cap stats panel + payroll table headers (try clone reveal?)'
 - 'session state clear + restore (cookies / local storage?)'
+- 'SEO friendly ReactJS SSR markup'
+- 'player image CDN (uptime/redundancy/speed)'
 - 'share roster user submission delay + spam protection'
+- 'next/new feature user voting'
+- 'analytics + monitoring'
 - 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 
 
-#### NOW » Did You Uptick Version? » [v0.7.1]
+#### NOW » Did You Uptick Version? » [v0.7.2]
 
-- 'create player panel + logic [v0.7.1]'
+- 'create player panel layout [v0.7.2]'
 - 'trade player panel + logic [v0.7.x]'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'clear/reset roster button'
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
 - 'panel scroll reset on team change'
+- 'clear/reset roster button (options gear-icon)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'panel scrollbar consistency'
 - 'panel expand/collapse logic'
@@ -59,6 +62,7 @@
 
 #### READY
 
+- 'create player panel + logic [v0.7.1]'
 - 'initial transactions panel/tabs + create player logic [v0.7.0]'
 - 'add timezone config to node log timers + uptick mongoose rev'
 - 'migrate share-roster to prod + setup mongo collection'

@@ -56,7 +56,8 @@ var App = React.createClass({
     },
     componentDidMount: function() {
       if (this.parseRosterURI()) {
-        Socket.emit('get roster', this.state.rosterInfo.id);
+        var roster_id = this.parseRosterURI();
+        Socket.emit('get roster', roster_id);
       }
       Socket.on('load team', this.loadTeamData);
       Socket.on('load roster', this.loadRosterData);
@@ -81,33 +82,21 @@ var App = React.createClass({
     // Team Select
     handleChangeTeam: function(id) {
       Socket.emit('get team', id);
-      this.state.activeTeam = id;
-      this.setState();
+      this.setState({ activeTeam : id });
     },
     loadTeamData: function(data) {
       if (data && data !== 'error') {
-        data.players.created = [];
+        var team_data = data;
+        team_data.players.created = [];
         for (var i = 0; i < this.state.leagueData.created.length; i++) {
-          if (this.state.leagueData.created[i].team === data.id) {
-            data.players.created.push(this.state.leagueData.created[i]);
+          if (this.state.leagueData.created[i].team === team_data.id) {
+            team_data.players.created.push(this.state.leagueData.created[i]);
           }
         }
-        this.setState({ teamData: data });
-
-        // this.state.teamData = data;
-        // this.state.teamData.players.created = [];
-        // this.state.leagueData.created.map(function(player, i) {
-        //   if (player.team === this.state.activeTeam) {
-        //     this.state.teamData.players.created.push(player);
-        //   }
-        // }.bind(this));
-        // this.setState();
-
+        this.setState({ teamData: team_data });
         // TODO Panel Transition Effect
         // TODO Reset Panel Scroll Position
-      } else {
-        this.showNotification('error', 'Sorry, There was an error loading that team.');
-      }
+      } else { this.showNotification('error', 'Sorry, There was an error loading that team.'); }
     },
 
     // Share Roster
@@ -115,11 +104,14 @@ var App = React.createClass({
       if (status === 'loading') {
         document.getElementById('share-form').className = '';
         document.getElementById('share-dialog').className = 'active';
-      } else if (status === 'success') {
+      } else if (status === 'success' && roster_id) {
         document.getElementById('share-loading').className = '';
         document.getElementById('share-confirm').className = 'active';
-        this.state.rosterInfo.link = 'http://' + location.host + '/' + roster_id;
-        this.setState();
+        var rosterLink = 'http://' + location.host + '/' + roster_id;
+        var updateRosterLink = React.addons.update(this.state, {
+          rosterInfo : { link : { $set: rosterLink }}
+        });
+        this.setState(updateRosterLink);
       } else if (status === 'error') {
         // TODO Handle Share Error
         console.log('share error');
@@ -142,57 +134,63 @@ var App = React.createClass({
         setTimeout(function() {
           Socket.emit('save roster', rosterData);
         }, 1000);
-      } else {
-        this.showNotification('tip', 'Try adding a few more players to your roster first.');
-      }
+      } else { this.showNotification('tip', 'Try adding a few more players to your roster first.'); }
+    },
+    loadRosterData: function(data) {
+      if (data && data !== 'error') {
+        var roster_data = data,
+            roster_grid = this.state.rosterData;
+        var updateRosterInfo = React.addons.update(this.state, {
+          rosterInfo    : { name  : { $set: roster_data.name },
+                            hit   : { $set: roster_data.hit },
+                            space : { $set: roster_data.space }},
+          activePlayers : { $set: roster_data.activePlayers },
+          leagueData    : { created : { $set: roster_data.created },
+                            trades  : { $set: roster_data.trades }}
+        });
+        this.setState(updateRosterInfo);
+        for (var pos in roster_grid) {
+          if (roster_data.lines.hasOwnProperty(pos)) {
+            roster_grid[pos] = roster_data.lines[pos];
+          }
+        }
+        this.setState({ rosterData : roster_grid });
+        document.getElementById('team-select').value = roster_data.activeTeam;
+        this.handleChangeTeam(roster_data.activeTeam);
+      } else { this.showNotification('error', 'There was an error loading that roster.'); }
     },
     parseRosterURI: function() {
       var roster_id = decodeURI(location.pathname.substr(1));
       if (roster_id) {
-        this.state.rosterInfo.id = roster_id;
-        this.setState();
-        return true;
-      } else {
-        return false;
-      }
-    },
-    loadRosterData: function(data) {
-      if (data && data !== 'error') {
-        this.state.rosterInfo.name    = data.name;
-        this.state.rosterInfo.hit     = data.hit;
-        this.state.rosterInfo.space   = data.space;
-        this.state.activePlayers      = data.activePlayers;
-        this.state.leagueData.trades  = data.trades;
-        this.state.leagueData.created = data.created;
-        for (var pos in this.state.rosterData) {
-          if (data.lines.hasOwnProperty(pos)) {
-            this.state.rosterData[pos] = data.lines[pos];
-          }
-        }
-        document.getElementById('team-select').value = data.activeTeam;
-        this.handleChangeTeam(data.activeTeam);
-      } else {
-        this.showNotification('error', 'Sorry, I can\'t find that roster in the system.');
-      }
+        var updateRosterId = React.addons.update(this.state, {
+          rosterInfo : { id : { $set: roster_id }}
+        });
+        this.setState(updateRosterId);
+        return roster_id;
+      } else { return false; }
     },
 
     // Transactions
     handleCreatePlayer: function(player) {
-      player.id = 9900 + this.state.leagueData.created.length;
-      player.team = this.state.activeTeam;
-      this.state.leagueData.created.push(player);
-      this.state.teamData.players.created.push(player);
-      this.setState();
-
-      // var updateLeagueCreatedPlayers = React.addons.update(this.state, {
-      //   leagueData: { created: { $push: [player] }}
-      // });
-      // this.setState(updateLeagueCreatedPlayers);
-      //
-      // var updateTeamCreatedPlayers = React.addons.update(this.state, {
-      //   teamData: { players: { created: { $push: [player] }}}
-      // });
-      // this.setState(updateTeamCreatedPlayers);
+      var newPlayer = {
+        lastname: player.lastname,
+        firstname: player.firstname,
+        contract: player.contract,
+        shot: player.shot,
+        jersey: player.jersey,
+        image: '',
+        team: this.state.activeTeam,
+        id: 9900 + this.state.leagueData.created.length,
+        age: '',
+        nation: '',
+        position: player.position,
+        status: ''
+      };
+      var updateCreatePlayers = React.addons.update(this.state, {
+        teamData   : { players : { created : { $push: [newPlayer] }}},
+        leagueData : { created : { $push: [newPlayer] }}
+      });
+      this.setState(updateCreatePlayers);
     },
 
     // Player Tiles
@@ -407,7 +405,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.7.0</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.7.2</span></footer>
         </div>
       );
     }
