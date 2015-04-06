@@ -5,15 +5,23 @@
 var CreatePlayer = React.createClass({
     getDefaultProps: function() {
       return {
-        playerData : { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] }
+        playerData : { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] },
+        playerAdded : false
       };
     },
-    handleCreatePlayer: function(e) {
+    handleCreatePlayer: function() {
       var playerData = this.props.playerData;
       if (playerData.firstname && playerData.lastname && playerData.position && playerData.salary && playerData.contract.length) {
-        this.props.playerData.firstname = playerData.firstname.trim();
-        this.props.playerData.lastname = playerData.lastname.trim();
-        this.props.handleCreatePlayer(this.props.playerData);
+        playerData.firstname = playerData.firstname.trim();
+        playerData.lastname = playerData.lastname.trim();
+        this.props.handleCreatePlayer(playerData);
+        this.props.playerData.firstname = '';
+        this.props.playerData.lastname = '';
+        this.props.playerData.shot = '';
+        this.props.playerData.position = '';
+        this.props.playerData.jersey = '';
+        this.props.playerData.salary = '';
+        this.props.playerData.contract = [];
         document.getElementById('create-player-confirm').className = 'active';
         setTimeout(function() {
           document.getElementById('create-player-fname').value = '';

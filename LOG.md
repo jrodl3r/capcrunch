@@ -18,35 +18,34 @@
 #### LATER
 
 - 'minor team roster/lineup'
-- 'share roster text-only output'
 - 'message-board sharing widget (dynamic image generator)'
 - 'add more create player panel options (nation, age, image)'
 - 'player-list + payroll player details onHover'
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
-- 'free agents panel + logic'
 - 'typekit + icomoon.io + gulp asset management (fonts, images)'
 - 'add new line drag-action [IR/Backup] (drag over + icon to reveal)'
 - 'editable player tile info (salary) + add to LTIR button'
-- 'sticky cap stats panel + payroll table headers (try clone reveal?)'
-- 'session state clear + restore (cookies / local storage?)'
-- 'SEO friendly ReactJS SSR markup'
+- 'sticky cap stats panel + payroll table headers (try cloning)'
+- 'session state clear + restore (cookies)'
+- 'share roster text-only output'
 - 'player image CDN (uptime/redundancy/speed)'
 - 'share roster user submission delay + spam protection'
-- 'next/new feature user voting'
-- 'analytics + monitoring'
-- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
+- 'SEO friendly ReactJS SSR markup'
 
 
 #### NOW » Did You Uptick Version? » [v0.7.3]
 
 - 'trade player panel + logic [v0.7.3]'
-- 'trade player panel layout [v0.7.4]'
+- 'trade player panel layout'
+- 'free agents panel + logic'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
 - 'panel scroll reset on team change'
 - 'clear/reset roster button (options gear-icon)'
+- 'illustrator new logo deisgn'
+- 'photoshop new layout / design'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'panel scrollbar consistency'
 - 'panel expand/collapse logic'
@@ -59,6 +58,10 @@
 - 'cleanup + distill player/roster components'
 - 'fix list-item double-click selection bug'
 - 'fix right click player tile bug'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'next/new feature user voting'
+- 'analytics + monitoring'
+- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 
 
 #### READY
