@@ -52,6 +52,7 @@ var RosterMenu = React.createClass({
             handleBenchDragEnter={this.props.onBenchDragEnter}
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <TransactionsPanel
+            teamData={this.props.teamData}
             handleCreatePlayer={this.props.onCreatePlayer} />
         </div>
       );

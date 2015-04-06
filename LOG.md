@@ -38,10 +38,10 @@
 - 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 
 
-#### NOW » Did You Uptick Version? » [v0.7.2]
+#### NOW » Did You Uptick Version? » [v0.7.3]
 
-- 'create player panel layout [v0.7.2]'
-- 'trade player panel + logic [v0.7.x]'
+- 'trade player panel + logic [v0.7.3]'
+- 'trade player panel layout [v0.7.4]'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
@@ -54,6 +54,7 @@
 - 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
 - 'logo / interface design + implementation'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'wire-up create-player add salary row button'
 - 'wire-up twitter + facebook share buttons'
 - 'cleanup + distill player/roster components'
 - 'fix list-item double-click selection bug'
@@ -62,6 +63,7 @@
 
 #### READY
 
+- 'create player panel layout + styles [v0.7.2]'
 - 'create player panel + logic [v0.7.1]'
 - 'initial transactions panel/tabs + create player logic [v0.7.0]'
 - 'add timezone config to node log timers + uptick mongoose rev'

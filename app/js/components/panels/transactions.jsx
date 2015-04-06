@@ -8,19 +8,22 @@ var Trades       = require('./trades.jsx'),
 
 var TransactionsPanel = React.createClass({
     render: function() {
+      var haveData = this.props.teamData.id ? true : false;
+
       return (
         <div id="transactions" className="panel">
           <div className="title">Transactions</div>
-          <div className="inner createplayer-active">
+          <div className={ haveData ? 'inner createplayer-active' : 'inner inactive' }>
             <ul id="transactions-menu">
-              <li><a id="createplayer-tab" data-tabview="createplayer" className="active">Create Player</a></li>
-              <li><a id="trades-tab" data-tabview="trades">Trades</a></li>
-              <li><a id="freeagents-tab" data-tabview="freeagents">Free Agents</a></li>
+              <li><a href="#" id="createplayer-tab" data-tabview="createplayer" className="active">Create Player</a></li>
+              <li><a href="#" id="trades-tab" data-tabview="trades">Trades</a></li>
+              <li><a href="#" id="freeagents-tab" data-tabview="freeagents">Free Agents</a></li>
             </ul>
             <CreatePlayer
               handleCreatePlayer={this.props.handleCreatePlayer} />
             <Trades />
             <FreeAgents />
+            <div className="team-select-reminder">Select Team <i className="fa fa-hand-o-right"></i></div>
           </div>
         </div>
       );

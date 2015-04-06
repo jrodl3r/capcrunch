@@ -9,11 +9,13 @@ var UI = {
 
   init: function() {
     // toggle roster/payroll views
-    $('#team-menu').on('click', 'li a', UI.toggleView);
+    $('#team-menu').on('click', 'a', UI.toggleView);
     // roster mouseup catchall
     $('#app').on('mouseup', UI.unhighlightItems);
     // toggle transactions tabs
-    $('#transactions-menu').on('click', 'li a', UI.toggleTransactionsView);
+    $('#transactions-menu').on('click', 'a', UI.toggleTransactionsView);
+    // create player: add salary row
+    $('#addSalaryRow').on('click', UI.createPlayerAddSalary);
     // testing
     //$('#team-select').val('CHI').change();
   },
@@ -75,12 +77,18 @@ var UI = {
   },
 
   // toggle transactions tab menu
-  toggleTransactionsView: function() {
+  toggleTransactionsView: function(e) {
+    e.preventDefault();
     $('#transactions-menu a, #transactions .tab-area').removeClass('active');
     $(this).addClass('active');
     $('#' + $(this).attr('data-tabview')).addClass('active');
     $('#transactions > .inner').removeClass('createplayer-active freeagents-active trades-active');
     $('#transactions > .inner').addClass($(this).attr('data-tabview') + '-active');
+  },
+
+  // create player: add salary row
+  createPlayerAddSalary: function(e) {
+    e.preventDefault();
   }
 };
 

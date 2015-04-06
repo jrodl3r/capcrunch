@@ -19,17 +19,17 @@
         float: left;
         height: inherit;
         width: 100%;
-        color: #E5E5E5;
+        color: #EEE;
         font-size: 11px;
         line-height: inherit;
         text-align: center;
+        text-decoration: none;
         cursor: pointer;
-        background: linear-gradient(to top, rgba(0,0,0, 0) 20%, rgba(0,0,0, .2) 100%);
-        transition: .3s;
+        background: linear-gradient(to top, rgba(0,0,0, .1) 0%, rgba(0,0,0, .4) 100%);
+        transition: .25s;
 
         &:hover {
-          color: #555;
-          //background: linear-gradient(to top, rgba(0,0,0, 0) 20%, rgba(0,0,0, .25) 100%);
+          color: #CCC;
         }
 
         &.active, &.active:hover {
@@ -47,6 +47,23 @@
     max-height: initial;
     width: 300px;
     transition: height .5s;
+
+    &.inactive {
+
+      #transactions-menu, #createplayer, #trades, #freeagents {
+        display: none;
+      }
+
+      .team-select-reminder {
+        display: block;
+        height: $trades-height + $transactions-menu-height;
+        line-height: $trades-height + $transactions-menu-height;
+      }
+    }
+
+    .team-select-reminder {
+      display: none;
+    }
 
     &.trades-active {
       height: $trades-height + $transactions-menu-height;
@@ -98,8 +115,6 @@
       &.tab-area.active {
         height: $createplayer-height;
       }
-
-      .inner {}
     }
   }
 }
@@ -128,5 +143,202 @@
 
 #createplayer {
 
+  p {
+    margin: 15px 0;
+    color: #CCC;
+    font-size: 11px;
 
+    &.warning {
+      color: #999;
+    }
+  }
+
+  input {
+    float: left;
+    height: 26px;
+    width: 100px;
+    padding: 0 3px 0 10px;
+    line-height: 24px;
+    background: #EEE;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    transition: .35s;
+
+    &::placeholder {
+      color: #BBB;
+    }
+
+    &:hover {
+      background: #E6E6E6;
+
+      &::placeholder {
+        color: #AAA;
+      }
+    }
+
+    &:focus {
+      border-color: #CCC;
+    }
+
+    &.active {
+      background: #E6E6E6;
+    }
+
+    &.missing {
+      background: #BBB;
+      border-color: #AAA;
+
+      &::placeholder {
+        color: #EEE;
+      }
+    }
+  }
+
+  #create-player-fname, #create-player-lname {
+    width: 130px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+  }
+
+  #create-player-lname {
+    margin-left: 10px;
+  }
+
+  #create-player-jersey {
+    width: 70px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+  }
+
+  select {
+    float: left;
+    height: 26px;
+    width: 90px;
+    margin-bottom: 15px;
+    color: #BBB;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: bold;
+    background: #EEE;
+    border: 1px solid #DDD;
+    transition: .35s;
+
+    &:hover {
+      color: #AAA;
+      background: #E6E6E6;
+    }
+
+    &:focus {
+      border-color: #CCC;
+    }
+
+    &.active {
+      color: #777;
+      background: #E6E6E6;
+    }
+
+    &.missing {
+      color: #EEE;
+      background: #BBB;
+      border-color: #AAA;
+    }
+  }
+
+  #create-player-shot {
+    margin-left: 15px;
+  }
+
+  #create-player-position {
+    margin-left: 10px;
+  }
+
+  #create-player-salary {
+    width: 130px;
+    margin-left: 15px;
+  }
+
+  #create-player-salary-duration {
+    width: 95px;
+    margin-left: 10px;
+  }
+
+  a#addSalaryRow {
+    float: left;
+    height: 26px;
+    width: 35px;
+    color: #DDD;
+    font-size: 14px;
+    line-height: 26px;
+
+    &:hover {
+      color: #BBB;
+    }
+  }
+
+  button {
+    position: relative;
+    top: 5px;
+    display: block;
+    height: 30px;
+    width: 160px;
+    margin: 0 auto;
+    padding: 0 0 0 5px;
+    color: #EEE;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 28px;
+    text-align: left;
+    text-shadow: 0 0 2px rgba(0,0,0, .25);
+    border: 1px solid #9A9A9A;
+    border-radius: $border-radius;
+    background: #AAA;
+    transition: .3s;
+
+    &:hover {
+      color: #FFF;
+      background: #9A9A9A;
+    }
+
+    i {
+      font-size: 13px;
+      padding: 0 6px 0 5px;
+    }
+  }
+
+  #create-player-confirm {
+    position: absolute;
+    top: 56px;
+    height: 0;
+    width: 100%;
+    padding-left: 15px;
+    line-height: 200px;
+    opacity: 0;
+    overflow: hidden;
+    background: linear-gradient(to top, #DDD 0%, #F8F8F8 100%);
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    transition: opacity .5s, height 0s .5s;
+
+    &.active {
+      height: 220px;
+      opacity: 1;
+      transition: opacity .5s, height 0s;
+    }
+
+    i {
+      font-size: 13px;
+      padding: 0 6px 0 5px;
+    }
+
+    p {
+      display: none;
+      position: absolute;
+      top: 16px;
+      width: 100%;
+      color: #BBB;
+      font-size: 11px;
+      left: 0;
+      height: 50%;
+    }
+  }
 }

@@ -113,8 +113,7 @@ var App = React.createClass({
         });
         this.setState(updateRosterLink);
       } else if (status === 'error') {
-        // TODO Handle Share Error
-        console.log('share error');
+        this.showNotification('error', 'Sorry, There was an error saving your roster.');
       }
     },
     handleRosterSubmit: function(e) {
@@ -226,6 +225,7 @@ var App = React.createClass({
       this.state.curDragPlayer = this.state.rosterData[e.currentTarget.parentNode.id];
       this.state.dragging = true;
       this.setState();
+      // TODO Use React.addons.update() / setState({x:y})
     },
     handlePlayerDragEnd: function(e) {
       var playerItem    = e.currentTarget,
@@ -258,6 +258,7 @@ var App = React.createClass({
       this.hidePlayerBench();
       this.state.dragging = false;
       this.setState();
+      // TODO Use React.addons.update() / setState({x:y})
     },
 
     // Bench/Remove Player
@@ -328,6 +329,7 @@ var App = React.createClass({
       this.highlightGrid('on', dragItem.dataset.type, playerData.position);
       this.state.curDragPlayer = playerData;
       this.setState();
+      // TODO Use React.addons.update() / setState({x:y})
     },
     handleMouseUp: function(e) {
       e.currentTarget.className = 'item';
@@ -352,12 +354,12 @@ var App = React.createClass({
         dropZone.dataset.state = 'active';
         playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
         playerData.type = dragItem.dataset.type;
-        // TODO Update Array Mutation
         this.state.activePlayers.push(playerData.id);
         this.state.rosterData[dropZone.id] = playerData;
         // TODO Add updateCapStats Method
         this.state.rosterInfo.hit = (parseFloat(this.state.rosterInfo.hit) + parseFloat(playerData.contract[0])).toFixed(3);
         this.state.rosterInfo.space = (parseFloat(this.state.rosterInfo.space) - parseFloat(playerData.contract[0])).toFixed(3);
+        // TODO Use React.addons.update() / setState({x:y})
         this.setState();
       } else {
         dragItem.className = 'item';
@@ -405,7 +407,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.7.2</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.7.3</span></footer>
         </div>
       );
     }

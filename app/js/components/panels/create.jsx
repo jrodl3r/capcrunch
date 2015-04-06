@@ -14,13 +14,55 @@ var CreatePlayer = React.createClass({
         this.props.playerData.firstname = playerData.firstname.trim();
         this.props.playerData.lastname = playerData.lastname.trim();
         this.props.handleCreatePlayer(this.props.playerData);
-      } else {
-
-
-        // TODO Notify User
-        console.log('add missing data!');
-
-
+        document.getElementById('create-player-confirm').className = 'active';
+        setTimeout(function() {
+          document.getElementById('create-player-fname').value = '';
+          document.getElementById('create-player-fname').className = '';
+          document.getElementById('create-player-lname').value = '';
+          document.getElementById('create-player-lname').className = '';
+          document.getElementById('create-player-shot').className = '';
+          document.getElementById('create-player-shot').selectedIndex = 0;
+          document.getElementById('create-player-jersey').className = '';
+          document.getElementById('create-player-jersey').value = '';
+          document.getElementById('create-player-position').className = '';
+          document.getElementById('create-player-position').selectedIndex = 0;
+          document.getElementById('create-player-salary').value = '';
+          document.getElementById('create-player-salary').className = '';
+          document.getElementById('create-player-salary-duration').className = '';
+          document.getElementById('create-player-salary-duration').selectedIndex = 0;
+          document.getElementById('createplayer-msg').innerText = 'Create & Sign a custom player to your team:';
+          document.getElementById('create-player-confirm').className = '';
+        }, 3500);
+      } else if (!playerData.firstname) {
+        document.getElementById('create-player-fname').className = 'missing';
+        document.getElementById('create-player-fname').focus();
+        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to add a first name...';
+        document.getElementById('createplayer-msg').className = 'warning';
+        return false;
+      } else if (!playerData.lastname) {
+        document.getElementById('create-player-lname').className = 'missing';
+        document.getElementById('create-player-lname').focus();
+        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to add a last name...';
+        document.getElementById('createplayer-msg').className = 'warning';
+        return false;
+      } else if (!playerData.position) {
+        document.getElementById('create-player-position').className = 'missing';
+        document.getElementById('create-player-position').focus();
+        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to choose a position...';
+        document.getElementById('createplayer-msg').className = 'warning';
+        return false;
+      } else if (!playerData.salary) {
+        document.getElementById('create-player-salary').className = 'missing';
+        document.getElementById('create-player-salary').focus();
+        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to add a salary...';
+        document.getElementById('createplayer-msg').className = 'warning';
+        return false;
+      } else if (!playerData.contract.length) {
+        document.getElementById('create-player-salary-duration').className = 'missing';
+        document.getElementById('create-player-salary-duration').focus();
+        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to add a salary duration...';
+        document.getElementById('createplayer-msg').className = 'warning';
+        return false;
       }
     },
     checkPlayerNameInput: function(e) {
@@ -40,18 +82,23 @@ var CreatePlayer = React.createClass({
     },
     changePlayerFirstName: function(e) {
       this.props.playerData.firstname = e.target.value;
+      e.target.className = 'active';
     },
     changePlayerLastName: function(e) {
       this.props.playerData.lastname = e.target.value;
+      e.target.className = 'active';
     },
     changePlayerShot: function(e) {
       this.props.playerData.shot = e.target.value;
+      e.target.className = 'active';
     },
     changePlayerPosition: function(e) {
       this.props.playerData.position = e.target.value;
+      e.target.className = 'active';
     },
     changePlayerJersey: function(e) {
       this.props.playerData.jersey = e.target.value;
+      e.target.className = 'active';
     },
     checkPlayerJerseyInput: function(e) {
       var str = e.target.value,
@@ -64,6 +111,7 @@ var CreatePlayer = React.createClass({
     },
     changePlayerSalary: function(e) {
       this.props.playerData.salary = parseFloat(e.target.value).toFixed(3);
+      e.target.className = 'active';
     },
     checkPlayerSalaryInput: function(e) {
       var str = e.target.value,
@@ -94,6 +142,7 @@ var CreatePlayer = React.createClass({
       for (var i = 0; i < duration; i++) {
         this.props.playerData.contract[i] = this.props.playerData.salary;
       }
+      e.target.className = 'active';
     },
     blockPaste: function() {
       return false;
@@ -102,6 +151,7 @@ var CreatePlayer = React.createClass({
       return (
         <div id="createplayer" className="tab-area active">
           <div className="inner">
+            <p id="createplayer-msg">Create &amp; Sign a custom player to your team:</p>
             <input id="create-player-fname" type="text" placeholder="First Name"
               onKeyPress={this.checkPlayerNameInput}
               onChange={this.changePlayerFirstName}
@@ -123,7 +173,7 @@ var CreatePlayer = React.createClass({
               <option value="D">D</option>
               <option value="G">G</option>
             </select>
-            <input id="create-player-jersey" type="number" placeholder="Jersey"
+            <input id="create-player-jersey" type="number" placeholder="Jersey" min="0" max="99"
               onKeyPress={this.checkPlayerJerseyInput}
               onChange={this.changePlayerJersey}
               onPaste={this.blockPaste} />
@@ -132,14 +182,23 @@ var CreatePlayer = React.createClass({
               onChange={this.changePlayerSalary}
               onBlur={this.formatSalary}
               onPaste={this.blockPaste} />
-            <select id="create-player-salary-length" onChange={this.changePlayerSalaryDuration}>
-              <option selected value="1">1yr</option>
-              <option value="2">2yr</option>
-              <option value="3">3yr</option>
-              <option value="4">4yr</option>
-              <option value="5">5yr</option>
+            <select id="create-player-salary-duration" onChange={this.changePlayerSalaryDuration}>
+              <option selected disabled>Duration</option>
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5">5 years</option>
             </select>
-            <button id="create-player-button" onClick={this.handleCreatePlayer}>Create &amp; Sign</button>
+            <a href="#" id="addSalaryRow" title="Add Salary"><i className="fa fa-plus"></i></a>
+            <button id="create-player-button" onClick={this.handleCreatePlayer}>
+              <i className="fa fa-plus-circle"></i>
+              Create &amp; Sign Player
+            </button>
+            <div id="create-player-confirm">
+              Player Created <i className="fa fa-magic"></i>
+              <!-- <p>(added to Inactive)</p> -->
+            </div>
           </div>
         </div>
       );
