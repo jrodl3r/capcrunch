@@ -10,10 +10,10 @@
 
     li {
       float: left;
-      height: 26px;
+      height: $transactions-menu-height;
       width: 100px;
       margin: 0;
-      line-height: 26px;
+      line-height: $transactions-menu-height;
 
       a {
         float: left;
@@ -41,12 +41,12 @@
     }
   }
 
-  &.panel .inner {
+  &.panel > .inner {
     height: auto;
     min-height: initial;
     max-height: initial;
     width: 300px;
-    transition: height .5s;
+    transition: height .75s;
 
     &.inactive {
 
@@ -61,95 +61,45 @@
       }
     }
 
-    .team-select-reminder {
-      display: none;
-    }
-
     &.trades-active {
       height: $trades-height + $transactions-menu-height;
     }
 
     &.freeagents-active {
-      height: $freeagents-height + $transactions-menu-height;
+      height: $transactions-height;
     }
 
     &.createplayer-active {
-      height: $createplayer-height + $transactions-menu-height;
-    }
-
-    .tab-area {
-      height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: opacity .4s, height 0s .4s;
-
-      &.active {
-        opacity: 1;
-        transition: opacity .5s .4s, height 0s .4s;
-      }
-
-      .inner {
-        height: 100%;
-      }
-    }
-
-    #trades, #freeagents {
-
-      &.tab-area.active {
-        height: $trades-height;
-      }
-
-      .inner {
-        color: #CCC;
-        line-height: $trades-height;
-
-        i {
-          padding-left: 2px;
-          font-size: 15px;
-        }
-      }
-    }
-
-    #createplayer {
-
-      &.tab-area.active {
-        height: $createplayer-height;
-      }
+      height: $transactions-height;
     }
   }
-}
 
+  .tab-area {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity .4s, height 0s .4s;
 
-// Trades
-// --------------------------------------------------
+    &.active {
+      height: $transactions-panel-height;
+      opacity: 1;
+      transition: opacity .5s .4s, height 0s .4s;
+    }
 
-#trades {
+    .inner {
+      position: relative;
+      height: 100%;
+      max-height: none;
 
+      p {
+        margin: 15px 0;
+        color: #CCC;
+        font-size: 11px;
 
-}
-
-
-// Free Agents
-// --------------------------------------------------
-
-#freeagents {
-
-
-}
-
-
-// Create Player
-// --------------------------------------------------
-
-#createplayer {
-
-  p {
-    margin: 15px 0;
-    color: #CCC;
-    font-size: 11px;
-
-    &.warning {
-      color: #999;
+        &.warning {
+          color: #999;
+        }
+      }
     }
   }
 
@@ -157,6 +107,8 @@
     float: left;
     height: 26px;
     width: 100px;
+    margin-bottom: 15px;
+    margin-left: 15px;
     padding: 0 3px 0 10px;
     line-height: 24px;
     background: #EEE;
@@ -194,27 +146,12 @@
     }
   }
 
-  #create-player-fname, #create-player-lname {
-    width: 130px;
-    margin-bottom: 15px;
-    margin-left: 15px;
-  }
-
-  #create-player-lname {
-    margin-left: 10px;
-  }
-
-  #create-player-jersey {
-    width: 70px;
-    margin-bottom: 15px;
-    margin-left: 10px;
-  }
-
   select {
     float: left;
     height: 26px;
     width: 90px;
     margin-bottom: 15px;
+    margin-left: 15px;
     color: #BBB;
     line-height: 24px;
     font-size: 12px;
@@ -244,25 +181,33 @@
     }
   }
 
-  #create-player-shot {
-    margin-left: 15px;
+  button {
+    position: absolute;
+    bottom: 18px;
+    right: 0;
+    left: 0;
+    display: block;
+    height: 30px;
+    opacity: 1;
+    width: 160px;
+    margin: 0 auto;
+    color: #EEE;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 24px;
+    text-align: center;
+    text-shadow: 0 0 2px rgba(0,0,0, .25);
+    border: 1px solid #9A9A9A;
+    border-radius: $border-radius;
+    background: #AAA;
+
+    &:hover {
+      color: #FFF;
+      background: #9A9A9A;
+    }
   }
 
-  #create-player-position {
-    margin-left: 10px;
-  }
-
-  #create-player-salary {
-    width: 130px;
-    margin-left: 15px;
-  }
-
-  #create-player-salary-duration {
-    width: 95px;
-    margin-left: 10px;
-  }
-
-  a#addSalaryRow {
+  a.add-button {
     float: left;
     height: 26px;
     width: 35px;
@@ -272,42 +217,13 @@
 
     &:hover {
       color: #BBB;
+      cursor: pointer;
     }
   }
 
-  button {
-    position: relative;
-    top: 5px;
-    display: block;
-    height: 30px;
-    width: 160px;
-    margin: 0 auto;
-    padding: 0 0 0 5px;
-    color: #EEE;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 28px;
-    text-align: left;
-    text-shadow: 0 0 2px rgba(0,0,0, .25);
-    border: 1px solid #9A9A9A;
-    border-radius: $border-radius;
-    background: #AAA;
-    transition: .3s;
-
-    &:hover {
-      color: #FFF;
-      background: #9A9A9A;
-    }
-
-    i {
-      font-size: 13px;
-      padding: 0 6px 0 5px;
-    }
-  }
-
-  #create-player-confirm {
+  .transaction-confirm {
     position: absolute;
-    top: 56px;
+    top: 60px;
     height: 0;
     width: 100%;
     padding-left: 15px;
@@ -340,5 +256,172 @@
       left: 0;
       height: 50%;
     }
+  }
+
+  .team-select-reminder {
+    display: none;
+  }
+}
+
+
+// Trades
+// --------------------------------------------------
+
+#trades {
+
+  &.tab-area.active {
+    height: $trades-height;
+  }
+
+  #trade-drop-area {
+    height: 40px;
+    width: 270px;
+    margin: 0 auto 15px;
+    color: #DDD;
+    line-height: 37px;
+    border: 1px dashed #DDD;
+    border-radius: $border-radius;
+    background: #F4F4F4;
+  }
+
+  #trade-team-select {
+    width: 70px;
+  }
+
+  #trade-players-select {
+    width: 155px;
+    margin-left: 10px;
+  }
+
+  #trade-player-breakdown {
+    position: relative;
+    float: left;
+    height: 58px;
+    width: 270px;
+    margin-left: 15px;
+  }
+
+  ul {
+    float: left;
+    min-height: 100%;
+    width: 120px;
+    padding: 4px;
+    background: #F4F4F4;
+    border: 1px dashed #DDD;
+    border-radius: $border-radius;
+
+    &:first-of-type {
+      margin-right: 30px;
+    }
+
+    &.active {
+      border: 1px solid #DDD;
+    }
+
+    li {
+      margin-bottom: 4px;
+      padding: 5px 5px 5px 8px;
+      text-align: left;
+      color: #777;
+      font-size: 10px;
+      background: #DDD;
+      border-radius: $border-radius;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      a {
+        float: right;
+        height: 14px;
+        width: 14px;
+        color: #AAA;
+        font-size: 9px;
+        text-align: center;
+
+        &:hover {
+          color: #777;
+          cursor: pointer;
+        }
+      }
+
+      &.trade-team-placeholder {
+        height: 52px;
+        margin: 0;
+        padding: 0;
+        color: #DDD;
+        line-height: 52px;
+        text-align: center;
+        background: none;
+      }
+    }
+  }
+
+  .trade-marker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    margin: auto;
+    color: #E6E6E6;
+    font-size: 15px;
+    line-height: 30px;
+  }
+
+  button {
+    width: 125px;
+  }
+}
+
+
+// Free Agents
+// --------------------------------------------------
+
+#freeagents {
+
+  .inner {
+    color: #CCC;
+    line-height: $transactions-panel-height;
+
+    i {
+      padding-left: 2px;
+      font-size: 15px;
+    }
+  }
+}
+
+
+// Create Player
+// --------------------------------------------------
+
+#createplayer {
+
+  #create-player-fname, #create-player-lname {
+    width: 130px;
+  }
+
+  #create-player-lname {
+    margin-left: 10px;
+  }
+
+  #create-player-jersey {
+    width: 70px;
+    margin-left: 10px;
+  }
+
+  #create-player-position {
+    margin-left: 10px;
+  }
+
+  #create-player-salary {
+    width: 130px;
+  }
+
+  #create-player-salary-duration {
+    width: 95px;
+    margin-left: 10px;
   }
 }

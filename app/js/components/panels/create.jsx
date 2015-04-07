@@ -5,8 +5,15 @@
 var CreatePlayer = React.createClass({
     getDefaultProps: function() {
       return {
-        playerData : { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] },
-        playerAdded : false
+        playerData  : { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] },
+        messages    : {
+          heading        : 'Create & Sign custom players to your team:',
+          missing_fname  : 'Don\'t forget to add a first name...',
+          missing_lname  : 'Don\'t forget to add a last name...',
+          missing_pos    : 'Don\'t forget to choose a position...',
+          missing_salary : 'Don\'t forget to add a salary...',
+          missing_dur    : 'Don\'t forget to add a salary duration...'
+        }
       };
     },
     handleCreatePlayer: function() {
@@ -22,7 +29,7 @@ var CreatePlayer = React.createClass({
         this.props.playerData.jersey = '';
         this.props.playerData.salary = '';
         this.props.playerData.contract = [];
-        document.getElementById('create-player-confirm').className = 'active';
+        document.getElementById('create-player-confirm').className = 'transaction-confirm active';
         setTimeout(function() {
           document.getElementById('create-player-fname').value = '';
           document.getElementById('create-player-fname').className = '';
@@ -38,39 +45,34 @@ var CreatePlayer = React.createClass({
           document.getElementById('create-player-salary').className = '';
           document.getElementById('create-player-salary-duration').className = '';
           document.getElementById('create-player-salary-duration').selectedIndex = 0;
-          document.getElementById('createplayer-msg').innerText = 'Create & Sign a custom player to your team:';
-          document.getElementById('create-player-confirm').className = '';
-        }, 3500);
+          document.getElementById('createplayer-msg').innerText = this.props.messages.heading;
+          document.getElementById('create-player-confirm').className = 'transaction-confirm';
+        }.bind(this), 3500);
       } else if (!playerData.firstname) {
         document.getElementById('create-player-fname').className = 'missing';
         document.getElementById('create-player-fname').focus();
-        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to add a first name...';
+        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_fname;
         document.getElementById('createplayer-msg').className = 'warning';
-        return false;
       } else if (!playerData.lastname) {
         document.getElementById('create-player-lname').className = 'missing';
         document.getElementById('create-player-lname').focus();
-        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to add a last name...';
+        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_lname;
         document.getElementById('createplayer-msg').className = 'warning';
-        return false;
       } else if (!playerData.position) {
         document.getElementById('create-player-position').className = 'missing';
         document.getElementById('create-player-position').focus();
-        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to choose a position...';
+        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_pos;
         document.getElementById('createplayer-msg').className = 'warning';
-        return false;
       } else if (!playerData.salary) {
         document.getElementById('create-player-salary').className = 'missing';
         document.getElementById('create-player-salary').focus();
-        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to add a salary...';
+        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_salary;
         document.getElementById('createplayer-msg').className = 'warning';
-        return false;
       } else if (!playerData.contract.length) {
         document.getElementById('create-player-salary-duration').className = 'missing';
         document.getElementById('create-player-salary-duration').focus();
-        document.getElementById('createplayer-msg').innerText = 'Don\'t forget to add a salary duration...';
+        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_dur;
         document.getElementById('createplayer-msg').className = 'warning';
-        return false;
       }
     },
     checkPlayerNameInput: function(e) {
@@ -157,9 +159,9 @@ var CreatePlayer = React.createClass({
     },
     render: function() {
       return (
-        <div id="createplayer" className="tab-area active">
+        <div id="createplayer" className="tab-area">
           <div className="inner">
-            <p id="createplayer-msg">Create &amp; Sign a custom player to your team:</p>
+            <p id="createplayer-msg">{this.props.messages.heading}</p>
             <input id="create-player-fname" type="text" placeholder="First Name"
               onKeyPress={this.checkPlayerNameInput}
               onChange={this.changePlayerFirstName}
@@ -198,14 +200,12 @@ var CreatePlayer = React.createClass({
               <option value="4">4 years</option>
               <option value="5">5 years</option>
             </select>
-            <a href="#" id="addSalaryRow" title="Add Salary"><i className="fa fa-plus"></i></a>
+            <a id="create-player-add-salary" className="add-button" title="Add Salary"><i className="fa fa-plus"></i></a>
             <button id="create-player-button" onClick={this.handleCreatePlayer}>
-              <i className="fa fa-plus-circle"></i>
               Create &amp; Sign Player
             </button>
-            <div id="create-player-confirm">
+            <div id="create-player-confirm" className="transaction-confirm">
               Player Created <i className="fa fa-magic"></i>
-              <!-- <p>(added to Inactive)</p> -->
             </div>
           </div>
         </div>

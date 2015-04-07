@@ -28,17 +28,17 @@
 - 'editable player tile info (salary) + add to LTIR button'
 - 'sticky cap stats panel + payroll table headers (try cloning)'
 - 'session state clear + restore (cookies)'
+- 'free agents panel + logic'
 - 'share roster text-only output'
 - 'player image CDN (uptime/redundancy/speed)'
 - 'share roster user submission delay + spam protection'
 - 'SEO friendly ReactJS SSR markup'
 
 
-#### NOW » Did You Uptick Version? » [v0.7.3]
+#### NOW » Did You Uptick Version? » [v0.7.4]
 
-- 'trade player panel + logic [v0.7.3]'
-- 'trade player panel layout'
-- 'free agents panel + logic'
+- 'trade player panel add-player logic [v0.7.4]'
+- 'cleanup/address React console warnings'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
@@ -66,6 +66,7 @@
 
 #### READY
 
+- 'initial trade player layout + logic + sockets [v0.7.3]'
 - 'create player panel layout + styles [v0.7.2]'
 - 'create player panel + logic [v0.7.1]'
 - 'initial transactions panel/tabs + create player logic [v0.7.0]'

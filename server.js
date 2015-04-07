@@ -99,6 +99,25 @@ io.sockets.on('connection', function(socket) {
     });
   });
 
+  // load players
+  socket.on('get players', function(team_id) {
+    Team.find({ id : team_id }, function(err, data) {
+      if (err || !data[0]) {
+        socket.emit('load players', 'error');
+        console.error(err || 'Load Players Failed: ' + team_id + ' (' + moment.tz(timezone).format(timestamp) + ')');
+      } else {
+        var players = {
+          team        : team_id,
+          forwards    : data[0].players.forwards,
+          defensemen  : data[0].players.defensemen,
+          goaltenders : data[0].players.goaltenders,
+          inactive    : data[0].players.inactive
+        };
+        socket.emit('load players', players);
+      }
+    });
+  });
+
   // save roster
   socket.on('save roster', function(roster_data) {
     if (roster_data && roster_data.name) {
