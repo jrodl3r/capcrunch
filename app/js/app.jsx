@@ -442,7 +442,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.7.4</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.7.5</span></footer>
         </div>
       );
     }
