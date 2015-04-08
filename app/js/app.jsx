@@ -23,27 +23,32 @@ var App = React.createClass({
           hit          : '0.000',
           space        : '69.000'
         },
-        rosterData : {
-               F1L : { status : 'empty' }, F1C : { status : 'empty' }, F1R : { status : 'empty' },
-               F2L : { status : 'empty' }, F2C : { status : 'empty' }, F2R : { status : 'empty' },
-               F3L : { status : 'empty' }, F3C : { status : 'empty' }, F3R : { status : 'empty' },
-               F4L : { status : 'empty' }, F4C : { status : 'empty' }, F4R : { status : 'empty' },
-               D1L : { status : 'empty' }, D1R : { status : 'empty' },
-               D2L : { status : 'empty' }, D2R : { status : 'empty' },
-               D3L : { status : 'empty' }, D3R : { status : 'empty' },
-               G1L : { status : 'empty' }, G1R : { status : 'empty' }
+        rosterData  : {
+               F1L  : { status : 'empty' }, F1C : { status : 'empty' }, F1R : { status : 'empty' },
+               F2L  : { status : 'empty' }, F2C : { status : 'empty' }, F2R : { status : 'empty' },
+               F3L  : { status : 'empty' }, F3C : { status : 'empty' }, F3R : { status : 'empty' },
+               F4L  : { status : 'empty' }, F4C : { status : 'empty' }, F4R : { status : 'empty' },
+               D1L  : { status : 'empty' }, D1R : { status : 'empty' },
+               D2L  : { status : 'empty' }, D2R : { status : 'empty' },
+               D3L  : { status : 'empty' }, D3R : { status : 'empty' },
+               G1L  : { status : 'empty' }, G1R : { status : 'empty' }
         },
-        teamData   : {
-          id       : '',
-          name     : '',
-          cap      : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
-          players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [], created : [] }
+        teamData    : {
+          id        : '',
+          name      : '',
+          cap       : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
+          players   : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [], created : [] }
         },
-        playerData : { team : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
-        leagueData : {
-          cap      : '69.000',
-          trades   : [],
-          created  : []
+        playerData  : { team : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
+        leagueData  : {
+          cap       : '69.000',
+          trades    : [],
+          created   : []
+        },
+        activeTrade : {
+          status    : false,
+          active    : { id : '', players : [], id_list : [] },
+          passive   : { id : '', players : [], id_list : [] }
         }
       };
     },
@@ -52,7 +57,8 @@ var App = React.createClass({
         lastDropZoneId : '',
         curDropZone    : null,
         originDropZone : null,
-        benchPlayer    : false
+        benchPlayer    : false,
+        addTradePlayer : false
       };
     },
     componentDidMount: function() {
@@ -65,6 +71,7 @@ var App = React.createClass({
       Socket.on('load players', this.loadPlayerData);
       Socket.on('roster saved', this.showShareDialog);
     },
+
 
     // Notifications
     showNotification: function(type, msg) {
@@ -80,6 +87,7 @@ var App = React.createClass({
         document.getElementById('notify').className = '';
       }, 4000);
     },
+
 
     // Data Loading
     loadTeamData: function(data) {
@@ -135,11 +143,13 @@ var App = React.createClass({
       } else { this.showNotification('error', 'There was an error loading that roster.'); }
     },
 
+
     // Team Select
     handleChangeTeam: function(id) {
       Socket.emit('get team', id);
       this.setState({ activeTeam : id });
     },
+
 
     // Share Roster
     showShareDialog: function(status, roster_id) {
@@ -188,6 +198,7 @@ var App = React.createClass({
       } else { return false; }
     },
 
+
     // Create Player
     handleCreatePlayer: function(player) {
       var new_player = {
@@ -211,6 +222,7 @@ var App = React.createClass({
       this.setState(updateCreatePlayers);
     },
 
+
     // Trade Players
     handleTradePlayers: function(players) {
 
@@ -218,9 +230,51 @@ var App = React.createClass({
 
     },
     handleChangeTradeTeam: function(id) {
+      var updateTradeData = React.addons.update(this.state, {
+        activeTrade : { passive : { id : { $set: id }}}
+      });
+      this.setState(updateTradeData);
       Socket.emit('get players', id);
     },
+    handleAddTradePlayer: function(type, player) {
+      if (type === 'passive') {
+        var updateTradeData = React.addons.update(this.state, {
+          activeTrade : { passive : { players : { $push: [player] },
+                                      id_list : { $push: [player.id] }}}
+        });
+        this.setState(updateTradeData);
+      } else if (type === 'active') {
 
+        // TODO Setup Active Add Trade Player
+
+      }
+    },
+    handleRemoveTradePlayer: function(type, id) {
+      if (type === 'passive') {
+        var index = this.state.activeTrade.passive.id_list.indexOf(id);
+        var updateTradeData = React.addons.update(this.state, {
+          activeTrade : { passive : { players : { $splice: [[index, 1]] },
+                                      id_list : { $splice: [[index, 1]] }}}
+        });
+        this.setState(updateTradeData);
+      } else if (type === 'active') {
+
+        // TODO Setup Active Remove Trade Player
+
+      }
+    },
+
+
+    handleTradeDragEnter: function(e) {
+      this.props.addTradePlayer = true;
+      e.currentTarget.parentNode.className = 'hover';
+      //console.log('trade drag enter');
+    },
+    handleTradeDragLeave: function(e) {
+      this.props.addTradePlayer = false;
+      e.currentTarget.parentNode.className = '';
+      //console.log('trade drag leave');
+    },
 
 
     // Player Tiles
@@ -292,6 +346,7 @@ var App = React.createClass({
       // TODO Use React.addons.update() / setState({x:y})
     },
 
+
     // Bench/Remove Player
     showPlayerBench: function() {
       document.getElementById('menu').className = 'section active show-bench';
@@ -306,6 +361,7 @@ var App = React.createClass({
     handleBenchDragLeave: function(e) {
       e.currentTarget.parentNode.className = 'bench-player';
     },
+
 
     // Roster Grid
     highlightGrid: function(flag, type, pos) {
@@ -334,6 +390,7 @@ var App = React.createClass({
       this.props.benchPlayer = false;
     },
 
+
     // Grid Tiles
     handleTileDragEnter: function(e) {
       e.stopPropagation();
@@ -351,6 +408,7 @@ var App = React.createClass({
         e.currentTarget.className = 'tile';
       }
     },
+
 
     // Player Items
     handleMouseDown: function(e) {
@@ -399,6 +457,7 @@ var App = React.createClass({
       this.highlightGrid('off');
     },
 
+
     render: function() {
       return (
         <div id="main">
@@ -413,17 +472,22 @@ var App = React.createClass({
                 playerData={this.state.playerData}
                 rosterInfo={this.state.rosterInfo}
                 activeTeam={this.state.activeTeam}
+                activeTrade={this.state.activeTrade}
                 activePlayers={this.state.activePlayers}
                 onRosterSubmit={this.handleRosterSubmit}
                 onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}
                 onDragStart={this.handleDragStart}
                 onDragEnd={this.handleDragEnd}
+                onTradeDragEnter={this.handleTradeDragEnter}
+                onTradeDragLeave={this.handleTradeDragLeave}
                 onBenchDragEnter={this.handleBenchDragEnter}
                 onBenchDragLeave={this.handleBenchDragLeave}
                 onCreatePlayer={this.handleCreatePlayer}
                 onTradePlayers={this.handleTradePlayers}
-                onChangeTradeTeam={this.handleChangeTradeTeam} />
+                onChangeTradeTeam={this.handleChangeTradeTeam}
+                onAddTradePlayer={this.handleAddTradePlayer}
+                onRemoveTradePlayer={this.handleRemoveTradePlayer} />
               <Roster
                 dragging={this.state.dragging}
                 rosterInfo={this.state.rosterInfo}

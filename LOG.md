@@ -41,6 +41,7 @@
 - 'trade player panel layout logic cleanup [v0.7.6]'
 - 'trade player player-list insert + remove/hide logic [v0.7.7]'
 - 'trade player cap violation/overage check + warning [v0.7.8]'
+- 'update trade player model + store + load proc [v0.8.0]'
 - 'cleanup/address React console warnings'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
@@ -69,6 +70,7 @@
 
 #### READY
 
+- 'cleanup/distill trade player state management'
 - 'trade player panel add-league-team-player logic [v0.7.4]'
 - 'initial trade player layout + logic + sockets [v0.7.3]'
 - 'create player panel layout + styles [v0.7.2]'

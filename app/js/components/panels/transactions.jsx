@@ -22,8 +22,13 @@ var TransactionsPanel = React.createClass({
             <Trades
               playerData={this.props.playerData}
               activeTeam={this.props.activeTeam}
+              activeTrade={this.props.activeTrade}
               handleTradePlayers={this.props.handleTradePlayers}
-              handleChangeTradeTeam={this.props.handleChangeTradeTeam} />
+              handleChangeTradeTeam={this.props.handleChangeTradeTeam}
+              handleAddTradePlayer={this.props.handleAddTradePlayer}
+              handleRemoveTradePlayer={this.props.handleRemoveTradePlayer}
+              handleTradeDragEnter={this.props.handleTradeDragEnter}
+              handleTradeDragLeave={this.props.handleTradeDragLeave} />
             <FreeAgents />
             <CreatePlayer
               handleCreatePlayer={this.props.handleCreatePlayer} />

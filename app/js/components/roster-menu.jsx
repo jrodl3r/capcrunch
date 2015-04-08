@@ -54,9 +54,14 @@ var RosterMenu = React.createClass({
           <TransactionsPanel
             playerData={this.props.playerData}
             activeTeam={this.props.activeTeam}
+            activeTrade={this.props.activeTrade}
             handleCreatePlayer={this.props.onCreatePlayer}
             handleTradePlayers={this.props.onTradePlayers}
-            handleChangeTradeTeam={this.props.onChangeTradeTeam} />
+            handleChangeTradeTeam={this.props.onChangeTradeTeam}
+            handleAddTradePlayer={this.props.onAddTradePlayer}
+            handleRemoveTradePlayer={this.props.onRemoveTradePlayer}
+            handleTradeDragEnter={this.props.onTradeDragEnter}
+            handleTradeDragLeave={this.props.onTradeDragLeave} />
         </div>
       );
     }
