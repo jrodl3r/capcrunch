@@ -4,10 +4,6 @@
 
 var TeamList = require('../../static/teams.js');
 
-
-// TODO On Team Select Change (global) RESET/CLEAR Trade Data [??? Shuck aboudiit...???]
-//      ...like probably if the active team has players in the trade queue... then maybe reset.
-
 var Trades = React.createClass({
     getDefaultProps: function() {
       return {
@@ -17,20 +13,10 @@ var Trades = React.createClass({
         }
       };
     },
-    handleTradePlayers: function() {
-
-      console.log('execute trade');
-
-    },
     handleChangeTradeTeam: function(e) {
       var team_id = e.target.value;
       this.props.handleChangeTradeTeam(team_id);
       document.getElementById('trade-players-select').selectedIndex = 0;
-    },
-    addActiveTeamPlayer: function() {
-
-      console.log('add active team player');
-
     },
     addPassiveTeamPlayer: function(e) {
       e.preventDefault();
@@ -59,29 +45,18 @@ var Trades = React.createClass({
           player_item.options[i].disabled = false;
         }
       }
-
-      // activeTrade : {
-      //   status    : false,
-      //   active    : { id : '', players : [], id_list : [] },
-      //   passive   : { id : '', players : [], id_list : [] }
-      // }
-
-      // TODO Inline... this.props.activeTrade
-
-      // if (this.state.leagueTeam.players.length === 0) {
-      //   team_select.disabled = false;
-      //   team_select.className = '';
-      // }
     },
     removeActiveTeamPlayer: function(e) {
-
-      console.log('remove active player');
+      e.preventDefault();
+      var player_id = e.currentTarget.dataset.id;
+      this.props.handleRemoveTradePlayer('active', player_id);
     },
     render: function() {
-      var activeTeam     = this.props.activeTeam,
-          haveActive     = this.props.activeTrade.active.players[0] ? true : false,
-          havePassive    = this.props.activeTrade.passive.players[0] ? true : false;
-      var activePlayers  = this.props.activeTrade.active.players.map(function(player) {
+      var activeTeam     = this.props.activeTrade.active.id ? this.props.activeTrade.active.id : this.props.activeTeam,
+          passiveTeam    = this.props.activeTrade.passive.id,
+          haveActive     = this.props.activeTrade.active.id_list.length ? true : false,
+          havePassive    = this.props.activeTrade.passive.id_list.length ? true : false,
+          activePlayers  = this.props.activeTrade.active.players.map(function(player) {
             return (
               <li key={player.id}>
                 {player.firstname.charAt(0)}. {player.lastname}
@@ -90,8 +65,8 @@ var Trades = React.createClass({
                 </a>
               </li>
             );
-          }.bind(this));
-      var passivePlayers = this.props.activeTrade.passive.players.map(function(player) {
+          }.bind(this)),
+          passivePlayers = this.props.activeTrade.passive.players.map(function(player) {
             return (
               <li key={player.id}>
                 {player.firstname.charAt(0)}. {player.lastname}
@@ -108,12 +83,15 @@ var Trades = React.createClass({
             <p id="tradeplayer-msg">{this.props.messages.heading}</p>
             <div id="trade-drop-area">
               Drop Players
-              <div className="cover"
-                onDragEnter={this.props.handleTradeDragLeave}
-                onDragLeave={this.props.handleTradeDragEnter}>
+              <div id="trade-drop-area-cover"
+                onDragEnter={this.props.handleTradeDragEnter}
+                onDragLeave={this.props.handleTradeDragLeave}>
               </div>
             </div>
-            <select id="trade-team-select" defaultValue="0" onChange={this.handleChangeTradeTeam}>
+            <select id="trade-team-select" defaultValue="0"
+              className={ havePassive ? 'disabled' : null }
+              disabled={ havePassive ? 'disabled' : false }
+              onChange={this.handleChangeTradeTeam}>
               <option value="0" disabled>Team</option>
               {this.props.teams.map(function(team) {
                 if (team.id !== activeTeam) {
@@ -171,10 +149,10 @@ var Trades = React.createClass({
               <ul id="trade-player-league-list" className={ havePassive ? 'active' : null }>
             { havePassive
               ? {passivePlayers}
-              : <li className="trade-team-placeholder">{ this.props.activeTrade.passive.id ? this.props.activeTrade.passive.id : '- - -' }</li> }
+              : <li className="trade-team-placeholder">{ passiveTeam ? passiveTeam : '- - -' }</li> }
               </ul>
             </div>
-            <button id="trade-player-button" onClick={this.handleTradePlayers}>Execute Trade</button>
+            <button id="trade-player-button" onClick={this.props.handleTradeExecution}>Execute Trade</button>
             <div id="trade-player-confirm" className="transaction-confirm">
               Traded Executed <i className="fa fa-magic"></i>
             </div>

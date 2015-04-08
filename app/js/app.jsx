@@ -224,9 +224,10 @@ var App = React.createClass({
 
 
     // Trade Players
-    handleTradePlayers: function(players) {
+    handleTradeExecution: function(players) {
 
-      console.log('make trade');
+      //console.log('make trade');
+      console.log('active team: ' + this.state.activeTrade.active.id);
 
     },
     handleChangeTradeTeam: function(id) {
@@ -237,43 +238,61 @@ var App = React.createClass({
       Socket.emit('get players', id);
     },
     handleAddTradePlayer: function(type, player) {
+      var updateTradeData;
       if (type === 'passive') {
-        var updateTradeData = React.addons.update(this.state, {
+        updateTradeData = React.addons.update(this.state, {
           activeTrade : { passive : { players : { $push: [player] },
                                       id_list : { $push: [player.id] }}}
         });
-        this.setState(updateTradeData);
       } else if (type === 'active') {
-
-        // TODO Setup Active Add Trade Player
-
+        updateTradeData = React.addons.update(this.state, {
+          activeTrade : { active : { id      : { $set: this.state.activeTeam },
+                                     players : { $push: [player] },
+                                     id_list : { $push: [player.id] }}}
+        });
       }
+      // TODO Add Check if added player's active team !== cur Active Team ID
+      this.setState(updateTradeData);
     },
     handleRemoveTradePlayer: function(type, id) {
+      var index, updateTradeData;
       if (type === 'passive') {
-        var index = this.state.activeTrade.passive.id_list.indexOf(id);
-        var updateTradeData = React.addons.update(this.state, {
+        index = this.state.activeTrade.passive.id_list.indexOf(id);
+        updateTradeData = React.addons.update(this.state, {
           activeTrade : { passive : { players : { $splice: [[index, 1]] },
                                       id_list : { $splice: [[index, 1]] }}}
         });
-        this.setState(updateTradeData);
       } else if (type === 'active') {
-
-        // TODO Setup Active Remove Trade Player
-
+        index = this.state.activeTrade.active.id_list.indexOf(id);
+        if (this.state.activeTrade.active.id_list.length > 1) {
+          updateTradeData = React.addons.update(this.state, {
+            activeTrade : { active : { players : { $splice: [[index, 1]] },
+                                       id_list : { $splice: [[index, 1]] }}}
+          });
+        } else {
+          updateTradeData = React.addons.update(this.state, {
+            activeTrade : { active : { id      : { $set: '' },
+                                       players : { $splice: [[index, 1]] },
+                                       id_list : { $splice: [[index, 1]] }}}
+          });
+        }
       }
+      this.setState(updateTradeData);
     },
-
-
     handleTradeDragEnter: function(e) {
       this.props.addTradePlayer = true;
-      e.currentTarget.parentNode.className = 'hover';
-      //console.log('trade drag enter');
+      if (this.state.activeTrade.active.id_list.length) {
+        e.currentTarget.className = 'active hover';
+      } else {
+        e.currentTarget.className = 'hover';
+      }
     },
     handleTradeDragLeave: function(e) {
-      this.props.addTradePlayer = false;
-      e.currentTarget.parentNode.className = '';
-      //console.log('trade drag leave');
+      if (this.state.activeTrade.active.id_list.length) {
+        e.currentTarget.className = 'active';
+      } else {
+        e.currentTarget.className = '';
+      }
     },
 
 
@@ -301,49 +320,67 @@ var App = React.createClass({
       this.hidePlayerBench();
     },
     handlePlayerDragStart: function(e) {
-      var playerItem = e.currentTarget;
+      var playerItem = e.currentTarget,
+          playerData = this.state.rosterData[playerItem.parentNode.id];
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setData('text/html', playerItem);
       this.props.originDropZone = playerItem.parentNode;
       this.props.originDropZone.className = 'tile active engaged';
       this.props.benchPlayer = false;
-      this.state.curDragPlayer = this.state.rosterData[e.currentTarget.parentNode.id];
-      this.state.dragging = true;
-      this.setState();
-      // TODO Use React.addons.update() / setState({x:y})
+      this.props.addTradePlayer = false;
+      this.setState({ curDragPlayer : playerData, dragging : true });
     },
     handlePlayerDragEnd: function(e) {
-      var playerItem    = e.currentTarget,
-          dropZone      = this.props.curDropZone,
-          activePlayers = this.state.activePlayers;
+      var playerItem       = e.currentTarget,
+          rosterData       = this.state.rosterData,
+          activePlayers    = this.state.activePlayers,
+          dropZone         = this.props.curDropZone,
+          originDropZoneId = this.props.originDropZone.id,
+          updateRosterData, capData, index;
+
       // Bench Player
-      if (this.props.benchPlayer) {
-        activePlayers.splice(activePlayers.indexOf(this.state.rosterData[this.props.originDropZone.id].id), 1);
-        // TODO Add updateCapStats Method
-        this.state.rosterInfo.hit = (parseFloat(this.state.rosterInfo.hit) - parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
-        this.state.rosterInfo.space = (parseFloat(this.state.rosterInfo.space) + parseFloat(this.state.rosterData[this.props.originDropZone.id].contract[0])).toFixed(3);
-        this.state.rosterData[this.props.originDropZone.id] = { status: 'empty' };
+      if (this.props.benchPlayer || this.props.addTradePlayer) {
+        capData = this.updateCapStats('remove', rosterData[originDropZoneId].contract[0]);
+        index   = activePlayers.indexOf(rosterData[originDropZoneId].id);
+        rosterData[originDropZoneId] = { status: 'empty' };
+        updateRosterData = React.addons.update(this.state, {
+          dragging      : { $set: false },
+          activePlayers : { $splice: [[index, 1]] },
+          rosterData    : { $set: rosterData },
+          rosterInfo    : { hit   : { $set: capData.hit },
+                            space : { $set: capData.space }}
+        });
+        this.setState(updateRosterData);
         this.props.originDropZone.className = 'tile';
         this.props.originDropZone.dataset.state = '';
+
+        // Trade Player
+        if (this.props.addTradePlayer) {
+          this.handleAddTradePlayer('active', this.state.curDragPlayer);
+        }
       // Move Player
       } else if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         dropZone.className = 'tile active';
         dropZone.dataset.state = 'active';
+        rosterData[originDropZoneId] = { status: 'empty' };
+        rosterData[dropZone.id] = this.state.curDragPlayer;
+        updateRosterData = React.addons.update(this.state, {
+          dragging   : { $set: false },
+          rosterData : { $set: rosterData }
+        });
+        this.setState(updateRosterData);
         this.props.originDropZone.className = 'tile';
         this.props.originDropZone.dataset.state = '';
-        this.state.rosterData[this.props.originDropZone.id] = { status: 'empty' };
-        this.state.rosterData[dropZone.id] = this.state.curDragPlayer;
       } else {
         playerItem.className = 'player active hover';
         this.props.originDropZone.className = 'tile active';
+        this.setState({ dragging : false });
       }
       this.props.originDropZone = null;
       this.props.benchPlayer = false;
+      this.props.addTradePlayer = false;
       this.highlightGrid('off');
       this.hidePlayerBench();
-      this.state.dragging = false;
-      this.setState();
-      // TODO Use React.addons.update() / setState({x:y})
     },
 
 
@@ -364,6 +401,20 @@ var App = React.createClass({
 
 
     // Roster Grid
+    updateCapStats: function(type, salary) {
+      var hit   = this.state.rosterInfo.hit,
+          space = this.state.rosterInfo.space,
+          updateCapStats;
+      if (type === 'add') {
+        hit   = (parseFloat(hit) + parseFloat(salary)).toFixed(3);
+        space = (parseFloat(space) - parseFloat(salary)).toFixed(3);
+      } else if (type === 'remove') {
+        hit   = (parseFloat(hit) - parseFloat(salary)).toFixed(3);
+        space = (parseFloat(space) + parseFloat(salary)).toFixed(3);
+      }
+      updateCapStats = { hit : hit, space : space };
+      return updateCapStats;
+    },
     highlightGrid: function(flag, type, pos) {
       if (flag === 'on') {
         if (type === 'forwards' || pos && /LW|C|RW/.test(pos)) {
@@ -388,6 +439,7 @@ var App = React.createClass({
         this.props.lastDropZoneId = '';
       }
       this.props.benchPlayer = false;
+      this.props.addTradePlayer = false;
     },
 
 
@@ -401,6 +453,7 @@ var App = React.createClass({
       }
       this.props.lastDropZoneId = dropZone.id;
       this.props.benchPlayer = false;
+      this.props.addTradePlayer = false;
     },
     handleTileDragLeave: function(e) {
       var dropZone = e.currentTarget;
@@ -416,9 +469,7 @@ var App = React.createClass({
           playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
       dragItem.className = 'item clicked';
       this.highlightGrid('on', dragItem.dataset.type, playerData.position);
-      this.state.curDragPlayer = playerData;
-      this.setState();
-      // TODO Use React.addons.update() / setState({x:y})
+      this.setState({ curDragPlayer : playerData });
     },
     handleMouseUp: function(e) {
       e.currentTarget.className = 'item';
@@ -433,28 +484,40 @@ var App = React.createClass({
       this.props.lastDropZoneId = '';
     },
     handleDragEnd: function(e) {
-      var playerData = {},
-          dragItem   = e.currentTarget,
-          dropZone   = this.props.curDropZone;
-      if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
+      var dragItem   = e.currentTarget,
+          dropZone   = this.props.curDropZone,
+          playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index],
+          rosterData, updateRosterData, capData;
+
+      // Trade Player
+      if (this.props.addTradePlayer) {
+        dragItem.parentNode.className = 'row removed';
+        dragItem.className = 'item';
+        this.handleAddTradePlayer('active', playerData);
+
+      // Add Roster Player
+      } else if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         dragItem.parentNode.className = 'row removed';
         dragItem.className = 'item';
         dropZone.className = 'tile active';
         dropZone.dataset.state = 'active';
-        playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
         playerData.type = dragItem.dataset.type;
-        this.state.activePlayers.push(playerData.id);
-        this.state.rosterData[dropZone.id] = playerData;
-        // TODO Add updateCapStats Method
-        this.state.rosterInfo.hit = (parseFloat(this.state.rosterInfo.hit) + parseFloat(playerData.contract[0])).toFixed(3);
-        this.state.rosterInfo.space = (parseFloat(this.state.rosterInfo.space) - parseFloat(playerData.contract[0])).toFixed(3);
-        // TODO Use React.addons.update() / setState({x:y})
-        this.setState();
+        rosterData = this.state.rosterData;
+        rosterData[dropZone.id] = playerData;
+        capData = this.updateCapStats('add', playerData.contract[0]);
+        updateRosterData = React.addons.update(this.state, {
+          activePlayers : { $push: [playerData.id] },
+          rosterData    : { $set: rosterData },
+          rosterInfo    : { hit   : { $set: capData.hit },
+                            space : { $set: capData.space }}
+        });
+        this.setState(updateRosterData);
       } else {
-        dragItem.className = 'item';
         dragItem.parentNode.className = 'row';
+        dragItem.className = 'item';
       }
       this.highlightGrid('off');
+      this.props.addTradePlayer = false;
     },
 
 
@@ -484,7 +547,7 @@ var App = React.createClass({
                 onBenchDragEnter={this.handleBenchDragEnter}
                 onBenchDragLeave={this.handleBenchDragLeave}
                 onCreatePlayer={this.handleCreatePlayer}
-                onTradePlayers={this.handleTradePlayers}
+                onTradeExecution={this.handleTradeExecution}
                 onChangeTradeTeam={this.handleChangeTradeTeam}
                 onAddTradePlayer={this.handleAddTradePlayer}
                 onRemoveTradePlayer={this.handleRemoveTradePlayer} />

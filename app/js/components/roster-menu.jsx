@@ -16,6 +16,7 @@ var RosterMenu = React.createClass({
             handleRosterSubmit={this.props.onRosterSubmit} />
           <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
             playerData={this.props.teamData.players.forwards}
+            activeTrade={this.props.activeTrade}
             activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
@@ -25,6 +26,7 @@ var RosterMenu = React.createClass({
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="defensemen" panelTitle="Defense" panelId="defense-list"
             playerData={this.props.teamData.players.defensemen}
+            activeTrade={this.props.activeTrade}
             activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
@@ -34,6 +36,7 @@ var RosterMenu = React.createClass({
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="goaltenders" panelTitle="Goalies" panelId="goalies-list"
             playerData={this.props.teamData.players.goaltenders}
+            activeTrade={this.props.activeTrade}
             activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
@@ -44,6 +47,7 @@ var RosterMenu = React.createClass({
           <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
             teamData={this.props.teamData}
             playerData={this.props.teamData.players.inactive}
+            activeTrade={this.props.activeTrade}
             activePlayers={this.props.activePlayers}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
@@ -56,7 +60,7 @@ var RosterMenu = React.createClass({
             activeTeam={this.props.activeTeam}
             activeTrade={this.props.activeTrade}
             handleCreatePlayer={this.props.onCreatePlayer}
-            handleTradePlayers={this.props.onTradePlayers}
+            handleTradeExecution={this.props.onTradeExecution}
             handleChangeTradeTeam={this.props.onChangeTradeTeam}
             handleAddTradePlayer={this.props.onAddTradePlayer}
             handleRemoveTradePlayer={this.props.onRemoveTradePlayer}

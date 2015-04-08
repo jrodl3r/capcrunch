@@ -14,8 +14,14 @@ var PlayersPanel = React.createClass({
           isSkater       = playerType !== 'goaltenders' || playerType !== 'inactive' ? false : true,
           haveCreated    = this.props.teamData && this.props.teamData.players.created ? true : false,
           playerItems    = this.props.playerData.map(function(player, i) {
+            var inactive = false;
+            if (this.props.activePlayers.indexOf(player.id) !== -1 ||
+                this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
+                this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
+                  inactive = true;
+            }
             return (
-              <li className={ this.props.activePlayers.indexOf(player.id) !== -1 ? 'row removed' : 'row'}>
+              <li className={ inactive ? 'row removed' : 'row'}>
                 <div className="item"
                   draggable={true}
                   onMouseDown={this.props.handleMouseDown}
@@ -39,8 +45,14 @@ var PlayersPanel = React.createClass({
           }.bind(this));
           if (haveCreated) {
             var createdPlayers = this.props.teamData.players.created.map(function(player, i) {
+              var inactive = false;
+              if (this.props.activePlayers.indexOf(player.id) !== -1 ||
+                  this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
+                  this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
+                    inactive = true;
+              }
               return (
-                <li className={ this.props.activePlayers.indexOf(player.id) !== -1 ? 'row removed' : 'row'}>
+                <li className={ inactive ? 'row removed' : 'row'}>
                   <div className="item"
                     draggable={true}
                     onMouseDown={this.props.handleMouseDown}
