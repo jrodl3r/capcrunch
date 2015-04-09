@@ -138,19 +138,15 @@ var Trades = React.createClass({
               <i className="fa fa-plus"></i>
             </a>
             <div id="trade-player-breakdown">
-              <ul id="trade-player-user-list" className={ haveActive ? 'active' : null }>
-            { haveActive
-              ? {activePlayers}
-              : <li className="trade-team-placeholder">{activeTeam}</li> }
-              </ul>
+          { haveActive
+            ? <ul id="trade-player-active-list" className="active">{activePlayers}</ul>
+            : <ul className="trade-player-list-placeholder"><li>{activeTeam}</li></ul> }
               <div className="trade-marker">
                 <i className="fa fa-refresh"></i>
               </div>
-              <ul id="trade-player-league-list" className={ havePassive ? 'active' : null }>
-            { havePassive
-              ? {passivePlayers}
-              : <li className="trade-team-placeholder">{ passiveTeam ? passiveTeam : '- - -' }</li> }
-              </ul>
+          { havePassive
+            ? <ul id="trade-player-passive-list" className="active">{passivePlayers}</ul>
+            : <ul className="trade-player-list-placeholder"><li>{ passiveTeam ? passiveTeam : '- - -' }</li></ul> }
             </div>
             <button id="trade-player-button" onClick={this.props.handleTradeExecution}>Execute Trade</button>
             <div id="trade-player-confirm" className="transaction-confirm">

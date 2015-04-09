@@ -227,7 +227,8 @@ var App = React.createClass({
     handleTradeExecution: function(players) {
 
       //console.log('make trade');
-      console.log('active team: ' + this.state.activeTrade.active.id);
+      //console.log('active team: ' + this.state.activeTrade.active.id);
+      console.log(this.state.activeTrade.active.players);
 
     },
     handleChangeTradeTeam: function(id) {
@@ -250,6 +251,7 @@ var App = React.createClass({
                                      players : { $push: [player] },
                                      id_list : { $push: [player.id] }}}
         });
+        console.log(this.state.activeTrade.active.players);
       }
       // TODO Add Check if added player's active team !== cur Active Team ID
       this.setState(updateTradeData);
@@ -276,6 +278,7 @@ var App = React.createClass({
                                        id_list : { $splice: [[index, 1]] }}}
           });
         }
+        console.log(this.state.activeTrade.active.players);
       }
       this.setState(updateTradeData);
     },

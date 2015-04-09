@@ -53,17 +53,17 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.forwards}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {playerData.forwards.map(function(forward) {
+                {playerData.forwards.map(function(forward, i) {
                   return (
-                    <tr className={ forward.status ? 'player forward ' + forward.status : 'player forward' }>
+                    <tr key={i + forward.id} className={ forward.status ? 'player forward ' + forward.status : 'player forward' }>
                       <td>
                         <span className="jersey">{forward.jersey}</span>
                         {forward.lastname}, {forward.firstname}
                         { forward.status === 'injured' ? <i className="fa fa-heartbeat" title="Injured Reserve"></i> : null }
                       </td>
-                      {forward.contract.map(function(salary, i) {
-                        if (i === 0) { return <td className="cap">{salary}</td>; }
-                        else { return <td className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
+                      {forward.contract.map(function(salary, j) {
+                        if (j === 0) { return <td key={j} className="cap">{salary}</td>; }
+                        else { return <td key={j} className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
                       })}
                     </tr>
                   );
@@ -73,17 +73,17 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.defensemen}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {playerData.defensemen.map(function(defender) {
+                {playerData.defensemen.map(function(defender, i) {
                   return (
-                    <tr className={ defender.status ? 'player defender ' + defender.status : 'player defender' }>
+                    <tr key={i + defender.id} className={ defender.status ? 'player defender ' + defender.status : 'player defender' }>
                       <td>
                         <span className="jersey">{defender.jersey}</span>
                         {defender.lastname}, {defender.firstname}
                         { defender.status === 'injured' ? <i className="fa fa-heartbeat" title="Injured Reserve"></i> : null }
                       </td>
-                      {defender.contract.map(function(salary, i) {
-                        if (i === 0) { return <td className="cap">{salary}</td>; }
-                        else { return <td className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
+                      {defender.contract.map(function(salary, j) {
+                        if (j === 0) { return <td key={j} className="cap">{salary}</td>; }
+                        else { return <td key={j} className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
                       })}
                     </tr>
                   );
@@ -93,17 +93,17 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.goaltenders}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {playerData.goaltenders.map(function(goaltender) {
+                {playerData.goaltenders.map(function(goaltender, i) {
                   return (
-                    <tr className={ goaltender.status ? 'player goaltender ' + goaltender.status : 'player goaltender' }>
+                    <tr key={i + goaltender.id} className={ goaltender.status ? 'player goaltender ' + goaltender.status : 'player goaltender' }>
                       <td>
                         <span className="jersey">{goaltender.jersey}</span>
                         {goaltender.lastname}, {goaltender.firstname}
                         { goaltender.status === 'injured' ? <i className="fa fa-heartbeat" title="Injured Reserve"></i> : null }
                       </td>
-                      {goaltender.contract.map(function(salary, i) {
-                        if (i === 0) { return <td className="cap">{salary}</td>; }
-                        else { return <td className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
+                      {goaltender.contract.map(function(salary, j) {
+                        if (j === 0) { return <td key={j} className="cap">{salary}</td>; }
+                        else { return <td key={j} className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
                       })}
                     </tr>
                   );
@@ -113,10 +113,10 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.other}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {playerData.other.map(function(player) {
+                {playerData.other.map(function(player, i) {
                   if (player.firstname) {
                     return (
-                      <tr className={ player.status ? 'player other ' + player.status : 'player other' }>
+                      <tr key={i + player.id} className={ player.status ? 'player other ' + player.status : 'player other' }>
                         <td>
                           <span className="jersey">{player.jersey}</span>
                           {player.lastname}, {player.firstname}
@@ -127,19 +127,19 @@ var Payroll = React.createClass({
                           { player.status === 'buyout' ? <i className="fa fa-money" title="Buyout"></i> : null }
                           { player.status === 'outside' ? <i className="fa fa-plane" title="Outside League"></i> : null }
                         </td>
-                        {player.contract.map(function(salary, i) {
-                          if (i === 0) { return <td className="cap">{salary}</td>; }
-                          else { return <td className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
+                        {player.contract.map(function(salary, j) {
+                          if (j === 0) { return <td key={j} className="cap">{salary}</td>; }
+                          else { return <td key={j} className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
                         })}
                       </tr>
                     );
                   } else {
                     return (
-                      <tr className="player other overage">
+                      <tr key={i + player.id} className="player other overage">
                         <td><span className="jersey">&nbsp;</span>{player.lastname}</td>
-                        {player.contract.map(function(salary, i) {
-                          if (i === 0) { return <td className="cap">{salary}</td>; }
-                          else { return <td className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
+                        {player.contract.map(function(salary, j) {
+                          if (j === 0) { return <td key={j} className="cap">{salary}</td>; }
+                          else { return <td key={j} className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
                         })}
                       </tr>
                     );
@@ -150,17 +150,17 @@ var Payroll = React.createClass({
                   <td className="cap">{this.props.teamData.cap.inactive}</td>
                   <td colSpan="9"></td>
                 </tr>
-                {playerData.inactive.map(function(player) {
+                {playerData.inactive.map(function(player, i) {
                   return (
-                    <tr className={ player.status ? 'player other ' + player.status : 'player inactive' }>
+                    <tr key={i + player.id} className={ player.status ? 'player other ' + player.status : 'player inactive' }>
                       <td>
                         <span className="jersey">{player.jersey}</span>
                         {player.lastname}, {player.firstname}
                         { player.status === 'injured' ? <i className="fa fa-heartbeat" title="Injured Reserve"></i> : null }
                       </td>
-                      {player.contract.map(function(salary, i) {
-                        if (i === 0) { return <td className="cap">{salary}</td>; }
-                        else { return <td className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
+                      {player.contract.map(function(salary, j) {
+                        if (j === 0) { return <td key={j} className="cap">{salary}</td>; }
+                        else { return <td key={j} className={ /[UFA|RFA]/.test(salary) ? salary : '' }><span>{salary}</span></td>; }
                       })}
                     </tr>
                   );

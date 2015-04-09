@@ -12,16 +12,16 @@ var PlayersPanel = React.createClass({
           playerType     = this.props.playerType,
           isActive       = playerType !== 'inactive' ? true : false,
           isSkater       = playerType !== 'goaltenders' || playerType !== 'inactive' ? false : true,
-          haveCreated    = this.props.teamData && this.props.teamData.players.created ? true : false,
+          haveCreated    = this.props.teamData && this.props.teamData.players.created[0] ? true : false,
+          inactivePlayer = false,
           playerItems    = this.props.playerData.map(function(player, i) {
-            var inactive = false;
             if (this.props.activePlayers.indexOf(player.id) !== -1 ||
                 this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
                 this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
-                  inactive = true;
-            }
+                  inactivePlayer = true;
+            } else { inactivePlayer = false; }
             return (
-              <li className={ inactive ? 'row removed' : 'row'}>
+              <li key={i + player.id} className={ inactivePlayer ? 'row removed' : 'row'}>
                 <div className="item"
                   draggable={true}
                   onMouseDown={this.props.handleMouseDown}
@@ -42,37 +42,34 @@ var PlayersPanel = React.createClass({
                 </div>
               </li>
             );
-          }.bind(this));
-          if (haveCreated) {
-            var createdPlayers = this.props.teamData.players.created.map(function(player, i) {
-              var inactive = false;
-              if (this.props.activePlayers.indexOf(player.id) !== -1 ||
-                  this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
-                  this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
-                    inactive = true;
-              }
-              return (
-                <li className={ inactive ? 'row removed' : 'row'}>
-                  <div className="item"
-                    draggable={true}
-                    onMouseDown={this.props.handleMouseDown}
-                    onMouseUp={this.props.handleMouseUp}
-                    onDragStart={this.props.handleDragStart}
-                    onDragEnd={this.props.handleDragEnd}
-                    data-type="created"
-                    data-index={i}>
-                    <div className="name" onMouseDown={this.blockDrag}>
-                      <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
-                      {player.lastname}, {player.firstname}
-                    </div>
-                    <div className="shot" onMouseDown={this.blockDrag}>&nbsp;</div>
-                    <div className="salary" onMouseDown={this.blockDrag}>{ player.contract[0] === '0.000' ? '-' : player.contract[0] }</div>
-                    <div className="handle">&nbsp;</div>
+          }.bind(this)),
+          createdPlayerItems = this.props.teamData.players.created.map(function(player, i) {
+            if (this.props.activePlayers.indexOf(player.id) !== -1 ||
+                this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
+                this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
+                  inactivePlayer = true;
+            } else { inactivePlayer = false; }
+            return (
+              <li key={i + player.id} className={ inactivePlayer ? 'row removed' : 'row'}>
+                <div className="item"
+                  draggable={true}
+                  onMouseDown={this.props.handleMouseDown}
+                  onMouseUp={this.props.handleMouseUp}
+                  onDragStart={this.props.handleDragStart}
+                  onDragEnd={this.props.handleDragEnd}
+                  data-type="created"
+                  data-index={i}>
+                  <div className="name" onMouseDown={this.blockDrag}>
+                    <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
+                    {player.lastname}, {player.firstname}
                   </div>
-                </li>
-              );
-            }.bind(this));
-          }
+                  <div className="shot" onMouseDown={this.blockDrag}>&nbsp;</div>
+                  <div className="salary" onMouseDown={this.blockDrag}>{ player.contract[0] === '0.000' ? '-' : player.contract[0] }</div>
+                  <div className="handle">&nbsp;</div>
+                </div>
+              </li>
+            );
+          }.bind(this));
 
       return (
         <div id={this.props.panelId} className={ playerType === 'goaltenders' ? 'panel short player-list' : 'panel player-list' }>
@@ -87,10 +84,12 @@ var PlayersPanel = React.createClass({
               <div className="salary">Salary</div>
               <div className="handle">&nbsp;</div>
             </div>
-            <ul>
-              { haveCreated ? {createdPlayers} : null }
-              {playerItems}
-            </ul>
+          { isActive
+            ? <ul>{playerItems}</ul>
+            : <ul>
+                {createdPlayerItems}
+                {playerItems}
+              </ul> }
           </div>
         : <div className="inner">
             <div className="team-select-reminder">Select Team <i className="fa fa-hand-o-right"></i></div>

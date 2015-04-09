@@ -21,10 +21,10 @@ var TeamMenu = React.createClass({
             <nav id="team-menu">
               <ul>
                 <li>
-                  <select id="team-select" onChange={this.handleChangeTeam}>
-                    <option selected disabled>Select Team</option>
+                  <select id="team-select" defaultValue="0" onChange={this.handleChangeTeam}>
+                    <option value="0" disabled>Select Team</option>
                     {this.props.teams.map(function(team) {
-                      return <option value={team.id}>{team.name}</option>;
+                      return <option key={team.id} value={team.id}>{team.name}</option>;
                     })}
                   </select>
                 </li>

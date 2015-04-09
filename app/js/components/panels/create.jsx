@@ -170,13 +170,13 @@ var CreatePlayer = React.createClass({
               onKeyPress={this.checkPlayerNameInput}
               onChange={this.changePlayerLastName}
               onPaste={this.blockPaste} />
-            <select id="create-player-shot" onChange={this.changePlayerShot}>
-              <option selected disabled>Shot</option>
+            <select id="create-player-shot" defaultValue="0" onChange={this.changePlayerShot}>
+              <option value="0" disabled>Shot</option>
               <option value="L">L</option>
               <option value="R">R</option>
             </select>
-            <select id="create-player-position" onChange={this.changePlayerPosition}>
-              <option selected disabled>Position</option>
+            <select id="create-player-position" defaultValue="0" onChange={this.changePlayerPosition}>
+              <option value="0" disabled>Position</option>
               <option value="LW">LW</option>
               <option value="C">C</option>
               <option value="RW">RW</option>
@@ -192,8 +192,8 @@ var CreatePlayer = React.createClass({
               onChange={this.changePlayerSalary}
               onBlur={this.formatSalary}
               onPaste={this.blockPaste} />
-            <select id="create-player-salary-duration" onChange={this.changePlayerSalaryDuration}>
-              <option selected disabled>Duration</option>
+            <select id="create-player-salary-duration" defaultValue="0" onChange={this.changePlayerSalaryDuration}>
+              <option value="0" disabled>Duration</option>
               <option value="1">1 year</option>
               <option value="2">2 years</option>
               <option value="3">3 years</option>

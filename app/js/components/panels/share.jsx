@@ -33,7 +33,7 @@ var SharePanel = React.createClass({
             <div id="share-confirm">
               <h3>Show off your GM skills...</h3>
               <p>Share your roster with friends for the win.</p>
-              <input id="roster-url" type="text" value={this.props.rosterInfo.link} />
+              <input id="roster-url" type="text" value={this.props.rosterInfo.link} readOnly />
               <button id="twitter-share"><i className="fa fa-twitter"></i> Share on Twitter</button>
               <button id="facebook-share"><i className="fa fa-facebook"></i> Share on Facebook</button>
               <a id="roster-link" target="_blank" href={this.props.rosterInfo.link}><i className="fa fa-link"></i></a>

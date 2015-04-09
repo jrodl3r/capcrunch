@@ -373,16 +373,16 @@
           cursor: pointer;
         }
       }
+    }
 
-      &.trade-team-placeholder {
-        height: 48px;
-        margin: 0;
-        padding: 0;
-        color: #DDD;
-        line-height: 48px;
-        text-align: center;
-        background: none;
-      }
+    &.trade-player-list-placeholder li {
+      height: 48px;
+      margin: 0;
+      padding: 0;
+      color: #DDD;
+      line-height: 48px;
+      text-align: center;
+      background: none;
     }
   }
 

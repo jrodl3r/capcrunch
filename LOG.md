@@ -41,7 +41,6 @@
 - 'trade player panel layout logic cleanup [v0.7.6]'
 - 'trade player cap violation/overage check + warning [v0.7.8]'
 - 'update trade player model + store + load proc [v0.8.0]'
-- 'cleanup/address React console warnings (selected = value="0" + defaultValue="0")'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
@@ -69,6 +68,7 @@
 
 #### READY
 
+- 'cleanup React warnings + mutation bugs'
 - 'trade player panel add-user-team-player logic + drag events [v0.7.5]'
 - 'trade player player-list insert + remove/hide logic'
 - 'cleanup/distill trade player state management'
