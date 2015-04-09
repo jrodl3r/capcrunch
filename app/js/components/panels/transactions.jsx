@@ -8,12 +8,21 @@ var Trades       = require('./trades.jsx'),
 
 var TransactionsPanel = React.createClass({
     render: function() {
-      var haveData = this.props.activeTeam.length ? true : false;
+      var haveData        = this.props.activeTeam.length ? true : false,
+          activeIdList    = this.props.activeTrade.active.id_list,
+          passiveIdList   = this.props.activeTrade.passive.id_list,
+          playerTradeSize = '',
+          threePlayerDeal = activeIdList.length === 3 || passiveIdList.length === 3 ? true : false,
+          fourPlayerDeal  = activeIdList.length === 4 || passiveIdList.length === 4 ? true : false,
+          fivePlayerDeal  = activeIdList.length === 5 || passiveIdList.length === 5 ? true : false;
+      if (threePlayerDeal) { playerTradeSize = ' three-player-trade'; }
+      if (fourPlayerDeal)  { playerTradeSize = ' four-player-trade'; }
+      if (fivePlayerDeal)  { playerTradeSize = ' five-player-trade'; }
 
       return (
         <div id="transactions" className="panel">
           <div className="title">Transactions</div>
-          <div className={ haveData ? 'inner trades-active' : 'inner inactive' }>
+          <div className={ haveData ? 'inner trades-active' + playerTradeSize : 'inner inactive' }>
             <ul id="transactions-menu">
               <li><a id="trades-tab" data-tabview="trades" className="active">Trades</a></li>
               <li><a id="freeagents-tab" data-tabview="freeagents">Free Agents</a></li>

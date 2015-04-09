@@ -35,6 +35,7 @@
     "no-unused-vars": false,
     "key-spacing": false,
     "no-trailing-spaces": false,
+    "no-redeclare": false,
     "camelcase": false,
     "no-empty": false,
     "comma-spacing": false,

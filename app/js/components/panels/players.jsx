@@ -14,7 +14,38 @@ var PlayersPanel = React.createClass({
           isSkater       = playerType !== 'goaltenders' || playerType !== 'inactive' ? false : true,
           haveCreated    = this.props.teamData && this.props.teamData.players.created[0] ? true : false,
           inactivePlayer = false,
-          playerItems    = this.props.playerData.map(function(player, i) {
+          tradedPlayers  = [],  // hide
+          aquiredPlayers = [];  // insert
+
+      // if (this.props.leagueData.trades.length) {
+      //   for (var x = 0; x < this.props.leagueData.trades.length; x++) {
+
+      //     if (this.props.leagueData.trades[x].active.team === this.props.teamData.id)
+                // +/-+ aquiredPlayers
+      //     if (this.props.leagueData.trades[x].passive.team === this.props.teamData.id)
+                // +/-+ aquiredPlayers
+
+      //     if (this.props.leagueData.trades[x].active.prev_team === this.props.teamData.id)
+                // +/-+ tradedPlayers
+      //     if (this.props.leagueData.trades[x].passive.prev_team === this.props.teamData.id)
+                // +/-+ tradedPlayers
+
+      //   }
+      // }
+
+
+      // this.props.leagueData.trades[x].active.id_list.indexOf(player.id) !== -1) {
+      //
+      // console.log('active team traded player: ' + player.lastname);
+      //
+      // this.props.leagueData.trades[x].passive.id_list.indexOf(player.id) !== -1) {
+      // this.props.leagueData.trades[x].passive.id_list.indexOf(player.id) !== -1) {
+      //
+      // console.log('passive team traded player: ' + player.lastname);
+
+
+
+      var playerItems = this.props.playerData.map(function(player, i) {
             if (this.props.activePlayers.indexOf(player.id) !== -1 ||
                 this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
                 this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
@@ -42,8 +73,9 @@ var PlayersPanel = React.createClass({
                 </div>
               </li>
             );
-          }.bind(this)),
-          createdPlayerItems = this.props.teamData.players.created.map(function(player, i) {
+          }.bind(this));
+
+      var createdPlayerItems = this.props.teamData.players.created.map(function(player, i) {
             if (this.props.activePlayers.indexOf(player.id) !== -1 ||
                 this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
                 this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {

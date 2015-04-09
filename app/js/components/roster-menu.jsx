@@ -16,6 +16,7 @@ var RosterMenu = React.createClass({
             handleRosterSubmit={this.props.onRosterSubmit} />
           <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
             teamData={this.props.teamData}
+            leagueData={this.props.leagueData}
             playerData={this.props.teamData.players.forwards}
             activeTrade={this.props.activeTrade}
             activePlayers={this.props.activePlayers}
@@ -27,6 +28,7 @@ var RosterMenu = React.createClass({
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="defensemen" panelTitle="Defense" panelId="defense-list"
             teamData={this.props.teamData}
+            leagueData={this.props.leagueData}
             playerData={this.props.teamData.players.defensemen}
             activeTrade={this.props.activeTrade}
             activePlayers={this.props.activePlayers}
@@ -38,6 +40,7 @@ var RosterMenu = React.createClass({
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="goaltenders" panelTitle="Goalies" panelId="goalies-list"
             teamData={this.props.teamData}
+            leagueData={this.props.leagueData}
             playerData={this.props.teamData.players.goaltenders}
             activeTrade={this.props.activeTrade}
             activePlayers={this.props.activePlayers}
@@ -49,6 +52,7 @@ var RosterMenu = React.createClass({
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
             teamData={this.props.teamData}
+            leagueData={this.props.leagueData}
             playerData={this.props.teamData.players.inactive}
             activeTrade={this.props.activeTrade}
             activePlayers={this.props.activePlayers}

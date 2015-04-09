@@ -24,10 +24,17 @@ $content-width                 :    $page-width - ($page-spacing * 3);
 $tile-height                   :    55px;
 $border-radius                 :    3px;
 $share-height                  :    150px;
-$trades-height                 :    266px;
 $transactions-panel-height     :    220px;
 $transactions-menu-height      :    26px;
 $transactions-height           :    $transactions-panel-height + $transactions-menu-height;
+$trade-player-item-height      :    24px;
+$trade-player-item-margin      :    4px;
+$trade-player-item             :    $trade-player-item-margin + $trade-player-item-height;
+$trade-breakdown-height        :    62px;
+$trades-height                 :    270px;
+$trades-height-3-player        :    $trades-height + $trade-player-item;
+$trades-height-4-player        :    $trades-height + ($trade-player-item * 2);
+$trades-height-5-player        :    $trades-height + ($trade-player-item * 3);
 
 
 // Animation

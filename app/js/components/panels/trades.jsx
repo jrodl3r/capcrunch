@@ -7,32 +7,100 @@ var TeamList = require('../../static/teams.js');
 var Trades = React.createClass({
     getDefaultProps: function() {
       return {
-        teams       : TeamList,
-        messages    : {
-          heading   : 'Execute a blockbuster trade for your team:'
+        teams             : TeamList,
+        messages          : {
+          heading         : 'Execute a blockbuster trade for your team:',
+          missing_players : 'Both teams need at least one player...',
+          max_players     : 'Five players per team trade maximum...'
         }
       };
     },
+    handleTradeExecution: function() {
+      var activeTrade   = this.props.activeTrade,
+          team_select   = document.getElementById('trade-team-select'),
+          player_item   = document.getElementById('trade-players-select'),
+          trade_msg     = document.getElementById('trade-player-msg'),
+          trade_confirm = document.getElementById('trade-player-confirm');
+      if (activeTrade.active.id_list.length && activeTrade.passive.id_list.length) {
+        this.props.handleTradeExecution();
+        trade_confirm.className = 'transaction-confirm active';
+        team_select.selectedIndex = 0;
+        setTimeout(function() {
+          trade_msg.innerText = this.props.messages.heading;
+          trade_confirm.className = 'transaction-confirm';
+        }.bind(this), 3500);
+      } else {
+        trade_msg.innerText = this.props.messages.missing_players;
+        trade_msg.className = 'warning';
+        if (team_select.value === '0' && !activeTrade.passive.id_list.length) {
+          team_select.className = 'missing';
+          team_select.focus();
+        } else if (player_item.value === '0' && !activeTrade.passive.id_list.length) {
+          player_item.className = 'missing';
+          player_item.focus();
+        }
+        setTimeout(function() {
+          if (trade_msg.innerText === this.props.messages.missing_players) {
+            trade_msg.innerText = this.props.messages.heading;
+            trade_msg.className = '';
+          }
+        }.bind(this), 2500);
+      }
+    },
     handleChangeTradeTeam: function(e) {
-      var team_id = e.target.value;
+      var team_id       = e.target.value,
+          team_select   = document.getElementById('trade-team-select'),
+          player_select = document.getElementById('trade-players-select'),
+          trade_msg     = document.getElementById('trade-player-msg');
       this.props.handleChangeTradeTeam(team_id);
-      document.getElementById('trade-players-select').selectedIndex = 0;
+      team_select.className = '';
+      player_select.selectedIndex = 0;
+      trade_msg.innerText = this.props.messages.heading;
+      trade_msg.className = '';
+    },
+    handleChangeSelectedPlayer: function(e) {
+      var trade_msg = document.getElementById('trade-player-msg');
+      e.target.className = '';
+      trade_msg.innerText = this.props.messages.heading;
+      trade_msg.className = '';
     },
     addPassiveTeamPlayer: function(e) {
       e.preventDefault();
-      var team_select  = document.getElementById('trade-team-select'),
-          player_item  = document.getElementById('trade-players-select'),
-          player_id    = player_item.value,
-          player_group = player_item.options[player_item.selectedIndex].getAttribute('data-group'),
-          playerData   = this.props.playerData;
-      var player = playerData[player_group].filter(function(player_obj) {
-        return player_obj.id === player_id;
-      })[0];
-      this.props.handleAddTradePlayer('passive', player);
-      player_item.options[player_item.selectedIndex].disabled = true;
-      player_item.options[0].selected = true;
-      team_select.disabled = true;
-      team_select.className = 'disabled';
+      var team_select = document.getElementById('trade-team-select'),
+          player_item = document.getElementById('trade-players-select'),
+          trade_msg   = document.getElementById('trade-player-msg');
+      if (this.props.activeTrade.passive.id_list.length === 5) {
+        trade_msg.innerText = this.props.messages.max_players;
+        trade_msg.className = 'warning';
+        setTimeout(function() {
+          if (trade_msg.innerText === this.props.messages.max_players) {
+            trade_msg.innerText = this.props.messages.heading;
+            trade_msg.className = '';
+          }
+        }.bind(this), 2500);
+      } else if (player_item.value !== '0') {
+        var player_id    = player_item.value,
+            player_group = player_item.options[player_item.selectedIndex].getAttribute('data-group'),
+            playerData   = this.props.playerData;
+        var player = playerData[player_group].filter(function(player_obj) {
+          return player_obj.id === player_id;
+        })[0];
+        this.props.handleAddTradePlayer('passive', player);
+        player_item.options[player_item.selectedIndex].disabled = true;
+        player_item.options[0].selected = true;
+        trade_msg.innerText = this.props.messages.heading;
+        trade_msg.className = '';
+      } else {
+        if (team_select.value === '0') {
+          team_select.className = 'missing';
+          team_select.focus();
+        } else {
+          player_item.className = 'missing';
+          player_item.focus();
+        }
+        trade_msg.innerText = this.props.messages.missing_players;
+        trade_msg.className = 'warning';
+      }
     },
     removePassiveTeamPlayer: function(e) {
       e.preventDefault();
@@ -51,15 +119,26 @@ var Trades = React.createClass({
       var player_id = e.currentTarget.dataset.id;
       this.props.handleRemoveTradePlayer('active', player_id);
     },
+
     render: function() {
-      var activeTeam     = this.props.activeTrade.active.id ? this.props.activeTrade.active.id : this.props.activeTeam,
-          passiveTeam    = this.props.activeTrade.passive.id,
-          haveActive     = this.props.activeTrade.active.id_list.length ? true : false,
-          havePassive    = this.props.activeTrade.passive.id_list.length ? true : false,
-          activePlayers  = this.props.activeTrade.active.players.map(function(player) {
+      var activeTeam      = this.props.activeTrade.active.team ? this.props.activeTrade.active.team : this.props.activeTeam,
+          passiveTeam     = this.props.activeTrade.passive.team,
+          activeIdList    = this.props.activeTrade.active.id_list,
+          passiveIdList   = this.props.activeTrade.passive.id_list,
+          haveActive      = activeIdList.length ? true : false,
+          havePassive     = passiveIdList.length ? true : false,
+          playerTradeSize = '',
+          threePlayerDeal = activeIdList.length === 3 || passiveIdList.length === 3 ? true : false,
+          fourPlayerDeal  = activeIdList.length === 4 || passiveIdList.length === 4 ? true : false,
+          fivePlayerDeal  = activeIdList.length === 5 || passiveIdList.length === 5 ? true : false;
+      if (threePlayerDeal) { playerTradeSize = ' three-player-trade'; }
+      if (fourPlayerDeal)  { playerTradeSize = ' four-player-trade'; }
+      if (fivePlayerDeal)  { playerTradeSize = ' five-player-trade'; }
+
+      var activePlayers  = this.props.activeTrade.active.players.map(function(player) {
             return (
               <li key={player.id}>
-                {player.firstname.charAt(0)}. {player.lastname}
+                <span>{player.firstname.charAt(0)}. </span><span className="lastname">{player.lastname}</span>
                 <a className="remove-button" data-id={player.id} onClick={this.removeActiveTeamPlayer}>
                   <i className="fa fa-remove"></i>
                 </a>
@@ -69,7 +148,7 @@ var Trades = React.createClass({
           passivePlayers = this.props.activeTrade.passive.players.map(function(player) {
             return (
               <li key={player.id}>
-                {player.firstname.charAt(0)}. {player.lastname}
+                <span>{player.firstname.charAt(0)}. </span><span className="lastname">{player.lastname}</span>
                 <a className="remove-button" data-id={player.id} onClick={this.removePassiveTeamPlayer}>
                   <i className="fa fa-remove"></i>
                 </a>
@@ -78,9 +157,9 @@ var Trades = React.createClass({
           }.bind(this));
 
       return (
-        <div id="trades" className="tab-area active">
+        <div id="trades" className={'tab-area active' + playerTradeSize}>
           <div className="inner">
-            <p id="tradeplayer-msg">{this.props.messages.heading}</p>
+            <p id="trade-player-msg">{this.props.messages.heading}</p>
             <div id="trade-drop-area">
               Drop Players
               <div id="trade-drop-area-cover"
@@ -99,7 +178,8 @@ var Trades = React.createClass({
                 }
               })}
             </select>
-            <select id="trade-players-select" defaultValue="0">
+            <select id="trade-players-select" defaultValue="0"
+              onChange={this.handleChangeSelectedPlayer}>
               <option value="0" disabled>Players</option>
               { this.props.playerData.forwards.length ? <option disabled>─ Forwards ────────</option> : null }
               {this.props.playerData.forwards.map(function(player, i) {
@@ -141,14 +221,14 @@ var Trades = React.createClass({
           { haveActive
             ? <ul id="trade-player-active-list" className="active">{activePlayers}</ul>
             : <ul className="trade-player-list-placeholder"><li>{activeTeam}</li></ul> }
-              <div className="trade-marker">
+              <div className={ haveActive && havePassive ? 'trade-marker active' : 'trade-marker' }>
                 <i className="fa fa-refresh"></i>
               </div>
           { havePassive
             ? <ul id="trade-player-passive-list" className="active">{passivePlayers}</ul>
             : <ul className="trade-player-list-placeholder"><li>{ passiveTeam ? passiveTeam : '- - -' }</li></ul> }
             </div>
-            <button id="trade-player-button" onClick={this.props.handleTradeExecution}>Execute Trade</button>
+            <button id="trade-player-button" onClick={this.handleTradeExecution}>Execute Trade</button>
             <div id="trade-player-confirm" className="transaction-confirm">
               Traded Executed <i className="fa fa-magic"></i>
             </div>

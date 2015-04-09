@@ -46,9 +46,8 @@ var App = React.createClass({
           created   : []
         },
         activeTrade : {
-          status    : false,
-          active    : { id : '', players : [], id_list : [] },
-          passive   : { id : '', players : [], id_list : [] }
+          active    : { team : '', players : [], id_list : [] },
+          passive   : { team : '', players : [], id_list : [] }
         }
       };
     },
@@ -58,7 +57,12 @@ var App = React.createClass({
         curDropZone    : null,
         originDropZone : null,
         benchPlayer    : false,
-        addTradePlayer : false
+        addTradePlayer : false,
+        messages          : {
+          trade_players_heading : 'Execute a blockbuster trade for your team:',
+          trade_players_max     : 'Five players per team trade maximum...'
+        }
+        //offGrid        : false
       };
     },
     componentDidMount: function() {
@@ -201,6 +205,9 @@ var App = React.createClass({
 
     // Create Player
     handleCreatePlayer: function(player) {
+
+    // TODO Add Player Object Actions-Flags Array push ['traded', 'created', etc]
+
       var new_player = {
         lastname  : player.lastname,
         firstname : player.firstname,
@@ -209,7 +216,7 @@ var App = React.createClass({
         jersey    : player.jersey,
         image     : '',
         team      : this.state.activeTeam,
-        id        : 9900 + this.state.leagueData.created.length,
+        id        : (9900 + this.state.leagueData.created.length).toString(),
         age       : '',
         nation    : '',
         position  : player.position,
@@ -224,21 +231,45 @@ var App = React.createClass({
 
 
     // Trade Players
-    handleTradeExecution: function(players) {
+    handleTradeExecution: function() {
+      var activeTrade = this.state.activeTrade,
+          tradeData   = this.state.leagueData.trades,
+          blank = '', empty = [];
 
-      //console.log('make trade');
-      //console.log('active team: ' + this.state.activeTrade.active.id);
-      console.log(this.state.activeTrade.active.players);
+      activeTrade.active.prev_team  = activeTrade.active.team;
+      activeTrade.active.team       = activeTrade.passive.team;
+      activeTrade.passive.prev_team = activeTrade.passive.team;
+      activeTrade.passive.team      = activeTrade.active.prev_team;
 
+      var updateTradeData = React.addons.update(this.state, {
+            leagueData  : { trades : { $push: [activeTrade] }},
+            playerData  : { team        : { $set: blank },
+                            forwards    : { $set: empty },
+                            defensemen  : { $set: empty },
+                            goaltenders : { $set: empty },
+                            inactive    : { $set: empty }},
+            activeTrade : {
+              active    : { team    : { $set: blank },
+                            players : { $set: empty },
+                            id_list : { $set: empty }},
+              passive   : { team    : { $set: blank },
+                            players : { $set: empty },
+                            id_list : { $set: empty }}}
+          });
+      this.setState(updateTradeData);
     },
     handleChangeTradeTeam: function(id) {
       var updateTradeData = React.addons.update(this.state, {
-        activeTrade : { passive : { id : { $set: id }}}
+        activeTrade : { passive : { team : { $set: id }}}
       });
       this.setState(updateTradeData);
       Socket.emit('get players', id);
     },
     handleAddTradePlayer: function(type, player) {
+
+    // TODO Add Player Object Actions-Flags Array push ['traded', 'created', etc]
+    // TODO Add Check if added player's active team !== cur Active Team ID
+
       var updateTradeData;
       if (type === 'passive') {
         updateTradeData = React.addons.update(this.state, {
@@ -247,13 +278,11 @@ var App = React.createClass({
         });
       } else if (type === 'active') {
         updateTradeData = React.addons.update(this.state, {
-          activeTrade : { active : { id      : { $set: this.state.activeTeam },
+          activeTrade : { active : { team    : { $set: this.state.activeTeam },
                                      players : { $push: [player] },
                                      id_list : { $push: [player.id] }}}
         });
-        console.log(this.state.activeTrade.active.players);
       }
-      // TODO Add Check if added player's active team !== cur Active Team ID
       this.setState(updateTradeData);
     },
     handleRemoveTradePlayer: function(type, id) {
@@ -273,17 +302,17 @@ var App = React.createClass({
           });
         } else {
           updateTradeData = React.addons.update(this.state, {
-            activeTrade : { active : { id      : { $set: '' },
+            activeTrade : { active : { team    : { $set: '' },
                                        players : { $splice: [[index, 1]] },
                                        id_list : { $splice: [[index, 1]] }}}
           });
         }
-        console.log(this.state.activeTrade.active.players);
       }
       this.setState(updateTradeData);
     },
     handleTradeDragEnter: function(e) {
       this.props.addTradePlayer = true;
+      this.props.benchPlayer = false;
       if (this.state.activeTrade.active.id_list.length) {
         e.currentTarget.className = 'active hover';
       } else {
@@ -296,6 +325,17 @@ var App = React.createClass({
       } else {
         e.currentTarget.className = '';
       }
+    },
+    handleTradePlayersMaxed: function() {
+      var trade_msg  = document.getElementById('trade-player-msg');
+      trade_msg.innerText = this.props.messages.trade_players_max;
+      trade_msg.className = 'warning';
+      setTimeout(function() {
+        if (trade_msg.innerText === this.props.messages.trade_players_max) {
+          trade_msg.innerText = this.props.messages.trade_players_heading;
+          trade_msg.className = '';
+        }
+      }.bind(this), 2500);
     },
 
 
@@ -342,13 +382,14 @@ var App = React.createClass({
           updateRosterData, capData, index;
 
       // Bench Player
-      if (this.props.benchPlayer || this.props.addTradePlayer) {
+      if (this.props.benchPlayer) {
         capData = this.updateCapStats('remove', rosterData[originDropZoneId].contract[0]);
         index   = activePlayers.indexOf(rosterData[originDropZoneId].id);
         rosterData[originDropZoneId] = { status: 'empty' };
+        activePlayers.splice(index, 1);
         updateRosterData = React.addons.update(this.state, {
           dragging      : { $set: false },
-          activePlayers : { $splice: [[index, 1]] },
+          activePlayers : { $set: activePlayers },
           rosterData    : { $set: rosterData },
           rosterInfo    : { hit   : { $set: capData.hit },
                             space : { $set: capData.space }}
@@ -357,10 +398,31 @@ var App = React.createClass({
         this.props.originDropZone.className = 'tile';
         this.props.originDropZone.dataset.state = '';
 
-        // Trade Player
-        if (this.props.addTradePlayer) {
+      // Trade Player
+      } else if (this.props.addTradePlayer) {
+        if (this.state.activeTrade.active.id_list.length === 5) {
+          playerItem.className = 'player active';
+          this.props.originDropZone.className = 'tile active';
+          this.setState({ dragging : false });
+          this.handleTradePlayersMaxed();
+        } else {
+          capData = this.updateCapStats('remove', rosterData[originDropZoneId].contract[0]);
+          index   = activePlayers.indexOf(rosterData[originDropZoneId].id);
+          rosterData[originDropZoneId] = { status: 'empty' };
+          activePlayers.splice(index, 1);
+          updateRosterData = React.addons.update(this.state, {
+            dragging      : { $set: false },
+            activePlayers : { $set: activePlayers },
+            rosterData    : { $set: rosterData },
+            rosterInfo    : { hit   : { $set: capData.hit },
+                              space : { $set: capData.space }}
+          });
+          this.setState(updateRosterData);
+          this.props.originDropZone.className = 'tile';
+          this.props.originDropZone.dataset.state = '';
           this.handleAddTradePlayer('active', this.state.curDragPlayer);
         }
+
       // Move Player
       } else if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
         dropZone.className = 'tile active';
@@ -375,6 +437,9 @@ var App = React.createClass({
         this.props.originDropZone.className = 'tile';
         this.props.originDropZone.dataset.state = '';
       } else {
+        // TODO Grid DragEnd results in unmoved tile w/ hover className (see: roster.jsx)
+        // if (!this.props.offGrid) { playerItem.className = 'player active hover'; }
+        // else { playerItem.className = 'player active'; }
         playerItem.className = 'player active hover';
         this.props.originDropZone.className = 'tile active';
         this.setState({ dragging : false });
@@ -396,6 +461,7 @@ var App = React.createClass({
     },
     handleBenchDragEnter: function(e) {
       this.props.benchPlayer = true;
+      this.props.addTradePlayer = false;
       e.currentTarget.parentNode.className = 'bench-player hover';
     },
     handleBenchDragLeave: function(e) {
@@ -443,6 +509,8 @@ var App = React.createClass({
       }
       this.props.benchPlayer = false;
       this.props.addTradePlayer = false;
+      //this.props.offGrid = false;
+      //document.getElementById('roster').style.backgroundColor = '#69F';
     },
 
 
@@ -457,6 +525,8 @@ var App = React.createClass({
       this.props.lastDropZoneId = dropZone.id;
       this.props.benchPlayer = false;
       this.props.addTradePlayer = false;
+      //this.props.offGrid = true;
+      //document.getElementById('roster').style.backgroundColor = '#FFF';
     },
     handleTileDragLeave: function(e) {
       var dropZone = e.currentTarget;
@@ -494,9 +564,15 @@ var App = React.createClass({
 
       // Trade Player
       if (this.props.addTradePlayer) {
-        dragItem.parentNode.className = 'row removed';
-        dragItem.className = 'item';
-        this.handleAddTradePlayer('active', playerData);
+        if (this.state.activeTrade.active.id_list.length === 5) {
+          dragItem.parentNode.className = 'row';
+          dragItem.className = 'item';
+          this.handleTradePlayersMaxed();
+        } else {
+          dragItem.parentNode.className = 'row removed';
+          dragItem.className = 'item';
+          this.handleAddTradePlayer('active', playerData);
+        }
 
       // Add Roster Player
       } else if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
@@ -535,6 +611,7 @@ var App = React.createClass({
                 leagueData={this.state.leagueData} />
               <RosterMenu
                 teamData={this.state.teamData}
+                leagueData={this.state.leagueData}
                 playerData={this.state.playerData}
                 rosterInfo={this.state.rosterInfo}
                 activeTeam={this.state.activeTeam}
@@ -572,7 +649,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.7.5</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.7.7</span></footer>
         </div>
       );
     }

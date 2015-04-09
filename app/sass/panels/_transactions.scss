@@ -63,6 +63,18 @@
 
     &.trades-active {
       height: $trades-height + $transactions-menu-height;
+
+      &.three-player-trade {
+        height: $trades-height-3-player + $transactions-menu-height;
+      }
+
+      &.four-player-trade {
+        height: $trades-height-4-player + $transactions-menu-height;
+      }
+
+      &.five-player-trade {
+        height: $trades-height-5-player + $transactions-menu-height;
+      }
     }
 
     &.freeagents-active {
@@ -95,6 +107,7 @@
         margin: 15px 0;
         color: #CCC;
         font-size: 11px;
+        transition: .3s;
 
         &.warning {
           color: #999;
@@ -232,12 +245,11 @@
 
   .transaction-confirm {
     position: absolute;
-    //top: 60px;
     top: 0;
     height: 0;
     width: 100%;
     padding-left: 15px;
-    line-height: 200px;
+    line-height: 220px;
     opacity: 0;
     overflow: hidden;
     background: linear-gradient(to top, #DDD 0%, #F8F8F8 100%);
@@ -281,6 +293,18 @@
 
   &.tab-area.active {
     height: $trades-height;
+
+    &.three-player-trade {
+      height: $trades-height-3-player;
+    }
+
+    &.four-player-trade {
+      height: $trades-height-4-player;
+    }
+
+    &.five-player-trade {
+      height: $trades-height-5-player;
+    }
   }
 
   #trade-drop-area {
@@ -321,9 +345,21 @@
   #trade-player-breakdown {
     position: relative;
     float: left;
-    height: 58px;
+    height: $trade-breakdown-height;
     width: 270px;
     margin-left: 15px;
+  }
+
+  &.three-player-trade #trade-player-breakdown {
+    height: $trade-breakdown-height + $trade-player-item;
+  }
+
+  &.four-player-trade #trade-player-breakdown {
+    height: $trade-breakdown-height + ($trade-player-item * 2);
+  }
+
+  &.five-player-trade #trade-player-breakdown {
+    height: $trade-breakdown-height + ($trade-player-item * 3);
   }
 
   ul {
@@ -343,12 +379,11 @@
       border: 1px solid #DDD;
     }
 
-    &.hover {
-      background: #000;
-    }
-
     li {
-      margin-bottom: 4px;
+      float: left;
+      height: $trade-player-item-height;
+      width: 110px;
+      margin-bottom: $trade-player-item-margin;
       padding: 5px 5px 5px 8px;
       text-align: left;
       color: #777;
@@ -360,30 +395,60 @@
         margin-bottom: 0;
       }
 
+      > span {
+        float: left;
+        height: 14px;
+        line-height: 14px;
+
+        &.lastname {
+        width: 70px;
+        padding-left: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        }
+      }
+
       a {
         float: right;
         height: 14px;
         width: 14px;
-        color: #AAA;
+        color: #BBB;
         font-size: 9px;
+        line-height: 14px;
         text-align: center;
 
         &:hover {
-          color: #777;
+          color: #999;
           cursor: pointer;
         }
       }
     }
+  }
 
-    &.trade-player-list-placeholder li {
-      height: 48px;
-      margin: 0;
-      padding: 0;
-      color: #DDD;
-      line-height: 48px;
-      text-align: center;
-      background: none;
-    }
+  .trade-player-list-placeholder li {
+    height: $trade-player-item-height * 2;
+    margin: 0;
+    padding: 0;
+    color: #DDD;
+    line-height: $trade-player-item-height * 2;
+    text-align: center;
+    background: none;
+  }
+
+  &.three-player-trade .trade-player-list-placeholder li {
+    height: ($trade-player-item-height * 3) + ($trade-player-item-margin * 2);
+    line-height: ($trade-player-item-height * 3) + ($trade-player-item-margin * 2);
+  }
+
+  &.four-player-trade .trade-player-list-placeholder li {
+    height: ($trade-player-item-height * 4) + ($trade-player-item-margin * 3);
+    line-height: ($trade-player-item-height * 4) + ($trade-player-item-margin * 3);
+  }
+
+  &.five-player-trade .trade-player-list-placeholder li {
+    height: ($trade-player-item-height * 5) + ($trade-player-item-margin * 4);
+    line-height: ($trade-player-item-height * 5) + ($trade-player-item-margin * 4);
   }
 
   .trade-marker {
@@ -398,10 +463,47 @@
     color: #E6E6E6;
     font-size: 15px;
     line-height: 30px;
+
+    &.active {
+      color: #BBB;
+    }
   }
 
   button {
     width: 125px;
+  }
+
+  .transaction-confirm {
+    line-height: $trades-height;
+
+    &.active {
+      height: $trades-height;
+    }
+  }
+
+
+  &.three-player-trade .transaction-confirm {
+    line-height: $trades-height-3-player;
+
+    &.active {
+      height: $trades-height-3-player;
+    }
+  }
+
+  &.four-player-trade .transaction-confirm {
+    line-height: $trades-height-4-player;
+
+    &.active {
+      height: $trades-height-4-player;
+    }
+  }
+
+  &.five-player-trade .transaction-confirm {
+    line-height: $trades-height-5-player;
+
+    &.active {
+      height: $trades-height-5-player;
+    }
   }
 }
 

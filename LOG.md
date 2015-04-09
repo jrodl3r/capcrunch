@@ -24,6 +24,9 @@
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
 - 'typekit + icomoon.io + gulp asset management (fonts, images)'
+- 'trade player cap violation/overage check + warning'
+- 'trade player assets / draft picks layout + logic'
+- 'trade player league summary of all trades button + view'
 - 'add new line drag-action [IR/Backup] (drag over + icon to reveal)'
 - 'editable player tile info (salary) + add to LTIR button'
 - 'sticky cap stats panel + payroll table headers (try cloning)'
@@ -34,13 +37,11 @@
 - 'share roster user submission delay + spam protection'
 - 'SEO friendly ReactJS SSR markup'
 - 'scrape team draft pick data'
-- 'update model + schema + logic for Team/Roster/Trade draft picks'
 
-#### NOW » Did You Uptick Version? » [v0.7.6]
+#### NOW » Did You Uptick Version? » [v0.7.7]
 
-- 'trade player panel layout logic cleanup [v0.7.6]'
-- 'trade player cap violation/overage check + warning [v0.7.8]'
-- 'update trade player model + store + load proc [v0.8.0]'
+- 'trade player player-list hide/insert logic [v0.7.7]'
+- 'add player object ui-flags array ["traded", "created", etc]'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
@@ -68,6 +69,8 @@
 
 #### READY
 
+- 'trade player panel layout logic + validation [v0.7.6]'
+- 'trade player execution logic'
 - 'cleanup React warnings + mutation bugs'
 - 'trade player panel add-user-team-player logic + drag events [v0.7.5]'
 - 'trade player player-list insert + remove/hide logic'
