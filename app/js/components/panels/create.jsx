@@ -45,34 +45,34 @@ var CreatePlayer = React.createClass({
           document.getElementById('create-player-salary').className = '';
           document.getElementById('create-player-salary-duration').className = '';
           document.getElementById('create-player-salary-duration').selectedIndex = 0;
-          document.getElementById('createplayer-msg').innerText = this.props.messages.heading;
+          document.getElementById('create-player-msg').innerText = this.props.messages.heading;
           document.getElementById('create-player-confirm').className = 'transaction-confirm';
         }.bind(this), 3500);
       } else if (!playerData.firstname) {
         document.getElementById('create-player-fname').className = 'missing';
         document.getElementById('create-player-fname').focus();
-        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_fname;
-        document.getElementById('createplayer-msg').className = 'warning';
+        document.getElementById('create-player-msg').innerText = this.props.messages.missing_fname;
+        document.getElementById('create-player-msg').className = 'warning';
       } else if (!playerData.lastname) {
         document.getElementById('create-player-lname').className = 'missing';
         document.getElementById('create-player-lname').focus();
-        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_lname;
-        document.getElementById('createplayer-msg').className = 'warning';
+        document.getElementById('create-player-msg').innerText = this.props.messages.missing_lname;
+        document.getElementById('create-player-msg').className = 'warning';
       } else if (!playerData.position) {
         document.getElementById('create-player-position').className = 'missing';
         document.getElementById('create-player-position').focus();
-        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_pos;
-        document.getElementById('createplayer-msg').className = 'warning';
+        document.getElementById('create-player-msg').innerText = this.props.messages.missing_pos;
+        document.getElementById('create-player-msg').className = 'warning';
       } else if (!playerData.salary) {
         document.getElementById('create-player-salary').className = 'missing';
         document.getElementById('create-player-salary').focus();
-        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_salary;
-        document.getElementById('createplayer-msg').className = 'warning';
+        document.getElementById('create-player-msg').innerText = this.props.messages.missing_salary;
+        document.getElementById('create-player-msg').className = 'warning';
       } else if (!playerData.contract.length) {
         document.getElementById('create-player-salary-duration').className = 'missing';
         document.getElementById('create-player-salary-duration').focus();
-        document.getElementById('createplayer-msg').innerText = this.props.messages.missing_dur;
-        document.getElementById('createplayer-msg').className = 'warning';
+        document.getElementById('create-player-msg').innerText = this.props.messages.missing_dur;
+        document.getElementById('create-player-msg').className = 'warning';
       }
     },
     checkPlayerNameInput: function(e) {
@@ -157,11 +157,12 @@ var CreatePlayer = React.createClass({
     blockPaste: function() {
       return false;
     },
+    
     render: function() {
       return (
         <div id="createplayer" className="tab-area">
           <div className="inner">
-            <p id="createplayer-msg">{this.props.messages.heading}</p>
+            <p id="create-player-msg">{this.props.messages.heading}</p>
             <input id="create-player-fname" type="text" placeholder="First Name"
               onKeyPress={this.checkPlayerNameInput}
               onChange={this.changePlayerFirstName}
