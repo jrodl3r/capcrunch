@@ -37,7 +37,7 @@ var App = React.createClass({
           id        : '',
           name      : '',
           cap       : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
-          players   : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [], created : [] }
+          players   : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [], created : [], traded : [], acquired : [] }
         },
         playerData  : { team : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
         leagueData  : {
@@ -94,18 +94,28 @@ var App = React.createClass({
 
 
     // Data Loading
+    handleChangeTeam: function(id) {
+      Socket.emit('get team', id);
+      this.setState({ activeTeam : id });
+    },
     loadTeamData: function(data) {
       if (data && data !== 'error') {
-        var team_data = data;
+        var team_data = data,
+            trade_data;
         team_data.players.created = [];
         for (var i = 0; i < this.state.leagueData.created.length; i++) {
           if (this.state.leagueData.created[i].team === team_data.id) {
             team_data.players.created.push(this.state.leagueData.created[i]);
           }
         }
+        trade_data = this.loadTradeData();
+        team_data.players.traded   = trade_data.traded;
+        team_data.players.acquired = trade_data.acquired;
         this.setState({ teamData: team_data });
-        // TODO Panel Transition Effect
-        // TODO Reset Panel Scroll Position
+
+  // TODO Panel Transition Effect
+  // TODO Reset All Panel Scroll Positions
+  
       } else { this.showNotification('error', 'Sorry, There was an error loading that team.'); }
     },
     loadPlayerData: function(data) {
@@ -126,8 +136,15 @@ var App = React.createClass({
     loadRosterData: function(data) {
       if (data && data !== 'error') {
         var roster_data = data,
-            roster_grid = this.state.rosterData;
-        var updateRosterInfo = React.addons.update(this.state, {
+            roster_grid = this.state.rosterData,
+            updateRosterInfo;
+        for (var pos in roster_grid) {
+          if (roster_data.lines.hasOwnProperty(pos)) {
+            roster_grid[pos] = roster_data.lines[pos];
+          }
+        }
+        updateRosterInfo = React.addons.update(this.state, {
+          rosterData    : { $set: roster_grid },
           rosterInfo    : { name  : { $set: roster_data.name },
                             hit   : { $set: roster_data.hit },
                             space : { $set: roster_data.space }},
@@ -136,22 +153,36 @@ var App = React.createClass({
                             trades  : { $set: roster_data.trades }}
         });
         this.setState(updateRosterInfo);
-        for (var pos in roster_grid) {
-          if (roster_data.lines.hasOwnProperty(pos)) {
-            roster_grid[pos] = roster_data.lines[pos];
-          }
-        }
-        this.setState({ rosterData : roster_grid });
         document.getElementById('team-select').value = roster_data.activeTeam;
         this.handleChangeTeam(roster_data.activeTeam);
       } else { this.showNotification('error', 'There was an error loading that roster.'); }
     },
+    loadTradeData: function() {
+      var cur_trade, trade_data = { traded : [], acquired : [] };
+
+  // TODO Refactor: consider the order of unwinding each trade,
+  //                ...if a player is involved in multiple trades,
+  //                or player is traded back to previous team(s)
 
 
-    // Team Select
-    handleChangeTeam: function(id) {
-      Socket.emit('get team', id);
-      this.setState({ activeTeam : id });
+      if (this.state.leagueData.trades.length) {
+        for (var i = 0; i < this.state.leagueData.trades.length; i++) {
+          cur_trade = this.state.leagueData.trades[i];
+          if (cur_trade.active.team === this.state.activeTeam) {
+            trade_data.acquired = trade_data.acquired.concat(cur_trade.active.players);
+          }
+          if (cur_trade.passive.team === this.state.activeTeam) {
+            trade_data.acquired = trade_data.acquired.concat(cur_trade.passive.players);
+          }
+          if (cur_trade.active.prev_team === this.state.activeTeam) {
+            trade_data.traded = trade_data.traded.concat(cur_trade.active.players);
+          }
+          if (cur_trade.passive.prev_team === this.state.activeTeam) {
+            trade_data.traded = trade_data.traded.concat(cur_trade.passive.players);
+          }
+        }
+      }
+      return trade_data;
     },
 
 
@@ -206,7 +237,7 @@ var App = React.createClass({
     // Create Player
     handleCreatePlayer: function(player) {
 
-    // TODO Add Player Object Actions-Flags Array push ['traded', 'created', etc]
+  // TODO Add Player Object Actions-Flags Array push ['traded', 'created', etc]
 
       var new_player = {
         lastname  : player.lastname,
@@ -241,6 +272,8 @@ var App = React.createClass({
       activeTrade.passive.prev_team = activeTrade.passive.team;
       activeTrade.passive.team      = activeTrade.active.prev_team;
 
+  // TODO Add Player Object Actions-Flags Array push ['traded', 'created', etc]
+
       var updateTradeData = React.addons.update(this.state, {
             leagueData  : { trades : { $push: [activeTrade] }},
             playerData  : { team        : { $set: blank },
@@ -248,6 +281,9 @@ var App = React.createClass({
                             defensemen  : { $set: empty },
                             goaltenders : { $set: empty },
                             inactive    : { $set: empty }},
+            teamData    : {
+              players   : { traded   : { $push: activeTrade.active.players },
+                            acquired : { $push: activeTrade.passive.players }}},
             activeTrade : {
               active    : { team    : { $set: blank },
                             players : { $set: empty },
@@ -266,10 +302,6 @@ var App = React.createClass({
       Socket.emit('get players', id);
     },
     handleAddTradePlayer: function(type, player) {
-
-    // TODO Add Player Object Actions-Flags Array push ['traded', 'created', etc]
-    // TODO Add Check if added player's active team !== cur Active Team ID
-
       var updateTradeData;
       if (type === 'passive') {
         updateTradeData = React.addons.update(this.state, {

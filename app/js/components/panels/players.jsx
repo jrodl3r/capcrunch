@@ -8,100 +8,85 @@ var PlayersPanel = React.createClass({
       e.stopPropagation();
     },
     render: function() {
-      var haveData       = this.props.playerData[0] ? true : false,
-          playerType     = this.props.playerType,
-          isActive       = playerType !== 'inactive' ? true : false,
-          isSkater       = playerType !== 'goaltenders' || playerType !== 'inactive' ? false : true,
-          haveCreated    = this.props.teamData && this.props.teamData.players.created[0] ? true : false,
-          inactivePlayer = false,
-          tradedPlayers  = [],  // hide
-          aquiredPlayers = [];  // insert
+      var haveData        = this.props.playerData[0] ? true : false,
+          playerType      = this.props.playerType,
+          isActive        = playerType !== 'inactive' ? true : false,
+          isSkater        = playerType !== 'goaltenders' || playerType !== 'inactive' ? false : true,
+          haveCreated     = !isActive && this.props.createdPlayerData[0] ? true : false,
+          tradedPlayers   = this.props.tradedPlayerData,
+          acquiredPlayers = this.props.acquiredPlayerData,
+          inactivePlayer  = false,
+          createdPlayerItems,
+          playerItems;
 
-      // if (this.props.leagueData.trades.length) {
-      //   for (var x = 0; x < this.props.leagueData.trades.length; x++) {
+      playerItems = this.props.playerData.map(function(player, i) {
+        inactivePlayer = false;
+        if (this.props.activePlayers.indexOf(player.id) !== -1 ||
+            this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
+            this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
+              inactivePlayer = true;
+        }
+        if (tradedPlayers.length) {
+          for (var x = 0; x < tradedPlayers.length; x++) {
+            if (tradedPlayers[x].id === player.id) {
+              inactivePlayer = true;
+            }
+          }
+        }
 
-      //     if (this.props.leagueData.trades[x].active.team === this.props.teamData.id)
-                // +/-+ aquiredPlayers
-      //     if (this.props.leagueData.trades[x].passive.team === this.props.teamData.id)
-                // +/-+ aquiredPlayers
+        return (
+          <li key={i + player.id} className={ inactivePlayer ? 'row removed' : 'row'}>
+            <div className="item"
+              draggable={true}
+              onMouseDown={this.props.handleMouseDown}
+              onMouseUp={this.props.handleMouseUp}
+              onDragStart={this.props.handleDragStart}
+              onDragEnd={this.props.handleDragEnd}
+              data-type={playerType}
+              data-index={i}>
+              <div className="name" onMouseDown={this.blockDrag}>
+                <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
+                {player.lastname}, {player.firstname}
+              </div>
+          { isSkater
+            ? <div className="shot" onMouseDown={this.blockDrag}>&nbsp;</div>
+            : <div className="shot" onMouseDown={this.blockDrag}>{ player.shot || <span>&nbsp;</span> }</div> }
+              <div className="salary" onMouseDown={this.blockDrag}>{ player.contract[0] === '0.000' ? '-' : player.contract[0] }</div>
+              <div className="handle">&nbsp;</div>
+            </div>
+          </li>
+        );
+      }.bind(this));
 
-      //     if (this.props.leagueData.trades[x].active.prev_team === this.props.teamData.id)
-                // +/-+ tradedPlayers
-      //     if (this.props.leagueData.trades[x].passive.prev_team === this.props.teamData.id)
-                // +/-+ tradedPlayers
-
-      //   }
-      // }
-
-
-      // this.props.leagueData.trades[x].active.id_list.indexOf(player.id) !== -1) {
-      //
-      // console.log('active team traded player: ' + player.lastname);
-      //
-      // this.props.leagueData.trades[x].passive.id_list.indexOf(player.id) !== -1) {
-      // this.props.leagueData.trades[x].passive.id_list.indexOf(player.id) !== -1) {
-      //
-      // console.log('passive team traded player: ' + player.lastname);
-
-
-
-      var playerItems = this.props.playerData.map(function(player, i) {
-            if (this.props.activePlayers.indexOf(player.id) !== -1 ||
-                this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
-                this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
-                  inactivePlayer = true;
-            } else { inactivePlayer = false; }
-            return (
-              <li key={i + player.id} className={ inactivePlayer ? 'row removed' : 'row'}>
-                <div className="item"
-                  draggable={true}
-                  onMouseDown={this.props.handleMouseDown}
-                  onMouseUp={this.props.handleMouseUp}
-                  onDragStart={this.props.handleDragStart}
-                  onDragEnd={this.props.handleDragEnd}
-                  data-type={playerType}
-                  data-index={i}>
-                  <div className="name" onMouseDown={this.blockDrag}>
-                    <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
-                    {player.lastname}, {player.firstname}
-                  </div>
-              { isSkater
-                ? <div className="shot" onMouseDown={this.blockDrag}>&nbsp;</div>
-                : <div className="shot" onMouseDown={this.blockDrag}>{ player.shot || <span>&nbsp;</span> }</div> }
-                  <div className="salary" onMouseDown={this.blockDrag}>{ player.contract[0] === '0.000' ? '-' : player.contract[0] }</div>
-                  <div className="handle">&nbsp;</div>
+      if (haveCreated) {
+        createdPlayerItems = this.props.createdPlayerData.map(function(player, i) {
+          if (this.props.activePlayers.indexOf(player.id) !== -1 ||
+              this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
+              this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
+                inactivePlayer = true;
+          } else { inactivePlayer = false; }
+          return (
+            <li key={i + player.id} className={ inactivePlayer ? 'row removed' : 'row'}>
+              <div className="item"
+                draggable={true}
+                onMouseDown={this.props.handleMouseDown}
+                onMouseUp={this.props.handleMouseUp}
+                onDragStart={this.props.handleDragStart}
+                onDragEnd={this.props.handleDragEnd}
+                data-type="created"
+                data-index={i}>
+                <div className="name" onMouseDown={this.blockDrag}>
+                  <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
+                  {player.lastname}, {player.firstname}
                 </div>
-              </li>
-            );
-          }.bind(this));
-
-      var createdPlayerItems = this.props.teamData.players.created.map(function(player, i) {
-            if (this.props.activePlayers.indexOf(player.id) !== -1 ||
-                this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
-                this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
-                  inactivePlayer = true;
-            } else { inactivePlayer = false; }
-            return (
-              <li key={i + player.id} className={ inactivePlayer ? 'row removed' : 'row'}>
-                <div className="item"
-                  draggable={true}
-                  onMouseDown={this.props.handleMouseDown}
-                  onMouseUp={this.props.handleMouseUp}
-                  onDragStart={this.props.handleDragStart}
-                  onDragEnd={this.props.handleDragEnd}
-                  data-type="created"
-                  data-index={i}>
-                  <div className="name" onMouseDown={this.blockDrag}>
-                    <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
-                    {player.lastname}, {player.firstname}
-                  </div>
-                  <div className="shot" onMouseDown={this.blockDrag}>&nbsp;</div>
-                  <div className="salary" onMouseDown={this.blockDrag}>{ player.contract[0] === '0.000' ? '-' : player.contract[0] }</div>
-                  <div className="handle">&nbsp;</div>
-                </div>
-              </li>
-            );
-          }.bind(this));
+                <div className="shot" onMouseDown={this.blockDrag}>&nbsp;</div>
+                <div className="salary" onMouseDown={this.blockDrag}>{ player.contract[0] === '0.000' ? '-' : player.contract[0] }</div>
+                <div className="handle">&nbsp;</div>
+              </div>
+            </li>
+          );
+        }.bind(this));
+      } else { createdPlayerItems = null; }
 
       return (
         <div id={this.props.panelId} className={ playerType === 'goaltenders' ? 'panel short player-list' : 'panel player-list' }>

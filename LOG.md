@@ -40,18 +40,21 @@
 
 #### NOW » Did You Uptick Version? » [v0.7.7]
 
-- 'trade player player-list hide/insert logic [v0.7.7]'
-- 'add player object ui-flags array ["traded", "created", etc]'
+- 'trade player player-list insert item logic'
+- 'trade player multi-move-player + return-original-team logic'
+- 'reset trade data on global team-select change'
+- 'adjust trade player panel + item transition timing'
+- 'player object ui-flags array ["traded", "created", etc]'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
 - 'panel scroll reset on team change'
+- 'panel expand/collapse logic'
 - 'clear/reset roster button (options gear-icon)'
 - 'illustrator new logo deisgn'
 - 'photoshop new layout / design'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'panel scrollbar consistency'
-- 'panel expand/collapse logic'
 - 'pre-cache player images on player item hover'
 - 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
 - 'logo / interface design + implementation'
@@ -69,6 +72,7 @@
 
 #### READY
 
+- 'trade player player-list hide item logic'
 - 'trade player panel layout logic + validation [v0.7.6]'
 - 'trade player execution logic'
 - 'cleanup React warnings + mutation bugs'

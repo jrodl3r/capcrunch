@@ -8,6 +8,10 @@ var SharePanel        = require('./panels/share.jsx'),
 
 var RosterMenu = React.createClass({
     render: function() {
+      // console.log('traded');
+      // console.log(this.props.teamData.players.traded);
+      // console.log('acquired');
+      // console.log(this.props.teamData.players.acquired);
       return (
         <div id="menu" className="section active">
           <SharePanel
@@ -15,11 +19,11 @@ var RosterMenu = React.createClass({
             rosterInfo={this.props.rosterInfo}
             handleRosterSubmit={this.props.onRosterSubmit} />
           <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
-            teamData={this.props.teamData}
-            leagueData={this.props.leagueData}
             playerData={this.props.teamData.players.forwards}
-            activeTrade={this.props.activeTrade}
+            acquiredPlayerData={this.props.teamData.players.acquired}
+            tradedPlayerData={this.props.teamData.players.traded}
             activePlayers={this.props.activePlayers}
+            activeTrade={this.props.activeTrade}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
@@ -27,11 +31,11 @@ var RosterMenu = React.createClass({
             handleBenchDragEnter={this.props.onBenchDragEnter}
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="defensemen" panelTitle="Defense" panelId="defense-list"
-            teamData={this.props.teamData}
-            leagueData={this.props.leagueData}
             playerData={this.props.teamData.players.defensemen}
-            activeTrade={this.props.activeTrade}
+            acquiredPlayerData={this.props.teamData.players.acquired}
+            tradedPlayerData={this.props.teamData.players.traded}
             activePlayers={this.props.activePlayers}
+            activeTrade={this.props.activeTrade}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
@@ -39,11 +43,11 @@ var RosterMenu = React.createClass({
             handleBenchDragEnter={this.props.onBenchDragEnter}
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="goaltenders" panelTitle="Goalies" panelId="goalies-list"
-            teamData={this.props.teamData}
-            leagueData={this.props.leagueData}
             playerData={this.props.teamData.players.goaltenders}
-            activeTrade={this.props.activeTrade}
+            acquiredPlayerData={this.props.teamData.players.acquired}
+            tradedPlayerData={this.props.teamData.players.traded}
             activePlayers={this.props.activePlayers}
+            activeTrade={this.props.activeTrade}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
@@ -51,11 +55,12 @@ var RosterMenu = React.createClass({
             handleBenchDragEnter={this.props.onBenchDragEnter}
             handleBenchDragLeave={this.props.onBenchDragLeave} />
           <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
-            teamData={this.props.teamData}
-            leagueData={this.props.leagueData}
             playerData={this.props.teamData.players.inactive}
-            activeTrade={this.props.activeTrade}
+            createdPlayerData={this.props.teamData.players.created}
+            acquiredPlayerData={this.props.teamData.players.acquired}
+            tradedPlayerData={this.props.teamData.players.traded}
             activePlayers={this.props.activePlayers}
+            activeTrade={this.props.activeTrade}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
