@@ -1,6 +1,7 @@
 #### RELEASE
 
 - 'Round #1 » private sharing/testing (gchat, dm, nhl#s, JSmeetup)'
+  - jeremy@wgr
 - 'Round #2 » public release (HF, HN, #reactjs)
   - http://goo.gl/06SsOZ
   - http://goo.gl/VYF5sg
@@ -15,48 +16,53 @@
   - https://twitter.com/chrismpeters/status/578977478875553792
 
 
-#### LATER
+#### LATER (Technical)
 
-- 'minor team roster/lineup'
-- 'message-board sharing widget (dynamic image generator)'
-- 'add more create player panel options (nation, age, image)'
-- 'player-list + payroll player details onHover'
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
 - 'typekit + icomoon.io + gulp asset management (fonts, images)'
-- 'trade player cap violation/overage check + warning'
-- 'trade player assets / draft picks layout + logic'
-- 'trade player league summary of all trades button + view'
+- 'player image CDN (uptime/redundancy/speed)'
+- 'session state clear + restore (cookies)'
+- 'SEO friendly ReactJS SSR markup'
+
+
+#### LATER (Features)
+
+- 'minor team roster/lineup'
+- 'free agents panel + logic'
+- 'scrape team draft pick data'
+- 'message-board sharing widget (dynamic image generator)'
+- 'add more create player panel options (nation, age, image)'
 - 'add new line drag-action [IR/Backup] (drag over + icon to reveal)'
 - 'editable player tile info (salary) + add to LTIR button'
 - 'sticky cap stats panel + payroll table headers (try cloning)'
-- 'session state clear + restore (cookies)'
-- 'free agents panel + logic'
-- 'share roster text-only output'
-- 'player image CDN (uptime/redundancy/speed)'
 - 'share roster user submission delay + spam protection'
-- 'SEO friendly ReactJS SSR markup'
-- 'scrape team draft pick data'
+- 'share roster text-only output'
+- 'player-list + payroll player details onHover'
+- 'trade player cap violation/overage check + warning'
+- 'trade player assets / draft picks layout + logic'
+- 'trade summary button/view layout + logic'
+- 'payroll settings: show/apply user transactions'
 
-#### NOW » Did You Uptick Version? » [v0.7.7]
 
-- 'trade player player-list insert item logic'
-- 'trade player multi-move-player + return-original-team logic'
-- 'reset trade data on global team-select change'
-- 'adjust trade player panel + item transition timing'
-- 'player object ui-flags array ["traded", "created", etc]'
+#### NOW » Did You Uptick Version? » [v0.8.0]
+
+- 'update create player logic'
+- 'update share roster logic'
+  - 'if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
+  - 'if (all-star mode) re-confirm team-select (warn: active-team)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'cleanup panel player-list details'
 - 'panel transition fade effect on team change'
 - 'panel scroll reset on team change'
 - 'panel expand/collapse logic'
 - 'clear/reset roster button (options gear-icon)'
-- 'illustrator new logo deisgn'
-- 'photoshop new layout / design'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'panel scrollbar consistency'
 - 'pre-cache player images on player item hover'
 - 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'illustrator new logo deisgn'
+- 'photoshop new layout / design'
 - 'logo / interface design + implementation'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'wire-up create-player add salary row button'
@@ -72,6 +78,14 @@
 
 #### READY
 
+- 'trade players feature update (details in LOG.md) [v0.8.0]'
+- 'adjust trade player panel + item transition timing'
+- 'reset active-trade data on global team-select change'
+- 'update trade-team-select disable/add traded + acquired players'
+- 'update salary sorting (...inactive players w/ 0.000)'
+- 'update Payroll w/ player.actions flags (default: hide acquired players)'
+- 'trade player player-list insert item logic'
+- 'player object ui-flags array ["traded", "created", etc]'
 - 'trade player player-list hide item logic'
 - 'trade player panel layout logic + validation [v0.7.6]'
 - 'trade player execution logic'

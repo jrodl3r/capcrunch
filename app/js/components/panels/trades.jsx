@@ -25,10 +25,6 @@ var Trades = React.createClass({
         this.props.handleTradeExecution();
         trade_confirm.className = 'transaction-confirm active';
         team_select.selectedIndex = 0;
-        setTimeout(function() {
-          trade_msg.innerText = this.props.messages.heading;
-          trade_confirm.className = 'transaction-confirm';
-        }.bind(this), 3500);
       } else {
         trade_msg.innerText = this.props.messages.missing_players;
         trade_msg.className = 'warning';
@@ -85,6 +81,7 @@ var Trades = React.createClass({
         var player = playerData[player_group].filter(function(player_obj) {
           return player_obj.id === player_id;
         })[0];
+        player.type = player_group;
         this.props.handleAddTradePlayer('passive', player);
         player_item.options[player_item.selectedIndex].disabled = true;
         player_item.options[0].selected = true;
@@ -119,12 +116,58 @@ var Trades = React.createClass({
       var player_id = e.currentTarget.dataset.id;
       this.props.handleRemoveTradePlayer('active', player_id);
     },
+    buildTeamGroup: function(players, type) {
+      var player_list;
+      player_list = players.map(function(player) {
+        return (
+          <li key={player.id} id={player.id + 'item'}>
+            <span>{player.firstname.charAt(0)}. </span><span className="lastname">{player.lastname}</span>
+            <a className="remove-button" data-id={player.id}
+              onClick={ type === 'active' ? this.removeActiveTeamPlayer : this.removePassiveTeamPlayer }>
+              <i className="fa fa-remove"></i>
+            </a>
+          </li>
+        );
+      }.bind(this));
+      return player_list;
+    },
+    buildPlayerList: function(players, player_type, active_team) {
+      var player_list;
+      player_list = players.map(function(player, i) {
+        if (player.team === active_team && player.actions && player.actions.indexOf('acquired') !== -1) {
+          return (
+            <option key={player.id} value={player.id} data-group={player_type} disabled>
+              &raquo; {player.firstname} {player.lastname}
+            </option>
+          );
+        } else if (player.actions && player.actions.indexOf('traded') !== -1) {
+          return (
+            <option key={player.id} value={player.id} data-group={player_type} disabled>
+              &laquo; {player.firstname} {player.lastname}
+            </option>
+          );
+        } else {
+          return (
+            <option key={player.id} value={player.id} data-group={player_type}>
+              {player.firstname} {player.lastname}
+            </option>
+          );
+        }
+      });
+      return player_list;
+    },
 
     render: function() {
       var activeTeam      = this.props.activeTrade.active.team ? this.props.activeTrade.active.team : this.props.activeTeam,
           passiveTeam     = this.props.activeTrade.passive.team,
+          forwardsList    = this.buildPlayerList(this.props.playerData.forwards, 'forwards', activeTeam),
+          defenseList     = this.buildPlayerList(this.props.playerData.defensemen, 'defensemen', activeTeam),
+          goaliesList     = this.buildPlayerList(this.props.playerData.goaltenders, 'goaltenders', activeTeam),
+          inactiveList    = this.buildPlayerList(this.props.playerData.inactive, 'inactive', activeTeam),
           activeIdList    = this.props.activeTrade.active.id_list,
           passiveIdList   = this.props.activeTrade.passive.id_list,
+          activePlayers   = this.buildTeamGroup(this.props.activeTrade.active.players, 'active'),
+          passivePlayers  = this.buildTeamGroup(this.props.activeTrade.passive.players, 'passive'),
           haveActive      = activeIdList.length ? true : false,
           havePassive     = passiveIdList.length ? true : false,
           playerTradeSize = '',
@@ -134,27 +177,6 @@ var Trades = React.createClass({
       if (threePlayerDeal) { playerTradeSize = ' three-player-trade'; }
       if (fourPlayerDeal)  { playerTradeSize = ' four-player-trade'; }
       if (fivePlayerDeal)  { playerTradeSize = ' five-player-trade'; }
-
-      var activePlayers  = this.props.activeTrade.active.players.map(function(player) {
-            return (
-              <li key={player.id}>
-                <span>{player.firstname.charAt(0)}. </span><span className="lastname">{player.lastname}</span>
-                <a className="remove-button" data-id={player.id} onClick={this.removeActiveTeamPlayer}>
-                  <i className="fa fa-remove"></i>
-                </a>
-              </li>
-            );
-          }.bind(this)),
-          passivePlayers = this.props.activeTrade.passive.players.map(function(player) {
-            return (
-              <li key={player.id}>
-                <span>{player.firstname.charAt(0)}. </span><span className="lastname">{player.lastname}</span>
-                <a className="remove-button" data-id={player.id} onClick={this.removePassiveTeamPlayer}>
-                  <i className="fa fa-remove"></i>
-                </a>
-              </li>
-            );
-          }.bind(this));
 
       return (
         <div id="trades" className={'tab-area active' + playerTradeSize}>
@@ -182,37 +204,13 @@ var Trades = React.createClass({
               onChange={this.handleChangeSelectedPlayer}>
               <option value="0" disabled>Players</option>
               { this.props.playerData.forwards.length ? <option disabled>─ Forwards ────────</option> : null }
-              {this.props.playerData.forwards.map(function(player, i) {
-                return (
-                  <option key={player.id} value={player.id} data-group="forwards">
-                    {player.firstname} {player.lastname}
-                  </option>
-                );
-              })}
+              {forwardsList}
               { this.props.playerData.defensemen.length ? <option disabled>─ Defense ────────</option> : null }
-              {this.props.playerData.defensemen.map(function(player, i) {
-                return (
-                  <option key={player.id} value={player.id} data-group="defensemen">
-                    {player.firstname} {player.lastname}
-                  </option>
-                );
-              })}
+              {defenseList}
               { this.props.playerData.goaltenders.length ? <option disabled>─ Goalies ────────</option> : null }
-              {this.props.playerData.goaltenders.map(function(player, i) {
-                return (
-                  <option key={player.id} value={player.id} data-group="goaltenders">
-                    {player.firstname} {player.lastname}
-                  </option>
-                );
-              })}
+              {goaliesList}
               { this.props.playerData.inactive.length ? <option disabled>─ Inactive ────────</option> : null }
-              {this.props.playerData.inactive.map(function(player, i) {
-                return (
-                  <option key={player.id} value={player.id} data-group="inactive">
-                    {player.firstname} {player.lastname}
-                  </option>
-                );
-              })}
+              {inactiveList}
             </select>
             <a id="trade-player-add-player" className="add-button" title="Add Player" onClick={this.addPassiveTeamPlayer}>
               <i className="fa fa-plus"></i>

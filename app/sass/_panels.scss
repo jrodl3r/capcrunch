@@ -6,7 +6,8 @@
   width: 300px;
   margin-right: $page-spacing;
   opacity: 0;
-  transition: .25s;
+  transition: .4s;
+  transform: translateZ(0);
 
   &.active {
     opacity: 1;

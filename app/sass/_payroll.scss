@@ -7,7 +7,8 @@
   width: 960px;
   height: 100%;
   opacity: 0;
-  transition: .25s;
+  transition: .4s;
+  transform: translateZ(0);
 
   &.active {
     z-index: 3;
@@ -21,7 +22,6 @@
     line-height: 32px;
     cursor: default;
     transition: .1s;
-
     margin-bottom: 0;
     padding-bottom: 30px;
     background: #FFF;
@@ -30,7 +30,6 @@
 
   .cap-stats {
     float: right;
-    //width: 600px;
   }
 
   .inner {

@@ -113,7 +113,7 @@ io.sockets.on('connection', function(socket) {
           goaltenders : data[0].players.goaltenders,
           inactive    : data[0].players.inactive
         };
-        socket.emit('load players', players);
+        socket.emit('load players', team_id, players);
       }
     });
   });

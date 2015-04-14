@@ -46,6 +46,7 @@ a, button, input, select {
   width: 100%;
   margin-bottom: -30px;
   overflow: hidden;
+  transform: translateZ(0);
 
   &:after {
     content: "";
@@ -59,6 +60,7 @@ a, button, input, select {
   flex: 1 1 auto;
   width: $content-width;
   margin: $header-height auto $header-height/2;
+  transform: translateZ(0);
 }
 
 .section {

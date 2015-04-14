@@ -4,7 +4,8 @@
 #roster {
   width: 640px;
   opacity: 0;
-  transition: .25s;
+  transition: .4s;
+  transform: translateZ(0);
 
   &.active {
     opacity: 1;

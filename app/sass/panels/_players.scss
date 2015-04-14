@@ -143,10 +143,34 @@
     border-color: #E5E5E5;
   }
 
-  .removed {
+  .inplay {
     height: 0;
     border: none;
     overflow: hidden;
+  }
+
+  .created {
+    // TODO
+    color: #6f9;
+  }
+
+  .acquired {
+    // TODO
+    color: #f69;
+  }
+
+  .traded {
+    // TODO
+    color: #DDD;
+
+    .shot, .salary {
+      color: #DDD;
+    }
+
+    .handle {
+      visibility: hidden;
+      cursor: default;
+    }
   }
 
   .clicked {

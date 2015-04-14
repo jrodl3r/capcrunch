@@ -2,6 +2,7 @@
 // ==================================================
 
 #transactions {
+  transform: translateZ(0);
 
   #transactions-menu {
     height: $transactions-menu-height;
@@ -29,7 +30,7 @@
         transition: .25s;
 
         &:hover {
-          color: #555;
+          color: #CCC;
         }
 
         &.active, &.active:hover {
@@ -46,7 +47,8 @@
     min-height: initial;
     max-height: initial;
     width: 300px;
-    transition: height .75s;
+    transform: translateZ(0);
+    transition: .4s;
 
     &.inactive {
 
@@ -90,18 +92,20 @@
     height: 0;
     opacity: 0;
     overflow: hidden;
+    transform: translateZ(0);
     transition: opacity .4s, height 0s .4s;
 
     &.active {
       height: $transactions-panel-height;
       opacity: 1;
-      transition: opacity .5s .4s, height 0s .4s;
+      transition: opacity .4s .4s, height 0s .4s;
     }
 
     .inner {
       position: relative;
       height: 100%;
       max-height: none;
+      transform: translateZ(0);
 
       p {
         margin: 15px 0;
@@ -204,10 +208,8 @@
   }
 
   button {
-    position: absolute;
-    bottom: 18px;
-    right: 0;
-    left: 0;
+    position: relative;
+    bottom: -22px;
     display: block;
     height: 30px;
     opacity: 1;
@@ -255,12 +257,13 @@
     background: linear-gradient(to top, #DDD 0%, #F8F8F8 100%);
     border-bottom-right-radius: $border-radius;
     border-bottom-left-radius: $border-radius;
-    transition: opacity .5s, height 0s .5s;
+    transform: translateZ(0);
+    transition: opacity .4s, height 0s .4s;
 
     &.active {
       height: 220px;
       opacity: 1;
-      transition: opacity .5s, height 0s;
+      transition: opacity .4s, height 0s;
     }
 
     i {
@@ -348,6 +351,8 @@
     height: $trade-breakdown-height;
     width: 270px;
     margin-left: 15px;
+    transform: translateZ(0);
+    transition: .4s;
   }
 
   &.three-player-trade #trade-player-breakdown {
@@ -370,6 +375,9 @@
     background: #F4F4F4;
     border: 1px dashed #DDD;
     border-radius: $border-radius;
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: .4s;
 
     &:first-of-type {
       margin-right: 30px;
@@ -381,7 +389,7 @@
 
     li {
       float: left;
-      height: $trade-player-item-height;
+      height: 0;
       width: 110px;
       margin-bottom: $trade-player-item-margin;
       padding: 5px 5px 5px 8px;
@@ -390,6 +398,15 @@
       font-size: 10px;
       background: #DDD;
       border-radius: $border-radius;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateZ(0);
+      transition: .4s;
+
+      &.active {
+        height: $trade-player-item-height;
+        opacity: 1;
+      }
 
       &:last-of-type {
         margin-bottom: 0;
@@ -434,6 +451,7 @@
     line-height: $trade-player-item-height * 2;
     text-align: center;
     background: none;
+    opacity: 1;
   }
 
   &.three-player-trade .trade-player-list-placeholder li {
@@ -475,6 +493,8 @@
 
   .transaction-confirm {
     line-height: $trades-height;
+    transform: translateZ(0);
+    transition: .4s;
 
     &.active {
       height: $trades-height;
@@ -549,10 +569,12 @@
 
   #create-player-salary {
     width: 130px;
+    margin-bottom: 0;
   }
 
   #create-player-salary-duration {
     width: 95px;
+    margin-bottom: 0;
     margin-left: 10px;
   }
 }
