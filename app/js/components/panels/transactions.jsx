@@ -32,6 +32,7 @@ var TransactionsPanel = React.createClass({
               playerData={this.props.playerData}
               activeTeam={this.props.activeTeam}
               activeTrade={this.props.activeTrade}
+              activePlayers={this.props.activePlayers}
               handleTradeExecution={this.props.handleTradeExecution}
               handleChangeTradeTeam={this.props.handleChangeTradeTeam}
               handleAddTradePlayer={this.props.handleAddTradePlayer}

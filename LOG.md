@@ -2,6 +2,7 @@
 
 - 'Round #1 » private sharing/testing (gchat, dm, nhl#s, JSmeetup)'
   - jeremy@wgr
+  - kris baker (SabresProspects.com)
 - 'Round #2 » public release (HF, HN, #reactjs)
   - http://goo.gl/06SsOZ
   - http://goo.gl/VYF5sg
@@ -24,6 +25,10 @@
 - 'player image CDN (uptime/redundancy/speed)'
 - 'session state clear + restore (cookies)'
 - 'SEO friendly ReactJS SSR markup'
+- 'fix React props mutation warnings/issues'
+- 'panel scrollbar consistency'
+- 'pre-cache player images on player item hover'
+- 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
 
 
 #### LATER (Features)
@@ -38,6 +43,8 @@
 - 'sticky cap stats panel + payroll table headers (try cloning)'
 - 'share roster user submission delay + spam protection'
 - 'share roster text-only output'
+- 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
+- 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
 - 'player-list + payroll player details onHover'
 - 'trade player cap violation/overage check + warning'
 - 'trade player assets / draft picks layout + logic'
@@ -47,23 +54,15 @@
 
 #### NOW » Did You Uptick Version? » [v0.8.0]
 
-- 'update create player logic'
-- 'update share roster logic'
-  - 'if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
-  - 'if (all-star mode) re-confirm team-select (warn: active-team)'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'cleanup panel player-list details'
-- 'panel transition fade effect on team change'
+- 'panel transition fade effect on team/player change'
 - 'panel scroll reset on team change'
 - 'panel expand/collapse logic'
-- 'clear/reset roster button (options gear-icon)'
-- 'panel scrollbar consistency'
-- 'pre-cache player images on player item hover'
-- 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'illustrator new logo deisgn'
-- 'photoshop new layout / design'
-- 'logo / interface design + implementation'
+- 'illustrator new logo'
+- 'photoshop new interface'
+- 'implement logo + interface'
+- 'cleanup panel player-list details'
+- 'clear/reset roster button (options gear-icon)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'wire-up create-player add salary row button'
 - 'wire-up twitter + facebook share buttons'
@@ -78,6 +77,8 @@
 
 #### READY
 
+- 'update share: only store active team created players + trades'
+- 'disable all-star-mode roster additions on trade-player-select'
 - 'trade players feature update (details in LOG.md) [v0.8.0]'
 - 'adjust trade player panel + item transition timing'
 - 'reset active-trade data on global team-select change'

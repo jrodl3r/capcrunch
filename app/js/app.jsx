@@ -61,7 +61,8 @@ var App = React.createClass({
         messages          : {
           trade_players_heading : 'Execute a blockbuster trade for your team:',
           trade_players_max     : 'Five players per team trade maximum...',
-          trade_players_oneway  : 'One-way trades only for now...'
+          trade_players_oneway  : 'One-way trades only...',
+          trade_players_created : 'Active player trades only...'
         }
       };
     },
@@ -93,7 +94,7 @@ var App = React.createClass({
     },
 
 
-    // Team Management
+    // Team + Player Data
     handleChangeTeam: function(id) {
       Socket.emit('get team', id);
       this.setState({ activeTeam : id });
@@ -206,193 +207,6 @@ var App = React.createClass({
     },
 
 
-    // Trade Players
-    getTradeData: function(team_id, status) {
-      var cur_trade, trade_data = [], trade_count = 0;
-      if (this.state.leagueData.trades.length) {
-        for (var i = 0; i < this.state.leagueData.trades.length; i++) {
-          cur_trade = this.state.leagueData.trades[i];
-          if (cur_trade.active.prev_team === team_id && cur_trade.passive.team === team_id && status === 'active') {
-            trade_data[trade_count] = { acquired : [], traded : [] };
-            trade_data[trade_count].traded = cur_trade.active.players;
-            trade_data[trade_count].acquired = cur_trade.passive.players;
-            trade_count = trade_count + 1;
-          }
-          if (cur_trade.passive.prev_team === team_id && cur_trade.active.team === team_id && status === 'passive') {
-            trade_data[trade_count] = { acquired : [], traded : [] };
-            trade_data[trade_count].traded = cur_trade.passive.players;
-            trade_data[trade_count].acquired = cur_trade.active.players;
-            trade_count = trade_count + 1;
-          }
-        }
-      }
-      return trade_data;
-    },
-    resetTradeData: function() {
-      var blank = '', empty = [], resetTradeData;
-      resetTradeData = React.addons.update(this.state, {
-          playerData  : { team        : { $set: blank },
-                          forwards    : { $set: empty },
-                          defensemen  : { $set: empty },
-                          goaltenders : { $set: empty },
-                          inactive    : { $set: empty }},
-          activeTrade : {
-            active    : { team    : { $set: blank },
-                          players : { $set: empty },
-                          id_list : { $set: empty }},
-            passive   : { team    : { $set: blank },
-                          players : { $set: empty },
-                          id_list : { $set: empty }}}
-        });
-      this.setState(resetTradeData);
-      document.getElementById('trade-player-msg').innerText = this.props.messages.trade_players_heading;
-      document.getElementById('trade-team-select').selectedIndex = 0;
-      document.getElementById('trade-player-confirm').className = 'transaction-confirm';
-    },
-    handleTradeExecution: function() {
-      var activeTrade = this.state.activeTrade,
-          tradeData   = this.state.leagueData.trades,
-          blank = '', empty = [], updateTradeData;
-      activeTrade.active.prev_team  = activeTrade.active.team;
-      activeTrade.active.team       = activeTrade.passive.team;
-      activeTrade.passive.prev_team = activeTrade.passive.team;
-      activeTrade.passive.team      = activeTrade.active.prev_team;
-      updateTradeData = React.addons.update(this.state, {
-        leagueData : { trades : { $push: [activeTrade] }}
-      });
-      this.setState(updateTradeData, function() {
-        var player_data, trade_data, updateTeamPlayerData;
-        player_data = this.state.teamData.players;
-        trade_data  = this.getTradeData(this.state.activeTeam, 'active');
-        player_data = this.updatePlayerData(player_data, trade_data);
-        updateTeamPlayerData = React.addons.update(this.state, {
-          teamData : { players : { $set: player_data }}
-        });
-        this.setState(updateTeamPlayerData, function() {
-          setTimeout(function() {
-            this.resetTradeData();
-          }.bind(this), 3000);
-        });
-      });
-    },
-    handleChangeTradeTeam: function(id) {
-      var updateTradeData = React.addons.update(this.state, {
-        activeTrade : { passive : { team : { $set: id }}}
-      });
-      this.setState(updateTradeData);
-      Socket.emit('get players', id);
-    },
-    handleAddTradePlayer: function(type, player) {
-      var updateTradeData;
-      if (type === 'passive') {
-        updateTradeData = React.addons.update(this.state, {
-          activeTrade : { passive : { players : { $push: [player] },
-                                      id_list : { $push: [player.id] }}}
-        });
-      } else if (type === 'active') {
-        updateTradeData = React.addons.update(this.state, {
-          activeTrade : { active : { team    : { $set: this.state.activeTeam },
-                                     players : { $push: [player] },
-                                     id_list : { $push: [player.id] }}}
-        });
-      }
-      this.setState(updateTradeData, function() {
-        setTimeout(function() {
-          document.getElementById(player.id + 'item').className = 'active';
-        }, 10);
-      });
-    },
-    handleRemoveTradePlayer: function(type, id) {
-      var index, updateTradeData;
-      if (type === 'passive') {
-        index = this.state.activeTrade.passive.id_list.indexOf(id);
-        updateTradeData = React.addons.update(this.state, {
-          activeTrade : { passive : { players : { $splice: [[index, 1]] },
-                                      id_list : { $splice: [[index, 1]] }}}
-        });
-      } else if (type === 'active') {
-        index = this.state.activeTrade.active.id_list.indexOf(id);
-        if (this.state.activeTrade.active.id_list.length > 1) {
-          updateTradeData = React.addons.update(this.state, {
-            activeTrade : { active : { players : { $splice: [[index, 1]] },
-                                       id_list : { $splice: [[index, 1]] }}}
-          });
-        } else {
-          updateTradeData = React.addons.update(this.state, {
-            activeTrade : { active : { team    : { $set: '' },
-                                       players : { $splice: [[index, 1]] },
-                                       id_list : { $splice: [[index, 1]] }}}
-          });
-        }
-      }
-      this.setState(updateTradeData);
-    },
-    handleTradeDragEnter: function(e) {
-      this.props.addTradePlayer = true;
-      this.props.benchPlayer = false;
-      if (this.state.activeTrade.active.id_list.length) {
-        e.currentTarget.className = 'active hover';
-      } else {
-        e.currentTarget.className = 'hover';
-      }
-    },
-    handleTradeDragLeave: function(e) {
-      if (this.state.activeTrade.active.id_list.length) {
-        e.currentTarget.className = 'active';
-      } else {
-        e.currentTarget.className = '';
-      }
-    },
-    handleTradePlayersError: function(type) {
-      var trade_msg  = document.getElementById('trade-player-msg');
-      if (type === 'maxed') {
-        trade_msg.innerText = this.props.messages.trade_players_max;
-        trade_msg.className = 'warning';
-        setTimeout(function() {
-          if (trade_msg.innerText === this.props.messages.trade_players_max) {
-            trade_msg.innerText = this.props.messages.trade_players_heading;
-            trade_msg.className = '';
-          }
-        }.bind(this), 2500);
-      } else if (type === 'oneway') {
-        trade_msg.innerText = this.props.messages.trade_players_oneway;
-        trade_msg.className = 'warning';
-        setTimeout(function() {
-          if (trade_msg.innerText === this.props.messages.trade_players_oneway) {
-            trade_msg.innerText = this.props.messages.trade_players_heading;
-            trade_msg.className = '';
-          }
-        }.bind(this), 2500);
-      }
-    },
-
-
-    // Create Player
-    handleCreatePlayer: function(player) {
-      var new_player = {
-        lastname  : player.lastname,
-        firstname : player.firstname,
-        contract  : player.contract,
-        shot      : player.shot,
-        jersey    : player.jersey,
-        image     : '',
-        team      : this.state.activeTeam,
-        id        : (9900 + this.state.leagueData.created.length).toString(),
-        age       : '',
-        nation    : '',
-        position  : player.position,
-        type      : 'inactive',
-        status    : 'inactive',
-        actions   : ['created']
-      };
-      var updateCreatePlayers = React.addons.update(this.state, {
-        teamData   : { players : { created : { $push: [new_player] }}},
-        leagueData : { created : { $push: [new_player] }}
-      });
-      this.setState(updateCreatePlayers);
-    },
-
-
     // Share Roster
     loadRosterData: function(data) {
       if (data && data !== 'error') {
@@ -444,8 +258,8 @@ var App = React.createClass({
         roster_data.space         = this.state.rosterInfo.space;
         roster_data.activeTeam    = this.state.activeTeam;
         roster_data.activePlayers = this.state.activePlayers;
-        roster_data.trades        = this.state.leagueData.trades;
-        roster_data.created       = this.state.leagueData.created;
+        roster_data.trades        = this.getTradeData(this.state.activeTeam, 'share');
+        roster_data.created       = this.getCreatedPlayers(this.state.activeTeam);
         roster_data.lines         = this.state.rosterData;
         this.showShareDialog('loading');
         setTimeout(function() {
@@ -462,6 +276,225 @@ var App = React.createClass({
         this.setState(updateRosterId);
         return roster_id;
       } else { return false; }
+    },
+
+
+    // Trade Players
+    getTradeData: function(team_id, status) {
+      var cur_trade, trade_data = [], trade_count = 0;
+      if (this.state.leagueData.trades.length) {
+        for (var i = 0; i < this.state.leagueData.trades.length; i++) {
+          cur_trade = this.state.leagueData.trades[i];
+          if (status === 'active') {
+            if (cur_trade.active.prev_team === team_id && cur_trade.passive.team === team_id) {
+              trade_data[trade_count] = { acquired : [], traded : [] };
+              trade_data[trade_count].traded = cur_trade.active.players;
+              trade_data[trade_count].acquired = cur_trade.passive.players;
+              trade_count = trade_count + 1;
+            }
+          } else if (status === 'passive') {
+            if (cur_trade.passive.prev_team === team_id && cur_trade.active.team === team_id &&
+                cur_trade.active.prev_team === this.state.activeTeam) {
+              trade_data[trade_count] = { acquired : [], traded : [] };
+              trade_data[trade_count].traded = cur_trade.passive.players;
+              trade_data[trade_count].acquired = cur_trade.active.players;
+              trade_count = trade_count + 1;
+            }
+          } else if (status === 'share') {
+            if (cur_trade.active.prev_team === team_id && cur_trade.passive.team === team_id) {
+              trade_data.push(cur_trade);
+            }
+          }
+        }
+      }
+      return trade_data;
+    },
+    resetTradeData: function() {
+      var blank = '', empty = [], resetTradeData;
+      resetTradeData = React.addons.update(this.state, {
+          playerData  : { team        : { $set: blank },
+                          forwards    : { $set: empty },
+                          defensemen  : { $set: empty },
+                          goaltenders : { $set: empty },
+                          inactive    : { $set: empty }},
+          activeTrade : {
+            active    : { team    : { $set: blank },
+                          players : { $set: empty },
+                          id_list : { $set: empty }},
+            passive   : { team    : { $set: blank },
+                          players : { $set: empty },
+                          id_list : { $set: empty }}}
+        });
+      this.setState(resetTradeData);
+      document.getElementById('trade-team-select').selectedIndex = 0;
+    },
+    handleTradeExecution: function() {
+      var activeTrade = this.state.activeTrade,
+          tradeData   = this.state.leagueData.trades,
+          blank = '', empty = [], updateTradeData;
+      activeTrade.active.prev_team  = activeTrade.active.team;
+      activeTrade.active.team       = activeTrade.passive.team;
+      activeTrade.passive.prev_team = activeTrade.passive.team;
+      activeTrade.passive.team      = activeTrade.active.prev_team;
+      updateTradeData = React.addons.update(this.state, {
+        leagueData : { trades : { $push: [activeTrade] }}
+      });
+      this.setState(updateTradeData, function() {
+        var player_data, trade_data, updateTeamPlayerData;
+        player_data = this.state.teamData.players;
+        trade_data  = this.getTradeData(this.state.activeTeam, 'active');
+        player_data = this.updatePlayerData(player_data, trade_data);
+        updateTeamPlayerData = React.addons.update(this.state, {
+          teamData : { players : { $set: player_data }}
+        });
+        this.setState(updateTeamPlayerData, function() {
+          setTimeout(function() {
+            this.resetTradeData();
+            document.getElementById('trade-player-msg').innerText = this.props.messages.trade_players_heading;
+            document.getElementById('trade-player-confirm').className = 'transaction-confirm';
+          }.bind(this), 2000);
+        });
+      });
+    },
+    handleChangeTradeTeam: function(id) {
+      var updateTradeData = React.addons.update(this.state, {
+        activeTrade : { passive : { team : { $set: id }}}
+      });
+      this.setState(updateTradeData);
+      Socket.emit('get players', id);
+    },
+    handleAddTradePlayer: function(type, player) {
+      var updateTradeData;
+      if (type === 'passive') {
+        updateTradeData = React.addons.update(this.state, {
+          activeTrade : { passive : { players : { $push: [player] },
+                                      id_list : { $push: [player.id] }}}
+        });
+      } else if (type === 'active') {
+        updateTradeData = React.addons.update(this.state, {
+          activeTrade : { active : { team    : { $set: this.state.activeTeam },
+                                     players : { $push: [player] },
+                                     id_list : { $push: [player.id] }}}
+        });
+      }
+      this.setState(updateTradeData, function() {
+        setTimeout(function() {
+          document.getElementById(player.id + 'item').className = 'active';
+        }, 10);
+      });
+    },
+    handleRemoveTradePlayer: function(type, id) {
+      document.getElementById(id + 'item').className = '';
+      setTimeout(function() {
+        var index, updateTradeData;
+        if (type === 'passive') {
+          index = this.state.activeTrade.passive.id_list.indexOf(id);
+          updateTradeData = React.addons.update(this.state, {
+            activeTrade : { passive : { players : { $splice: [[index, 1]] },
+                                        id_list : { $splice: [[index, 1]] }}}
+          });
+        } else if (type === 'active') {
+          index = this.state.activeTrade.active.id_list.indexOf(id);
+          if (this.state.activeTrade.active.id_list.length > 1) {
+            updateTradeData = React.addons.update(this.state, {
+              activeTrade : { active : { players : { $splice: [[index, 1]] },
+                                         id_list : { $splice: [[index, 1]] }}}
+            });
+          } else {
+            updateTradeData = React.addons.update(this.state, {
+              activeTrade : { active : { team    : { $set: '' },
+                                         players : { $splice: [[index, 1]] },
+                                         id_list : { $splice: [[index, 1]] }}}
+            });
+          }
+        }
+        this.setState(updateTradeData);
+      }.bind(this), 250);
+    },
+    handleTradeDragEnter: function(e) {
+      this.props.addTradePlayer = true;
+      this.props.benchPlayer = false;
+      if (this.state.activeTrade.active.id_list.length) {
+        e.currentTarget.className = 'active hover';
+      } else {
+        e.currentTarget.className = 'hover';
+      }
+    },
+    handleTradeDragLeave: function(e) {
+      if (this.state.activeTrade.active.id_list.length) {
+        e.currentTarget.className = 'active';
+      } else {
+        e.currentTarget.className = '';
+      }
+    },
+    handleTradePlayersError: function(type) {
+      var trade_msg  = document.getElementById('trade-player-msg');
+      if (type === 'maxed') {
+        trade_msg.innerText = this.props.messages.trade_players_max;
+        trade_msg.className = 'warning';
+        setTimeout(function() {
+          if (trade_msg.innerText === this.props.messages.trade_players_max) {
+            trade_msg.innerText = this.props.messages.trade_players_heading;
+            trade_msg.className = '';
+          }
+        }.bind(this), 3000);
+      } else if (type === 'oneway') {
+        trade_msg.innerText = this.props.messages.trade_players_oneway;
+        trade_msg.className = 'warning';
+        setTimeout(function() {
+          if (trade_msg.innerText === this.props.messages.trade_players_oneway) {
+            trade_msg.innerText = this.props.messages.trade_players_heading;
+            trade_msg.className = '';
+          }
+        }.bind(this), 3000);
+      } else if (type === 'created') {
+        trade_msg.innerText = this.props.messages.trade_players_created;
+        trade_msg.className = 'warning';
+        setTimeout(function() {
+          if (trade_msg.innerText === this.props.messages.trade_players_created) {
+            trade_msg.innerText = this.props.messages.trade_players_heading;
+            trade_msg.className = '';
+          }
+        }.bind(this), 3000);
+      }
+    },
+
+
+    // Create Player
+    getCreatedPlayers: function(team_id) {
+      var created = this.state.leagueData.created,
+          created_players = [];
+      if (created.length) {
+        for (var i = 0; i < created.length; i++) {
+          if (created[i].team === team_id) {
+            created_players.push(created[i]);
+          }
+        }
+      }
+      return created_players;
+    },
+    handleCreatePlayer: function(player) {
+      var new_player = {
+        lastname  : player.lastname,
+        firstname : player.firstname,
+        contract  : player.contract,
+        shot      : player.shot,
+        jersey    : player.jersey,
+        image     : '',
+        team      : this.state.activeTeam,
+        id        : (9900 + this.state.leagueData.created.length).toString(),
+        age       : '',
+        nation    : '',
+        position  : player.position,
+        type      : 'inactive',
+        status    : 'created',
+        actions   : ['created']
+      };
+      var updateCreatePlayers = React.addons.update(this.state, {
+        teamData   : { players : { created : { $push: [new_player] }}},
+        leagueData : { created : { $push: [new_player] }}
+      });
+      this.setState(updateCreatePlayers);
     },
 
 
@@ -526,14 +559,18 @@ var App = React.createClass({
 
       // Trade Player
       } else if (this.props.addTradePlayer) {
-        if (this.state.curDragPlayer.team !== this.state.activeTeam || this.state.activeTrade.active.id_list.length === 5) {
+        if (this.state.activeTrade.active.id_list.length === 5 ||
+            this.state.curDragPlayer.team !== this.state.activeTeam ||
+            this.state.curDragPlayer.status === 'created') {
           playerItem.className = 'player active';
           this.props.originDropZone.className = 'tile active';
           this.setState({ dragging : false });
-          if (this.state.curDragPlayer.team !== this.state.activeTeam) {
+          if (this.state.activeTrade.active.id_list.length === 5) {
+            this.handleTradePlayersError('maxed');
+          } else if (this.state.curDragPlayer.team !== this.state.activeTeam) {
             this.handleTradePlayersError('oneway');
           } else {
-            this.handleTradePlayersError('maxed');
+            this.handleTradePlayersError('created');
           }
         } else {
           capData = this.updateCapStats('remove', rosterData[originDropZoneId].contract[0]);
@@ -697,13 +734,17 @@ var App = React.createClass({
 
       // Trade Player
       if (this.props.addTradePlayer) {
-        if (playerData.team !== this.state.activeTeam || this.state.activeTrade.active.id_list.length === 5) {
+        if (playerData.team !== this.state.activeTeam ||
+            this.state.activeTrade.active.id_list.length === 5 ||
+            playerData.status === 'created') {
           dragItem.parentNode.className = dragItem.parentNode.className.replace(' engaged', '');
           dragItem.className = 'item';
           if (playerData.team !== this.state.activeTeam) {
             this.handleTradePlayersError('oneway');
-          } else {
+          } else if (this.state.activeTrade.active.id_list.length === 5) {
             this.handleTradePlayersError('maxed');
+          } else {
+            this.handleTradePlayersError('created');
           }
         } else {
           dragItem.className = 'item';

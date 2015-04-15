@@ -116,7 +116,7 @@ var Trades = React.createClass({
       var player_id = e.currentTarget.dataset.id;
       this.props.handleRemoveTradePlayer('active', player_id);
     },
-    buildTeamGroup: function(players, type) {
+    buildPlayerGroup: function(players, type) {
       var player_list;
       player_list = players.map(function(player) {
         return (
@@ -131,8 +131,8 @@ var Trades = React.createClass({
       }.bind(this));
       return player_list;
     },
-    buildPlayerList: function(players, player_type, active_team) {
-      var player_list;
+    buildTeamList: function(players, player_type, passive_team, active_team) {
+      var player_list, active_players = this.props.activePlayers;
       player_list = players.map(function(player, i) {
         if (player.team === active_team && player.actions && player.actions.indexOf('acquired') !== -1) {
           return (
@@ -140,7 +140,8 @@ var Trades = React.createClass({
               &raquo; {player.firstname} {player.lastname}
             </option>
           );
-        } else if (player.actions && player.actions.indexOf('traded') !== -1) {
+        } else if (player.team === passive_team && player.actions &&
+                   player.actions.indexOf('traded') !== -1 || active_players.indexOf(player.id) !== -1) {
           return (
             <option key={player.id} value={player.id} data-group={player_type} disabled>
               &laquo; {player.firstname} {player.lastname}
@@ -160,14 +161,14 @@ var Trades = React.createClass({
     render: function() {
       var activeTeam      = this.props.activeTrade.active.team ? this.props.activeTrade.active.team : this.props.activeTeam,
           passiveTeam     = this.props.activeTrade.passive.team,
-          forwardsList    = this.buildPlayerList(this.props.playerData.forwards, 'forwards', activeTeam),
-          defenseList     = this.buildPlayerList(this.props.playerData.defensemen, 'defensemen', activeTeam),
-          goaliesList     = this.buildPlayerList(this.props.playerData.goaltenders, 'goaltenders', activeTeam),
-          inactiveList    = this.buildPlayerList(this.props.playerData.inactive, 'inactive', activeTeam),
+          forwardsList    = this.buildTeamList(this.props.playerData.forwards, 'forwards', passiveTeam, this.props.activeTeam),
+          defenseList     = this.buildTeamList(this.props.playerData.defensemen, 'defensemen', passiveTeam, this.props.activeTeam),
+          goaliesList     = this.buildTeamList(this.props.playerData.goaltenders, 'goaltenders', passiveTeam, this.props.activeTeam),
+          inactiveList    = this.buildTeamList(this.props.playerData.inactive, 'inactive', passiveTeam, this.props.activeTeam),
           activeIdList    = this.props.activeTrade.active.id_list,
           passiveIdList   = this.props.activeTrade.passive.id_list,
-          activePlayers   = this.buildTeamGroup(this.props.activeTrade.active.players, 'active'),
-          passivePlayers  = this.buildTeamGroup(this.props.activeTrade.passive.players, 'passive'),
+          activePlayers   = this.buildPlayerGroup(this.props.activeTrade.active.players, 'active'),
+          passivePlayers  = this.buildPlayerGroup(this.props.activeTrade.passive.players, 'passive'),
           haveActive      = activeIdList.length ? true : false,
           havePassive     = passiveIdList.length ? true : false,
           playerTradeSize = '',
