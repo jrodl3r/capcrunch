@@ -39,9 +39,15 @@
   box-shadow: 0 0 10px 0 rgba(0,0,0, .05) inset;
   overflow: hidden;
   cursor: default;
+  transition: .4s;
+  transform: translateZ(0);
 
   &:last-of-type {
     margin-bottom: 0;
+  }
+
+  &.collapsed, &.short.collapsed {
+    height: 30px;
   }
 
   .title {
@@ -54,6 +60,29 @@
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     background: #000;
+
+    .panel-toggle-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 34px;
+      color: #999;
+      font-weight: bold;
+
+      &:hover {
+        color: #FFF;
+        cursor: pointer;
+      }
+
+      &.active i {
+        transform: rotate(180deg);
+      }
+
+      i {
+        transition: .3s;
+        transform: rotate(0deg);
+      }
+    }
   }
 
   .inner {

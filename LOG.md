@@ -52,11 +52,8 @@
 - 'payroll settings: show/apply user transactions'
 
 
-#### NOW » Did You Uptick Version? » [v0.8.1]
+#### NOW » Did You Uptick Version? » [v0.8.2]
 
-- 'panel scroll reset on team change'
-- 'panel expand/collapse logic'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'illustrator new logo'
 - 'photoshop new interface'
 - 'implement logo + interface'
@@ -76,6 +73,7 @@
 
 #### READY
 
+- 'panel expandable logic + team change scroll reset [v0.8.2]'
 - 'team/player change panel loading transition [v0.8.1]'
 - 'update share: only store active team created players + trades'
 - 'disable all-star-mode roster additions on trade-player-select'

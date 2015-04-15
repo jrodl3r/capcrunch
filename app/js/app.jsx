@@ -78,7 +78,7 @@ var App = React.createClass({
     },
 
 
-    // Notifications
+    // Helpers
     showNotification: function(type, msg) {
       if (type === 'error') {
         document.getElementById('notify').className = 'active error';
@@ -107,9 +107,6 @@ var App = React.createClass({
       Socket.emit('get team', id);
       this.setState({ activeTeam : id });
       this.showLoading();
-
-      // TODO Reset All Panel Scroll Positions
-
     },
     loadTeamData: function(data) {
       if (data && data !== 'error') {
@@ -127,7 +124,7 @@ var App = React.createClass({
             this.resetTradeData();
             this.hideLoading();
           });
-        }.bind(this), 300);
+        }.bind(this), 600);
       } else { this.showNotification('error', 'Sorry, There was an error loading that team.'); }
     },
     loadPlayerData: function(team_id, data) {
@@ -514,7 +511,7 @@ var App = React.createClass({
       setTimeout(function() {
         this.setState(updateCreatePlayers);
         this.hideLoading();
-      }.bind(this), 300);
+      }.bind(this), 600);
     },
 
 
@@ -846,7 +843,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.8.0</span></footer>
+          <footer>CapCrunch.io <span className="version">v0.8.2</span></footer>
         </div>
       );
     }

@@ -64,7 +64,12 @@ var PlayersPanel = React.createClass({
 
       return (
         <div id={this.props.panelId} className={ playerType === 'goaltenders' ? 'panel short player-list' : 'panel player-list' }>
-          <div className="title">{this.props.panelTitle}</div>
+          <div className="title">
+            {this.props.panelTitle}
+            <a className="panel-toggle-button">
+              <i className="fa fa-angle-up"></i>
+            </a>
+          </div>
       { playerItems.length
         ? <div className="inner">
             <div className="header">

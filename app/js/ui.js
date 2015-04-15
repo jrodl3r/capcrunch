@@ -16,6 +16,10 @@ var UI = {
     $('#transactions-menu').on('click', 'a', UI.toggleTransactionsView);
     // create player: add salary row
     $('#addSalaryRow').on('click', UI.createPlayerAddSalary);
+    // reset panel scroll
+    $('#team-select').on('change', UI.resetScroll);
+    // toggle panel view
+    $('.panel-toggle-button').on('click', UI.togglePanelView);
     // testing
     //$('#team-select').val('CHI').change();
   },
@@ -84,6 +88,24 @@ var UI = {
     $('#' + $(this).attr('data-tabview')).addClass('active');
     $('#transactions > .inner').removeClass('createplayer-active freeagents-active trades-active');
     $('#transactions > .inner').addClass($(this).attr('data-tabview') + '-active');
+  },
+
+  // toggle panel view
+  togglePanelView: function(e) {
+    e.preventDefault();
+    if ($(this).hasClass('active')) {
+      $(this).parent().parent().removeClass('collapsed');
+    } else {
+      $(this).parent().parent().addClass('collapsed');
+    }
+    $(this).toggleClass('active');
+  },
+
+  // reset panel scroll
+  resetScroll: function() {
+    setTimeout(function() {
+      $('.panel.player-list .inner ul').scrollTop(0);
+    }, 250);
   },
 
   // create player: add salary row

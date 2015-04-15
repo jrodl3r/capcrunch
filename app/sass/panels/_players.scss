@@ -2,6 +2,7 @@
 // ==================================================
 
 .player-list {
+  height: 202px;
 
   ul {
     position: relative;
@@ -14,8 +15,12 @@
     overflow-y: scroll;
   }
 
-  &.short ul {
-    max-height: 100px;
+  &.short {
+    height: 142px;
+    
+    ul {
+      max-height: 100px;
+    }
   }
 
   .header, .row, .item {
@@ -203,12 +208,11 @@
 }
 
 
-// Bench / Remove Player
+// Loading Splash
 // --------------------------------------------------
 
 .loading-list {
   z-index: 3;
-  
   position: absolute;
   top: 30px;
   height: 0;
@@ -227,7 +231,6 @@
   transition: opacity .3s, height 0s .3s;
 
   .show-loading & {
-    //z-index: 3;
     height: 172px;
     opacity: 1;
     transition: opacity .3s, height 0s;
