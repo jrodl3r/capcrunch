@@ -92,12 +92,24 @@ var App = React.createClass({
         document.getElementById('notify').className = '';
       }, 4000);
     },
+    showLoading: function() {
+      var menu = document.getElementById('menu');
+      menu.className = menu.className + ' show-loading';
+    },
+    hideLoading: function() {
+      var menu = document.getElementById('menu');
+      menu.className = menu.className.replace(' show-loading', '');
+    },
 
 
     // Team + Player Data
     handleChangeTeam: function(id) {
       Socket.emit('get team', id);
       this.setState({ activeTeam : id });
+      this.showLoading();
+
+      // TODO Reset All Panel Scroll Positions
+
     },
     loadTeamData: function(data) {
       if (data && data !== 'error') {
@@ -110,13 +122,12 @@ var App = React.createClass({
         }
         trade_data = this.getTradeData(this.state.activeTeam, 'active');
         team_data.players = this.updatePlayerData(team_data.players, trade_data);
-        this.setState({ teamData: team_data }, function() {
-          this.resetTradeData();
-        }.bind(this));
-
-        // TODO Panel Transition Effect
-        // TODO Reset All Panel Scroll Positions
-
+        setTimeout(function() {
+          this.setState({ teamData: team_data }, function() {
+            this.resetTradeData();
+            this.hideLoading();
+          });
+        }.bind(this), 300);
       } else { this.showNotification('error', 'Sorry, There was an error loading that team.'); }
     },
     loadPlayerData: function(team_id, data) {
@@ -347,11 +358,13 @@ var App = React.createClass({
         updateTeamPlayerData = React.addons.update(this.state, {
           teamData : { players : { $set: player_data }}
         });
+        this.showLoading();
         this.setState(updateTeamPlayerData, function() {
           setTimeout(function() {
             this.resetTradeData();
             document.getElementById('trade-player-msg').innerText = this.props.messages.trade_players_heading;
             document.getElementById('trade-player-confirm').className = 'transaction-confirm';
+            this.hideLoading();
           }.bind(this), 2000);
         });
       });
@@ -384,6 +397,7 @@ var App = React.createClass({
       });
     },
     handleRemoveTradePlayer: function(type, id) {
+      //this.showLoading();
       document.getElementById(id + 'item').className = '';
       setTimeout(function() {
         var index, updateTradeData;
@@ -409,6 +423,7 @@ var App = React.createClass({
           }
         }
         this.setState(updateTradeData);
+        //this.hideLoading();
       }.bind(this), 250);
     },
     handleTradeDragEnter: function(e) {
@@ -474,7 +489,9 @@ var App = React.createClass({
       return created_players;
     },
     handleCreatePlayer: function(player) {
-      var new_player = {
+      var new_player, updateCreatePlayers;
+      this.showLoading();
+      new_player = {
         lastname  : player.lastname,
         firstname : player.firstname,
         contract  : player.contract,
@@ -490,11 +507,14 @@ var App = React.createClass({
         status    : 'created',
         actions   : ['created']
       };
-      var updateCreatePlayers = React.addons.update(this.state, {
+      updateCreatePlayers = React.addons.update(this.state, {
         teamData   : { players : { created : { $push: [new_player] }}},
         leagueData : { created : { $push: [new_player] }}
       });
-      this.setState(updateCreatePlayers);
+      setTimeout(function() {
+        this.setState(updateCreatePlayers);
+        this.hideLoading();
+      }.bind(this), 300);
     },
 
 

@@ -27,7 +27,7 @@ var UI = {
       // show payroll
       if ($(this).hasClass('payroll')) {
         // show reminder if no team is selected
-        if ($('#team-select').val() === 'Select Team') {
+        if ($('#team-select').val() === '0') {
           $('#team-select-reminder').addClass('active');
           $('#team-select').on('click', () => {
             $('#team-select-reminder').removeClass('active');

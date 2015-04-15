@@ -3,7 +3,12 @@
 'use strict';
 
 var PlayersPanel = React.createClass({
-
+    // componentDidUpdate: function() {
+    //
+    //   //UI.updatePayrollHeight();
+    //   console.log('fade back in...');
+    //
+    // },
     blockDrag: function(e) {
       // e.preventDefault();
       // e.stopPropagation();
@@ -86,6 +91,9 @@ var PlayersPanel = React.createClass({
               onDragEnter={this.props.handleBenchDragEnter}
               onDragLeave={this.props.handleBenchDragLeave}>
             </div>
+          </div>
+          <div className="loading-list">
+            <i className="fa fa-cog fa-spin"></i> Loading
           </div>
         </div>
       );

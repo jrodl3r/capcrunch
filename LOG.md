@@ -52,9 +52,8 @@
 - 'payroll settings: show/apply user transactions'
 
 
-#### NOW » Did You Uptick Version? » [v0.8.0]
+#### NOW » Did You Uptick Version? » [v0.8.1]
 
-- 'panel transition fade effect on team/player change'
 - 'panel scroll reset on team change'
 - 'panel expand/collapse logic'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
@@ -77,6 +76,7 @@
 
 #### READY
 
+- 'team/player change panel loading transition [v0.8.1]'
 - 'update share: only store active team created players + trades'
 - 'disable all-star-mode roster additions on trade-player-select'
 - 'trade players feature update (details in LOG.md) [v0.8.0]'

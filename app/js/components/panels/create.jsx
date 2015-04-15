@@ -47,7 +47,7 @@ var CreatePlayer = React.createClass({
           document.getElementById('create-player-salary-duration').selectedIndex = 0;
           document.getElementById('create-player-msg').innerText = this.props.messages.heading;
           document.getElementById('create-player-confirm').className = 'transaction-confirm';
-        }.bind(this), 3500);
+        }.bind(this), 2000);
       } else if (!playerData.firstname) {
         document.getElementById('create-player-fname').className = 'missing';
         document.getElementById('create-player-fname').focus();
@@ -157,7 +157,7 @@ var CreatePlayer = React.createClass({
     blockPaste: function() {
       return false;
     },
-    
+
     render: function() {
       return (
         <div id="createplayer" className="tab-area">
