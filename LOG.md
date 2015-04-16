@@ -17,6 +17,14 @@
   - https://twitter.com/chrismpeters/status/578977478875553792
 
 
+#### FEEDBACK (User Testing)
+- Add multiple years for the roster (ex: this is 2015 but if I wanted to build the 2015-16 team, then the partial salaries need to reflect a full year, not the partial year)
+- Add spots on the roster for the players in the press box (scratches) – to get accurate cap and cap space, so including roster players that are not part of the 12 forwards, six defenseman, and two goalies.
+- Add spots on the roster for the players who have salary retained
+- The page should refresh when the team is changed (A refresh button would be nice.)
+- There should be a way to undo a trade
+
+
 #### LATER (Technical)
 
 - 'node jade view engine'
@@ -26,9 +34,9 @@
 - 'session state clear + restore (cookies)'
 - 'SEO friendly ReactJS SSR markup'
 - 'fix React props mutation warnings/issues'
-- 'panel scrollbar consistency'
 - 'pre-cache player images on player item hover'
-- 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
+- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
+- 'upgrade Heroku + Mongolab to production'
 
 
 #### LATER (Features)
@@ -48,31 +56,31 @@
 - 'player-list + payroll player details onHover'
 - 'trade player cap violation/overage check + warning'
 - 'trade player assets / draft picks layout + logic'
-- 'trade summary button/view layout + logic'
 - 'payroll settings: show/apply user transactions'
+- 'trade summary button/view layout + logic'
+- 'next/new feature user voting'
 
 
 #### NOW » Did You Uptick Version? » [v0.8.2]
 
-- 'illustrator new logo'
-- 'photoshop new interface'
 - 'implement logo + interface'
+- 'panel scrollbar consistency'
 - 'cleanup panel player-list details'
 - 'clear/reset roster button (options gear-icon)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'wire-up create-player add salary row button'
-- 'wire-up twitter + facebook share buttons'
-- 'cleanup + distill player/roster components'
+- 'wire-up Twitter + Facebook share buttons'
 - 'fix list-item double-click selection bug'
 - 'fix right click player tile bug'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'next/new feature user voting'
 - 'analytics + monitoring'
-- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
+- 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
 
 
 #### READY
 
+- 'illustrator new logo'
+- 'photoshop new interface'
 - 'panel expandable logic + team change scroll reset [v0.8.2]'
 - 'team/player change panel loading transition [v0.8.1]'
 - 'update share: only store active team created players + trades'
@@ -80,6 +88,7 @@
 - 'trade players feature update (details in LOG.md) [v0.8.0]'
 - 'adjust trade player panel + item transition timing'
 - 'reset active-trade data on global team-select change'
+- 'cleanup + distill player/roster components'
 - 'update trade-team-select disable/add traded + acquired players'
 - 'update salary sorting (...inactive players w/ 0.000)'
 - 'update Payroll w/ player.actions flags (default: hide acquired players)'
