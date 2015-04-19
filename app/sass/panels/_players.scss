@@ -180,28 +180,26 @@
         height: 15px;
         width: inherit;
         margin-top: 9px;
-        color: #999;
-        font-size: 9px;
+        color: #888;
+        font-size: 8px;
         font-weight: 600;
-        line-height: 15px;
+        line-height: 16px;
         text-align: left;
-        text-indent: 5px;
+        text-indent: 1px;
+        text-align: center;
         background: #444;
         border-radius: 50%;
       }
 
-      .acquired, .created {
+      .created, .acquired {
         color: #CCC;
-        line-height: 14px;
-        background: #1E44A2;
+        background: #117C1B;
       }
 
-      .created {
-        font-size: 9px;
-        text-indent: 0;
-        text-align: center;
+      .acquired {
+        color: #BBB;
         line-height: 15px;
-        background: #117C1B;
+        background: #1E44A2;
       }
     }
 
@@ -232,11 +230,12 @@
   top: 33px;
   height: 0;
   width: 300px;
-  line-height: 166px;
-  text-align: center;
   color: #444;
   font-size: 13px;
   font-weight: bold;
+  line-height: 160px;
+  text-align: center;
+  text-shadow: 0 3px 15px rgba(0,0,0, .95);
   background: rgba(23,24,25, .95);
   border-bottom-right-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
@@ -254,7 +253,7 @@
 
   .panel.short & {
     height: 0;
-    line-height: 101px;
+    line-height: 95px;
 
     .show-loading & {
       height: 101px;
@@ -278,11 +277,11 @@
   top: 33px;
   height: 0;
   width: 300px;
-  line-height: 166px;
-  text-align: center;
   color: #888;
   font-size: 12px;
   font-weight: bold;
+  line-height: 166px;
+  text-align: center;
   background: rgba(23,24,25, .8);
   border-bottom-right-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
@@ -293,6 +292,8 @@
 
   &.hover {
     color: #555;
+    text-shadow: 0 3px 15px rgba(0,0,0, .95);
+    background: rgba(23,24,25, .95);
     box-shadow: 0 0 200px 0 rgba(0,0,0, .7) inset;
   }
 

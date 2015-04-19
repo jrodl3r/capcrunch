@@ -58,28 +58,31 @@
 - 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
 - 'trade summary button/view layout + logic'
 - 'next/new feature user voting'
-- 'distill roster player tile render logic'
+- 'player tile action icons'
 
 
 #### NOW » Did You Uptick Version? » [v0.8.6]
 
-- 'panel scrollbar consistency'
+- 'acquired/created-player team update'
+- 'new ui: update transactions + share panels'
+- 'new ui: update payroll view'
+- 'new ui: panel scrollbar consistency'
+- 'new ui: cap stats menu + clear/reset roster logic (gear-icon)'
 - 'block right-click/context event'
-- 'cap stats menu + clear/reset roster logic (gear-icon)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'wire-up create-player add salary row button'
 - 'wire-up Twitter + Facebook share buttons'
-- 'fix list-item double-click selection bug'
-- 'fix right click player tile bug'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'analytics + monitoring'
 - 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
 - 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 - 'pre-cache team + player images on select/hover'
+- 'distill roster player tile render logic'
 
 
 #### READY
 
+- 'cleanup player tile layout + transitions'
 - 'implement new logo + roster layout [v0.8.6]'
 - 'cleanup panel player-list details'
 - 'illustrator new logo'
