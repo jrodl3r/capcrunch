@@ -673,20 +673,20 @@ var App = React.createClass({
     highlightGrid: function(flag, type, pos) {
       if (flag === 'on') {
         if (type === 'forwards' || pos && /LW|C|RW/.test(pos)) {
-          document.getElementById('forwards').className = 'panel group dragging';
+          document.getElementById('forwards').className = 'grid dragging';
         } else if (type === 'defensemen' || pos && /D/.test(pos)) {
-          document.getElementById('defense').className = 'panel group defense dragging';
+          document.getElementById('defense').className = 'grid defense dragging';
         } else if (type === 'goaltenders' || pos && /G/.test(pos)) {
-          document.getElementById('goalies').className = 'panel group defense dragging';
+          document.getElementById('goalies').className = 'grid defense dragging';
         } else {
-          document.getElementById('forwards').className = 'panel group dragging';
-          document.getElementById('defense').className = 'panel group defense dragging';
-          document.getElementById('goalies').className = 'panel group defense dragging';
+          document.getElementById('forwards').className = 'grid dragging';
+          document.getElementById('defense').className = 'grid defense dragging';
+          document.getElementById('goalies').className = 'grid defense dragging';
         }
       } else {
-        document.getElementById('forwards').className = 'panel group';
-        document.getElementById('defense').className = 'panel group defense';
-        document.getElementById('goalies').className = 'panel group defense';
+        document.getElementById('forwards').className = 'grid';
+        document.getElementById('defense').className = 'grid defense';
+        document.getElementById('goalies').className = 'grid defense';
       }
     },
     handleGridDragEnter: function(e) {
@@ -843,7 +843,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch.io <span className="version">v0.8.2</span></footer>
+          <footer>CapCrunch <span className="version">v0.8.6</span></footer>
         </div>
       );
     }

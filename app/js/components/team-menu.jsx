@@ -16,7 +16,7 @@ var TeamMenu = React.createClass({
       return (
         <header>
           <div className="inner">
-            <h1>CapCrunch <span className="beta-tag">beta</span></h1>
+            <img className="logo" src="img/logo.min.svg"/>
             <div id="notify"></div>
             <nav id="team-menu">
               <ul>
@@ -31,7 +31,7 @@ var TeamMenu = React.createClass({
                 <li><a href="#" className="payroll">Payroll</a></li>
                 <li><a href="#" className="roster active">Roster</a></li>
               </ul>
-              <div id="team-select-reminder">Select Team <i className="fa fa-hand-o-right"></i></div>
+              <div id="team-select-reminder"></div>
             </nav>
           </div>
         </header>

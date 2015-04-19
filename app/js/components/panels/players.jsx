@@ -3,17 +3,6 @@
 'use strict';
 
 var PlayersPanel = React.createClass({
-    // componentDidUpdate: function() {
-    //
-    //   //UI.updatePayrollHeight();
-    //   console.log('fade back in...');
-    //
-    // },
-    blockDrag: function(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
-    },
-
     buildPlayerList: function(players, player_type) {
       var player_list, status;
       player_list = players.map(function(player, i) {
@@ -37,15 +26,30 @@ var PlayersPanel = React.createClass({
               onDragEnd={this.props.handleDragEnd}
               data-type={player_type}
               data-index={i}>
-              <div className="name" onMouseDown={this.blockDrag}>
-                <span className="jersey" onMouseDown={this.blockDrag}>{player.jersey}</span>
-                {player.lastname}, {player.firstname}
+              <div className="jersey">{player.jersey}</div>
+              <div className="name">{player.lastname}, {player.firstname}</div>
+              <div className="info">
+            { player_type === 'goaltenders' || !player.shot
+              ? <span className="shot"></span>
+              : <span className="shot">{player.shot}</span> }
+            { player_type === 'goaltenders' || player_type === 'defensemen' || !player.position
+              ? <span className="position"></span>
+              : <span className="position">{ player.shot ? '/' + player.position : player.position}</span> }
               </div>
-          { player_type === 'goaltenders' || player_type === 'inactive' || player_type === 'created'
-            ? <div className="shot" onMouseDown={this.blockDrag}>&nbsp;</div>
-            : <div className="shot" onMouseDown={this.blockDrag}>{ player.shot || <span>&nbsp;</span> }</div> }
-              <div className="salary" onMouseDown={this.blockDrag}>{ player.contract[0] === '0.000' ? '-' : player.contract[0] }</div>
-              <div className="handle">&nbsp;</div>
+              <div className="handle"></div>
+              <div className="salary">{ player.contract[0] === '0.000' ? '-' : player.contract[0] }</div>
+              <div className="status">
+            { player.actions && player.actions.indexOf('traded') !== -1
+              ? <div className="traded">T</div>
+              : null }
+            { player.actions && player.actions.indexOf('acquired') !== -1
+              ? <div className="acquired">A</div>
+              : null }
+            { player.actions && player.actions.indexOf('created') !== -1
+              ? <div className="created">C</div>
+              : null }
+              </div>
+              <div className="cover"></div>
             </div>
           </li>
         );
@@ -67,19 +71,11 @@ var PlayersPanel = React.createClass({
           <div className="title">
             {this.props.panelTitle}
             <a className="panel-toggle-button">
-              <i className="fa fa-angle-up"></i>
+              <i className="fa fa-chevron-up"></i>
             </a>
           </div>
       { playerItems.length
         ? <div className="inner">
-            <div className="header">
-              <div className="name">Player</div>
-          { isSkater
-            ? <div className="shot">Shot</div>
-            : <div className="shot">&nbsp;</div> }
-              <div className="salary">Salary</div>
-              <div className="handle">&nbsp;</div>
-            </div>
           { isActive
             ? <ul>{playerItems}</ul>
             : <ul>
@@ -88,7 +84,7 @@ var PlayersPanel = React.createClass({
               </ul> }
           </div>
         : <div className="inner">
-            <div className="team-select-reminder">Select Team <i className="fa fa-hand-o-right"></i></div>
+            <div className="team-select-reminder"></div>
           </div> }
           <div className="bench-player">
             <i className="fa fa-rotate-left"></i> Bench / Remove

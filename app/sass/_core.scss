@@ -5,6 +5,21 @@
   box-sizing: border-box;
 }
 
+html {
+  background-color: #15161A;
+  background-image: url(../img/dark-bg.jpg);
+  background-attachment: fixed;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+
+@media (max-width: 1500px) {
+  html {
+    background-size: 1500px auto;
+  }
+}
+
 body, html {
   height: 100%;
 }
@@ -44,7 +59,7 @@ a, button, input, select {
   flex-direction: column;
   min-height: 100%;
   width: 100%;
-  margin-bottom: -30px;
+  margin-bottom: -$footer-height;
   overflow: hidden;
   transform: translateZ(0);
 
@@ -59,7 +74,7 @@ a, button, input, select {
   display: flex;
   flex: 1 1 auto;
   width: $content-width;
-  margin: $header-height auto $header-height/2;
+  margin: $header-height auto $footer-height;
   transform: translateZ(0);
 }
 

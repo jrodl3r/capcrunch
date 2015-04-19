@@ -18,25 +18,38 @@
     padding: 0 10px;
     margin-right: 10px;
     line-height: 32px;
-    font-size: 16px;
-    border: 1px solid $alt-color;
+    font-size: 15px;
+    background: linear-gradient(to top, #6A6A6A 0%, #A5A5A5);
+    border: 0;
+    box-shadow: 0 0 10px 0 rgba(0,0,0, .75);
 
     &::placeholder {
-      color: #DDD;
+      color: #5A5A5A;
+    }
+
+    &:hover {
+      background: linear-gradient(to top, #666 0%, #AAA);
+    }
+
+    &:focus {
+      box-shadow: 0 0 15px 0 rgba(0,0,0, .95);
     }
   }
 
   button {
     width: 70px;
-    color: #FFF;
+    color: #CACACA;
     line-height: 100%;
     font-size: 14px;
     font-weight: bold;
-    background: #000;
+    background: linear-gradient(to top, #272727 0%, #595959);
     border: none;
+    box-shadow: 0 0 10px 0 rgba(0,0,0, .75);
 
     &:hover {
-      background: #444;
+      color: #EEE;
+      background: linear-gradient(to top, #222 0%, #666);
+      box-shadow: 0 0 10px 0 rgba(0,0,0, .95);
     }
   }
 }

@@ -3,10 +3,6 @@
 'use strict';
 
 var PlayerItem = React.createClass({
-  blockDrag: function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  },
   render: function() {
     var playerData = this.props.playerData;
     if (playerData.status !== 'empty') {
@@ -21,16 +17,16 @@ var PlayerItem = React.createClass({
             onDragStart={this.props.handlePlayerDragStart}
             onDragEnd={this.props.handlePlayerDragEnd}>
         { playerData.id
-          ? <div className="inner">
+          ? <div className={playerData.team + ' inner'}>
               <div className="photo">
                 <img src={ playerData.image ? playerData.image : 'http://img.capcrunch.io/players/default.png' }/>
               </div>
               <div className="info">
                 <div className="name">
-                  <span className="jersey">{playerData.jersey}</span>
                   {playerData.firstname.charAt(0)}. {playerData.lastname}
                 </div>
-                <div className="shot">{playerData.shot}</div>
+                <div className="jersey">{ playerData.jersey ? playerData.jersey : '&nbsp;' }</div>
+                <div className="shot">{ playerData.shot ? playerData.shot : '&nbsp;' }</div>
                 <div className="salary">{playerData.contract[0]}</div>
               </div>
               <div className="handle"></div>
@@ -50,16 +46,16 @@ var PlayerItem = React.createClass({
             onDragStart={this.props.handlePlayerDragStart}
             onDragEnd={this.props.handlePlayerDragEnd}>
         { playerData.id
-          ? <div className="inner">
+          ? <div className={playerData.team + ' inner'}>
               <div className="photo">
                 <img src={ playerData.image ? playerData.image : 'http://img.capcrunch.io/players/default.png' }/>
               </div>
               <div className="info">
                 <div className="name">
-                  <span className="jersey">{playerData.jersey}</span>
                   {playerData.firstname.charAt(0)}. {playerData.lastname}
                 </div>
-                <div className="shot">{playerData.shot}</div>
+                <div className="jersey">{ playerData.jersey ? playerData.jersey : '&nbsp;' }</div>
+                <div className="shot">{ playerData.shot ? playerData.shot : '&nbsp;' }</div>
                 <div className="salary">{playerData.contract[0]}</div>
               </div>
               <div className="handle"></div>
@@ -85,20 +81,25 @@ var Roster = React.createClass({
         <div id="roster" className="section active" onDragEnter={this.props.onGridDragEnter}>
           <div id="roster-stats" className={ this.props.activePlayers.length ? 'cap-stats active' : 'cap-stats' }>
             <div id="rcap-player-count" className="section">
-          { this.props.activePlayers.length ? <span>Roster Players <span className="value">{this.props.activePlayers.length}</span></span> : '' }
+              <span>Roster Players <span className="value">{this.props.activePlayers.length}</span></span>
             </div>
             <div id="rcap-payroll-total" className="section">
-          { this.props.activePlayers.length ? <span>Payroll Total <span className="value">{this.props.rosterInfo.hit}</span></span> : '' }
+              <span>Payroll Total <span className="value">{this.props.rosterInfo.hit}</span></span>
             </div>
             <div id="rcap-cap-space" className="section">
-          { this.props.activePlayers.length ? <span>Cap Space <span className="value">{this.props.rosterInfo.space}</span></span> : '' }
+              <span>Cap Space <span className="value">{this.props.rosterInfo.space}</span></span>
             </div>
-            <div id="rcap-salary-cap" className="section">
-          { this.props.activePlayers.length ? <span>Salary Cap <span className="value">{this.props.leagueData.cap}</span></span> : '' }
+            <div id="rcap-salary-cap" className="section salary-cap">
+              <span>Salary Cap <span className="value">{this.props.leagueData.cap}</span></span>
             </div>
-          { !this.props.activePlayers.length ? <span className="placeholder">Cap Stats</span> : '' }
+            <a id="roster-stats-button" className="cap-stats-menu-button">
+              <i className="fa fa-gear"></i>
+            </a>
+            <ul id="roster-stats-menu" className="cap-stats-menu">
+              <li><a>Clear Roster</a></li>
+            </ul>
           </div>
-          <div id="forwards" className="panel group">
+          <div id="forwards" className="grid">
             <div className="title">
               <div className="left">LW</div>
               <div className="center">C</div>
@@ -335,7 +336,7 @@ var Roster = React.createClass({
               </div>
             </div>
           </div>
-          <div id="defense" className="panel group defense">
+          <div id="defense" className="grid defense">
             <div className="title">
               <div className="left">LD</div>
               <div className="right">RD</div>
@@ -460,7 +461,7 @@ var Roster = React.createClass({
               </div>
             </div>
           </div>
-          <div id="goalies" className="panel group defense">
+          <div id="goalies" className="grid defense">
             <div className="title">G</div>
             <div className="inner">
               <div id="G1" className="line">
@@ -482,7 +483,6 @@ var Roster = React.createClass({
                       handlePlayerDragEnd={this.props.onPlayerDragEnd} />
                   </div>
                 </div>
-                <div className="title goalie starter">S</div>
                 <div className="right">
                   <div id="G1R"
                     className={ this.props.rosterData.G1R.status !== 'empty' ? 'tile active' : 'tile' }
@@ -501,7 +501,7 @@ var Roster = React.createClass({
                       handlePlayerDragEnd={this.props.onPlayerDragEnd} />
                   </div>
                 </div>
-                <div className="title goalie">B</div>
+                <div className="title goalie">T1</div>
               </div>
             </div>
           </div>

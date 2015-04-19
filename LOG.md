@@ -34,39 +34,38 @@
 - 'session state clear + restore (cookies)'
 - 'SEO friendly ReactJS SSR markup'
 - 'fix React props mutation warnings/issues'
-- 'pre-cache player images on player item hover'
-- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 - 'upgrade Heroku + Mongolab to production'
 
 
 #### LATER (Features)
 
 - 'minor team roster/lineup'
-- 'free agents panel + logic'
 - 'scrape team draft pick data'
 - 'message-board sharing widget (dynamic image generator)'
 - 'add more create player panel options (nation, age, image)'
-- 'add new line drag-action [IR/Backup] (drag over + icon to reveal)'
-- 'editable player tile info (salary) + add to LTIR button'
 - 'sticky cap stats panel + payroll table headers (try cloning)'
-- 'share roster user submission delay + spam protection'
-- 'share roster text-only output'
-- 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
-- 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
 - 'player-list + payroll player details onHover'
 - 'trade player cap violation/overage check + warning'
 - 'trade player assets / draft picks layout + logic'
 - 'payroll settings: show/apply user transactions'
+- 'free agents panel + logic'
+- 'editable player tile info (salary) + add to LTIR button'
+- 'add special teams alt-grids (PP1+2/PK1+2)'
+- 'add IR + Pressbox alt-lines'
+- 'share roster user submission delay + spam protection'
+- 'share roster text-only output'
+- 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
+- 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
 - 'trade summary button/view layout + logic'
 - 'next/new feature user voting'
+- 'distill roster player tile render logic'
 
 
-#### NOW » Did You Uptick Version? » [v0.8.2]
+#### NOW » Did You Uptick Version? » [v0.8.6]
 
-- 'implement logo + interface'
 - 'panel scrollbar consistency'
-- 'cleanup panel player-list details'
-- 'clear/reset roster button (options gear-icon)'
+- 'block right-click/context event'
+- 'cap stats menu + clear/reset roster logic (gear-icon)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'wire-up create-player add salary row button'
 - 'wire-up Twitter + Facebook share buttons'
@@ -75,10 +74,14 @@
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'analytics + monitoring'
 - 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
+- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
+- 'pre-cache team + player images on select/hover'
 
 
 #### READY
 
+- 'implement new logo + roster layout [v0.8.6]'
+- 'cleanup panel player-list details'
 - 'illustrator new logo'
 - 'photoshop new interface'
 - 'panel expandable logic + team change scroll reset [v0.8.2]'

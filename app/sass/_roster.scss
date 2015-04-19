@@ -14,6 +14,120 @@
   .cap-stats {
     margin: 30px 0;
   }
+
+  .grid {
+    position: relative;
+    float: left;
+    width: inherit;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+    background: rgba(23,24,25, .5);
+    border-radius: $border-radius;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: .4s;
+    transform: translateZ(0);
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &.defense {
+      width: inherit;
+      margin-left: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+
+      &:last-of-type {
+        padding-bottom: 30px;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+      }
+
+      > .title {
+        width: 420px;
+        margin-left: 100px;
+      }
+
+      .line {
+        width: 420px;
+        margin-left: 115px;
+      }
+    }
+
+    .inner {
+      float: left;
+    }
+
+    .left, .center, .right {
+      float: left;
+      height: 60px;
+      width: 192px;
+    }
+
+    .left {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+
+    .center {
+      margin-right: 5px;
+    }
+
+    .title {
+      float: left;
+      width: 100%;
+      height: 33px;
+      padding-left: 11px;
+      color: #666;
+      font-size: 11px;
+      font-weight: bold;
+      line-height: 33px;
+      text-align: center;
+      cursor: default;
+
+      .left, .center, .right {
+        height: inherit;
+        line-height: inherit;
+      }
+    }
+
+    .line {
+      position: relative;
+      float: left;
+      height: 70px;
+      width: 618px;
+      margin-bottom: 10px;
+      margin-left: 11px;
+      background: linear-gradient(to top, rgba(136,136,136, .06) 0%, rgba(206,206,206, .06));
+      box-shadow: 0 0 30px rgba(255,255,255, .09) inset, 0 0 1px 0 rgba(0,0,0, .05);
+      border-radius: $border-radius;
+      transition: .2s;
+
+      &:hover .title {
+        color: #888;
+      }
+
+      .left, .center, .right {
+        margin-top: 5px;
+        background: rgba(255,255,255, 0.1);
+        border-radius: $border-radius;
+        box-shadow: 0 0 70px rgba(255,255,255, .03) inset;
+      }
+
+      .title {
+        position: absolute;
+        height: 70px;
+        width: 27px;
+        right: 0;
+        padding: 0;
+        color: #777;
+        line-height: 70px;
+        text-align: center;
+      }
+    }
+  }
 }
 
 
@@ -22,84 +136,263 @@
 
 .tile {
   position: relative;
-  height: 57px;
-  width: 200px;
-  background: #FFF;
-  border: 1px solid #DDD;
+  height: 60px;
+  width: 192px;
   border-radius: $border-radius;
   box-shadow: 0 0 4px 0 rgba(0,0,0, .1) inset;
-  transition: background .25s, box-shadow .25s;
+  transform: translateZ(0);
+  transition: .3s;
 
   .dragging &:not(.active) {
-    background: #F9F9F9;
-    border: 1px dashed #BBB;
+    background: rgba(255,255,255, .03);
     box-shadow: none;
   }
 
   &.hover:not(.active) {
-    background: #FFF;
-    //border: 1px dashed #D5D5D5;
-    border: 1px dashed #999;
-    box-shadow: 0 0 15px 0 rgba(0,0,0, .06) inset;
-  }
-
-  //&.active {
-    //box-shadow: none;
-  //}
-
-  &.engaged {
-    border: 1px solid #F5F5F5;
+    background: rgba(255,255,255, .08);
+    border: none;
+    box-shadow: none;
   }
 
   .player {
     position: relative;
-    width: 198px;
+    width: 192px;
     height: 0;
-    background: linear-gradient(to top, #EEE 0%, #FFF 100%);
+    background: linear-gradient(to top, rgba(255,255,255, .3) 0%, rgba(255,255,255, .7) 100%);
     border-radius: $border-radius;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0, 0.25);
+    box-shadow: 0 0 2px 0 rgba(0,0,0, .5);
     opacity: 0;
     overflow: hidden;
-    cursor: grab;
+    transform: translateZ(0);
     transition: opacity .25s, box-shadow .25s;
 
     &.hover {
-      background: linear-gradient(to top, #E9E9E9 0%, #FFF 100%);
-      box-shadow: 0 1px 2px 0 rgba(0,0,0, 0.2);
+      background: linear-gradient(to top, rgba(165,165,165, .5) 0%, rgba(255,255,255, .8) 100%);
+      box-shadow: 0 0 2px 0 rgba(0,0,0, .65);
+
+      .inner:before {
+        opacity: 0.026;
+      }
 
       .info {
+
         .name {
-          color: #777;
+          color: #222;
+          text-shadow: 0 0 3px rgba(255,255,255, .5);
         }
 
         .jersey {
-          color: #D6D6D6;
+          color: #8C8C8C;
+          text-shadow: 0 0 3px rgba(255,255,255, .5);
         }
 
-        .shot, .salary {
-          color: #CCC;
+        .salary {
+          border-top: 1px solid rgba(0,0,0, .05);
         }
       }
 
       .handle {
-        opacity: .25;
+        opacity: .2;
       }
     }
 
     &.active {
-      height: 55px;
+      height: 60px;
       opacity: 1;
     }
 
     &.clicked {
-      height: 55px;
+      height: 60px;
       box-shadow: 0 0 1px 0 rgba(0,0,0, 0.2);
       opacity: .65;
-      cursor: grabbing;
+
+      .inner:before {
+        opacity: 0.026;
+      }
     }
 
     .inner {
-      padding: 0;
+      height: inherit;
+      width: inherit;
+      box-shadow: 0 2px 7px rgba(255,255,255, .25) inset;
+
+      &:before {
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        content: ' ';
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-position: 105% 25%;
+        background-repeat: no-repeat;
+        opacity: 0.036;
+      }
+
+      &.ANA:before {
+        background-image: url(../img/teams/ANA.png);
+        background-position: 105% 45%;
+        background-size: 75%;
+      }
+
+      &.ARI:before {
+        background-image: url(../img/teams/ARI.png);
+        background-position: 110% 35%;
+        background-size: 65%;
+      }
+
+      &.BOS:before {
+        background-image: url(../img/teams/BOS.png);
+      }
+
+      &.BUF:before {
+        background-image: url(../img/teams/BUF.png);
+      }
+
+      &.CGY:before {
+        background-image: url(../img/teams/CGY.png);
+      }
+
+      &.CAR:before {
+        background-image: url(../img/teams/CAR.png);
+        background-position: 120% 45%;
+        background-size: 65%;
+      }
+
+      &.CHI:before {
+        background-image: url(../img/teams/CHI.png);
+        background-position: 115% 50%;
+        background-size: 63%;
+      }
+
+      &.COL:before {
+        background-image: url(../img/teams/COL.png);
+        background-position: 105% 65%;
+      }
+
+      &.CLB:before {
+        background-image: url(../img/teams/CLB.png);
+        background-position: 105% 45%;
+      }
+
+      &.DAL:before {
+        background-image: url(../img/teams/DAL.png);
+        background-position: 200% 65%;
+        background-size: 80%;
+      }
+
+      &.DET:before {
+        background-image: url(../img/teams/DET.png);
+        background-position: 130% 60%;
+        background-size: 65%;
+      }
+
+      &.EDM:before {
+        background-image: url(../img/teams/EDM.png);
+      }
+
+      &.FLA:before {
+        background-image: url(../img/teams/FLA.png);
+      }
+
+      &.LAK:before {
+        background-image: url(../img/teams/LAK.png);
+        background-position: 150% 25%;
+        background-size: 73%;
+      }
+
+      &.MIN:before {
+        background-image: url(../img/teams/MIN.png);
+        background-position: 175% 55%;
+        background-size: 75%;
+      }
+
+      &.MTL:before {
+        background-image: url(../img/teams/MTL.png);
+        background-position: 145% 50%;
+        background-size: 70%;
+      }
+
+      &.NAS:before {
+        background-image: url(../img/teams/NAS.png);
+        background-position: 115% 45%;
+        background-size: 70%;
+      }
+
+      &.NJD:before {
+        background-image: url(../img/teams/NJD.png);
+        background-position: 105% 45%;
+        background-size: 60%;
+      }
+
+      &.NYI:before {
+        background-image: url(../img/teams/NYI.png);
+        background-position: 110% 25%;
+        background-size: 60%;
+      }
+
+      &.NYR:before {
+        background-image: url(../img/teams/NYR.png);
+        background-position: 118% 25%;
+        background-size: 66%;
+      }
+
+      &.OTT:before {
+        background-image: url(../img/teams/OTT.png);
+        background-position: 115% 75%;
+        background-size: 65%;
+      }
+
+      &.PHI:before {
+        background-image: url(../img/teams/PHI.png);
+        background-position: 120% 35%;
+        background-size: 65%;
+      }
+
+      &.PIT:before {
+        background-image: url(../img/teams/PIT.png);
+        background-position: 110% 17%;
+        background-size: 60%;
+      }
+
+      &.SJS:before {
+        background-image: url(../img/teams/SJS.png);
+        background-position: 120% 60%;
+        background-size: 65%;
+      }
+
+      &.STL:before {
+        background-image: url(../img/teams/STL.png);
+        background-position: 120% 30%;
+        background-size: 65%;
+      }
+
+      &.TBL:before {
+        background-image: url(../img/teams/TBL.png);
+      }
+
+      &.TOR:before {
+        background-image: url(../img/teams/TOR.png);
+        background-position: 110% 60%;
+        background-size: 60%;
+      }
+
+      &.VAN:before {
+        background-image: url(../img/teams/VAN.png);
+        background-position: 110% 45%;
+        background-size: 60%;
+      }
+
+      &.WAS:before {
+        background-image: url(../img/teams/WAS.png);
+        background-position: 180% 55%;
+        background-size: 75%;
+      }
+
+      &.WPG:before {
+        background-image: url(../img/teams/WPG.png);
+      }
     }
 
     .cover {
@@ -108,58 +401,63 @@
       right: 0;
       bottom: 0;
       left: 0;
-      height: 55px;
-      width: 198px;
+      height: 60px;
+      width: 192px;
     }
 
     .photo {
       float: left;
-      height: inherit;
-      width: 58px;
+      height: 48px;
+      width: 48px;
+      margin: 6px 7px 6px 6px;
+      background: linear-gradient(to bottom, rgba(206,206,206, .8) 0%, rgba(136,136,136, .8) 100%);
+      border-radius: $border-radius;
+      overflow: hidden;
 
       img {
         float: left;
-        height: 47px;
-        width: 47px;
-        margin: 4px;
-        background: #EEE;
-        border-radius: $border-radius;
+        height: 48px;
+        width: 48px;
       }
     }
 
     .info {
       float: left;
-      height: 55px;
-      width: 120px;
+      height: 60px;
+      width: 115px;
+      font-weight: bold;
 
       .name {
         float: left;
-        width: 120px;
-        height: 25px;
-        margin-top: 2px;
-        padding-left: 3px;
+        width: 95px;
+        height: 26px;
+        margin-top: 4px;
+        padding-left: 2px;
         line-height: 25px;
-        color: #888;
-        font-size: 11px;
+        color: #333;
+        font-size: 12px;
+        text-shadow: 0 0 3px rgba(255,255,255, .25);
         text-align: left;
         white-space: nowrap;
         text-overflow: ellipsis;
-        border-bottom: 1px solid #EEE;
         overflow: hidden;
       }
 
       .jersey {
         float: right;
-        padding-right: 1px;
-        color: #CCC;
-        font-size: 10px;
+        width: 15px;
+        height: 26px;
+        margin-top: 4px;
+        margin-right: 5px;
+        color: #777;
+        font-size: 12px;
+        line-height: 25px;
+        text-align: center;
+        text-shadow: 0 0 3px rgba(255,255,255, .3);
       }
 
       .shot {
         display: none;
-        position: absolute;
-        top: 8px;
-        right: 16px;
         width: 15px;
         color: #DDD;
         font-size: 10px;
@@ -167,23 +465,26 @@
 
       .salary {
         float: left;
-        width: 120px;
-        padding-left: 3px;
+        width: 112px;
+        padding-left: 2px;
         padding-top: 5px;
-        color: #CCC;
+        color: #5D5E5E;
         font-size: 10px;
         text-align: left;
+        text-shadow: 0 0 3px rgba(255,255,255, .2);
+        border-top: 1px solid rgba(140, 140, 140, 0.4);
       }
     }
 
     .handle {
       float: right;
       width: 16px;
-      height: 45px;
-      margin-top: 5px;
-      background: url(../img/drag-handle-player-tile.svg) 4px center no-repeat;
-      background-size: 5px;
-      opacity: .1;
+      height: inherit;
+      background: url(../img/drag-handle-player-tile.svg);
+      background-position:  4px center;
+      background-repeat: no-repeat;
+      background-size: 40% 70%;
+      opacity: .18;
       transition: .25s;
     }
   }

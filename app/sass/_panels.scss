@@ -14,18 +14,16 @@
   }
 
   .panel .inner {
-    min-height: 172px;
-    max-height: 220px;
+    height: 165px;
     overflow: hidden;
   }
 
   .panel.inactive .inner {
-    min-height: 0px;
     height: 0;
   }
 
   .panel.short .inner {
-    min-height: 112px;
+    height: 100px;
   }
 }
 
@@ -34,9 +32,9 @@
   float: left;
   width: inherit;
   margin-bottom: $page-spacing;
-  background: rgba(0,0,0, .025);
+  background: rgba(23,24,25, .7);
   border-radius: $border-radius;
-  box-shadow: 0 0 10px 0 rgba(0,0,0, .05) inset;
+  box-shadow: 0 0 2px 0 rgba(123,123,123, .1) inset;
   overflow: hidden;
   cursor: default;
   transition: .4s;
@@ -47,40 +45,50 @@
   }
 
   &.collapsed, &.short.collapsed {
-    height: 30px;
+    height: 33px;
+
+    .title {
+      color: #585858;
+    }
   }
 
   .title {
-    height: 30px;
-    line-height: 30px;
-    color: #FFF;
+    height: 33px;
+    margin-bottom: 1px;
+    line-height: 32px;
+    color: #838383;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
-    background: #000;
+    background: linear-gradient(to top, #151515 0%, #232323);
+    transition: .5s;
 
     .panel-toggle-button {
       position: absolute;
       top: 0;
       right: 0;
       width: 34px;
-      color: #999;
+      color: #3F3F3F;
       font-weight: bold;
+      line-height: 28px;
+      transition: color .4s;
 
       &:hover {
-        color: #FFF;
+        color: #666;
+        text-shadow: 0 0 3px rgba(0,0,0, .75);
         cursor: pointer;
       }
 
       &.active i {
-        transform: rotate(180deg);
+        transform: translateZ(0) rotate(180deg);
       }
 
       i {
-        transition: .3s;
-        transform: rotate(0deg);
+        font-size: 11px;
+        transition: transform .15s;
+        transform: translateZ(0) rotate(0deg);
       }
     }
   }
@@ -95,100 +103,12 @@
 
   .team-select-reminder {
     position: relative;
-    height: 172px;
-    width: 300px;
-    line-height: 172px;
-    text-align: center;
-    padding-left: 10px;
-    color: #CCC;
-    font-size: 12px;
-    font-weight: bold;
-
-    i {
-      position: relative;
-      top: -3px;
-      right: -2px;
-      font-size: 14px;
-      transform: rotate(-35deg);
-    }
-  }
-
-  &.short .team-select-reminder {
-    height: 112px;
-    line-height: 112px;
-  }
-
-  // Roster Grid [TODO: Move/Repurpose]
-
-  &.group {
-    margin-top: 30px;
-    background: whitesmoke;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05) inset;
-    overflow: visible;
-
-    &.defense {
-      width: 430px;
-      margin-left: 105px;
-    }
-
-    .inner {
-      float: left;
-      padding-top: 10px;
-    }
-
-    .title {
-      float: left;
-      width: 100%;
-      margin-top: -30px;
-      color: #D5D5D5;
-      font-size: 12px;
-      background: none;
-    }
-
-    .left, .center, .right {
-      float: left;
-      height: $tile-height;
-      width: 200px;
-      margin-right: 10px;
-    }
-
-    .left {
-      margin-left: 10px;
-    }
-
-    .right {
-      margin-right: 0;
-    }
-
-    .line {
-      position: relative;
-      float: left;
-      height: $tile-height;
-      width: 100%;
-      margin-bottom: 10px;
-
-      .title {
-        position: absolute;
-        right: -25px;
-        display: block;
-        height: $tile-height;
-        width: 30px;
-        margin-top: 0;
-        line-height: $tile-height;
-        text-align: right;
-        color: #E5E5E5;
-
-        &.goalie {
-          width: 20px;
-          right: -20px;
-        }
-
-        &.starter {
-          right: initial;
-          left: -18px;
-          text-align: left;
-        }
-      }
-    }
+    height: inherit;
+    width: inherit;
+    background: url(../img/select-team-reminder.svg);
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: .08;
   }
 }

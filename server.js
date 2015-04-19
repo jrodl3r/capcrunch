@@ -19,7 +19,7 @@ var express     = require('express'),
     env         = process.env.NODE_ENV || 'development',
     port        = process.env.PORT || 3000,
     admin       = auth.basic({
-      realm: 'Restricted',
+      realm: 'Private Beta',
       file: path.join(__dirname, 'data/users.htpasswd')
     });
 

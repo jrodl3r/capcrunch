@@ -42,7 +42,7 @@ var TransactionsPanel = React.createClass({
             <FreeAgents />
             <CreatePlayer
               handleCreatePlayer={this.props.handleCreatePlayer} />
-            <div className="team-select-reminder">Select Team <i className="fa fa-hand-o-right"></i></div>
+            <div className="team-select-reminder"></div>
           </div>
         </div>
       );
