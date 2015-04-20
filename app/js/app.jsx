@@ -427,16 +427,16 @@ var App = React.createClass({
       this.props.addTradePlayer = true;
       this.props.benchPlayer = false;
       if (this.state.activeTrade.active.id_list.length) {
-        e.currentTarget.className = 'active hover';
+        e.currentTarget.parentNode.className = 'active hover';
       } else {
-        e.currentTarget.className = 'hover';
+        e.currentTarget.parentNode.className = 'hover';
       }
     },
     handleTradeDragLeave: function(e) {
       if (this.state.activeTrade.active.id_list.length) {
-        e.currentTarget.className = 'active';
+        e.currentTarget.parentNode.className = 'active';
       } else {
-        e.currentTarget.className = '';
+        e.currentTarget.parentNode.className = '';
       }
     },
     handleTradePlayersError: function(type) {
@@ -843,7 +843,7 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <footer>CapCrunch <span className="version">v0.8.6</span></footer>
+          <footer>CapCrunch <span className="version">v0.8.7</span></footer>
         </div>
       );
     }

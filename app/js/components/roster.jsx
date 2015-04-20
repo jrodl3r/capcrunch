@@ -25,8 +25,8 @@ var PlayerItem = React.createClass({
                 <div className="name">
                   {playerData.firstname.charAt(0)}. {playerData.lastname}
                 </div>
-                <div className="jersey">{ playerData.jersey ? playerData.jersey : '&nbsp;' }</div>
-                <div className="shot">{ playerData.shot ? playerData.shot : '&nbsp;' }</div>
+                <div className="jersey">{ playerData.jersey ? playerData.jersey : ' ' }</div>
+                <div className="shot">{ playerData.shot ? playerData.shot : ' ' }</div>
                 <div className="salary">{playerData.contract[0]}</div>
               </div>
               <div className="handle"></div>
@@ -54,8 +54,8 @@ var PlayerItem = React.createClass({
                 <div className="name">
                   {playerData.firstname.charAt(0)}. {playerData.lastname}
                 </div>
-                <div className="jersey">{ playerData.jersey ? playerData.jersey : '&nbsp;' }</div>
-                <div className="shot">{ playerData.shot ? playerData.shot : '&nbsp;' }</div>
+                <div className="jersey">{ playerData.jersey ? playerData.jersey : ' ' }</div>
+                <div className="shot">{ playerData.shot ? playerData.shot : ' ' }</div>
                 <div className="salary">{playerData.contract[0]}</div>
               </div>
               <div className="handle"></div>

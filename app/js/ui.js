@@ -21,7 +21,7 @@ var UI = {
     // toggle panel view
     $('.panel-toggle-button').on('click', UI.togglePanelView);
     // testing
-    //$('#team-select').val('CHI').change();
+    //$('#team-select').val('BUF').change();
   },
 
   // toggle roster/payroll views

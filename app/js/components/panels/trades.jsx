@@ -158,6 +158,17 @@ var Trades = React.createClass({
       return player_list;
     },
 
+    addButtonMouseOver: function(e) {
+      var player_item = document.getElementById('trade-players-select');
+      if (player_item.value !== '0') {
+        e.currentTarget.className = 'add-button hover';
+      }
+    },
+    
+    addButtonMouseLeave: function(e) {
+      e.currentTarget.className = 'add-button';
+    },
+
     render: function() {
       var activeTeam      = this.props.activeTrade.active.team ? this.props.activeTrade.active.team : this.props.activeTeam,
           passiveTeam     = this.props.activeTrade.passive.team,
@@ -213,7 +224,10 @@ var Trades = React.createClass({
               { this.props.playerData.inactive.length ? <option disabled>─ Inactive ────────</option> : null }
               {inactiveList}
             </select>
-            <a id="trade-player-add-player" className="add-button" title="Add Player" onClick={this.addPassiveTeamPlayer}>
+            <a id="trade-player-add-player" className="add-button" title="Add Player"
+              onMouseOver={this.addButtonMouseOver}
+              onMouseLeave={this.addButtonMouseLeave}
+              onClick={this.addPassiveTeamPlayer}>
               <i className="fa fa-plus"></i>
             </a>
             <div id="trade-player-breakdown">

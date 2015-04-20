@@ -16,6 +16,8 @@
   .panel .inner {
     height: 165px;
     overflow: hidden;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
   }
 
   .panel.inactive .inner {

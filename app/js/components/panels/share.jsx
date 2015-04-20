@@ -29,7 +29,7 @@ var SharePanel = React.createClass({
             <button onClick={this.props.handleRosterSubmit}>Share</button>
           </form>
           <div id="share-dialog">
-            <h3 id="share-loading" className="active">Saving Roster <i className="fa fa-cog fa-spin"></i></h3>
+            <h3 id="share-loading" className="active"><i className="fa fa-cog fa-spin"></i> Saving Roster</h3>
             <div id="share-confirm">
               <h3>Show off your GM skills...</h3>
               <p>Share your roster with friends for the win.</p>

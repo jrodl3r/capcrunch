@@ -7,7 +7,7 @@
   #transactions-menu {
     height: $transactions-menu-height;
     width: 300px;
-    background: #BBB;
+    margin-left: 1px;
 
     li {
       float: left;
@@ -20,22 +20,24 @@
         float: left;
         height: inherit;
         width: 100%;
-        color: #EEE;
+        color: #444;
         font-size: 11px;
         line-height: inherit;
         text-align: center;
         text-decoration: none;
         cursor: pointer;
-        background: linear-gradient(to top, rgba(0,0,0, .1) 0%, rgba(0,0,0, .4) 100%);
-        transition: .25s;
+        background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
+        transition: .3s;
 
         &:hover {
-          color: #CCC;
+          color: #777;
+          text-shadow: 0 1px 2px rgba(0,0,0, .3);
         }
 
         &.active, &.active:hover {
-          color: #555;
-          background: linear-gradient(to top, #F8F8F8 20%, #CCC 100%);
+          color: #888;
+          text-shadow: 0 1px 2px rgba(0,0,0, .3);
+          background: linear-gradient(to bottom, rgba(255,255,255, .1) 20%, transparent 70%, transparent 100%);
           cursor: default;
         }
       }
@@ -109,7 +111,7 @@
 
       p {
         margin: 15px 0;
-        color: #CCC;
+        color: #565656;
         font-size: 11px;
         transition: .3s;
 
@@ -120,91 +122,61 @@
     }
   }
 
-  input {
+  input, select {
     float: left;
     height: 26px;
     width: 100px;
     margin-bottom: 15px;
     margin-left: 15px;
-    padding: 0 3px 0 10px;
+    color: #212121;
     line-height: 24px;
-    background: #EEE;
-    border: 1px solid #DDD;
+    background: #888;
+    border: 0;
     border-radius: 5px;
     transition: .35s;
 
     &::placeholder {
-      color: #BBB;
+      color: #616161;
     }
 
     &:hover {
-      background: #E6E6E6;
-
-      &::placeholder {
-        color: #AAA;
-      }
+      color: #111;
+      background: #999;
     }
 
     &:focus {
-      border-color: #CCC;
+      background: #AAA;
     }
 
     &.active {
-      background: #E6E6E6;
+      color: #111;
+      background: #777;
+    }
+    &.disabled, &.disabled:hover {
+      color: #555;
+      background: #777;
     }
 
     &.missing {
-      background: #BBB;
-      border-color: #AAA;
+      color: #000;
+      background: #AAA;
+      box-shadow: 0 0 10px rgba(255,255,255, .5);
 
-      &::placeholder {
+      /* &::placeholder {
         color: #EEE;
-      }
+      } */
     }
   }
 
+  input {
+    padding: 0 3px 0 10px;
+  }
+
   select {
-    float: left;
-    height: 26px;
     width: 90px;
-    margin-bottom: 15px;
-    margin-left: 15px;
-    color: #BBB;
     line-height: 24px;
     font-size: 12px;
     font-weight: bold;
-    background: #EEE;
-    border: 1px solid #DDD;
-    transition: .35s;
-
-    &:hover {
-      color: #AAA;
-      background: #E6E6E6;
-    }
-
-    &:focus {
-      border-color: #CCC;
-    }
-
-    &.active {
-      color: #777;
-      background: #E6E6E6;
-    }
-
-    &.disabled {
-      color: #DDD;
-
-      &:hover {
-        color: #DDD;
-        background: #EEE;
-      }
-    }
-
-    &.missing {
-      color: #EEE;
-      background: #BBB;
-      border-color: #AAA;
-    }
   }
 
   button {
@@ -215,19 +187,30 @@
     opacity: 1;
     width: 160px;
     margin: 0 auto;
-    color: #EEE;
+    color: rgba(255,255,255, .35);
     font-size: 12px;
     font-weight: bold;
     line-height: 24px;
     text-align: center;
-    text-shadow: 0 0 2px rgba(0,0,0, .25);
-    border: 1px solid #9A9A9A;
+    text-shadow: none;
+    background: linear-gradient(to top, #272727 0%, #595959);
+    border: none;
     border-radius: $border-radius;
-    background: #AAA;
+    box-shadow: 0 0 4px rgba(0,0,0, .35), 0 0 2px rgba(255,255,255, .09) inset;
+    transition: all .35s;
 
     &:hover {
-      color: #FFF;
-      background: #9A9A9A;
+      color: rgba(255,255,255, .5);
+      text-shadow: 0 1px 1px rgba(0,0,0, .3);
+      background: linear-gradient(to top, #333 0%, #666);
+      box-shadow: 0 3px 5px rgba(0,0,0, .35), 0 0 1px rgba(255,255,255, .15) inset;
+    }
+
+    &:active {
+      color: rgba(255,255,255, .3);
+      box-shadow: 0 0 2px rgba(0,0,0, .4), 0 0 1px rgba(255,255,255, .2) inset;
+      opacity: .85;
+      transition: all .1s;
     }
   }
 
@@ -235,12 +218,16 @@
     float: left;
     height: 26px;
     width: 35px;
-    color: #DDD;
+    color: #555;
     font-size: 14px;
     line-height: 26px;
+    text-shadow: 0 0 2px rgba(0,0,0, .25);
+    opacity: .5;
 
-    &:hover {
-      color: #BBB;
+    &.hover {
+      color: #777;
+      text-shadow: 0 0 2px rgba(0,0,0, .85);
+      opacity: 1;
       cursor: pointer;
     }
   }
@@ -251,12 +238,16 @@
     height: 0;
     width: 100%;
     padding-left: 15px;
-    line-height: 220px;
+    color: #444;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 180px;
+    text-align: center;
+    text-shadow: 0 0 45px rgba(0,0,0, .45);
     opacity: 0;
     overflow: hidden;
-    background: linear-gradient(to top, #DDD 0%, #F8F8F8 100%);
-    border-bottom-right-radius: $border-radius;
-    border-bottom-left-radius: $border-radius;
+    background: rgba(23,24,25, .95);
+    box-shadow: 0 0 150px 0 rgba(0,0,0, .35) inset;
     transform: translateZ(0);
     transition: .4s;
 
@@ -267,7 +258,7 @@
     }
 
     i {
-      font-size: 13px;
+      font-size: 15px;
       padding: 0 6px 0 5px;
     }
 
@@ -315,11 +306,19 @@
     height: 40px;
     width: 270px;
     margin: 0 auto 15px;
-    color: #DDD;
+    color: rgba(255,255,255, .15);
     line-height: 37px;
-    border: 1px dashed #DDD;
+    border: 1px dashed rgba(255,255,255, .1);
     border-radius: $border-radius;
-    background: #F4F4F4;
+    background: rgba(0,0,0, .15);
+    transition: .2s;
+
+    &.hover {
+      border-color: rgba(255,255,255, .1);
+      text-shadow: 0 3px 7px rgba(0,0,0, .05);
+      background: rgba(23,24,25, .3);
+      box-shadow: 0 5px 40px 0 rgba(0,0,0, .4) inset;
+    }
   }
 
   #trade-drop-area-cover {
@@ -328,12 +327,6 @@
     top: 0;
     height: 100%;
     width: 100%;
-
-    &.hover {
-      color: #AAA;
-      border-color: #999;
-      box-shadow: 0 0 70px 0 rgba(0,0,0, .06) inset;
-    }
   }
 
   #trade-team-select {
@@ -384,9 +377,11 @@
     height: $trade-breakdown-height;
     width: 120px;
     padding: 4px;
-    background: #F4F4F4;
-    border: 1px dashed #DDD;
+    color: rgba(255,255,255, .05);
+    background: rgba(255,255,255, .03);
+    border: 1px dashed rgba(255,255,255, .1);
     border-radius: $border-radius;
+    box-shadow: 0 0 30px rgba(255,255,255, .03) inset;
     overflow: hidden;
     transform: translateZ(0);
     transition: .4s;
@@ -396,7 +391,9 @@
     }
 
     &.active {
-      border: 1px solid #DDD;
+      background: rgba(255,255,255, .07);
+      border-color: transparent;
+      box-shadow: 0 0 30px rgba(255,255,255, .03) inset;
     }
 
     li {
@@ -406,9 +403,8 @@
       margin-bottom: 0;
       padding: 0;
       text-align: left;
-      color: #777;
       font-size: 0;
-      background: #DDD;
+      background: linear-gradient(to right, #222 0%, #111 100%);
       border-radius: $border-radius;
       opacity: 0;
       overflow: hidden;
@@ -419,9 +415,20 @@
         height: $trade-player-item-height;
         margin-bottom: $trade-player-item-margin;
         padding: 5px 5px 5px 8px;
+        color: #888;
         font-size: 10px;
+        text-shadow: 0 1px 2px rgba(0,0,0, .3);
         opacity: 1;
         transition: opacity .45s, height .35s;
+
+        a {
+          height: 14px;
+          width: 14px;
+          font-size: 9px;
+          line-height: 14px;
+          opacity: 1;
+          transition: all 0s;
+        }
       }
 
       &:last-of-type {
@@ -444,15 +451,20 @@
 
       a {
         float: right;
-        height: 14px;
-        width: 14px;
-        color: #BBB;
-        font-size: 9px;
-        line-height: 14px;
+        height: 0;
+        width: 0;
+        margin-bottom: 0;
+        padding: 0;
+        color: rgba(255,255,255, .3);
+        font-size: 0;
+        line-height: 0;
         text-align: center;
+        opacity: 0;
+        overflow: hidden;
+        transition: all 0s;
 
         &:hover {
-          color: #999;
+          color: rgba(255,255,255, .5);
           cursor: pointer;
         }
       }
@@ -463,7 +475,7 @@
     height: $trade-player-item-height * 2;
     margin: 0;
     padding: 0;
-    color: #DDD;
+    color: rgba(255,255,255, .3);
     font-size: 10px;
     line-height: $trade-player-item-height * 2;
     text-align: center;
@@ -497,12 +509,14 @@
     height: 30px;
     width: 30px;
     margin: auto;
-    color: #E6E6E6;
+    color: #444;
     font-size: 15px;
     line-height: 30px;
+    transition: .3s;
 
     &.active {
-      color: #BBB;
+      color: #666;
+      text-shadow: 0 0 5px rgba(0,0,0, .25);
     }
   }
 
@@ -551,13 +565,11 @@
 #freeagents {
 
   .inner {
-    color: #CCC;
-    line-height: $transactions-panel-height;
-
-    i {
-      padding-left: 2px;
-      font-size: 15px;
-    }
+    background: url(../img/coming-soon-banner.svg);
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: center 40%;
+    opacity: .18;
   }
 }
 
