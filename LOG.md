@@ -84,6 +84,7 @@
 
 #### READY
 
+- 'cleanup banner + tooltip x-browser consistency'
 - 'cleanup scrollbar + draggable x-browser consistency'
 - 'update payroll view'
 - 'new ui: update transactions + share panels [v0.8.7]'
