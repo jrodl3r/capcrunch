@@ -70,7 +70,6 @@
 - 'new ui: cap stats menu + clear/reset roster logic (gear-icon)'
 - 'block right-click/context event'
 - 'update acquired/created player teams'
-- 'feature detection: if (!Modernizr.draganddrop || !Modernizr.cookies)'
 
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.0] ««
 
@@ -84,6 +83,7 @@
 
 #### READY
 
+- 'setup feature detection (Modernizr)'
 - 'cleanup banner + tooltip x-browser consistency'
 - 'cleanup scrollbar + draggable x-browser consistency'
 - 'update payroll view'

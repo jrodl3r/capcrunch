@@ -8,6 +8,8 @@ var UI = {
   payroll_height        : 0,
 
   init: function() {
+    // verify drag-n-drop
+    UI.featureDetect();
     // toggle roster/payroll views
     $('#team-menu').on('click', 'a', UI.toggleView);
     // roster mouseup catchall
@@ -22,7 +24,19 @@ var UI = {
     // toggle panel view
     $('.panel-toggle-button').on('click', UI.togglePanelView);
     // testing
-    $('#team-select').val('BUF').change();
+    //$('#team-select').val('BUF').change();
+  },
+
+  // verify drag-n-drop
+  featureDetect: function() {
+    var device  = navigator.userAgent.toLowerCase(),
+        isTouch = Modernizr.touch || (device.match(/(iphone|ipod|ipad)/) || device.match(/(android)/) || device.match(/(iemobile)/) ||
+          device.match(/iphone/i) || device.match(/ipad/i) || device.match(/ipod/i) || device.match(/blackberry/i) || device.match(/bada/i));
+    if (isTouch) {
+      $('#app, header, footer').css('display', 'none');
+      $('#unsupported').css('display', 'block');
+      $('body').addClass('unsupported');
+    }
   },
 
   // toggle roster/payroll views

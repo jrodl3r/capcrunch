@@ -7,8 +7,9 @@
   "globals": {
     "__DEV__": true,
     "__SERVER__": true,
-    "React": false,
+    "Modernizr": false,
     "socket": false,
+    "React": false,
     "io": false,
     "$": false,
 
