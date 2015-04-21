@@ -46,6 +46,10 @@ a, button, input, select {
   outline: none;
 }
 
+/* [draggable=true] {
+  -khtml-user-drag: element;
+} */
+
 #main {
   height: 100%;
   width: $page-width;

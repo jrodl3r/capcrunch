@@ -140,7 +140,7 @@
   width: 192px;
   border-radius: $border-radius;
   box-shadow: 0 0 4px 0 rgba(0,0,0, .1) inset;
-  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   transition: .3s;
 
   .dragging &:not(.active) {
@@ -163,7 +163,7 @@
     box-shadow: 0 0 2px 0 rgba(0,0,0, .5);
     opacity: 0;
     overflow: hidden;
-    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
     transition: opacity .25s, height 0s .25s, color .35s;
 
     &.hover {

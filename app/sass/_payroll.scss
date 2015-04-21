@@ -23,11 +23,8 @@
     padding-bottom: 30px;
     color: #666;
     font-weight: 500;
-    //line-height: 32px;
-    //text-shadow: 0 0 3px rgba(255,255,255, .1);
     cursor: default;
     transition: .1s;
-    //box-sizing: initial;
   }
 
   .cap-stats {
@@ -40,7 +37,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0,0,0,.25);
+    background: rgba(0,0,0, .25);
     border-radius: $border-radius;
     box-shadow: 0 0 10px 0 rgba(0,0,0, .05) inset;
     overflow: hidden;
@@ -57,17 +54,16 @@ table {
     height: 35px;
     font-size: 11px;
     text-align: center;
-    //transition: .3s;
+    background: rgba(0,0,0, .6);
 
     &:nth-child(odd) {
-      background: rgba(0,0,0,.5);
+      background: rgba(0,0,0, .5);
     }
 
     td {
       width: 75px;
       padding: 6px 10px;
       cursor: default;
-      //transition: .3s;
 
       &:first-of-type {
         width: 205px;
@@ -77,17 +73,7 @@ table {
 
       &.cap {
         width: 80px;
-        background: #CCC;
-
-        /* &:before {
-          position: absolute;
-          top: 0;
-          left: -8px;
-          height: 100%;
-          width: 8px;
-          content: ' ';
-          box-shadow: -8px 0 8px -8px rgba(0,0,0, .12) inset;
-        } */
+        background: rgba(0,0,0, .5);
       }
 
       &.UFA span, &.RFA span {
@@ -99,6 +85,7 @@ table {
         font-weight: bold;
         background: #BBEFBB;
         border-radius: $border-radius;
+        opacity: .6;
       }
 
       &.RFA span {
@@ -109,9 +96,10 @@ table {
 
     &.header {
       height: 40px;
-      color: #FFF;
-      background: #000;
+      color: #838383;
+      font-size: 14px;
       font-weight: bold;
+      background: linear-gradient(to top, #151515 0%, #232323);
 
       th {
         font-size: 10px;
@@ -128,7 +116,8 @@ table {
       height: 28px;
       color: #CCC;
       font-weight: bold;
-      background: #666;
+      text-shadow: 0 1px 1px rgba(0,0,0, .35);
+      background: linear-gradient(to top, rgba(255,255,255, .15) 0%, rgba(255,255,255, .3) 100%);
 
       i {
         position: relative;
@@ -140,53 +129,47 @@ table {
 
       td.cap {
         position: relative;
-        background: linear-gradient(to top, #545454 0%, #333 100%);
-
-        /* &:before {
-          box-shadow: -8px 0 8px -8px rgba(0,0,0, .55) inset;
-        } */
+        text-shadow: 0 1px 1px rgba(0,0,0, .75);
+        background: linear-gradient(to top, rgba(0,0,0, .6) 0%, rgba(0,0,0, .3) 100%);
       }
     }
 
     &.player {
-      color: #333;
+      color: #999;
 
       &:nth-child(odd) td.cap {
-        background: #EAEAEA;
+        background: rgba(0,0,0, .2);
       }
 
       &:hover {
-        color: #000;
-        background: rgba(1,131,218, .1);
+        color: #DDD;
+        text-shadow: 0 0 2px rgba(255,255,255, .2);
+        background: rgba(1,131,218, .15);
 
         i {
           color: #BBD5EF;
         }
 
         td.cap {
-          color: #000;
-          background: rgba(1,131,218, .1);
-
-          /* &:before {
-            box-shadow: -8px 0 8px -8px rgba(1,131,218, .25) inset;
-          } */
+          color: #EEE;
+          background: rgba(1,131,218, .25);
         }
 
         td.UFA span, td.RFA span {
           color: #15487B;
           background: #BBD5EF;
           box-shadow: none;
-          opacity: .7;
+          opacity: 1;
         }
 
         .jersey {
-          color: #AAA;
+          color: #BBB;
         }
       }
 
       td.cap {
         position: relative;
-        background: #ECECEC;
+        background: rgba(0,0,0, .3);
         font-weight: bold;
         color: #666;
       }
@@ -196,22 +179,10 @@ table {
         display: inline-block;
         left: -4px;
         width: 16px;
-        color: #D6D6D6;
+        color: #797979;
         font-size: 10px;
         text-align: center;
-        //transition: .3s;
       }
-
-      /*i {
-        float: right;
-        padding: 2px 4px;
-        color: #FFF;
-        font-size: 8px;
-        font-style: normal;
-        text-transform: uppercase;
-        background: linear-gradient(to top, #888 0%, #545454 100%);
-        border-radius: $border-radius;
-      }*/
 
       i {
         float: right;

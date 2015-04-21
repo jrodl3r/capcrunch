@@ -167,10 +167,9 @@
     color: #363636;
     font-size: 14px;
     font-weight: bold;
-    background: linear-gradient(to top, rgba(136, 136, 136, 0) 100%, rgba(204, 204, 204, 0.1)0%);
+    background: rgba(238,238,238, 0.2) linear-gradient(to top, rgba(136, 136, 136, 0) 100%, rgba(204, 204, 204, 0.1) 0%);
     border: 0;
     box-shadow: 0 0 10px 0 rgba(255,255,255, 0.15), 0 0 1px rgba(0,0,0, .1) inset;
-    background-color: rgba(238,238,238, 0.2);
 
     &:hover {
       text-shadow: 0 0 5px rgba(255,255,255, .2);
@@ -240,6 +239,11 @@
 
     &#twitter-share {
       background: linear-gradient(to top, #335694 0%, #06a5e0 100%);
+
+      i {
+        position: relative;
+        top: 1px;
+      }
     }
 
     &#facebook-share {

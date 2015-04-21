@@ -29,7 +29,7 @@
     width: 298px;
     line-height: 33px;
     opacity: 1;
-    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
     transition: .3s;
 
     &:last-of-type .item {
@@ -78,7 +78,7 @@
     border-bottom: 1px solid rgba(0,0,0, .15);
     opacity: 1;
     overflow: hidden;
-    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
     transition: all .2s, border-radius .01s;
 
     &:hover {
