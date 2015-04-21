@@ -66,7 +66,6 @@
 
 #### NOW » Did You Uptick Version? » [v0.8.8]
 
-- 'panel scrollbar consistency'
 - 'player tile action/status icons'
 - 'new ui: cap stats menu + clear/reset roster logic (gear-icon)'
 - 'block right-click/context event'
@@ -85,6 +84,7 @@
 
 #### READY
 
+- 'cleanup scrollbar + draggable x-browser consistency'
 - 'update payroll view'
 - 'new ui: update transactions + share panels [v0.8.7]'
 - 'cleanup player tile layout + transitions'

@@ -76,9 +76,14 @@ var PlayerItem = React.createClass({
 });
 
 var Roster = React.createClass({
+    onGridDragOver: function(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+    },
+
     render: function() {
       return (
-        <div id="roster" className="section active" onDragEnter={this.props.onGridDragEnter}>
+        <div id="roster" className="section active" onDragEnter={this.props.onGridDragEnter} onDragOver={this.onGridDragOver}>
           <div id="roster-stats" className={ this.props.activePlayers.length ? 'cap-stats active' : 'cap-stats' }>
             <div id="rcap-player-count" className="section">
               <span>Roster Players <span className="value">{this.props.activePlayers.length}</span></span>

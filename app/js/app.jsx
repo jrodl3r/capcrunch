@@ -394,7 +394,6 @@ var App = React.createClass({
       });
     },
     handleRemoveTradePlayer: function(type, id) {
-      //this.showLoading();
       document.getElementById(id + 'item').className = '';
       setTimeout(function() {
         var index, updateTradeData;
@@ -420,7 +419,6 @@ var App = React.createClass({
           }
         }
         this.setState(updateTradeData);
-        //this.hideLoading();
       }.bind(this), 250);
     },
     handleTradeDragEnter: function(e) {
@@ -542,7 +540,7 @@ var App = React.createClass({
       var playerItem = e.currentTarget,
           playerData = this.state.rosterData[playerItem.parentNode.id];
       e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/html', playerItem);
+      e.dataTransfer.setData('text', 'item');
       this.props.originDropZone = playerItem.parentNode;
       this.props.originDropZone.className = 'tile active engaged';
       this.props.benchPlayer = false;
@@ -621,11 +619,6 @@ var App = React.createClass({
         this.props.originDropZone.className = 'tile';
         this.props.originDropZone.dataset.state = '';
       } else {
-
-        // TODO Grid DragEnd results in unmoved tile w/ hover className (see: roster.jsx)
-        // if (!this.props.offGrid) { playerItem.className = 'player active hover'; }
-        // else { playerItem.className = 'player active'; }
-
         playerItem.className = 'player active hover';
         this.props.originDropZone.className = 'tile active';
         this.setState({ dragging : false });
@@ -695,8 +688,6 @@ var App = React.createClass({
       }
       this.props.benchPlayer = false;
       this.props.addTradePlayer = false;
-      //this.props.offGrid = false;
-      //document.getElementById('roster').style.backgroundColor = '#69F';
     },
 
 
@@ -711,8 +702,6 @@ var App = React.createClass({
       this.props.lastDropZoneId = dropZone.id;
       this.props.benchPlayer = false;
       this.props.addTradePlayer = false;
-      //this.props.offGrid = true;
-      //document.getElementById('roster').style.backgroundColor = '#FFF';
     },
     handleTileDragLeave: function(e) {
       var dropZone = e.currentTarget;
@@ -740,7 +729,7 @@ var App = React.createClass({
       var dragItem = e.currentTarget;
       dragItem.parentNode.className = dragItem.parentNode.className + ' engaged';
       e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/html', dragItem);
+      e.dataTransfer.setData('text', 'item');
       this.props.lastDropZoneId = '';
     },
     handleDragEnd: function(e) {

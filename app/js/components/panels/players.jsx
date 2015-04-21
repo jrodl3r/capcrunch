@@ -56,6 +56,10 @@ var PlayersPanel = React.createClass({
       }.bind(this));
       return player_list;
     },
+    onDragOver: function(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+    },
 
     render: function() {
       var playerType      = this.props.playerType,
@@ -75,7 +79,7 @@ var PlayersPanel = React.createClass({
             </a>
           </div>
       { playerItems.length
-        ? <div className="inner">
+        ? <div className="inner" onDragOver={this.onDragOver}>
           { isActive
             ? <ul>{playerItems}</ul>
             : <ul>
@@ -86,7 +90,7 @@ var PlayersPanel = React.createClass({
         : <div className="inner">
             <div className="team-select-reminder"></div>
           </div> }
-          <div className="bench-player">
+          <div className="bench-player" onDragOver={this.onDragOver}>
             <i className="fa fa-rotate-left"></i> Bench / Remove
             <div className="cover"
               onDragEnter={this.props.handleBenchDragEnter}

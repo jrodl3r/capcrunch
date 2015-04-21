@@ -29,6 +29,19 @@ body {
   font-family: $font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  width:  1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255, .1);
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0, 0);
 }
 
 ul {
@@ -45,10 +58,6 @@ a, button {
 a, button, input, select {
   outline: none;
 }
-
-/* [draggable=true] {
-  -khtml-user-drag: element;
-} */
 
 #main {
   height: 100%;
