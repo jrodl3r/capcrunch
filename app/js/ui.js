@@ -16,12 +16,13 @@ var UI = {
     $('#transactions-menu').on('click', 'a', UI.toggleTransactionsView);
     // create player: add salary row
     $('#addSalaryRow').on('click', UI.createPlayerAddSalary);
-    // reset panel scroll
+    // reset team-select + panel scroll
+    $('#team-select').val('0');
     $('#team-select').on('change', UI.resetScroll);
     // toggle panel view
     $('.panel-toggle-button').on('click', UI.togglePanelView);
     // testing
-    //$('#team-select').val('BUF').change();
+    $('#team-select').val('BUF').change();
   },
 
   // toggle roster/payroll views

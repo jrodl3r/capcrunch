@@ -315,10 +315,11 @@
     transition: .2s;
 
     &.hover {
+      color: rgba(255,255,255, .35);
+      text-shadow: 0 3px 7px rgba(0,0,0, .35);
+      background: rgba(23,24,25, .6);
       border-color: rgba(255,255,255, .1);
-      text-shadow: 0 3px 7px rgba(0,0,0, .05);
-      background: rgba(23,24,25, .3);
-      box-shadow: 0 5px 40px 0 rgba(0,0,0, .4) inset;
+      box-shadow: 0 5px 40px 0 rgba(0,0,0, .5) inset;
     }
   }
 

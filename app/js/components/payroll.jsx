@@ -77,7 +77,7 @@ var Payroll = React.createClass({
               <div id="pcap-salary-cap" className="section">
                 Salary Cap <span className="value">{this.props.leagueData.cap}</span>
               </div>
-              <a id="payroll-stats-button" className="cap-stats-menu-button">
+              <a id="payroll-stats-button" className="cap-stats-menu-button disabled">
                 <i className="fa fa-gear"></i>
               </a>
               <ul id="payroll-stats-menu" className="cap-stats-menu">

@@ -54,10 +54,10 @@ table {
     height: 35px;
     font-size: 11px;
     text-align: center;
-    background: rgba(0,0,0, .6);
+    background: rgba(0,0,0, .4);
 
     &:nth-child(odd) {
-      background: rgba(0,0,0, .5);
+      background: rgba(0,0,0, .3);
     }
 
     td {

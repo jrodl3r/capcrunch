@@ -540,7 +540,7 @@ var App = React.createClass({
       var playerItem = e.currentTarget,
           playerData = this.state.rosterData[playerItem.parentNode.id];
       e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text', 'item');
+      e.dataTransfer.setData('text', playerItem.id);
       this.props.originDropZone = playerItem.parentNode;
       this.props.originDropZone.className = 'tile active engaged';
       this.props.benchPlayer = false;
@@ -729,7 +729,7 @@ var App = React.createClass({
       var dragItem = e.currentTarget;
       dragItem.parentNode.className = dragItem.parentNode.className + ' engaged';
       e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text', 'item');
+      e.dataTransfer.setData('text', dragItem.id);
       this.props.lastDropZoneId = '';
     },
     handleDragEnd: function(e) {
