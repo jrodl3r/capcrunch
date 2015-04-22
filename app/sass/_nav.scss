@@ -22,12 +22,23 @@ header {
 
   .logo {
     float: left;
-    /* height: 40px;
-    width: 210px;
-    margin-top: -5px; */
     height: 43px;
     width: 230px;
     margin-top: -7px;
+  }
+
+  .beta-tag {
+    position: absolute;
+    top: 15px;
+    left: 380px;
+    color: rgba(41, 120, 202, 0.7);
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    span.version {
+      color: rgba(255,255,255, 0.25);
+    }
   }
 
   #notify {

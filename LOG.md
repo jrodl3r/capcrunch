@@ -17,6 +17,7 @@
 
 
 #### FEEDBACK (User Testing)
+
 - Add multiple years for the roster (ex: this is 2015 but if I wanted to build the 2015-16 team, then the partial salaries need to reflect a full year, not the partial year)
 - Add spots on the roster for the players in the press box (scratches) – to get accurate cap and cap space, so including roster players that are not part of the 12 forwards, six defenseman, and two goalies.
 - Add spots on the roster for the players who have salary retained
@@ -28,48 +29,52 @@
 
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
-- 'typekit + icomoon.io + gulp asset management (fonts, images)'
-- 'player image CDN (uptime/redundancy/speed)'
 - 'session state clear + restore (cookies)'
-- 'SEO friendly ReactJS SSR markup'
-- 'fix React props mutation warnings/issues'
-- 'upgrade Heroku + Mongolab to production'
 
 
 #### LATER (Features)
 
 - 'minor team roster/lineup'
-- 'scrape team draft pick data'
 - 'message-board sharing widget (dynamic image generator)'
 - 'add more create player panel options (nation, age, image)'
 - 'sticky cap stats panel + payroll table headers (try cloning)'
 - 'player-list + payroll player details onHover'
-- 'trade player cap violation/overage check + warning'
-- 'trade player assets / draft picks layout + logic'
-- 'payroll settings: show/apply user transactions'
-- 'free agents panel + logic'
-- 'editable player tile info (salary) + add to LTIR button'
-- 'add special teams alt-grids (PP1+2/PK1+2)'
-- 'add IR + Pressbox alt-lines'
-- 'share roster user submission delay + spam protection'
-- 'share roster text-only output'
-- 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
-- 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
+- 'clear roster + trades on team change'
+
+
+#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
+
+- 'wire-up Twitter + Facebook share buttons'
+- 'wire-up create-player add salary row button'
+- 'pre-cache team + player images on select/hover'
+- 'distill grid/tile template + render logic'
+- 'onMouseLeave menu/grid remove all active item classes'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade summary button/view layout + logic'
 - 'next/new feature user voting'
 - 'update notifications layout + logic (slide-out + fade-in)'
 - 'cleanup validation/error message display/timing consistency'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'trade player cap violation/overage check + warning'
+- 'trade player assets / draft picks layout + logic'
+- 'scrape team draft pick data'
+- 'free agents panel + logic'
+- 'payroll settings: show/apply user transactions'
+- 'editable player tile info (salary) + add to LTIR button'
+- 'add special teams alt-grids (PP1+2/PK1+2)'
+- 'add IR + Pressbox alt-lines'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'gulp asset management + optimization (fonts, images)'
+- 'player image CDN (uptime/redundancy/speed)'
+- 'SEO friendly ReactJS SSR markup'
+- 'fix React props mutation warnings/issues'
+- 'upgrade Heroku + Mongolab to production'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'share roster user submission delay + spam protection'
+- 'share roster text-only output'
+- 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
+- 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
 - 'remove create-player lastname requirement'
-- 'onMouseLeave menu/grid remove all active item classes'
-- 'clear roster + trades on team change'
-
-
-#### NOW » Did You Uptick Version? » [v0.9.0]
-
-- 'wire-up create-player add salary row button'
-- 'wire-up Twitter + Facebook share buttons'
-- 'pre-cache team + player images on select/hover'
-- 'distill grid/tile template + render logic'
 
 
 #### READY
