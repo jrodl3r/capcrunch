@@ -3,6 +3,11 @@
 'use strict';
 
 var PlayerItem = React.createClass({
+  blockRightClick: function(e) {
+    e.preventDefault();
+    return false;
+  },
+
   render: function() {
     var playerData = this.props.playerData;
     if (playerData.status !== 'empty') {
@@ -15,7 +20,8 @@ var PlayerItem = React.createClass({
             onMouseDown={this.props.handlePlayerMouseDown}
             onMouseUp={this.props.handlePlayerMouseUp}
             onDragStart={this.props.handlePlayerDragStart}
-            onDragEnd={this.props.handlePlayerDragEnd}>
+            onDragEnd={this.props.handlePlayerDragEnd}
+            onContextMenu={this.blockRightClick}>
         { playerData.id
           ? <div className={playerData.team + ' inner'}>
               <div className="photo">
@@ -28,6 +34,14 @@ var PlayerItem = React.createClass({
                 <div className="jersey">{ playerData.jersey ? playerData.jersey : ' ' }</div>
                 <div className="shot">{ playerData.shot ? playerData.shot : ' ' }</div>
                 <div className="salary">{playerData.contract[0]}</div>
+                <div className="status">
+                { playerData.actions && playerData.actions.indexOf('acquired') !== -1
+                  ? <div className="acquired">A</div>
+                  : null }
+                { playerData.actions && playerData.actions.indexOf('created') !== -1
+                  ? <div className="created">C</div>
+                  : null }
+                </div>
               </div>
               <div className="handle"></div>
               <div className="cover"></div>
@@ -44,7 +58,8 @@ var PlayerItem = React.createClass({
             onMouseDown={this.props.handlePlayerMouseDown}
             onMouseUp={this.props.handlePlayerMouseUp}
             onDragStart={this.props.handlePlayerDragStart}
-            onDragEnd={this.props.handlePlayerDragEnd}>
+            onDragEnd={this.props.handlePlayerDragEnd}
+            onContextMenu={this.blockRightClick}>
         { playerData.id
           ? <div className={playerData.team + ' inner'}>
               <div className="photo">
@@ -57,6 +72,14 @@ var PlayerItem = React.createClass({
                 <div className="jersey">{ playerData.jersey ? playerData.jersey : ' ' }</div>
                 <div className="shot">{ playerData.shot ? playerData.shot : ' ' }</div>
                 <div className="salary">{playerData.contract[0]}</div>
+                <div className="status">
+              { playerData.actions && playerData.actions.indexOf('acquired') !== -1
+                ? <div className="acquired">A</div>
+                : null }
+              { playerData.actions && playerData.actions.indexOf('created') !== -1
+                ? <div className="created">C</div>
+                : null }
+                </div>
               </div>
               <div className="handle"></div>
               <div className="cover"></div>

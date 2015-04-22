@@ -1,8 +1,7 @@
 #### RELEASE
 
 - 'Round #1 » private sharing/testing (gchat, dm, nhl#s, JSmeetup)'
-  - jeremy@wgr
-  - kris baker (SabresProspects.com)
+  - whitey@wgr550.com, ckanal, kris baker (SabresProspects.com)
 - 'Round #2 » public release (HF, HN, #reactjs)
   - http://goo.gl/06SsOZ
   - http://goo.gl/VYF5sg
@@ -64,25 +63,24 @@
 - 'onMouseLeave menu/grid remove all active item classes'
 
 
-#### NOW » Did You Uptick Version? » [v0.8.8]
+#### NOW » Did You Uptick Version? » [v0.9.0]
 
-- 'player tile action/status icons'
-- 'new ui: cap stats menu + clear/reset roster logic (gear-icon)'
-- 'block right-click/context event'
 - 'update acquired/created player teams'
+- 'new ui: cap stats menu + clear/reset roster logic (gear-icon)'
+- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.0] ««
 
+- 'analytics + monitoring'
 - 'wire-up create-player add salary row button'
 - 'wire-up Twitter + Facebook share buttons'
-- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 - 'pre-cache team + player images on select/hover'
 - 'distill grid/tile template + render logic'
-- 'analytics + monitoring'
 
 
 #### READY
 
+- 'player tile action/status icons + block right-click'
 - 'setup feature detection (Modernizr)'
 - 'cleanup banner + tooltip x-browser consistency'
 - 'cleanup scrollbar + draggable x-browser consistency'

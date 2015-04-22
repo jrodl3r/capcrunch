@@ -23,6 +23,8 @@ var UI = {
     $('#team-select').on('change', UI.resetScroll);
     // toggle panel view
     $('.panel-toggle-button').on('click', UI.togglePanelView);
+    // block right-click
+    $('body').on('contextmenu', UI.blockRightClick);
     // testing
     //$('#team-select').val('BUF').change();
   },
@@ -121,6 +123,11 @@ var UI = {
     setTimeout(function() {
       $('.panel.player-list .inner ul').scrollTop(0);
     }, 250);
+  },
+
+  blockRightClick: function(e) {
+    e.preventDefault();
+    return false;
   },
 
   // create player: add salary row
