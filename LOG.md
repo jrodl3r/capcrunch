@@ -74,9 +74,8 @@
 
 #### READY
 
-- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
-- 'analytics + monitoring'
-
+- 'logic + layout refresh (details in LOG.md) [v0.9.0]'
+- 'add google analytics script'
 - 'cap stats menu + clear/reset roster logic'
 - 'setup production server w/ beta testing'
 - 'update acquired player team attribute'
