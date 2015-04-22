@@ -15,6 +15,7 @@ header {
   background: #000;
 
   .inner {
+    position: relative;
     height: 30px;
     width: $content-width;
     margin: 25px auto 0;
@@ -29,12 +30,13 @@ header {
 
   .beta-tag {
     position: absolute;
-    top: 56px;
-    left: 332px;
+    top: 31px;
+    left: 163px;
     color: rgba(41, 120, 202, 0.7);
     font-size: 9px;
     font-weight: 600;
     text-transform: uppercase;
+    cursor: default;
 
     span.version {
       color: rgba(255,255,255, 0.25);
