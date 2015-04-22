@@ -297,6 +297,9 @@ var App = React.createClass({
             if (cur_trade.active.prev_team === team_id && cur_trade.passive.team === team_id) {
               trade_data[trade_count] = { acquired : [], traded : [] };
               trade_data[trade_count].traded = cur_trade.active.players;
+              for (var j = 0; j < cur_trade.passive.players.length; j++) {
+                cur_trade.passive.players[j].team = team_id;
+              }
               trade_data[trade_count].acquired = cur_trade.passive.players;
               trade_count = trade_count + 1;
             }

@@ -65,7 +65,7 @@
 
 #### NOW » Did You Uptick Version? » [v0.9.0]
 
-- 'update acquired/created player teams'
+- 'clear roster + trades on team change'
 - 'new ui: cap stats menu + clear/reset roster logic (gear-icon)'
 - 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
 
@@ -80,6 +80,7 @@
 
 #### READY
 
+- 'update acquired player team attribute'
 - 'player tile action/status icons + block right-click'
 - 'setup feature detection (Modernizr)'
 - 'cleanup banner + tooltip x-browser consistency'
