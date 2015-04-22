@@ -61,17 +61,11 @@
 - 'cleanup validation/error message display/timing consistency'
 - 'remove create-player lastname requirement'
 - 'onMouseLeave menu/grid remove all active item classes'
+- 'clear roster + trades on team change'
 
 
 #### NOW » Did You Uptick Version? » [v0.9.0]
 
-- 'clear roster + trades on team change'
-- 'new ui: cap stats menu + clear/reset roster logic (gear-icon)'
-- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
-
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.0] ««
-
-- 'analytics + monitoring'
 - 'wire-up create-player add salary row button'
 - 'wire-up Twitter + Facebook share buttons'
 - 'pre-cache team + player images on select/hover'
@@ -80,6 +74,11 @@
 
 #### READY
 
+- 'obfuscate code (https://github.com/mikrofusion/gulp-obfuscate)'
+- 'analytics + monitoring'
+
+- 'cap stats menu + clear/reset roster logic'
+- 'setup production server w/ beta testing'
 - 'update acquired player team attribute'
 - 'player tile action/status icons + block right-click'
 - 'setup feature detection (Modernizr)'

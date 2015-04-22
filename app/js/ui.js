@@ -23,6 +23,9 @@ var UI = {
     $('#team-select').on('change', UI.resetScroll);
     // toggle panel view
     $('.panel-toggle-button').on('click', UI.togglePanelView);
+    // toggle roster/cap menu
+    $('#roster-stats-button').on('mouseover', UI.toggleRosterMenu);
+    $('#roster-stats-menu').on('mouseleave', UI.toggleRosterMenu);
     // block right-click
     $('body').on('contextmenu', UI.blockRightClick);
     // testing
@@ -116,6 +119,15 @@ var UI = {
       $(this).parent().parent().addClass('collapsed');
     }
     $(this).toggleClass('active');
+  },
+
+  // toggle roster/cap menu
+  toggleRosterMenu: function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!$(this).hasClass('disabled')) {
+      $('#roster-stats-menu').toggleClass('active');
+    }
   },
 
   // reset panel scroll

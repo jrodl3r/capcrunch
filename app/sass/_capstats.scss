@@ -2,6 +2,7 @@
 // ==================================================
 
 .cap-stats {
+  position: relative;
   float: left;
   height: 32px;
   width: 640px;
@@ -12,7 +13,6 @@
   text-align: center;
   background: rgba(23,24,25, .3) linear-gradient(to top, rgba(0,0,0, .07) 0%, rgba(255,255,255, .07));
   border-radius: $border-radius;
-  overflow: hidden;
 
   &.active {
     color: #505050;
@@ -36,7 +36,7 @@
       width: 143px;
     }
 
-    &:last-of-type {
+    &.salary-cap {
       width: 140px;
       padding-left: 12px;
       color: #393939;
@@ -65,10 +65,10 @@
 
   .cap-stats-menu-button {
     float: right;
+    height: 32px;
     width: 40px;
     color: #555;
     font-size: 17px;
-    cursor: pointer;
 
     &:hover {
       color: #777;
@@ -83,6 +83,69 @@
   }
 
   .cap-stats-menu {
-    display: none;
+    position: absolute;
+    z-index: 6;
+    top: -30px;
+    right: 0;
+    height: 0;
+    width: 100%;
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity .2s, height 0s .2s;
+
+    &.active {
+      height: 92px;
+      opacity: 1;
+      transition: opacity .2s, height 0s;
+    }
+
+    ul {
+      float: left;
+      height: 32px;
+      width: 100%;
+      margin-top: 30px;
+      background: rgba(0,0,0, .4) linear-gradient(to right, transparent 0%, rgba(0,0,0, 1) 5%, rgba(0,0,0, .9) 80%, transparent 100%);
+      border-radius: $border-radius;
+      box-shadow: 0 0 15px rgba(0,0,0, .85), 0 0 1px rgba(255,255,255, .35) inset;
+    }
+
+    li {
+      float: right;
+      height: inherit;
+      width: 110px;
+      margin-right: 40px;
+    }
+
+    a {
+      float: left;
+      height: 28px;
+      width: 110px;
+      margin-top: 1px;
+      padding-left: 2px;
+      color: rgba(255,255,255, .35);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: left;
+      line-height: 30px;
+
+      &:hover {
+        color: rgba(255,255,255, .6);
+        text-shadow: 0 0 5px rgba(255,255,255, .3);
+        cursor: pointer;
+      }
+
+      i {
+        float: left;
+        padding-right: 7px;
+        padding-left: 8px;
+        font-size: 13px;
+        line-height: 30px;
+      }
+
+      span {
+        cursor: pointer;
+        transition: initial;
+      }
+    }
   }
 }

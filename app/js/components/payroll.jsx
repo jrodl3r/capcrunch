@@ -74,15 +74,19 @@ var Payroll = React.createClass({
               <div id="pcap-cap-space" className="section">
                 Cap Space <span className="value">{this.props.teamData.cap.space}</span>
               </div>
-              <div id="pcap-salary-cap" className="section">
+              <div id="pcap-salary-cap" className="section salary-cap">
                 Salary Cap <span className="value">{this.props.leagueData.cap}</span>
               </div>
               <a id="payroll-stats-button" className="cap-stats-menu-button disabled">
                 <i className="fa fa-gear"></i>
               </a>
-              <ul id="payroll-stats-menu" className="cap-stats-menu">
-                <li><a>Menu Item</a></li>
-              </ul>
+              <div id="payroll-stats-menu" className="cap-stats-menu">
+                <ul>
+                  <li>
+                    <a><i className="fa fa-close"></i> Menu Item</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </h2>
           <div className="inner">

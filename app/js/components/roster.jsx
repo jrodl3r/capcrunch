@@ -120,12 +120,16 @@ var Roster = React.createClass({
             <div id="rcap-salary-cap" className="section salary-cap">
               <span>Salary Cap <span className="value">{this.props.leagueData.cap}</span></span>
             </div>
-            <a id="roster-stats-button" className="cap-stats-menu-button">
+            <a id="roster-stats-button" className={ this.props.activePlayers.length ? 'cap-stats-menu-button' : 'cap-stats-menu-button disabled' }>
               <i className="fa fa-gear"></i>
             </a>
-            <ul id="roster-stats-menu" className="cap-stats-menu">
-              <li><a>Clear Roster</a></li>
-            </ul>
+            <div id="roster-stats-menu" className={ this.props.activePlayers.length ? 'cap-stats-menu' : 'cap-stats-menu disabled' }>
+              <ul>
+                <li>
+                  <a onClick={this.props.clearRosterData}><i className="fa fa-trash"></i> Remove All</a>
+                </li>
+              </ul>
+            </div>
           </div>
           <div id="forwards" className="grid">
             <div className="title">

@@ -240,6 +240,23 @@ var App = React.createClass({
         this.handleChangeTeam(roster_data.activeTeam);
       } else { this.showNotification('error', 'There was an error loading that roster.'); }
     },
+    clearRosterData: function() {
+      var clearRosterData, blank = [],
+          roster_grid = this.state.rosterData;
+      for (var pos in roster_grid) {
+        if (pos.status !== 'empty') {
+          roster_grid[pos] = { status : 'empty' };
+        }
+      }
+      clearRosterData = React.addons.update(this.state, {
+        activePlayers : { $set: blank },
+        rosterInfo    : { hit   : { $set: '0.000' },
+                          space : { $set: '69.000' }},
+        rosterData    : { $set: roster_grid }
+      });
+      this.setState(clearRosterData);
+      document.getElementById('roster-stats-menu').className = 'cap-stats-menu disabled';
+    },
     showShareDialog: function(status, roster_id) {
       if (status === 'loading') {
         document.getElementById('share-form').className = '';
@@ -819,9 +836,10 @@ var App = React.createClass({
                 onRemoveTradePlayer={this.handleRemoveTradePlayer} />
               <Roster
                 dragging={this.state.dragging}
+                leagueData={this.state.leagueData}
                 rosterInfo={this.state.rosterInfo}
                 rosterData={this.state.rosterData}
-                leagueData={this.state.leagueData}
+                clearRosterData={this.clearRosterData}
                 activePlayers={this.state.activePlayers}
                 curDragPlayer={this.state.curDragPlayer}
                 onGridDragEnter={this.handleGridDragEnter}
