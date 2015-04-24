@@ -2,8 +2,6 @@
 // ==================================================
 'use strict';
 
-require('newrelic');
-
 var express     = require('express'),
     app         = express(),
     server      = require('http').createServer(app),
@@ -58,6 +56,7 @@ if (env === 'production') {
     console.log('User Connected [' + req.user + '] (' + moment.tz(timezone).format(timestamp) + ')');
     res.sendFile(path.join(__dirname, '/public/index.html'));
   });
+  require('newrelic');
 } else {
   app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '/public/index.html'));
