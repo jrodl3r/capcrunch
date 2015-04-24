@@ -6,7 +6,7 @@ var TeamMenu    = require('./components/team-menu.jsx'),
     Payroll     = require('./components/payroll.jsx'),
     Roster      = require('./components/roster.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
-    Socket      = io.connect();
+    Socket      = io.connect('', { 'transports': ['websocket'] });
 
 
 var App = React.createClass({
