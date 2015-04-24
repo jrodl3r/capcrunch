@@ -2,6 +2,11 @@
 // ==================================================
 'use strict';
 
+// Monitoring
+if (process.env.NODE_ENV === 'production') {
+  require('newrelic');
+}
+
 var express     = require('express'),
     app         = express(),
     server      = require('http').createServer(app),
@@ -39,7 +44,6 @@ if (env === 'development') {
     if (err) { console.error(err); }
     else { console.log('Connected to mongodb (' + moment.tz(timezone).format(timestamp) + ')'); }
   });
-  require('newrelic');
 } else if (env === 'testing') { /* TODO */ }
 
 
