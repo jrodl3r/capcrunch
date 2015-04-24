@@ -68,17 +68,18 @@
 - 'player image CDN (uptime/redundancy/speed)'
 - 'SEO friendly ReactJS SSR markup'
 - 'fix React props mutation warnings/issues'
-- 'upgrade Heroku + Mongolab to production'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'share roster user submission delay + spam protection'
 - 'share roster text-only output'
 - 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
 - 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
 - 'remove create-player lastname requirement'
+- 'upgrade app data + upgrade Mongolab'
 
 
 #### READY
 
+- 'upgrade Heroku + setup server monitoring'
 - 'logic + layout refresh (details in LOG.md) [v0.9.0]'
 - 'add google analytics script'
 - 'cap stats menu + clear/reset roster logic'
