@@ -39,6 +39,7 @@ if (env === 'development') {
     if (err) { console.error(err); }
     else { console.log('Connected to mongodb (' + moment.tz(timezone).format(timestamp) + ')'); }
   });
+  require('newrelic');
 } else if (env === 'testing') { /* TODO */ }
 
 
