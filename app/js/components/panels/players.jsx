@@ -4,19 +4,34 @@
 
 var PlayersPanel = React.createClass({
     buildPlayerList: function(players, player_type) {
-      var player_list, status, first_active = 0;
+      var player_list, status, first_active = 0, first_inactive_marked = false;
       player_list = players.map(function(player, i) {
         status = '';
         if (this.props.activePlayers.indexOf(player.id) !== -1 ||
             this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
             this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
           status = ' inplay';
-          if (i === 0 || first_active === i) {
+          if (first_active === i) {
             first_active = first_active + 1;
           }
-        } else if (first_active) {
+        } else if (first_active && player_type !== 'inactive') {
           status = ' first-active';
           first_active = 0;
+        } else if (player_type === 'inactive') {
+          if (first_active && !this.props.playerData.created.length) {
+            status = ' first-active';
+            first_active = 0;
+          } else if (this.props.playerData.created.length && !first_inactive_marked) {
+            for (var j = 0; j < this.props.playerData.created.length; j++) {
+              if (this.props.activePlayers.indexOf(this.props.playerData.created[j].id) === -1) {
+                break;
+              } else if (j === this.props.playerData.created.length - 1) {
+                status = ' first-active';
+                first_inactive_marked = true;
+                first_active = 0;
+              }
+            }
+          }
         }
         if (player.actions && player.actions.length) {
           status = ' ' + player.actions.join(' ') + status;

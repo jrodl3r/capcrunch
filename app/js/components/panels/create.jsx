@@ -18,7 +18,7 @@ var CreatePlayer = React.createClass({
     },
     handleCreatePlayer: function() {
       var playerData = this.props.playerData;
-      if (playerData.firstname && playerData.lastname && playerData.position && playerData.salary && playerData.contract.length) {
+      if (playerData.firstname && playerData.lastname && playerData.position && playerData.salary >= 0.001 && playerData.contract.length) {
         playerData.firstname = playerData.firstname.trim();
         playerData.lastname = playerData.lastname.trim();
         this.props.handleCreatePlayer(playerData);
@@ -63,7 +63,7 @@ var CreatePlayer = React.createClass({
         document.getElementById('create-player-position').focus();
         document.getElementById('create-player-msg').innerText = this.props.messages.missing_pos;
         document.getElementById('create-player-msg').className = 'warning';
-      } else if (!playerData.salary) {
+      } else if (!playerData.salary || playerData.salary < 0.001) {
         document.getElementById('create-player-salary').className = 'missing';
         document.getElementById('create-player-salary').focus();
         document.getElementById('create-player-msg').innerText = this.props.messages.missing_salary;
@@ -120,8 +120,10 @@ var CreatePlayer = React.createClass({
       if (!/\d/.test(key) || e.charCode === 13 || str.length === 2) { return false; }
     },
     changePlayerSalary: function(e) {
-      this.props.playerData.salary = parseFloat(e.target.value).toFixed(3);
-      e.target.className = 'active';
+      if (e.target.value > 0) {
+        this.props.playerData.salary = parseFloat(e.target.value).toFixed(3);
+        e.target.className = 'active';
+      }
     },
     checkPlayerSalaryInput: function(e) {
       var str = e.target.value,
@@ -143,8 +145,14 @@ var CreatePlayer = React.createClass({
       else if (str.length === 5 && /\d{1}\.\d{3}/.test(str)) { return false; }
     },
     formatSalary: function(e) {
-      var str = e.target.value;
-      e.target.value = parseFloat(str).toFixed(3);
+      if (e.target.value === '' || e.target.value === '0') {
+        e.target.value = parseFloat('0.1').toFixed(3);
+        e.target.className = 'active';
+        this.props.playerData.salary = parseFloat('0.1').toFixed(3);
+      } else {
+        var str = e.target.value;
+        e.target.value = parseFloat(str).toFixed(3);
+      }
     },
     changePlayerSalaryDuration: function(e) {
       var duration = parseInt(e.target.value);

@@ -44,11 +44,11 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
 
-- 'fix create player salary calc bug'
 - 'remove create-player firstname requirement'
 - 'wire-up create-player add salary row button'
 - 'pre-cache team + player images on select/hover'
 - 'add data event to trades drop-area'
+- 'trade player cap violation/overage check + warning'
 - 'add active state to add player/salary plus button'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'distill grid/tile template + render logic'
@@ -64,7 +64,6 @@
 - 'update notifications layout + logic (slide-out + fade-in)'
 - 'cleanup validation/error message display/timing consistency'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'trade player cap violation/overage check + warning'
 - 'trade player assets / draft picks layout + logic'
 - 'scrape team draft pick data'
 - 'free agents panel + logic'
@@ -83,6 +82,7 @@
 
 #### READY
 
+- 'fix create player salary calc bug + update inactive list item logic'
 - 'cleanup player-list layout'
 - 'fix player-list mouse-leave sticking-hover issue'
 - 'upgrade Heroku + setup server monitoring'
