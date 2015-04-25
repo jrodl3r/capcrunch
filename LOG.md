@@ -30,6 +30,7 @@
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
 - 'session state clear + restore (cookies)'
+- 'distill cap stats instances to single component'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'gulp asset management + optimization (fonts, images)'
 - 'player image CDN (uptime/redundancy/speed)'
@@ -56,8 +57,6 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
 
-- 'fix React props mutation warnings/issues'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade player cap violation/overage check + warning'
 - 'add special teams alt-grids (PP1+2/PK1+2)'
 - 'add IR + Pressbox alt-lines'
@@ -77,6 +76,7 @@
 
 #### READY
 
+- 'fix React props mutation warnings/issues'
 - 'distill roster-grid/player-tile render logic'
 - 'move player-list name formatting logic to create-player'
 - 'cleanup create-player confirm transition timing'

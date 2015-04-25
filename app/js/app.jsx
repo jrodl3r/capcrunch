@@ -8,6 +8,11 @@ var TeamMenu    = require('./components/team-menu.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
     Socket      = io.connect('', { 'transports': ['websocket'] });
 
+var dropZoneData = {
+    last   : '',
+    cur    : null,
+    origin : null
+  };
 
 var App = React.createClass({
     getInitialState: function() {
@@ -53,12 +58,9 @@ var App = React.createClass({
     },
     getDefaultProps: function() {
       return {
-        lastDropZoneId : '',
-        curDropZone    : null,
-        originDropZone : null,
         benchPlayer    : false,
         addTradePlayer : false,
-        messages          : {
+        messages       : {
           trade_players_heading : 'Execute a blockbuster trade for your team:',
           trade_players_max     : 'Five players per team trade maximum...',
           trade_players_oneway  : 'One-way trades only...',
@@ -562,8 +564,8 @@ var App = React.createClass({
           playerData = this.state.rosterData[playerItem.parentNode.id];
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setData('text', playerItem.id);
-      this.props.originDropZone = playerItem.parentNode;
-      this.props.originDropZone.className = 'tile active engaged';
+      dropZoneData.origin = playerItem.parentNode;
+      dropZoneData.origin.className = 'tile active engaged';
       this.props.benchPlayer = false;
       this.props.addTradePlayer = false;
       this.setState({ curDragPlayer : playerData, dragging : true });
@@ -572,8 +574,8 @@ var App = React.createClass({
       var playerItem       = e.currentTarget,
           rosterData       = this.state.rosterData,
           activePlayers    = this.state.activePlayers,
-          dropZone         = this.props.curDropZone,
-          originDropZoneId = this.props.originDropZone.id,
+          dropZone         = dropZoneData.cur,
+          originDropZoneId = dropZoneData.origin.id,
           updateRosterData, capData, index;
 
       // Bench Player
@@ -590,8 +592,8 @@ var App = React.createClass({
                             space : { $set: capData.space }}
         });
         this.setState(updateRosterData);
-        this.props.originDropZone.className = 'tile';
-        this.props.originDropZone.dataset.state = '';
+        dropZoneData.origin.className = 'tile';
+        dropZoneData.origin.dataset.state = '';
 
       // Trade Player
       } else if (this.props.addTradePlayer) {
@@ -599,7 +601,7 @@ var App = React.createClass({
             this.state.curDragPlayer.team !== this.state.activeTeam ||
             this.state.curDragPlayer.status === 'created') {
           playerItem.className = 'player active';
-          this.props.originDropZone.className = 'tile active';
+          dropZoneData.origin.className = 'tile active';
           this.setState({ dragging : false });
           if (this.state.activeTrade.active.id_list.length === 5) {
             this.handleTradePlayersError('maxed');
@@ -621,13 +623,13 @@ var App = React.createClass({
                               space : { $set: capData.space }}
           });
           this.setState(updateRosterData);
-          this.props.originDropZone.className = 'tile';
-          this.props.originDropZone.dataset.state = '';
+          dropZoneData.origin.className = 'tile';
+          dropZoneData.origin.dataset.state = '';
           this.handleAddTradePlayer('active', this.state.curDragPlayer);
         }
 
       // Move Player
-      } else if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
+      } else if (dropZone && !dropZone.dataset.state && dropZone.id === dropZoneData.last) {
         dropZone.className = 'tile active';
         dropZone.dataset.state = 'active';
         rosterData[originDropZoneId] = { status: 'empty' };
@@ -637,14 +639,14 @@ var App = React.createClass({
           rosterData : { $set: rosterData }
         });
         this.setState(updateRosterData);
-        this.props.originDropZone.className = 'tile';
-        this.props.originDropZone.dataset.state = '';
+        dropZoneData.origin.className = 'tile';
+        dropZoneData.origin.dataset.state = '';
       } else {
         playerItem.className = 'player active hover';
-        this.props.originDropZone.className = 'tile active';
+        dropZoneData.origin.className = 'tile active';
         this.setState({ dragging : false });
       }
-      this.props.originDropZone = null;
+      dropZoneData.origin = null;
       this.props.benchPlayer = false;
       this.props.addTradePlayer = false;
       this.highlightGrid('off');
@@ -704,8 +706,8 @@ var App = React.createClass({
       }
     },
     handleGridDragEnter: function(e) {
-      if (this.props.curDropZone) {
-        this.props.lastDropZoneId = '';
+      if (dropZoneData.cur) {
+        dropZoneData.last = '';
       }
       this.props.benchPlayer = false;
       this.props.addTradePlayer = false;
@@ -718,9 +720,9 @@ var App = React.createClass({
       var dropZone = e.currentTarget;
       if (dropZone.dataset.state !== 'active') {
         dropZone.className = 'tile hover';
-        this.props.curDropZone = dropZone;
+        dropZoneData.cur = dropZone;
       }
-      this.props.lastDropZoneId = dropZone.id;
+      dropZoneData.last = dropZone.id;
       this.props.benchPlayer = false;
       this.props.addTradePlayer = false;
     },
@@ -751,11 +753,11 @@ var App = React.createClass({
       dragItem.parentNode.className = dragItem.parentNode.className + ' engaged';
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setData('text', dragItem.id);
-      this.props.lastDropZoneId = '';
+      dropZoneData.last = '';
     },
     handleDragEnd: function(e) {
       var dragItem   = e.currentTarget,
-          dropZone   = this.props.curDropZone,
+          dropZone   = dropZoneData.cur,
           playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index],
           rosterData, updateRosterData, capData;
 
@@ -780,7 +782,7 @@ var App = React.createClass({
         }
 
       // Add Roster Player
-      } else if (dropZone && !dropZone.dataset.state && dropZone.id === this.props.lastDropZoneId) {
+      } else if (dropZone && !dropZone.dataset.state && dropZone.id === dropZoneData.last) {
         dragItem.className = 'item';
         dropZone.className = 'tile active';
         dropZone.dataset.state = 'active';

@@ -74,16 +74,16 @@ var CreatePlayer = React.createClass({
       var str = e.target.value,
           key = String.fromCharCode(e.charCode);
       // two-dots/dashes/spaces max-total
-      if (str.match(/\./g) && str.match(/\./g).length > 1 && /\./.test(key)) { return false; }
-      if (str.match(/\-/g) && str.match(/\-/g).length > 1 && /\-/.test(key)) { return false; }
-      if (str.match(/\s/g) && str.match(/\s/g).length > 1 && /\s/.test(key)) { return false; }
+      if (str.match(/\./g) && str.match(/\./g).length > 1 && /\./.test(key)) { e.preventDefault(); }
+      if (str.match(/\-/g) && str.match(/\-/g).length > 1 && /\-/.test(key)) { e.preventDefault(); }
+      if (str.match(/\s/g) && str.match(/\s/g).length > 1 && /\s/.test(key)) { e.preventDefault(); }
       // letters/dashes/spaces/dots + block enter key + single-dash/dot
-      else if (!/[a-zA-Z]|-|\s|\./.test(key) || e.charCode === 13) { return false; }
-      else if (/-|\./.test(key) && /-|\.|\s/.test(str.substr(str.length - 1))) { return false; }
+      else if (!/[a-zA-Z]|-|\s|\./.test(key) || e.charCode === 13) { e.preventDefault(); }
+      else if (/-|\./.test(key) && /-|\.|\s/.test(str.substr(str.length - 1))) { e.preventDefault(); }
       // single-space (following letters/dots)
-      else if (/\s/.test(key) && /-|\s/.test(str.substr(str.length - 1))) { return false; }
+      else if (/\s/.test(key) && /-|\s/.test(str.substr(str.length - 1))) { e.preventDefault(); }
       // starts with letter
-      else if (str.length === 0 && !/[a-zA-Z]/.test(key)) { return false; }
+      else if (str.length === 0 && !/[a-zA-Z]/.test(key)) { e.preventDefault(); }
     },
     changePlayerFirstName: function(e) {
       this.props.playerData.firstname = e.target.value;
@@ -97,7 +97,7 @@ var CreatePlayer = React.createClass({
       if (e.target.value === ' ' || e.target.value === '-' || e.target.value === '.') {
         e.target.value = '';
       } else {
-        e.target.value = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+        e.target.value = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1).toLowerCase();
       }
       this.props.playerData.firstname = e.target.value;
     },
@@ -105,7 +105,7 @@ var CreatePlayer = React.createClass({
       if (e.target.value === ' ' || e.target.value === '-' || e.target.value === '.') {
         e.target.value = '';
       } else {
-        e.target.value = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+        e.target.value = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1).toLowerCase();
       }
       this.props.playerData.lastname = e.target.value;
     },
@@ -126,9 +126,9 @@ var CreatePlayer = React.createClass({
           key = String.fromCharCode(e.charCode),
           sel = window.getSelection().toString();
       // allow text-selection overwrite
-      if (sel && str.indexOf(sel) > -1 && /\d/.test(key)) { return true; }
+      if (sel && str.indexOf(sel) > -1 && /\d/.test(key)) { e.preventDefault(); }
       // numbers only + block enter key + two-digit max-length
-      if (!/\d/.test(key) || e.charCode === 13 || str.length === 2) { return false; }
+      if (!/\d/.test(key) || e.charCode === 13 || str.length === 2) { e.preventDefault(); }
     },
     changePlayerSalary: function(e) {
       if (e.target.value > 0) {
@@ -143,17 +143,17 @@ var CreatePlayer = React.createClass({
       // allow text-selection overwrite
       if (sel && str.indexOf(sel) > -1 && /\d/.test(key)) { return true; }
       // numbers/single-dot only + block enter key + six-digit max-length
-      if (!/\d|\./.test(key) || e.charCode === 13 || str.length === 6) { return false; }
+      if (!/\d|\./.test(key) || e.charCode === 13 || str.length === 6) { e.preventDefault(); }
       // starts with digit
-      else if (str.length === 0 && !/\d/.test(key)) { return false; }
+      else if (str.length === 0 && !/\d/.test(key)) { e.preventDefault(); }
       // single-dot only
-      else if (/\./.test(key) && str.indexOf('.') > -1) { return false; }
+      else if (/\./.test(key) && str.indexOf('.') > -1) { e.preventDefault(); }
       // leading-zero must preceed dot
-      else if (str.length === 1 && str === '0' && !/\./.test(key)) { return false; }
+      else if (str.length === 1 && str === '0' && !/\./.test(key)) { e.preventDefault(); }
       // max of 99 million
-      else if (str.length === 2 && /\d{2}/.test(str) && !/\./.test(key)) { return false; }
+      else if (str.length === 2 && /\d{2}/.test(str) && !/\./.test(key)) { e.preventDefault(); }
       // prevent 4 decimal-places on single-digit millions
-      else if (str.length === 5 && /\d{1}\.\d{3}/.test(str)) { return false; }
+      else if (str.length === 5 && /\d{1}\.\d{3}/.test(str)) { e.preventDefault(); }
     },
     formatSalary: function(e) {
       if (e.target.value === '' || e.target.value === '0') {
@@ -173,8 +173,8 @@ var CreatePlayer = React.createClass({
       }
       e.target.className = 'active';
     },
-    blockPaste: function() {
-      return false;
+    blockPaste: function(e) {
+      e.preventDefault();
     },
 
     render: function() {
