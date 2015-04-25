@@ -52,9 +52,9 @@ var PlayersPanel = React.createClass({
               <div className="jersey">{player.jersey}</div>
           { player.firstname
             ? <div className="name">
-                {player.lastname.charAt(0).toUpperCase() + player.lastname.slice(1)}, {player.firstname.charAt(0).toUpperCase() + player.firstname.slice(1)}
+                {player.lastname}, {player.firstname}
               </div>
-            : <div className="name">{player.lastname.charAt(0).toUpperCase() + player.lastname.slice(1)}</div> }
+            : <div className="name">{player.lastname}</div> }
               <div className="info">
             { player_type === 'goaltenders' || !player.shot
               ? <span className="shot"></span>

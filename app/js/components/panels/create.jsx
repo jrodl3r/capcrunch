@@ -48,11 +48,6 @@ var CreatePlayer = React.createClass({
           document.getElementById('create-player-msg').innerText = this.props.messages.heading;
           document.getElementById('create-player-confirm').className = 'transaction-confirm';
         }.bind(this), 2000);
-      // } else if (!playerData.firstname) {
-      //   document.getElementById('create-player-fname').className = 'missing';
-      //   document.getElementById('create-player-fname').focus();
-      //   document.getElementById('create-player-msg').innerText = this.props.messages.missing_fname;
-      //   document.getElementById('create-player-msg').className = 'warning';
       } else if (!playerData.lastname) {
         document.getElementById('create-player-lname').className = 'missing';
         document.getElementById('create-player-lname').focus();
@@ -97,6 +92,22 @@ var CreatePlayer = React.createClass({
     changePlayerLastName: function(e) {
       this.props.playerData.lastname = e.target.value;
       e.target.className = 'active';
+    },
+    formatFirstName: function(e) {
+      if (e.target.value === ' ' || e.target.value === '-' || e.target.value === '.') {
+        e.target.value = '';
+      } else {
+        e.target.value = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+      }
+      this.props.playerData.firstname = e.target.value;
+    },
+    formatLastName: function(e) {
+      if (e.target.value === ' ' || e.target.value === '-' || e.target.value === '.') {
+        e.target.value = '';
+      } else {
+        e.target.value = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+      }
+      this.props.playerData.lastname = e.target.value;
     },
     changePlayerShot: function(e) {
       this.props.playerData.shot = e.target.value;
@@ -174,10 +185,12 @@ var CreatePlayer = React.createClass({
             <input id="create-player-fname" type="text" placeholder="First Name"
               onKeyPress={this.checkPlayerNameInput}
               onChange={this.changePlayerFirstName}
+              onBlur={this.formatFirstName}
               onPaste={this.blockPaste} />
             <input id="create-player-lname" type="text" placeholder="Last Name"
               onKeyPress={this.checkPlayerNameInput}
               onChange={this.changePlayerLastName}
+              onBlur={this.formatLastName}
               onPaste={this.blockPaste} />
             <select id="create-player-shot" defaultValue="0" onChange={this.changePlayerShot}>
               <option value="0" disabled>Shot</option>
