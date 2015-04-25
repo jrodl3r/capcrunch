@@ -82,7 +82,7 @@ var Roster = React.createClass({
               <span>Payroll Total <span className="value">{this.props.rosterInfo.hit}</span></span>
             </div>
             <div id="rcap-cap-space" className="section">
-              <span>Cap Space <span className="value">{this.props.rosterInfo.space}</span></span>
+              <span>Cap Space <span className={ this.props.rosterInfo.space > 0 ? 'value' : 'value overage' }>{this.props.rosterInfo.space}</span></span>
             </div>
             <div id="rcap-salary-cap" className="section salary-cap">
               <span>Salary Cap <span className="value">{this.props.leagueData.cap}</span></span>

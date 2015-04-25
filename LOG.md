@@ -41,36 +41,42 @@
 
 - 'minor team roster/lineup'
 - 'message-board sharing widget (dynamic image generator)'
-- 'add more create player panel options (nation, age, image)'
 - 'sticky cap stats panel + payroll table headers (try cloning)'
 - 'player-list + payroll player details onHover'
 - 'wire-up create-player add salary row button'
-- 'clear roster + trades on team change'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'trade player assets / draft picks layout + logic'
-- 'scrape team draft pick data'
 - 'free agents panel + logic'
 - 'payroll: show/apply user transactions settings'
 - 'pre-cache team + player images on select/hover'
 - 'editable player tile info (salary) + add to LTIR button'
+»»» Refactor Trade Logic »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+  - 'trade player cap violation/overage check + warning'
+  - 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
+  - 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
+  - 'clear roster on team change?'
+  - 'warn about disabled trade functionality?'
+  - 'warn about allstar mode?'
+  - 'trade player assets / draft picks layout + logic'
+  - 'scrape team draft pick data
+»»» Footer »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+  - 'credits'
+  - 'feedback + support'
+  - 'copyright + disclaimer'
+  - 'next feature voting'
 
 
-#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
+#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'trade player cap violation/overage check + warning'
-- 'add special teams alt-grids (PP1+2/PK1+2)'
-- 'add IR + Pressbox alt-lines'
+- 'cap stats overage/negative cap space visual queue'
+- 'add Injured-Reserve + Press-Box optional lines layout + logic'
+- 'add special teams (PP1/PP2/PK1/PK2) layout + logic'
 - 'share roster close button'
 - 'share roster text-only output'
+- 'wire-up Twitter + Facebook share buttons'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade summary button/view layout + logic'
-- 'next/new feature user voting'
 - 'update notifications layout + logic (slide-out + fade-in)'
 - 'cleanup validation/error message display/timing consistency'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
-- 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
-- 'wire-up Twitter + Facebook share buttons'
 - 'upgrade app data + upgrade Mongolab'
 
 
