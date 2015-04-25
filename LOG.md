@@ -50,17 +50,17 @@
 - 'scrape team draft pick data'
 - 'free agents panel + logic'
 - 'payroll: show/apply user transactions settings'
+- 'pre-cache team + player images on select/hover'
 - 'editable player tile info (salary) + add to LTIR button'
 
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
 
-- 'add active state to add player/salary plus button'
-- 'pre-cache team + player images on select/hover'
+- 'cleanup create-player confirm transition timing'
 - 'trade player cap violation/overage check + warning'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'distill grid/tile template + render logic'
 - 'fix React props mutation warnings/issues'
+- 'distill grid/tile template + render logic'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'add special teams alt-grids (PP1+2/PK1+2)'
 - 'add IR + Pressbox alt-lines'
@@ -80,6 +80,7 @@
 
 #### READY
 
+- 'trades-panel add player button active state'
 - 'hide create-player add salary button'
 - 'add data event to trades drop-area'
 - 'remove create-player firstname requirement'

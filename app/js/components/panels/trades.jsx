@@ -55,16 +55,19 @@ var Trades = React.createClass({
       trade_msg.className = '';
     },
     handleChangeSelectedPlayer: function(e) {
-      var trade_msg = document.getElementById('trade-player-msg');
+      var trade_msg = document.getElementById('trade-player-msg'),
+          add_button = document.getElementById('trade-player-add-player');
       e.target.className = '';
       trade_msg.innerText = this.props.messages.heading;
       trade_msg.className = '';
+      add_button.className = 'add-button active';
     },
     addPassiveTeamPlayer: function(e) {
       e.preventDefault();
       var team_select = document.getElementById('trade-team-select'),
           player_item = document.getElementById('trade-players-select'),
-          trade_msg   = document.getElementById('trade-player-msg');
+          trade_msg   = document.getElementById('trade-player-msg'),
+          add_button  = document.getElementById('trade-player-add-player');
       if (this.props.activeTrade.passive.id_list.length === 5) {
         trade_msg.innerText = this.props.messages.max_players;
         trade_msg.className = 'warning';
@@ -87,6 +90,7 @@ var Trades = React.createClass({
         player_item.options[0].selected = true;
         trade_msg.innerText = this.props.messages.heading;
         trade_msg.className = '';
+        add_button.className = 'add-button';
       } else {
         if (team_select.value === '0') {
           team_select.className = 'missing';
@@ -160,11 +164,16 @@ var Trades = React.createClass({
     addButtonMouseOver: function(e) {
       var player_item = document.getElementById('trade-players-select');
       if (player_item.value !== '0') {
-        e.currentTarget.className = 'add-button hover';
+        e.currentTarget.className = 'add-button active hover';
       }
     },
     addButtonMouseLeave: function(e) {
-      e.currentTarget.className = 'add-button';
+      var player_item = document.getElementById('trade-players-select');
+      if (player_item.value !== '0') {
+        e.currentTarget.className = 'add-button active';
+      } else {
+        e.currentTarget.className = 'add-button';
+      }
     },
     onPlayerDropDragOver: function(e) {
       e.preventDefault();
