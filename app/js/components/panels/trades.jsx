@@ -157,16 +157,18 @@ var Trades = React.createClass({
       });
       return player_list;
     },
-
     addButtonMouseOver: function(e) {
       var player_item = document.getElementById('trade-players-select');
       if (player_item.value !== '0') {
         e.currentTarget.className = 'add-button hover';
       }
     },
-    
     addButtonMouseLeave: function(e) {
       e.currentTarget.className = 'add-button';
+    },
+    onPlayerDropDragOver: function(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
     },
 
     render: function() {
@@ -194,7 +196,7 @@ var Trades = React.createClass({
         <div id="trades" className={'tab-area active' + playerTradeSize}>
           <div className="inner">
             <p id="trade-player-msg">{this.props.messages.heading}</p>
-            <div id="trade-drop-area">
+            <div id="trade-drop-area" onDragOver={this.onPlayerDropDragOver}>
               Drop Players
               <div id="trade-drop-area-cover"
                 onDragEnter={this.props.handleTradeDragEnter}

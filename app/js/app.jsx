@@ -412,6 +412,7 @@ var App = React.createClass({
           document.getElementById(player.id + 'item').className = 'active';
         }, 10);
       });
+      document.getElementById('trade-drop-area').className = '';
     },
     handleRemoveTradePlayer: function(type, id) {
       document.getElementById(id + 'item').className = '';

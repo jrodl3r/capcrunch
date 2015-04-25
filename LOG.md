@@ -46,7 +46,6 @@
 
 - 'wire-up create-player add salary row button'
 - 'pre-cache team + player images on select/hover'
-- 'add data event to trades drop-area'
 - 'trade player cap violation/overage check + warning'
 - 'add active state to add player/salary plus button'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
@@ -81,6 +80,7 @@
 
 #### READY
 
+- 'add data event to trades drop-area'
 - 'remove create-player firstname requirement'
 - 'fix create player salary calc bug + update inactive list item logic'
 - 'cleanup player-list layout'
