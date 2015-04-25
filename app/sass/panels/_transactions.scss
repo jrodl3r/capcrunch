@@ -44,6 +44,14 @@
     }
   }
 
+  .show-loading & {
+    background: #000;
+
+    #transactions-menu {
+      opacity: .25;
+    }
+  }
+
   &.panel > .inner {
     height: auto;
     min-height: initial;

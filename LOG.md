@@ -56,7 +56,7 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
 
-- 'cleanup create-player confirm transition timing'
+- 'move player-list name formatting to create-player logic'
 - 'trade player cap violation/overage check + warning'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'fix React props mutation warnings/issues'
@@ -80,6 +80,7 @@
 
 #### READY
 
+- 'cleanup create-player confirm transition timing'
 - 'trades-panel add player button active state'
 - 'hide create-player add salary button'
 - 'add data event to trades drop-area'

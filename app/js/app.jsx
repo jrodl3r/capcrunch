@@ -530,7 +530,7 @@ var App = React.createClass({
       setTimeout(function() {
         this.setState(updateCreatePlayers);
         this.hideLoading();
-      }.bind(this), 600);
+      }.bind(this), 2000);
     },
 
 
