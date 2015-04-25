@@ -209,7 +209,7 @@ var CreatePlayer = React.createClass({
               <option value="4">4 years</option>
               <option value="5">5 years</option>
             </select>
-            <a id="create-player-add-salary" className="add-button" title="Add Salary"><i className="fa fa-plus"></i></a>
+            <!--<a id="create-player-add-salary" className="add-button" title="Add Salary"><i className="fa fa-plus"></i></a>-->
             <button id="create-player-button" onClick={this.handleCreatePlayer}>
               Create &amp; Sign Player
             </button>

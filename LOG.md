@@ -30,6 +30,10 @@
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
 - 'session state clear + restore (cookies)'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'gulp asset management + optimization (fonts, images)'
+- 'player image CDN (uptime/redundancy/speed)'
+- 'SEO friendly ReactJS SSR markup'
 
 
 #### LATER (Features)
@@ -39,15 +43,21 @@
 - 'add more create player panel options (nation, age, image)'
 - 'sticky cap stats panel + payroll table headers (try cloning)'
 - 'player-list + payroll player details onHover'
+- 'wire-up create-player add salary row button'
 - 'clear roster + trades on team change'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'trade player assets / draft picks layout + logic'
+- 'scrape team draft pick data'
+- 'free agents panel + logic'
+- 'payroll: show/apply user transactions settings'
+- 'editable player tile info (salary) + add to LTIR button'
 
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
 
-- 'wire-up create-player add salary row button'
+- 'add active state to add player/salary plus button'
 - 'pre-cache team + player images on select/hover'
 - 'trade player cap violation/overage check + warning'
-- 'add active state to add player/salary plus button'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'distill grid/tile template + render logic'
 - 'fix React props mutation warnings/issues'
@@ -62,16 +72,6 @@
 - 'update notifications layout + logic (slide-out + fade-in)'
 - 'cleanup validation/error message display/timing consistency'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'trade player assets / draft picks layout + logic'
-- 'scrape team draft pick data'
-- 'free agents panel + logic'
-- 'payroll: show/apply user transactions settings'
-- 'editable player tile info (salary) + add to LTIR button'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'gulp asset management + optimization (fonts, images)'
-- 'player image CDN (uptime/redundancy/speed)'
-- 'SEO friendly ReactJS SSR markup'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
 - 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
 - 'wire-up Twitter + Facebook share buttons'
@@ -80,6 +80,7 @@
 
 #### READY
 
+- 'hide create-player add salary button'
 - 'add data event to trades drop-area'
 - 'remove create-player firstname requirement'
 - 'fix create player salary calc bug + update inactive list item logic'

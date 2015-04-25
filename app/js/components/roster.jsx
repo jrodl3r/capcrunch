@@ -28,9 +28,11 @@ var PlayerItem = React.createClass({
                 <img src={ playerData.image ? playerData.image : 'http://img.capcrunch.io/players/default.png' }/>
               </div>
               <div className="info">
-                <div className="name">
-                  {playerData.firstname.charAt(0)}. {playerData.lastname}
+            { playerData.firstname
+              ? <div className="name">
+                  {playerData.firstname.charAt(0).toUpperCase()}. {playerData.lastname.charAt(0).toUpperCase() + playerData.lastname.slice(1)}
                 </div>
+              : <div className="name">{playerData.lastname.charAt(0).toUpperCase() + playerData.lastname.slice(1)}</div> }
                 <div className="jersey">{ playerData.jersey ? playerData.jersey : ' ' }</div>
                 <div className="shot">{ playerData.shot ? playerData.shot : ' ' }</div>
                 <div className="salary">{playerData.contract[0]}</div>
