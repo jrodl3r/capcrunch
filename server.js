@@ -146,7 +146,7 @@ io.sockets.on('connection', function(socket) {
   });
 
   // disconnected
-  socket.on('disconnect', function() {
-    console.log('User Disconnected (' + moment.tz(timezone).format(timestamp) + ')');
-  });
+  // socket.on('disconnect', function() {
+  //   console.log('User Disconnected (' + moment.tz(timezone).format(timestamp) + ')');
+  // });
 });
