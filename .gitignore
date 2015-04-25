@@ -16,3 +16,4 @@ node_modules
 /tools/updater/img
 /*.html
 temp*
+newrelic_agent.log

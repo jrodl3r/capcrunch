@@ -1,11 +1,6 @@
 // CapCrunch Server
 // ==================================================
-'use strict';
-
-// Monitoring
-if (process.env.NODE_ENV === 'production') {
-  require('newrelic');
-}
+'use strict'; require('newrelic');
 
 var express     = require('express'),
     app         = express(),
