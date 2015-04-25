@@ -50,7 +50,9 @@ var PlayersPanel = React.createClass({
               data-type={player_type}
               data-index={i}>
               <div className="jersey">{player.jersey}</div>
-              <div className="name">{player.lastname}, {player.firstname}</div>
+          { player.firstname
+            ? <div className="name">{player.lastname}, {player.firstname}</div>
+            : <div className="name">{player.lastname}</div> }
               <div className="info">
             { player_type === 'goaltenders' || !player.shot
               ? <span className="shot"></span>

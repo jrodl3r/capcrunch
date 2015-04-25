@@ -18,8 +18,8 @@ var CreatePlayer = React.createClass({
     },
     handleCreatePlayer: function() {
       var playerData = this.props.playerData;
-      if (playerData.firstname && playerData.lastname && playerData.position && playerData.salary >= 0.001 && playerData.contract.length) {
-        playerData.firstname = playerData.firstname.trim();
+      if (playerData.lastname && playerData.position && playerData.salary >= 0.001 && playerData.contract.length) {
+        playerData.firstname = playerData.firstname ? playerData.firstname.trim() : '';
         playerData.lastname = playerData.lastname.trim();
         this.props.handleCreatePlayer(playerData);
         this.props.playerData.firstname = '';
@@ -48,11 +48,11 @@ var CreatePlayer = React.createClass({
           document.getElementById('create-player-msg').innerText = this.props.messages.heading;
           document.getElementById('create-player-confirm').className = 'transaction-confirm';
         }.bind(this), 2000);
-      } else if (!playerData.firstname) {
-        document.getElementById('create-player-fname').className = 'missing';
-        document.getElementById('create-player-fname').focus();
-        document.getElementById('create-player-msg').innerText = this.props.messages.missing_fname;
-        document.getElementById('create-player-msg').className = 'warning';
+      // } else if (!playerData.firstname) {
+      //   document.getElementById('create-player-fname').className = 'missing';
+      //   document.getElementById('create-player-fname').focus();
+      //   document.getElementById('create-player-msg').innerText = this.props.messages.missing_fname;
+      //   document.getElementById('create-player-msg').className = 'warning';
       } else if (!playerData.lastname) {
         document.getElementById('create-player-lname').className = 'missing';
         document.getElementById('create-player-lname').focus();

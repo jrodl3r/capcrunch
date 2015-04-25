@@ -44,7 +44,6 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
 
-- 'remove create-player firstname requirement'
 - 'wire-up create-player add salary row button'
 - 'pre-cache team + player images on select/hover'
 - 'add data event to trades drop-area'
@@ -82,6 +81,7 @@
 
 #### READY
 
+- 'remove create-player firstname requirement'
 - 'fix create player salary calc bug + update inactive list item logic'
 - 'cleanup player-list layout'
 - 'fix player-list mouse-leave sticking-hover issue'
