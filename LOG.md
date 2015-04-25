@@ -56,11 +56,9 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
 
-- 'trade player cap violation/overage check + warning'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'fix React props mutation warnings/issues'
-- 'distill grid/tile template + render logic'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'trade player cap violation/overage check + warning'
 - 'add special teams alt-grids (PP1+2/PK1+2)'
 - 'add IR + Pressbox alt-lines'
 - 'share roster close button'
@@ -79,6 +77,7 @@
 
 #### READY
 
+- 'distill roster-grid/player-tile render logic'
 - 'move player-list name formatting logic to create-player'
 - 'cleanup create-player confirm transition timing'
 - 'trades-panel add player button active state'
