@@ -1,5 +1,3 @@
-// CapCrunch Server
-// ==================================================
 'use strict'; require('newrelic');
 
 var express     = require('express'),
