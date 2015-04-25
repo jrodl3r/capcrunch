@@ -14,7 +14,7 @@
   }
 
   .panel .inner {
-    height: 165px;
+    height: 166px;
     overflow: hidden;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
@@ -93,6 +93,10 @@
         transform: translateZ(0) rotate(0deg);
       }
     }
+  }
+
+  > .inner {
+    background: rgba(255,255,255, .025);
   }
 
   .inner {

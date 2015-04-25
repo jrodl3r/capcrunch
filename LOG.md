@@ -44,11 +44,20 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.1] «
 
-- 'wire-up Twitter + Facebook share buttons'
+- 'fix create player salary calc bug'
+- 'remove create-player firstname requirement'
 - 'wire-up create-player add salary row button'
 - 'pre-cache team + player images on select/hover'
+- 'add data event to trades drop-area'
+- 'add active state to add player/salary plus button'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'distill grid/tile template + render logic'
-- 'onMouseLeave menu/grid remove all active item classes'
+- 'fix React props mutation warnings/issues'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'add special teams alt-grids (PP1+2/PK1+2)'
+- 'add IR + Pressbox alt-lines'
+- 'share roster close button'
+- 'share roster text-only output'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade summary button/view layout + logic'
 - 'next/new feature user voting'
@@ -59,26 +68,23 @@
 - 'trade player assets / draft picks layout + logic'
 - 'scrape team draft pick data'
 - 'free agents panel + logic'
-- 'payroll settings: show/apply user transactions'
+- 'payroll: show/apply user transactions settings'
 - 'editable player tile info (salary) + add to LTIR button'
-- 'add special teams alt-grids (PP1+2/PK1+2)'
-- 'add IR + Pressbox alt-lines'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'gulp asset management + optimization (fonts, images)'
 - 'player image CDN (uptime/redundancy/speed)'
 - 'SEO friendly ReactJS SSR markup'
-- 'fix React props mutation warnings/issues'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'share roster user submission delay + spam protection'
-- 'share roster text-only output'
 - 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
 - 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
-- 'remove create-player lastname requirement'
+- 'wire-up Twitter + Facebook share buttons'
 - 'upgrade app data + upgrade Mongolab'
 
 
 #### READY
 
+- 'cleanup player-list layout'
+- 'fix player-list mouse-leave sticking-hover issue'
 - 'upgrade Heroku + setup server monitoring'
 - 'logic + layout refresh (details in LOG.md) [v0.9.0]'
 - 'add google analytics script'

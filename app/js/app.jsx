@@ -742,7 +742,7 @@ var App = React.createClass({
       }
     },
     handleMouseUp: function(e) {
-      e.currentTarget.className = 'item';
+      e.currentTarget.className = 'item hover';
       this.highlightGrid('off');
     },
     handleDragStart: function(e) {
