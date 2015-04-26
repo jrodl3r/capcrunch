@@ -45,7 +45,6 @@ if (env === 'development') {
 
 if (env === 'production') {
   app.use(auth.connect(admin));
-  app.use(compression());
   app.get('/', function(req, res) {
     console.log('User Connected [' + req.user + '] (' + moment.tz(timezone).format(timestamp) + ')');
     res.sendFile(path.join(__dirname, '/public/index.html'));
@@ -62,6 +61,7 @@ if (env === 'production') {
     res.sendFile(path.join(__dirname, '/public/index.html'));
   });
 }
+app.use(compression());
 app.use('/', express.static(path.join(__dirname, '/public')));
 app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
