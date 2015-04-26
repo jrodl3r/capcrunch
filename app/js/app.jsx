@@ -688,11 +688,11 @@ var App = React.createClass({
     },
     highlightGrid: function(flag, type, pos) {
       if (flag === 'on') {
-        if (type === 'forwards' || pos && /LW|C|RW/.test(pos)) {
+        if (type === 'forwards' || pos && (pos === 'LW' || pos === 'C' || pos === 'RW')) {
           document.getElementById('forwards').className = 'grid dragging';
-        } else if (type === 'defensemen' || pos && /D/.test(pos)) {
+        } else if (type === 'defensemen' || pos && pos === 'D') {
           document.getElementById('defense').className = 'grid defense dragging';
-        } else if (type === 'goaltenders' || pos && /G/.test(pos)) {
+        } else if (type === 'goaltenders' || pos && pos === 'G') {
           document.getElementById('goalies').className = 'grid defense dragging';
         } else {
           document.getElementById('forwards').className = 'grid dragging';
