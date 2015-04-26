@@ -47,7 +47,7 @@ var CreatePlayer = React.createClass({
           document.getElementById('create-player-salary-duration').selectedIndex = 0;
           document.getElementById('create-player-msg').innerText = this.props.messages.heading;
           document.getElementById('create-player-confirm').className = 'transaction-confirm';
-        }.bind(this), 2000);
+        }.bind(this), 1000);
       } else if (!playerData.lastname) {
         document.getElementById('create-player-lname').className = 'missing';
         document.getElementById('create-player-lname').focus();

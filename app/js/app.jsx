@@ -126,7 +126,7 @@ var App = React.createClass({
             this.resetTradeData();
             this.hideLoading();
           });
-        }.bind(this), 600);
+        }.bind(this), 300);
       } else { this.showNotification('error', 'Sorry, There was an error loading that team.'); }
     },
     loadPlayerData: function(team_id, data) {
@@ -384,7 +384,7 @@ var App = React.createClass({
             document.getElementById('trade-player-msg').innerText = this.props.messages.trade_players_heading;
             document.getElementById('trade-player-confirm').className = 'transaction-confirm';
             this.hideLoading();
-          }.bind(this), 2000);
+          }.bind(this), 1000);
         });
       });
     },
@@ -532,7 +532,7 @@ var App = React.createClass({
       setTimeout(function() {
         this.setState(updateCreatePlayers);
         this.hideLoading();
-      }.bind(this), 2000);
+      }.bind(this), 1000);
     },
 
 
