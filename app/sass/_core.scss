@@ -101,7 +101,6 @@ a, button, input, select {
 // --------------------------------------------------
 
 #unsupported {
-  display: none;
   position: absolute;
   z-index: 99;
   top: 0;
@@ -115,9 +114,9 @@ a, button, input, select {
   text-align: center;
   text-shadow: 0 2px 15px rgba(0,0,0, .95);
 
-  .logo {
-    width: 280px;
-    margin: 12% auto;
+  img {
+    width: 300px;
+    margin: 85px auto 65px;
   }
 
   p {

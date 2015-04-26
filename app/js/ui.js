@@ -39,8 +39,8 @@ var UI = {
           device.match(/iphone/i) || device.match(/ipad/i) || device.match(/ipod/i) || device.match(/blackberry/i) || device.match(/bada/i));
     if (isTouch) {
       $('#app, header, footer').css('display', 'none');
-      $('#unsupported').css('display', 'block');
       $('body').addClass('unsupported');
+      $('#main').append('<div id="unsupported"><img className="logo" src="img/logo.min.svg"/><p>Mobile Version Coming Soon...</p></div>');
     }
   },
 

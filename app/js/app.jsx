@@ -856,7 +856,6 @@ var App = React.createClass({
                 onPlayerDragEnd={this.handlePlayerDragEnd} />
             </div>
           </div>
-          <div id="unsupported"><img className="logo" src="img/logo.min.svg"/><p>Mobile Version Coming Soon...</p></div>
           <footer>CapCrunch <span className="version">v0.9.1</span></footer>
         </div>
       );
