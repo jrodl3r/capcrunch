@@ -6,6 +6,7 @@
 }
 
 html {
+  height: 100%;
   background-color: #15161A;
   background-image: url(../img/dark-bg.jpg);
   background-attachment: fixed;
@@ -20,11 +21,8 @@ html {
   }
 }
 
-body, html {
-  height: 100%;
-}
-
 body {
+  height: 100%;
   min-width: $page-width;
   font-family: $font-family;
   -webkit-font-smoothing: antialiased;
@@ -75,7 +73,6 @@ a, button, input, select {
   width: 100%;
   margin-bottom: -$footer-height;
   overflow: hidden;
-  transform: translateZ(0);
 
   &:after {
     content: "";

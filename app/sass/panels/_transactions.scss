@@ -8,6 +8,7 @@
     height: $transactions-menu-height;
     width: 300px;
     margin-left: 1px;
+    transition: .3s;
 
     li {
       float: left;
@@ -58,7 +59,6 @@
     max-height: initial;
     width: 300px;
     background: rgba(255,255,255, .05);
-    transform: translateZ(0);
     transition: .4s;
 
     &.inactive {
@@ -116,7 +116,6 @@
       position: relative;
       height: 100%;
       max-height: none;
-      transform: translateZ(0);
 
       p {
         margin: 15px 0;
@@ -170,10 +169,6 @@
       color: #000;
       background: #AAA;
       box-shadow: 0 0 10px rgba(255,255,255, .5);
-
-      /* &::placeholder {
-        color: #EEE;
-      } */
     }
   }
 
@@ -264,7 +259,6 @@
     overflow: hidden;
     background: rgba(23,24,25, .95);
     box-shadow: 0 0 150px 0 rgba(0,0,0, .35) inset;
-    transform: translateZ(0);
     transition: .4s;
 
     &.active {
@@ -361,7 +355,6 @@
     height: $trade-breakdown-height;
     width: 270px;
     margin-left: 15px;
-    transform: translateZ(0);
     transition: .4s;
   }
 
@@ -400,7 +393,6 @@
     border-radius: $border-radius;
     box-shadow: 0 0 30px rgba(255,255,255, .03) inset;
     overflow: hidden;
-    transform: translateZ(0);
     transition: .4s;
 
     &:first-of-type {
@@ -425,7 +417,6 @@
       border-radius: $border-radius;
       opacity: 0;
       overflow: hidden;
-      transform: translateZ(0);
       transition: opacity .2s, height .3s;
 
       &.active {
@@ -498,7 +489,6 @@
     text-align: center;
     background: none;
     opacity: 1;
-    transform: translateZ(0);
     transition: .4s;
   }
 

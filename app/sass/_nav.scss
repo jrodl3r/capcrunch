@@ -11,8 +11,6 @@ header {
   width: 100%;
   min-width: $page-width;
   margin: 0 auto;
-  color: #FFF;
-  background: #000;
 
   .inner {
     position: relative;
@@ -86,7 +84,6 @@ header {
     line-height: 30px;
     text-align: right;
 
-
     ul {
       float: right;
     }
@@ -153,18 +150,9 @@ header {
       &.active {
         opacity: .35;
       }
-
-      i {
-        position: relative;
-        top: -3px;
-        right: -2px;
-        transform: rotate(-35deg);
-        font-size: 13px;
-      }
     }
   }
 }
-
 
 footer {
   height: 30px;
