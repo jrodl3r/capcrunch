@@ -23,7 +23,7 @@
   transform: translate(0, 0);
 }
 // makes the font 33% larger relative to the icon container
-.fa-lg {
+/*.fa-lg {
   font-size: 1.33333333em;
   line-height: 0.75em;
   vertical-align: -15%;
@@ -78,15 +78,15 @@
 }
 .fa.pull-right {
   margin-left: .3em;
-}
+}*/
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
 }
-.fa-pulse {
+/*.fa-pulse {
   -webkit-animation: fa-spin 1s infinite steps(8);
   animation: fa-spin 1s infinite steps(8);
-}
+}*/
 @-webkit-keyframes fa-spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -107,7 +107,7 @@
     transform: rotate(359deg);
   }
 }
-.fa-rotate-90 {
+/*.fa-rotate-90 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1798,4 +1798,105 @@
 }
 .fa-medium:before {
   content: "\f23a";
+}*/
+
+.fa-suitcase:before {
+  content: "\f0f2";
+}
+.fa-heartbeat:before {
+  content: "\f21e";
+}
+.fa-thumbs-o-up:before {
+  content: "\f087";
+}
+.fa-thumbs-o-down:before {
+  content: "\f088";
+}
+.fa-angellist:before {
+  content: "\f209";
+}
+.fa-money:before {
+  content: "\f0d6";
+}
+.fa-plane:before {
+  content: "\f072";
+}
+.fa-gear:before,
+.fa-cog:before {
+  content: "\f013";
+}
+.fa-gears:before,
+.fa-cogs:before {
+  content: "\f085";
+}
+.fa-remove:before,
+.fa-close:before,
+.fa-times:before {
+  content: "\f00d";
+}
+.fa-plus:before {
+  content: "\f067";
+}
+.fa-minus:before {
+  content: "\f068";
+}
+.fa-asterisk:before {
+  content: "\f069";
+}
+.fa-magic:before {
+  content: "\f0d0";
+}
+.fa-trash-o:before {
+  content: "\f014";
+}
+.fa-trash:before {
+  content: "\f1f8";
+}
+.fa-angle-double-left:before {
+  content: "\f100";
+}
+.fa-angle-double-right:before {
+  content: "\f101";
+}
+.fa-angle-double-up:before {
+  content: "\f102";
+}
+.fa-angle-double-down:before {
+  content: "\f103";
+}
+.fa-angle-left:before {
+  content: "\f104";
+}
+.fa-angle-right:before {
+  content: "\f105";
+}
+.fa-angle-up:before {
+  content: "\f106";
+}
+.fa-angle-down:before {
+  content: "\f107";
+}
+.fa-chevron-up:before {
+  content: "\f077";
+}
+.fa-chevron-down:before {
+  content: "\f078";
+}
+.fa-rotate-left:before,
+.fa-undo:before {
+  content: "\f0e2";
+}
+.fa-twitter:before {
+  content: "\f099";
+}
+.fa-facebook-f:before,
+.fa-facebook:before {
+  content: "\f09a";
+}
+.fa-chain:before,
+.fa-link:before {
+  content: "\f0c1";
+}
+.fa-refresh:before {
+  content: "\f021";
 }
