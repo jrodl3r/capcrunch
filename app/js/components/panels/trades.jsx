@@ -235,7 +235,7 @@ var Trades = React.createClass({
               { this.props.playerData.inactive.length ? <option disabled>─ Inactive ────────</option> : null }
               {inactiveList}
             </select>
-            <a id="trade-player-add-player" className="add-button" title="Add Player"
+            <a id="trade-player-add-player" className="add-button"
               onMouseOver={this.addButtonMouseOver}
               onMouseLeave={this.addButtonMouseLeave}
               onClick={this.addPassiveTeamPlayer}>
