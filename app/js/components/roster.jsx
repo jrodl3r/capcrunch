@@ -2,6 +2,8 @@
 // ==================================================
 'use strict';
 
+var hotspot = '';
+
 var Roster = React.createClass({
     playerTile: function(grid_id) {
       var playerData  = this.props.rosterData[grid_id],
@@ -43,6 +45,12 @@ var Roster = React.createClass({
                 { playerData.actions && playerData.actions.indexOf('created') !== -1
                   ? <div className="created">C</div>
                   : null }
+                { playerData.actions && playerData.actions.indexOf('injured') !== -1
+                  ? <div className="injured">IR</div>
+                  : null }
+                { playerData.actions && playerData.actions.indexOf('benched') !== -1
+                  ? <div className="benched">PB</div>
+                  : null }
                 </div>
               </div>
               <div className="handle"></div>
@@ -66,6 +74,25 @@ var Roster = React.createClass({
     onGridDragOver: function(e) {
       e.preventDefault();
       e.dataTransfer.dropEffect = 'move';
+    },
+    onTriggerDragEnter: function(e) {
+      var target, el = e.currentTarget, id = el.className;
+      hotspot = id;
+      el.className = el.className + ' hover';
+      setTimeout(function() {
+        if (id.indexOf('disabled') === -1 && hotspot === id) {
+          target = document.getElementById(id);
+          target.className = target.className + ' active';
+          el.className = el.className + ' disabled';
+        }
+      }, 200);
+    },
+    onTriggerDragLeave: function(e) {
+      var el = e.currentTarget;
+      hotspot = '';
+      if (el.className.indexOf('hover') !== -1) {
+        el.className = el.className.replace(' hover', '');
+      }
     },
 
     render: function() {
@@ -153,6 +180,34 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">L4</div>
               </div>
+              <div id="FP" className="line pb">
+                <div className="left">
+                  {this.playerTile('FP1')}
+                </div>
+                <div className="center">
+                  {this.playerTile('FP2')}
+                </div>
+                <div className="right">
+                  {this.playerTile('FP3')}
+                </div>
+                <div className="title">PB</div>
+              </div>
+              <div id="FI" className="line ir">
+                <div className="left">
+                  {this.playerTile('FI1')}
+                </div>
+                <div className="center">
+                  {this.playerTile('FI2')}
+                </div>
+                <div className="right">
+                  {this.playerTile('FI3')}
+                </div>
+                <div className="title">IR</div>
+              </div>
+              <ul id="forwards-grid-nav" className="grid-nav">
+                <li id="FP-trigger" className="FP" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>PB</li>
+                <li id="FI-trigger" className="FI" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>IR</li>
+              </ul>
             </div>
           </div>
           <div id="defense" className="grid defense">
@@ -188,6 +243,28 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">P3</div>
               </div>
+              <div id="DP" className="line pb">
+                <div className="left">
+                  {this.playerTile('DP1')}
+                </div>
+                <div className="right">
+                  {this.playerTile('DP2')}
+                </div>
+                <div className="title">PB</div>
+              </div>
+              <div id="DI" className="line ir">
+                <div className="left">
+                  {this.playerTile('DI1')}
+                </div>
+                <div className="right">
+                  {this.playerTile('DI2')}
+                </div>
+                <div className="title">IR</div>
+              </div>
+              <ul id="defense-grid-nav" className="grid-nav">
+                <li id="DP-trigger" className="DP" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>PB</li>
+                <li id="DI-trigger" className="DI" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>IR</li>
+              </ul>
             </div>
           </div>
           <div id="goalies" className="grid defense">
@@ -202,6 +279,18 @@ var Roster = React.createClass({
                 </div>
                 <div className="title goalie">T1</div>
               </div>
+              <div id="GI" className="line ir">
+                <div className="left">
+                  {this.playerTile('GI1')}
+                </div>
+                <div className="right">
+                  {this.playerTile('GI2')}
+                </div>
+                <div className="title">IR</div>
+              </div>
+              <ul id="goalies-grid-nav" className="grid-nav">
+                <li id="GI-trigger" className="GI" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>IR</li>
+              </ul>
             </div>
           </div>
         </div>

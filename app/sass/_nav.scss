@@ -161,11 +161,15 @@ footer {
   padding-right: 10px;
   line-height: 30px;
   text-align: right;
-  color: rgba(120,120,120, .75);
+  color: rgba(120,120,120, .5);
   font-size: 10px;
   font-weight: bold;
   text-shadow: 0 0 2px rgba(0,0,0, .25);
   cursor: default;
+
+  span.cap {
+    color: rgba(130,130,130, .325);
+  }
 
   span.version {
     color: rgba(130,130,130, .75);

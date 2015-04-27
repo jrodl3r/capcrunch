@@ -40,6 +40,7 @@
 #### LATER (Features)
 
 - 'minor team roster/lineup'
+- 'special teams (PP1/PP2/PK1/PK2) layout + logic'
 - 'message-board sharing widget (dynamic image generator)'
 - 'sticky cap stats panel + payroll table headers (try cloning)'
 - 'player-list + payroll player details onHover'
@@ -67,21 +68,24 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'cap stats overage/negative cap space visual queue'
-- 'add Injured-Reserve + Press-Box optional lines layout + logic'
-- 'add special teams (PP1/PP2/PK1/PK2) layout + logic'
+- 'fix accidental IR/PB target drop bug'
+- 'add goalie PB alt line'
 - 'share roster close button'
 - 'share roster text-only output'
-- 'wire-up Twitter + Facebook share buttons'
+- 'cleanup cap stats transitions'
+- 'add error string to messages object'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade summary button/view layout + logic'
 - 'update notifications layout + logic (slide-out + fade-in)'
 - 'cleanup validation/error message display/timing consistency'
+- 'wire-up Twitter + Facebook share buttons'
 - 'upgrade app data + upgrade Mongolab'
 
 
 #### READY
 
+- 'injured-reserve + press-box lines layout + logic'
+- 'cap stats overage/negative cap space visual queue'
 - 'fix React props mutation warnings/issues'
 - 'distill roster-grid/player-tile render logic'
 - 'move player-list name formatting logic to create-player'

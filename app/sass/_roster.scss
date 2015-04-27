@@ -103,17 +103,13 @@
       background: linear-gradient(to top, rgba(136,136,136, .06) 0%, rgba(206,206,206, .06));
       box-shadow: 0 0 30px rgba(255,255,255, .09) inset, 0 0 1px 0 rgba(0,0,0, .05);
       border-radius: $border-radius;
-      transition: .3s;
-
-      &:hover .title {
-        color: #888;
-      }
 
       .left, .center, .right {
         margin-top: 5px;
         background: rgba(255,255,255, 0.1);
         border-radius: $border-radius;
         box-shadow: 0 0 70px rgba(255,255,255, .03) inset;
+        transform: translateZ(0);
       }
 
       .title {
@@ -126,6 +122,98 @@
         line-height: 70px;
         text-align: center;
       }
+
+      &.ir {
+        background: linear-gradient(to top, rgba(255,115,115, .05) 0%, rgba(255,155,155, .06));
+        box-shadow: 0 0 30px rgba(255,255,255, .025) inset, 0 0 1px 0 rgba(255,0,0, .05);
+
+        .left, .center, .right {
+          background: rgba(247,217,217, 0.07);
+          box-shadow: 0 0 70px rgba(255,0,0, .05) inset;
+        }
+
+        .title {
+          color: #805C5C;
+        }
+
+        .tile .player.active {
+          opacity: .65;
+        }
+      }
+
+      &.pb {
+        background: linear-gradient(to top, rgba(115,115,115, .05) 0%, rgba(155,155,155, .06));
+        box-shadow: 0 0 30px rgba(255,255,255, .02) inset, 0 0 1px 0 rgba(155,155,155, .045);
+
+        .left, .center, .right {
+          background: rgba(217,217,217, 0.05);
+          box-shadow: 0 0 70px rgba(155,155,155, .04) inset;
+        }
+
+        .title {
+          color: #616161;
+        }
+
+        .tile .player.active {
+          opacity: .5;
+        }
+      }
+
+      &.ir, &.pb {
+        height: 0;
+        opacity: 0;
+        margin-bottom: 0;
+        overflow: hidden;
+        transition: opacity .3s .2s, height .3s .55s, margin .3s .55s;
+
+        &.active {
+          height: 70px;
+          margin-bottom: 10px;
+          opacity: 1;
+          transition: opacity .2s .3s, height .55s, margin .55s;
+        }
+      }
+    }
+
+    .grid-nav {
+      float: left;
+      height: 24px;
+      width: 590px;
+      margin-left: 11px;
+
+      li {
+        float: right;
+        height: 24px;
+        width: 46px;
+        margin-left: 10px;
+        color: #555;
+        font-size: 11px;
+        font-weight: bold;
+        line-height: 24px;
+        text-align: center;
+        background: linear-gradient(to top, rgba(36,36,36, .06) 0%, rgba(106,106,106, .06));
+        box-shadow: 0 0 40px rgba(0,0,0, .25) inset;
+        border-radius: $border-radius;
+        opacity: 1;
+        cursor: default;
+        transition: .25s;
+
+        &.hover {
+          color: #AAA;
+          background: linear-gradient(to top, rgba(136,136,136, .1) 0%, rgba(206,206,206, .1));
+          box-shadow: 0 0 30px rgba(255,255,255, .15) inset;
+        }
+
+        &.disabled {
+          box-shadow: none;
+          opacity: 0;
+        }
+      }
+    }
+
+    &.defense .grid-nav {
+      width: 392px;
+      margin-left: 115px;
     }
   }
 }
@@ -470,7 +558,7 @@
 
       .salary, .status {
         float: left;
-        width: 66px;
+        width: 46px;
         padding-left: 2px;
         padding-top: 5px;
         color: #5D5E5E;
@@ -483,7 +571,7 @@
       .status {
         float: left;
         height: 20px;
-        width: 46px;
+        width: 66px;
         padding-left: 0;
         padding-right: 2px;
         text-align: right;
@@ -492,6 +580,7 @@
           float: right;
           height: 13px;
           width: 13px;
+          margin-left: 5px;
           color: #CCC;
           font-size: 7px;
           font-weight: 600;
@@ -499,12 +588,22 @@
           text-align: center;
           background: #117C1B;
           border-radius: 50%;
-          opacity: 0.5;
+          opacity: .5;
         }
 
         .acquired {
           color: #BBB;
           background: #1E44A2;
+        }
+
+        .injured {
+          color: #E09191;
+          background: #A01313;
+        }
+
+        .benched {
+          color: #999;
+          background: #323232;
         }
       }
     }

@@ -16,7 +16,7 @@ var TeamMenu = React.createClass({
       return (
         <header>
           <div className="inner">
-            <div className="beta-tag">beta <span className="version">0.9.0</span></div>
+            <div className="beta-tag">beta <span className="version">0.9.2</span></div>
             <img className="logo" src="img/logo.min.svg"/>
             <div id="notify"></div>
             <nav id="team-menu">
