@@ -45,6 +45,7 @@
 - 'sticky cap stats panel + payroll table headers (try cloning)'
 - 'player-list + payroll player details onHover'
 - 'wire-up create-player add salary row button'
+- 'scroll player group into view on item drag-start (if not fully visible)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'free agents panel + logic'
 - 'payroll: show/apply user transactions settings'
@@ -68,12 +69,14 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
+- 'remove bench references from remove player process'
+- 'cleanup shared-roster alt-line loading transitions'
 - 'fix accidental IR/PB target drop bug'
-- 'add goalie PB alt line'
 - 'share roster close button'
 - 'share roster text-only output'
 - 'cleanup cap stats transitions'
 - 'add error string to messages object'
+- 'add full screen team-select splash intro'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade summary button/view layout + logic'
 - 'update notifications layout + logic (slide-out + fade-in)'
@@ -84,6 +87,7 @@
 
 #### READY
 
+- 'add goalie BN alt line'
 - 'injured-reserve + press-box lines layout + logic'
 - 'cap stats overage/negative cap space visual queue'
 - 'fix React props mutation warnings/issues'

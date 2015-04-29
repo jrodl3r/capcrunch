@@ -135,13 +135,9 @@
         .title {
           color: #805C5C;
         }
-
-        .tile .player.active {
-          opacity: .65;
-        }
       }
 
-      &.pb {
+      &.bench {
         background: linear-gradient(to top, rgba(115,115,115, .05) 0%, rgba(155,155,155, .06));
         box-shadow: 0 0 30px rgba(255,255,255, .02) inset, 0 0 1px 0 rgba(155,155,155, .045);
 
@@ -153,13 +149,9 @@
         .title {
           color: #616161;
         }
-
-        .tile .player.active {
-          opacity: .5;
-        }
       }
 
-      &.ir, &.pb {
+      &.ir, &.bench {
         height: 0;
         opacity: 0;
         margin-bottom: 0;
@@ -171,6 +163,10 @@
           margin-bottom: 10px;
           opacity: 1;
           transition: opacity .2s .3s, height .55s, margin .55s;
+        }
+
+        .tile .player.active {
+          opacity: .65;
         }
       }
     }
@@ -490,6 +486,7 @@
 
     .cover {
       position: absolute;
+      z-index: 2;
       top: 0;
       right: 0;
       bottom: 0;
@@ -585,6 +582,7 @@
           font-size: 7px;
           font-weight: 600;
           line-height: 13px;
+          text-indent: 1px;
           text-align: center;
           background: #117C1B;
           border-radius: 50%;

@@ -33,15 +33,16 @@ var App = React.createClass({
              F2L  : { status : 'empty' }, F2C : { status : 'empty' }, F2R : { status : 'empty' },
              F3L  : { status : 'empty' }, F3C : { status : 'empty' }, F3R : { status : 'empty' },
              F4L  : { status : 'empty' }, F4C : { status : 'empty' }, F4R : { status : 'empty' },
-             FI1  : { status : 'empty' }, FI2 : { status : 'empty' }, FI3 : { status : 'empty' },
-             FP1  : { status : 'empty' }, FP2 : { status : 'empty' }, FP3 : { status : 'empty' },
+             FB1  : { status : 'empty' }, FB2 : { status : 'empty' }, FB3 : { status : 'empty' },
+             FR1  : { status : 'empty' }, FR2 : { status : 'empty' }, FR3 : { status : 'empty' },
              D1L  : { status : 'empty' }, D1R : { status : 'empty' },
              D2L  : { status : 'empty' }, D2R : { status : 'empty' },
              D3L  : { status : 'empty' }, D3R : { status : 'empty' },
-             DI1  : { status : 'empty' }, DI2 : { status : 'empty' },
-             DP1  : { status : 'empty' }, DP2 : { status : 'empty' },
+             DB1  : { status : 'empty' }, DB2 : { status : 'empty' },
+             DR1  : { status : 'empty' }, DR2 : { status : 'empty' },
              G1L  : { status : 'empty' }, G1R : { status : 'empty' },
-             GI1  : { status : 'empty' }, GI2 : { status : 'empty' }
+             GB1  : { status : 'empty' }, GB2 : { status : 'empty' },
+             GR1  : { status : 'empty' }, GR2 : { status : 'empty' }
       },
       teamData    : {
         id        : '',
@@ -633,7 +634,7 @@ var App = React.createClass({
   },
 
 
-// Bench/Remove Player
+// Bench/Remove Player TODO
 // --------------------------------------------------
 
   showPlayerBench: function() {
@@ -724,11 +725,12 @@ var App = React.createClass({
 
   checkEmptyAltLines: function() {
     var rosterData = this.state.rosterData;
-    if (rosterData.FI1.status === 'empty' && rosterData.FI2.status === 'empty' && rosterData.FI3.status === 'empty') { this.hideAltLine('FI'); }
-    if (rosterData.FP1.status === 'empty' && rosterData.FP2.status === 'empty' && rosterData.FP3.status === 'empty') { this.hideAltLine('FP'); }
-    if (rosterData.DI1.status === 'empty' && rosterData.DI2.status === 'empty') { this.hideAltLine('DI'); }
-    if (rosterData.DP1.status === 'empty' && rosterData.DP2.status === 'empty') { this.hideAltLine('DP'); }
-    if (rosterData.GI1.status === 'empty' && rosterData.GI2.status === 'empty') { this.hideAltLine('GI'); }
+    if (rosterData.FB1.status === 'empty' && rosterData.FB2.status === 'empty' && rosterData.FB3.status === 'empty') { this.hideAltLine('FB'); }
+    if (rosterData.FR1.status === 'empty' && rosterData.FR2.status === 'empty' && rosterData.FR3.status === 'empty') { this.hideAltLine('FR'); }
+    if (rosterData.DB1.status === 'empty' && rosterData.DB2.status === 'empty') { this.hideAltLine('DB'); }
+    if (rosterData.DR1.status === 'empty' && rosterData.DR2.status === 'empty') { this.hideAltLine('DR'); }
+    if (rosterData.GB1.status === 'empty' && rosterData.GB2.status === 'empty') { this.hideAltLine('GB'); }
+    if (rosterData.GR1.status === 'empty' && rosterData.GR2.status === 'empty') { this.hideAltLine('GR'); }
   },
   hideAltLine: function(id) {
     var line    = document.getElementById(id),
@@ -737,22 +739,23 @@ var App = React.createClass({
     trigger.className = trigger.className.replace(' disabled', '');
   },
   checkActiveAltLines: function(data) {
-    if (data.FI1.status !== 'empty' || data.FI2.status !== 'empty' || data.FI3.status !== 'empty') { this.showAltLine('FI'); }
-    if (data.FP1.status !== 'empty' || data.FP2.status !== 'empty' || data.FP3.status !== 'empty') { this.showAltLine('FP'); }
-    if (data.DI1.status !== 'empty' || data.DI2.status !== 'empty') { this.showAltLine('DI'); }
-    if (data.DP1.status !== 'empty' || data.DP2.status !== 'empty') { this.showAltLine('DP'); }
-    if (data.GI1.status !== 'empty' || data.GI2.status !== 'empty') { this.showAltLine('GI'); }
+    if (data.FB1.status !== 'empty' || data.FB2.status !== 'empty' || data.FB3.status !== 'empty') { this.showAltLine('FB'); }
+    if (data.FR1.status !== 'empty' || data.FR2.status !== 'empty' || data.FR3.status !== 'empty') { this.showAltLine('FR'); }
+    if (data.DB1.status !== 'empty' || data.DB2.status !== 'empty') { this.showAltLine('DB'); }
+    if (data.DR1.status !== 'empty' || data.DR2.status !== 'empty') { this.showAltLine('DR'); }
+    if (data.GB1.status !== 'empty' || data.GB2.status !== 'empty') { this.showAltLine('GB'); }
+    if (data.GR1.status !== 'empty' || data.GR2.status !== 'empty') { this.showAltLine('GR'); }
   },
   showAltLine: function(id) {
     var line = document.getElementById(id);
     line.className = line.className + ' active';
   },
   checkAltTiles: function(tile_id) {
-    var ir_tiles = ['FI1', 'FI2', 'FI3', 'DI1', 'DI2', 'GI1', 'GI2'],
-        pb_tiles = ['FP1', 'FP2', 'FP3', 'DP1', 'DP2'];
-    if (ir_tiles.indexOf(tile_id) !== -1) {
+    var injured_tiles = ['FR1', 'FR2', 'FR3', 'DR1', 'DR2', 'GR1', 'GR2'],
+        benched_tiles = ['FB1', 'FB2', 'FB3', 'DB1', 'DB2', 'GB1', 'GB2'];
+    if (injured_tiles.indexOf(tile_id) !== -1) {
       return 'injured';
-    } else if (pb_tiles.indexOf(tile_id) !== -1) {
+    } else if (benched_tiles.indexOf(tile_id) !== -1) {
       return 'benched';
     }
     return false;
