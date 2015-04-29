@@ -64,7 +64,7 @@ var App = React.createClass({
   },
   getDefaultProps: function() {
     return {
-      benchPlayer    : false,
+      removePlayer    : false,
       addTradePlayer : false,
       messages       : {
         trade_players_heading : 'Execute a blockbuster trade for your team:',
@@ -462,7 +462,7 @@ var App = React.createClass({
   },
   handleTradeDragEnter: function(e) {
     this.props.addTradePlayer = true;
-    this.props.benchPlayer = false;
+    this.props.removePlayer = false;
     if (this.state.activeTrade.active.id_list.length) {
       e.currentTarget.parentNode.className = 'active hover';
     } else {
@@ -577,6 +577,9 @@ var App = React.createClass({
     e.dataTransfer.setData('text', dragItem.id);
     dropZoneData.last = '';
   },
+  handleDragEnter: function() {
+    this.props.addTradePlayer = false;
+  },
   handleDragEnd: function(e) {
     var dragItem   = e.currentTarget,
         dropZone   = dropZoneData.cur,
@@ -634,22 +637,22 @@ var App = React.createClass({
   },
 
 
-// Bench/Remove Player TODO
+// Remove Player
 // --------------------------------------------------
 
-  showPlayerBench: function() {
-    document.getElementById('menu').className = 'section active show-bench';
+  showRemovePlayer: function() {
+    document.getElementById('menu').className = 'section active show-remove-player';
   },
-  hidePlayerBench: function() {
+  hideRemovePlayer: function() {
     document.getElementById('menu').className = 'section active';
   },
-  handleBenchDragEnter: function(e) {
-    this.props.benchPlayer = true;
+  handleRemoveDragEnter: function(e) {
+    this.props.removePlayer = true;
     this.props.addTradePlayer = false;
-    e.currentTarget.parentNode.className = 'bench-player hover';
+    e.currentTarget.parentNode.className = 'remove-player hover';
   },
-  handleBenchDragLeave: function(e) {
-    e.currentTarget.parentNode.className = 'bench-player';
+  handleRemoveDragLeave: function(e) {
+    e.currentTarget.parentNode.className = 'remove-player';
   },
 
 
@@ -698,7 +701,7 @@ var App = React.createClass({
     if (dropZoneData.cur) {
       dropZoneData.last = '';
     }
-    this.props.benchPlayer = false;
+    this.props.removePlayer = false;
     this.props.addTradePlayer = false;
   },
   handleTileDragEnter: function(e) {
@@ -709,7 +712,7 @@ var App = React.createClass({
       dropZoneData.cur = dropZone;
     }
     dropZoneData.last = dropZone.id;
-    this.props.benchPlayer = false;
+    this.props.removePlayer = false;
     this.props.addTradePlayer = false;
   },
   handleTileDragLeave: function(e) {
@@ -736,6 +739,7 @@ var App = React.createClass({
     var line    = document.getElementById(id),
         trigger = document.getElementById(id + '-trigger');
     line.className = line.className.replace(' active', '');
+    line.className = line.className.replace(' show', '');
     trigger.className = trigger.className.replace(' disabled', '');
   },
   checkActiveAltLines: function(data) {
@@ -747,15 +751,17 @@ var App = React.createClass({
     if (data.GR1.status !== 'empty' || data.GR2.status !== 'empty') { this.showAltLine('GR'); }
   },
   showAltLine: function(id) {
-    var line = document.getElementById(id);
-    line.className = line.className + ' active';
+    var line = document.getElementById(id),
+        trigger = document.getElementById(id + '-trigger');
+    line.className = line.className + ' show';
+    trigger.className = trigger.className + ' disabled';
   },
   checkAltTiles: function(tile_id) {
     var injured_tiles = ['FR1', 'FR2', 'FR3', 'DR1', 'DR2', 'GR1', 'GR2'],
         benched_tiles = ['FB1', 'FB2', 'FB3', 'DB1', 'DB2', 'GB1', 'GB2'];
-    if (injured_tiles.indexOf(tile_id) !== -1) {
+    if (tile_id && injured_tiles.indexOf(tile_id) !== -1) {
       return 'injured';
-    } else if (benched_tiles.indexOf(tile_id) !== -1) {
+    } else if (tile_id && benched_tiles.indexOf(tile_id) !== -1) {
       return 'benched';
     }
     return false;
@@ -779,13 +785,13 @@ var App = React.createClass({
     var playerItem = this.state.rosterData[e.currentTarget.parentNode.id];
     e.currentTarget.className = 'player active clicked';
     this.highlightGrid('on', playerItem.type, playerItem.position);
-    this.showPlayerBench();
+    this.showRemovePlayer();
   },
   handlePlayerMouseUp: function(e) {
     e.currentTarget.className = 'player active';
     e.currentTarget.parentNode.className = 'tile active';
     this.highlightGrid('off');
-    this.hidePlayerBench();
+    this.hideRemovePlayer();
   },
   handlePlayerDragStart: function(e) {
     var playerItem = e.currentTarget,
@@ -794,7 +800,7 @@ var App = React.createClass({
     e.dataTransfer.setData('text', playerItem.id);
     dropZoneData.origin = playerItem.parentNode;
     dropZoneData.origin.className = 'tile active engaged';
-    this.props.benchPlayer = false;
+    this.props.removePlayer = false;
     this.props.addTradePlayer = false;
     this.setState({ curDragPlayer : playerData, dragging : true });
   },
@@ -805,12 +811,12 @@ var App = React.createClass({
         curDragPlayer    = this.state.curDragPlayer,
         dropZone         = dropZoneData.cur,
         originDropZoneId = dropZoneData.origin.id,
-        altLineType      = this.checkAltTiles(dropZone.id),
+        altLineType      = this.checkAltTiles(dropZone ? dropZone.id : false),
         actions          = rosterData[originDropZoneId].actions,
         updateRosterData, capData, index;
 
-    // Bench Player
-    if (this.props.benchPlayer) {
+    // Remove Player
+    if (this.props.removePlayer) {
       capData = this.updateCapStats('remove', rosterData[originDropZoneId].contract[0]);
       index   = activePlayers.indexOf(rosterData[originDropZoneId].id);
       if (actions) {
@@ -914,11 +920,11 @@ var App = React.createClass({
       this.setState({ dragging : false });
     }
     dropZoneData.origin = null;
-    this.props.benchPlayer = false;
+    this.props.removePlayer = false;
     this.props.addTradePlayer = false;
     this.highlightGrid('off');
     this.checkEmptyAltLines();
-    this.hidePlayerBench();
+    this.hideRemovePlayer();
   },
 
 
@@ -944,8 +950,9 @@ var App = React.createClass({
               onMouseUp={this.handleMouseUp}
               onDragStart={this.handleDragStart}
               onDragEnd={this.handleDragEnd}
-              onBenchDragEnter={this.handleBenchDragEnter}
-              onBenchDragLeave={this.handleBenchDragLeave}
+              onDragEnter={this.handleDragEnter}
+              onRemoveDragEnter={this.handleRemoveDragEnter}
+              onRemoveDragLeave={this.handleRemoveDragLeave}
               onTradeDragEnter={this.handleTradeDragEnter}
               onTradeDragLeave={this.handleTradeDragLeave}
               onCreatePlayer={this.handleCreatePlayer}

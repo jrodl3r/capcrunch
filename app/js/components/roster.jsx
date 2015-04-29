@@ -67,9 +67,9 @@ var Roster = React.createClass({
       e.preventDefault();
       return false;
     },
-    hidePlayerBench: function() {
+    hideRemovePlayer: function() {
       var menu = document.getElementById('menu');
-      menu.className = menu.className.replace(' show-bench', '');
+      menu.className = menu.className.replace(' show-remove-player', '');
     },
     onGridDragOver: function(e) {
       e.preventDefault();
@@ -98,7 +98,7 @@ var Roster = React.createClass({
     render: function() {
       return (
         <div id="roster" className="section active"
-          onMouseUp={this.hidePlayerBench}
+          onMouseUp={this.hideRemovePlayer}
           onDragEnter={this.props.onGridDragEnter}
           onDragOver={this.onGridDragOver}>
           <div id="roster-stats" className={ this.props.activePlayers.length ? 'cap-stats active' : 'cap-stats' }>

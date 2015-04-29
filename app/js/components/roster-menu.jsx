@@ -22,8 +22,9 @@ var RosterMenu = React.createClass({
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd}
-            handleBenchDragEnter={this.props.onBenchDragEnter}
-            handleBenchDragLeave={this.props.onBenchDragLeave} />
+            handleDragEnter={this.props.onDragEnter}
+            handleRemoveDragEnter={this.props.onRemoveDragEnter}
+            handleRemoveDragLeave={this.props.onRemoveDragLeave} />
           <PlayersPanel playerType="defensemen" panelTitle="Defense" panelId="defense-list"
             playerData={this.props.teamData.players}
             activePlayers={this.props.activePlayers}
@@ -32,8 +33,9 @@ var RosterMenu = React.createClass({
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd}
-            handleBenchDragEnter={this.props.onBenchDragEnter}
-            handleBenchDragLeave={this.props.onBenchDragLeave} />
+            handleDragEnter={this.props.onDragEnter}
+            handleRemoveDragEnter={this.props.onRemoveDragEnter}
+            handleRemoveDragLeave={this.props.onRemoveDragLeave} />
           <PlayersPanel playerType="goaltenders" panelTitle="Goalies" panelId="goalies-list"
             playerData={this.props.teamData.players}
             activePlayers={this.props.activePlayers}
@@ -42,8 +44,9 @@ var RosterMenu = React.createClass({
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd}
-            handleBenchDragEnter={this.props.onBenchDragEnter}
-            handleBenchDragLeave={this.props.onBenchDragLeave} />
+            handleDragEnter={this.props.onDragEnter}
+            handleRemoveDragEnter={this.props.onRemoveDragEnter}
+            handleRemoveDragLeave={this.props.onRemoveDragLeave} />
           <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
             playerData={this.props.teamData.players}
             activePlayers={this.props.activePlayers}
@@ -52,8 +55,9 @@ var RosterMenu = React.createClass({
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
             handleDragEnd={this.props.onDragEnd}
-            handleBenchDragEnter={this.props.onBenchDragEnter}
-            handleBenchDragLeave={this.props.onBenchDragLeave} />
+            handleDragEnter={this.props.onDragEnter}
+            handleRemoveDragEnter={this.props.onRemoveDragEnter}
+            handleRemoveDragLeave={this.props.onRemoveDragLeave} />
           <TransactionsPanel
             playerData={this.props.playerData}
             activeTeam={this.props.activeTeam}

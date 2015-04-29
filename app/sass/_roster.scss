@@ -158,11 +158,15 @@
         overflow: hidden;
         transition: opacity .3s .2s, height .3s .55s, margin .3s .55s;
 
-        &.active {
+        &.active, &.show {
           height: 70px;
           margin-bottom: 10px;
           opacity: 1;
           transition: opacity .2s .3s, height .55s, margin .55s;
+        }
+
+        &.show {
+          transition: 0s;
         }
 
         .tile .player.active {

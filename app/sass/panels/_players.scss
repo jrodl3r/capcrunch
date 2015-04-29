@@ -281,10 +281,10 @@
 }
 
 
-// Bench / Remove Player
+// Remove Player
 // --------------------------------------------------
 
-.bench-player {
+.remove-player {
   position: absolute;
   top: 33px;
   height: 0;
@@ -310,7 +310,7 @@
     box-shadow: 0 0 200px 0 rgba(0,0,0, .7) inset;
   }
 
-  .show-bench & {
+  .show-remove-player & {
     z-index: 3;
     height: 166px;
     opacity: 1;
@@ -321,7 +321,7 @@
     height: 0;
     line-height: 95px;
 
-    .show-bench & {
+    .show-remove-player & {
       height: 101px;
     }
   }

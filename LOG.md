@@ -46,6 +46,7 @@
 - 'player-list + payroll player details onHover'
 - 'wire-up create-player add salary row button'
 - 'scroll player group into view on item drag-start (if not fully visible)'
+- 'scroll player list into view on scroll-end (if related player group focused)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'free agents panel + logic'
 - 'payroll: show/apply user transactions settings'
@@ -69,7 +70,6 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'remove bench references from remove player process'
 - 'cleanup shared-roster alt-line loading transitions'
 - 'fix accidental IR/PB target drop bug'
 - 'share roster close button'
@@ -87,6 +87,7 @@
 
 #### READY
 
+- 'remove bench references from remove player process'
 - 'add goalie BN alt line'
 - 'injured-reserve + press-box lines layout + logic'
 - 'cap stats overage/negative cap space visual queue'

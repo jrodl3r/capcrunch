@@ -112,7 +112,7 @@ var PlayersPanel = React.createClass({
             </a>
           </div>
       { playerItems.length
-        ? <div className="inner" onDragOver={this.onDragOver}>
+        ? <div className="inner" onDragOver={this.onDragOver} onDragEnter={this.props.handleDragEnter}>
           { isActive
             ? <ul>{playerItems}</ul>
             : <ul>
@@ -123,11 +123,11 @@ var PlayersPanel = React.createClass({
         : <div className="inner">
             <div className="team-select-reminder"></div>
           </div> }
-          <div className="bench-player" onDragOver={this.onDragOver}>
-            <i className="fa fa-rotate-left"></i> Bench / Remove
+          <div className="remove-player" onDragOver={this.onDragOver}>
+            <i className="fa fa-rotate-left"></i> Remove Player
             <div className="cover"
-              onDragEnter={this.props.handleBenchDragEnter}
-              onDragLeave={this.props.handleBenchDragLeave}>
+              onDragEnter={this.props.handleRemoveDragEnter}
+              onDragLeave={this.props.handleRemoveDragLeave}>
             </div>
           </div>
           <div className="loading-list">
