@@ -11,7 +11,8 @@ var TeamMenu    = require('./components/team-menu.jsx'),
 var dropZoneData = {
     last   : '',
     cur    : null,
-    origin : null
+    origin : null,
+    alt    : { cur : '', last : '' }
   };
 
 var App = React.createClass({
@@ -64,9 +65,10 @@ var App = React.createClass({
   },
   getDefaultProps: function() {
     return {
-      removePlayer    : false,
-      addTradePlayer : false,
-      messages       : {
+      removePlayer     : false,
+      addTradePlayer   : false,
+      addAltLinePlayer : false,
+      messages         : {
         trade_players_heading : 'Execute a blockbuster trade for your team:',
         trade_players_max     : 'Five players per team trade maximum...',
         trade_players_oneway  : 'One-way trades only...',
@@ -584,10 +586,10 @@ var App = React.createClass({
     var dragItem   = e.currentTarget,
         dropZone   = dropZoneData.cur,
         playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index],
-        rosterData, updateRosterData, capData;
+        rosterData, updateRosterData, capData, trigger,
+        altLine, altLineId, altLineTileId, altLineType;
 
     // Trade Player
-    // TODO: Block Acquired Players
     if (this.props.addTradePlayer) {
       if (playerData.team !== this.state.activeTeam ||
           this.state.activeTrade.active.id_list.length === 5 ||
@@ -607,11 +609,32 @@ var App = React.createClass({
         this.handleAddTradePlayer('active', playerData);
       }
 
+    // Add Alt-Line Player
+    } else if (this.props.addAltLinePlayer) {
+      altLineId = dropZoneData.alt.last;
+      altLine = document.getElementById(altLineId);
+      altLine.className = altLine.className + ' active';
+      altLineTileId = altLineId + '1';
+      altLineType = this.checkAltTiles(altLineTileId);
+      dragItem.className = 'item';
+      if (playerData.actions) { playerData.actions.push(altLineType); }
+      else { playerData.actions = [altLineType]; }
+      rosterData = this.state.rosterData;
+      rosterData[altLineTileId] = playerData;
+      capData = this.updateCapStats('add', playerData.contract[0]);
+      updateRosterData = React.addons.update(this.state, {
+        activePlayers : { $push: [playerData.id] },
+        rosterData    : { $set: rosterData },
+        rosterInfo    : { hit   : { $set: capData.hit },
+                          space : { $set: capData.space }}
+      });
+      this.setState(updateRosterData);
+      trigger = document.getElementById(altLineId + '-trigger');
+      trigger.className = altLineId + ' disabled';
+
     // Add Roster Player
     } else if (dropZone && !dropZone.dataset.state && dropZone.id === dropZoneData.last) {
       dragItem.className = 'item';
-      dropZone.className = 'tile active';
-      dropZone.dataset.state = 'active';
       if (this.checkAltTiles(dropZone.id)) {
         if (playerData.actions) { playerData.actions.push(this.checkAltTiles(dropZone.id)); }
         else { playerData.actions = [this.checkAltTiles(dropZone.id)]; }
@@ -714,6 +737,7 @@ var App = React.createClass({
     dropZoneData.last = dropZone.id;
     this.props.removePlayer = false;
     this.props.addTradePlayer = false;
+    this.props.addAltLinePlayer = false;
   },
   handleTileDragLeave: function(e) {
     var dropZone = e.currentTarget;
@@ -759,12 +783,36 @@ var App = React.createClass({
   checkAltTiles: function(tile_id) {
     var injured_tiles = ['FR1', 'FR2', 'FR3', 'DR1', 'DR2', 'GR1', 'GR2'],
         benched_tiles = ['FB1', 'FB2', 'FB3', 'DB1', 'DB2', 'GB1', 'GB2'];
-    if (tile_id && injured_tiles.indexOf(tile_id) !== -1) {
+    if (injured_tiles.indexOf(tile_id) !== -1) {
       return 'injured';
-    } else if (tile_id && benched_tiles.indexOf(tile_id) !== -1) {
+    } else if (benched_tiles.indexOf(tile_id) !== -1) {
       return 'benched';
     }
     return false;
+  },
+  handleTriggerDragEnter: function(e) {
+    var trigger = e.currentTarget, line_id = '';
+    if (trigger.className.indexOf('disabled') === -1) {
+      this.props.addAltLinePlayer = true;
+      line_id = trigger.className;
+      dropZoneData.alt.cur = line_id;
+      dropZoneData.alt.last = line_id;
+      trigger.className = line_id + ' hover';
+    }
+    setTimeout(function(line) {
+      if (dropZoneData.alt.cur === line_id && trigger.className.indexOf('hover') !== -1) {
+        line = document.getElementById(line_id);
+        line.className = line.className + ' active';
+        trigger.className = line_id + ' disabled';
+        dropZoneData.alt.cur = '';
+        this.props.addAltLinePlayer = false;
+      }
+    }.bind(this), 500);
+  },
+  handleTriggerDragLeave: function(e) {
+    var trigger = e.currentTarget;
+    trigger.className = trigger.className.replace(' hover', '');
+    dropZoneData.alt.cur = '';
   },
 
 
@@ -811,9 +859,9 @@ var App = React.createClass({
         curDragPlayer    = this.state.curDragPlayer,
         dropZone         = dropZoneData.cur,
         originDropZoneId = dropZoneData.origin.id,
-        altLineType      = this.checkAltTiles(dropZone ? dropZone.id : false),
         actions          = rosterData[originDropZoneId].actions,
-        updateRosterData, capData, index;
+        updateRosterData, capData, index, trigger,
+        altLine, altLineId, altLineTileId, altLineType;
 
     // Remove Player
     if (this.props.removePlayer) {
@@ -837,17 +885,12 @@ var App = React.createClass({
                           space : { $set: capData.space }}
       });
       this.setState(updateRosterData);
-      dropZoneData.origin.className = 'tile';
-      dropZoneData.origin.dataset.state = '';
 
     // Trade Player
-    // TODO: Block Acquired Players
     } else if (this.props.addTradePlayer) {
       if (this.state.activeTrade.active.id_list.length === 5 ||
           curDragPlayer.team !== this.state.activeTeam ||
           curDragPlayer.status === 'created') {
-        playerItem.className = 'player active';
-        dropZoneData.origin.className = 'tile active';
         this.setState({ dragging : false });
         if (this.state.activeTrade.active.id_list.length === 5) {
           this.handleTradePlayersError('maxed');
@@ -877,34 +920,47 @@ var App = React.createClass({
                             space : { $set: capData.space }}
         });
         this.setState(updateRosterData);
-        dropZoneData.origin.className = 'tile';
-        dropZoneData.origin.dataset.state = '';
         this.handleAddTradePlayer('active', curDragPlayer);
       }
 
-    // Move Player
-    } else if (dropZone && !dropZone.dataset.state && dropZone.id === dropZoneData.last) {
-      dropZone.className = 'tile active';
-      dropZone.dataset.state = 'active';
-      if (altLineType) {
-        if (curDragPlayer.actions) {
-          if (altLineType === 'injured' && curDragPlayer.actions.indexOf('benched') !== -1) {
-            curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('benched'), 1);
-          }
-          else if (altLineType === 'benched' && curDragPlayer.actions.indexOf('injured') !== -1) {
-            curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('injured'), 1);
-          }
-          curDragPlayer.actions.push(altLineType);
-        }
-        else { curDragPlayer.actions = [altLineType]; }
-      } else if (curDragPlayer.actions) {
+    // Move Player (Alt-Line)
+    } else if (this.props.addAltLinePlayer) {
+      altLineId = dropZoneData.alt.last;
+      altLine = document.getElementById(altLineId);
+      altLine.className = altLine.className + ' active';
+      altLineTileId = altLineId + '1';
+      altLineType = this.checkAltTiles(altLineTileId);
+      if (curDragPlayer.actions) {
         if (curDragPlayer.actions.indexOf('injured') !== -1) {
           curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('injured'), 1);
         }
         if (curDragPlayer.actions.indexOf('benched') !== -1) {
           curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('benched'), 1);
         }
-      }
+        curDragPlayer.actions.push(altLineType);
+      } else { curDragPlayer.actions = [altLineType]; }
+      rosterData[altLineTileId] = curDragPlayer;
+      rosterData[originDropZoneId] = { status: 'empty' };
+      updateRosterData = React.addons.update(this.state, {
+        dragging   : { $set: false },
+        rosterData : { $set: rosterData }
+      });
+      this.setState(updateRosterData);
+      trigger = document.getElementById(altLineId + '-trigger');
+      trigger.className = altLineId + ' disabled';
+
+    // Move Player
+    } else if (dropZone && !dropZone.dataset.state && dropZone.id === dropZoneData.last) {
+      altLineType = this.checkAltTiles(dropZone.id);
+      if (curDragPlayer.actions) {
+        if (curDragPlayer.actions.indexOf('injured') !== -1) {
+          curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('injured'), 1);
+        }
+        if (curDragPlayer.actions.indexOf('benched') !== -1) {
+          curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('benched'), 1);
+        }
+        if (altLineType) { curDragPlayer.actions.push(altLineType); }
+      } else if (altLineType) { curDragPlayer.actions = [altLineType]; }
       rosterData[dropZone.id] = curDragPlayer;
       rosterData[originDropZoneId] = { status: 'empty' };
       updateRosterData = React.addons.update(this.state, {
@@ -912,16 +968,11 @@ var App = React.createClass({
         rosterData : { $set: rosterData }
       });
       this.setState(updateRosterData);
-      dropZoneData.origin.className = 'tile';
-      dropZoneData.origin.dataset.state = '';
-    } else {
-      playerItem.className = 'player active hover';
-      dropZoneData.origin.className = 'tile active';
-      this.setState({ dragging : false });
-    }
+    } else { this.setState({ dragging : false }); }
     dropZoneData.origin = null;
     this.props.removePlayer = false;
     this.props.addTradePlayer = false;
+    this.props.addAltLinePlayer = false;
     this.highlightGrid('off');
     this.checkEmptyAltLines();
     this.hideRemovePlayer();
@@ -976,10 +1027,12 @@ var App = React.createClass({
               onPlayerMouseDown={this.handlePlayerMouseDown}
               onPlayerMouseUp={this.handlePlayerMouseUp}
               onPlayerDragStart={this.handlePlayerDragStart}
-              onPlayerDragEnd={this.handlePlayerDragEnd} />
+              onPlayerDragEnd={this.handlePlayerDragEnd}
+              onTriggerDragEnter={this.handleTriggerDragEnter}
+              onTriggerDragLeave={this.handleTriggerDragLeave} />
           </div>
         </div>
-        <footer><span className="cap">CAP</span>CRUNCH <span className="version">beta 0.9.2</span></footer>
+        <footer><span className="cap">CAP</span>CRUNCH <span className="version">0.9.2</span></footer>
       </div>
     );
   }

@@ -70,15 +70,15 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'cleanup shared-roster alt-line loading transitions'
-- 'fix accidental IR/PB target drop bug'
+- 'fix player list item drag over other list issue (add cover onDrag)'
 - 'share roster close button'
 - 'share roster text-only output'
-- 'cleanup cap stats transitions'
-- 'add error string to messages object'
 - 'add full screen team-select splash intro'
+- 'cleanup cap stats transitions'
+- 'add error messages to props messages object'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade summary button/view layout + logic'
+- 'block acquired players on trades (one-way only)'
 - 'update notifications layout + logic (slide-out + fade-in)'
 - 'cleanup validation/error message display/timing consistency'
 - 'wire-up Twitter + Facebook share buttons'
@@ -87,6 +87,9 @@
 
 #### READY
 
+- 'setup player item/tile drop events for IR/BN-target'
+- 'fix player tile duplicate IR/B status tag issue'
+- 'cleanup shared-roster alt-line loading transitions'
 - 'remove bench references from remove player process'
 - 'add goalie BN alt line'
 - 'injured-reserve + press-box lines layout + logic'

@@ -2,8 +2,6 @@
 // ==================================================
 'use strict';
 
-var hotspot = '';
-
 var Roster = React.createClass({
     playerTile: function(grid_id) {
       var playerData  = this.props.rosterData[grid_id],
@@ -14,7 +12,8 @@ var Roster = React.createClass({
           className={ this.props.rosterData[grid_id].status !== 'empty' ? 'tile active' : 'tile' }
           data-state={ this.props.rosterData[grid_id].status !== 'empty' ? 'active' : '' }
           onDragEnter={this.props.onTileDragEnter}
-          onDragLeave={this.props.onTileDragLeave}>
+          onDragLeave={this.props.onTileDragLeave}
+          onDragOver={this.onGridDragOver}>
       { playerData.status !== 'empty'
         ? <div draggable="true"
             className={ this.props.curDragPlayer.id === playerData.id  ? 'player active ' + playerState : 'player active' }
@@ -75,32 +74,12 @@ var Roster = React.createClass({
       e.preventDefault();
       e.dataTransfer.dropEffect = 'move';
     },
-    onTriggerDragEnter: function(e) {
-      var target, el = e.currentTarget, id = el.className;
-      hotspot = id;
-      el.className = el.className + ' hover';
-      setTimeout(function() {
-        if (id.indexOf('disabled') === -1 && hotspot === id) {
-          target = document.getElementById(id);
-          target.className = target.className + ' active';
-          el.className = el.className + ' disabled';
-        }
-      }, 200);
-    },
-    onTriggerDragLeave: function(e) {
-      var el = e.currentTarget;
-      hotspot = '';
-      if (el.className.indexOf('hover') !== -1) {
-        el.className = el.className.replace(' hover', '');
-      }
-    },
 
     render: function() {
       return (
         <div id="roster" className="section active"
           onMouseUp={this.hideRemovePlayer}
-          onDragEnter={this.props.onGridDragEnter}
-          onDragOver={this.onGridDragOver}>
+          onDragEnter={this.props.onGridDragEnter}>
           <div id="roster-stats" className={ this.props.activePlayers.length ? 'cap-stats active' : 'cap-stats' }>
             <div id="rcap-player-count" className="section">
               <span>Roster Players <span className="value">{this.props.activePlayers.length}</span></span>
@@ -180,18 +159,6 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">L4</div>
               </div>
-              <div id="FB" className="line bench">
-                <div className="left">
-                  {this.playerTile('FB1')}
-                </div>
-                <div className="center">
-                  {this.playerTile('FB2')}
-                </div>
-                <div className="right">
-                  {this.playerTile('FB3')}
-                </div>
-                <div className="title">BN</div>
-              </div>
               <div id="FR" className="line ir">
                 <div className="left">
                   {this.playerTile('FR1')}
@@ -204,9 +171,25 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">IR</div>
               </div>
+              <div id="FB" className="line bench">
+                <div className="left">
+                  {this.playerTile('FB1')}
+                </div>
+                <div className="center">
+                  {this.playerTile('FB2')}
+                </div>
+                <div className="right">
+                  {this.playerTile('FB3')}
+                </div>
+                <div className="title">BN</div>
+              </div>
               <ul id="forwards-grid-nav" className="grid-nav">
-                <li id="FB-trigger" className="FB" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>BN</li>
-                <li id="FR-trigger" className="FR" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>IR</li>
+                <li id="FB-trigger" className="FB"
+                  onDragEnter={this.props.onTriggerDragEnter}
+                  onDragLeave={this.props.onTriggerDragLeave}>BN</li>
+                <li id="FR-trigger" className="FR"
+                  onDragEnter={this.props.onTriggerDragEnter}
+                  onDragLeave={this.props.onTriggerDragLeave}>IR</li>
               </ul>
             </div>
           </div>
@@ -243,15 +226,6 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">P3</div>
               </div>
-              <div id="DB" className="line bench">
-                <div className="left">
-                  {this.playerTile('DB1')}
-                </div>
-                <div className="right">
-                  {this.playerTile('DB2')}
-                </div>
-                <div className="title">BN</div>
-              </div>
               <div id="DR" className="line ir">
                 <div className="left">
                   {this.playerTile('DR1')}
@@ -261,9 +235,22 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">IR</div>
               </div>
+              <div id="DB" className="line bench">
+                <div className="left">
+                  {this.playerTile('DB1')}
+                </div>
+                <div className="right">
+                  {this.playerTile('DB2')}
+                </div>
+                <div className="title">BN</div>
+              </div>
               <ul id="defense-grid-nav" className="grid-nav">
-                <li id="DB-trigger" className="DB" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>BN</li>
-                <li id="DR-trigger" className="DR" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>IR</li>
+                <li id="DB-trigger" className="DB"
+                  onDragEnter={this.props.onTriggerDragEnter}
+                  onDragLeave={this.props.onTriggerDragLeave}>BN</li>
+                <li id="DR-trigger" className="DR"
+                  onDragEnter={this.props.onTriggerDragEnter}
+                  onDragLeave={this.props.onTriggerDragLeave}>IR</li>
               </ul>
             </div>
           </div>
@@ -279,15 +266,6 @@ var Roster = React.createClass({
                 </div>
                 <div className="title goalie">T1</div>
               </div>
-              <div id="GB" className="line bench">
-                <div className="left">
-                  {this.playerTile('GB1')}
-                </div>
-                <div className="right">
-                  {this.playerTile('GB2')}
-                </div>
-                <div className="title">BN</div>
-              </div>
               <div id="GR" className="line ir">
                 <div className="left">
                   {this.playerTile('GR1')}
@@ -297,9 +275,22 @@ var Roster = React.createClass({
                 </div>
                 <div className="title">IR</div>
               </div>
+              <div id="GB" className="line bench">
+                <div className="left">
+                  {this.playerTile('GB1')}
+                </div>
+                <div className="right">
+                  {this.playerTile('GB2')}
+                </div>
+                <div className="title">BN</div>
+              </div>
               <ul id="goalies-grid-nav" className="grid-nav">
-                <li id="GB-trigger" className="GB" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>BN</li>
-                <li id="GR-trigger" className="GR" onDragEnter={this.onTriggerDragEnter} onDragLeave={this.onTriggerDragLeave}>IR</li>
+                <li id="GB-trigger" className="GB"
+                  onDragEnter={this.props.onTriggerDragEnter}
+                  onDragLeave={this.props.onTriggerDragLeave}>BN</li>
+                <li id="GR-trigger" className="GR"
+                  onDragEnter={this.props.onTriggerDragEnter}
+                  onDragLeave={this.props.onTriggerDragLeave}>IR</li>
               </ul>
             </div>
           </div>

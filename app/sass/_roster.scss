@@ -156,13 +156,13 @@
         opacity: 0;
         margin-bottom: 0;
         overflow: hidden;
-        transition: opacity .3s .2s, height .3s .55s, margin .3s .55s;
+        transition: opacity .35s .2s, height .35s .25s, margin .35s .25s;
 
         &.active, &.show {
           height: 70px;
           margin-bottom: 10px;
           opacity: 1;
-          transition: opacity .2s .3s, height .55s, margin .55s;
+          transition: opacity .35s .35s, height .45s, margin .45s;
         }
 
         &.show {
@@ -196,17 +196,22 @@
         border-radius: $border-radius;
         opacity: 1;
         cursor: default;
-        transition: .25s;
+        transition: all .3s, height 0s, width 0s, margin 0s;
 
         &.hover {
-          color: #AAA;
+          color: #CCC;
           background: linear-gradient(to top, rgba(136,136,136, .1) 0%, rgba(206,206,206, .1));
           box-shadow: 0 0 30px rgba(255,255,255, .15) inset;
+          transition: all .7s, width .2s .5s, margin .2s .5s;
         }
 
         &.disabled {
+          height: 0;
+          width: 0;
+          margin-left: 0;
           box-shadow: none;
           opacity: 0;
+          overflow: hidden;
         }
       }
     }
