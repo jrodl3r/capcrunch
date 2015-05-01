@@ -18,7 +18,7 @@ var dropZoneData = {
 var App = React.createClass({
   getInitialState: function() {
     return {
-      activeView     : 'roster', // TODO Make 'loading'
+      activeView     : 'roster',
       dragging       : false,
       activeTeam     : '',
       activePlayers  : [],

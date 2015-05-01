@@ -1,4 +1,4 @@
-// CapCrunch Team Select Menu / Header (Component)
+// Team Select Menu (Header)
 // ==================================================
 'use strict';
 
@@ -14,20 +14,16 @@ var TeamMenu = React.createClass({
       this.props.onChangeTeam(team_id);
     },
     handleChangeView: function(e) {
-      var link = e.currentTarget.className;
       e.preventDefault();
-      if (link.indexOf('active') === -1) {
-        if (link.indexOf('payroll') !== -1) {
+      if (e.currentTarget.className.indexOf('active') === -1) {
+        if (e.currentTarget.className.indexOf('payroll') !== -1) {
           if (!this.props.activeTeam) {
-            // show team-select reminder
             document.getElementById('team-select-reminder').className = 'active';
           } else {
-            // show payroll
             UI.updateView('payroll');
             this.props.onChangeView('payroll');
           }
-        } else if (link.indexOf('roster') !== -1) {
-          // show roster
+        } else {
           UI.updateView('roster');
           this.props.onChangeView('roster');
         }

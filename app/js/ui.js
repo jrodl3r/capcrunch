@@ -10,7 +10,7 @@ var UI = {
   init: function() {
     UI.featureDetect();
     // roster mouseup catchall
-    //$('#app').on('mouseup', UI.unhighlightItems);
+    $('#app').on('mouseup', UI.unhighlightItems);
     // toggle transactions tabs
     $('#transactions-menu').on('click', 'a', UI.toggleTransactionsView);
     // reset team-select + panel scroll
@@ -71,11 +71,11 @@ var UI = {
   },
 
   // player-list mouseup catchall
-  // unhighlightItems: function() {
-  //   $('#menu .player-list .item.clicked').removeClass('clicked');
-  //   $('#roster .player.active.clicked').removeClass('clicked');
-  //   $('#roster .panel.group.dragging').removeClass('dragging');
-  // },
+  unhighlightItems: function() {
+    $('#menu .player-list .item.clicked').removeClass('clicked');
+    $('#roster .player.active.clicked').removeClass('clicked');
+    $('#roster .grid.dragging').removeClass('dragging');
+  },
 
   // toggle transactions tab menu
   toggleTransactionsView: function(e) {

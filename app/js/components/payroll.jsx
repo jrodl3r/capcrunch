@@ -5,12 +5,14 @@
 var UI = require('../ui.js');
 
 var Payroll = React.createClass({
+    shouldComponentUpdate: function(nextProps) {
+      return this.props.teamData.id !== nextProps.teamData.id;
+    },
     componentDidUpdate: function() {
       if (this.props.activeView === 'payroll') {
         UI.updateViewHeight();
       }
     },
-
     buildPlayerGroup: function(players, player_type) {
       var player_list, status_class;
       player_list = players.map(function(player, i) {
