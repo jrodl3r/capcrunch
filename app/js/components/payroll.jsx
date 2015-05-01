@@ -6,7 +6,9 @@ var UI = require('../ui.js');
 
 var Payroll = React.createClass({
     componentDidUpdate: function() {
-      UI.updatePayrollHeight();
+      if (this.props.activeView === 'payroll') {
+        UI.updateViewHeight();
+      }
     },
 
     buildPlayerGroup: function(players, player_type) {
@@ -90,7 +92,7 @@ var Payroll = React.createClass({
             </div>
           </h2>
           <div className="inner">
-            <table id="team-payroll">
+            <table id="payroll-table">
               <thead>
                 <tr className="header">
                   <th className="player"></th>

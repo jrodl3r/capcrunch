@@ -70,6 +70,7 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
+- 'optimize player/salary data refresh...'
 - 'fix player list item drag over other list issue (add cover onDrag)'
 - 'share roster close button'
 - 'share roster text-only output'
@@ -87,6 +88,7 @@
 
 #### READY
 
+- 'cleanup change/update view (roster/payroll) logic'
 - 'setup player item/tile drop events for IR/BN-target'
 - 'fix player tile duplicate IR/B status tag issue'
 - 'cleanup shared-roster alt-line loading transitions'

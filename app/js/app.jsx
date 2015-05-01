@@ -18,6 +18,7 @@ var dropZoneData = {
 var App = React.createClass({
   getInitialState: function() {
     return {
+      activeView     : 'roster', // TODO Make 'loading'
       dragging       : false,
       activeTeam     : '',
       activePlayers  : [],
@@ -88,9 +89,12 @@ var App = React.createClass({
   },
 
 
-// Helpers
+// UI + View
 // --------------------------------------------------
 
+  handleChangeView: function(view) {
+    this.setState({ activeView : view });
+  },
   showNotification: function(type, msg) {
     if (type === 'error') {
       document.getElementById('notify').className = 'active error';
@@ -982,12 +986,17 @@ var App = React.createClass({
   render: function() {
     return (
       <div id="main">
-        <TeamMenu onChangeTeam={this.handleChangeTeam} />
+        <TeamMenu
+          activeTeam={this.state.activeTeam}
+          activeView={this.state.activeView}
+          onChangeTeam={this.handleChangeTeam}
+          onChangeView={this.handleChangeView} />
         <div id="app">
           <div className="wrap">
             <Payroll
               teamData={this.state.teamData}
-              leagueData={this.state.leagueData} />
+              leagueData={this.state.leagueData}
+              activeView={this.state.activeView} />
             <RosterMenu
               teamData={this.state.teamData}
               leagueData={this.state.leagueData}
