@@ -1,50 +1,30 @@
-// CapCrunch Player List Panel (Roster Menu)
+// Player Panel
 // ==================================================
 'use strict';
 
+var UI = require('../../ui.js');
+
 var PlayersPanel = React.createClass({
     buildPlayerList: function(players, player_type) {
-      var player_list, status, first_active = 0, first_inactive_marked = false;
+      var player_list, status;
       player_list = players.map(function(player, i) {
         status = '';
         if (this.props.activePlayers.indexOf(player.id) !== -1 ||
-            this.props.activeTrade.active.id_list.indexOf(player.id) !== -1 ||
-            this.props.activeTrade.passive.id_list.indexOf(player.id) !== -1) {
-          status = ' inplay';
-          if (first_active === i) {
-            first_active = first_active + 1;
-          }
-        } else if (first_active && player_type !== 'inactive') {
-          status = ' first-active';
-          first_active = 0;
-        } else if (player_type === 'inactive') {
-          if (first_active && !this.props.playerData.created.length) {
-            status = ' first-active';
-            first_active = 0;
-          } else if (this.props.playerData.created.length && !first_inactive_marked) {
-            for (var j = 0; j < this.props.playerData.created.length; j++) {
-              if (this.props.activePlayers.indexOf(this.props.playerData.created[j].id) === -1) {
-                break;
-              } else if (j === this.props.playerData.created.length - 1) {
-                status = ' first-active';
-                first_inactive_marked = true;
-                first_active = 0;
-              }
-            }
-          }
+            this.props.activeTrade.active.id_list.indexOf(player.id) !== -1) {
+          status = 'inplay ';
         }
         if (player.actions && player.actions.length) {
-          status = ' ' + player.actions.join(' ') + status;
+          status = player.actions.join(' ') + ' ' + status;
         }
 
         return (
-          <li key={i + player.id} className={'row' + status}>
+          <li key={i + player.id} className={ status ? status + 'row' : 'row' }>
             <div className="item"
               draggable={ player.actions && player.actions.indexOf('traded') !== -1 ? false : true }
               onMouseDown={this.props.handleMouseDown}
               onMouseUp={this.props.handleMouseUp}
-              onMouseOver={this.itemMouseOver}
-              onMouseLeave={this.itemMouseLeave}
+              onMouseOver={this.props.handleMouseOver}
+              onMouseLeave={this.props.handleMouseLeave}
               onDragStart={this.props.handleDragStart}
               onDragEnd={this.props.handleDragEnd}
               data-type={player_type}
@@ -72,7 +52,7 @@ var PlayersPanel = React.createClass({
             { player.actions && player.actions.indexOf('acquired') !== -1
               ? <div className="acquired">A</div>
               : null }
-            { player.actions && player.actions.indexOf('created') !== -1
+            { player_type === 'created'
               ? <div className="created">C</div>
               : null }
               </div>
@@ -83,25 +63,17 @@ var PlayersPanel = React.createClass({
       }.bind(this));
       return player_list;
     },
-    itemMouseOver: function(e) {
-      e.currentTarget.className = e.currentTarget.className + ' hover';
-    },
-    itemMouseLeave: function(e) {
-      e.currentTarget.className = e.currentTarget.className.replace(' hover', '');
-    },
     onDragOver: function(e) {
       e.preventDefault();
       e.dataTransfer.dropEffect = 'move';
     },
 
     render: function() {
-      var playerType      = this.props.playerType,
-          isActive        = playerType !== 'inactive' ? true : false,
-          isSkater        = playerType !== 'goaltenders' && playerType !== 'inactive' ? true : false,
-          rosterPlayers   = this.props.playerData[playerType].length ? this.props.playerData[playerType] : [],
-          createdPlayers  = !isActive && this.props.playerData.created.length ? this.props.playerData.created : [],
-          playerItems     = this.buildPlayerList(rosterPlayers, playerType),
-          createdItems    = this.buildPlayerList(createdPlayers, 'created');
+      var playerType     = this.props.playerType,
+          havePlayers    = this.props.playerData.length,
+          rosterPlayers  = havePlayers ? this.buildPlayerList(this.props.playerData, playerType) : null,
+          haveCreated    = playerType === 'inactive' ? this.props.createdData.length : null,
+          createdPlayers = haveCreated ? this.buildPlayerList(this.props.createdData, 'created') : null;
 
       return (
         <div id={this.props.panelId} className={ playerType === 'goaltenders' ? 'panel short player-list' : 'panel player-list' }>
@@ -111,13 +83,13 @@ var PlayersPanel = React.createClass({
               <i className="fa fa-chevron-up"></i>
             </a>
           </div>
-      { playerItems.length
-        ? <div className="inner" onDragOver={this.onDragOver} onDragEnter={this.props.handleDragEnter}>
-          { isActive
-            ? <ul>{playerItems}</ul>
+      { havePlayers
+        ? <div className="inner" onDragEnter={this.props.handleDragEnter}>
+          { !haveCreated
+            ? <ul>{rosterPlayers}</ul>
             : <ul>
-                {createdItems}
-                {playerItems}
+                {createdPlayers}
+                {rosterPlayers}
               </ul> }
           </div>
         : <div className="inner">

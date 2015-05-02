@@ -70,9 +70,10 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'optimize player/salary data refresh...'
 - 'cleanup ui.js'
+- 'minimize roster grid rendering'
 - 'fix player list item drag over other list issue (add cover onDrag)'
+  - 'Player List Drag Covers » onDragOver={this.onDragOver}'
 - 'share roster close button'
 - 'share roster text-only output'
 - 'add full screen team-select splash intro + add loading view'
@@ -89,6 +90,7 @@
 
 #### READY
 
+- 'minimize player panel rendering + list item display logic'
 - 'minimize inactive payroll rendering activity'
 - 'cleanup change/update view (roster/payroll) logic'
 - 'setup player item/tile drop events for IR/BN-target'

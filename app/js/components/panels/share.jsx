@@ -17,7 +17,7 @@ var SharePanel = React.createClass({
       return false;
     },
     render: function() {
-      var placeholder = this.props.rosterInfo.name || this.props.teamData.name;
+      var placeholder = this.props.rosterInfo.name || this.props.teamName;
       return (
         <div id="share">
           <form id="share-form" className="active" onSubmit={this.props.handleRosterSubmit}>

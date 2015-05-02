@@ -1,4 +1,4 @@
-// CapCrunch Roster Menu
+// Roster Menu
 // ==================================================
 'use strict';
 
@@ -11,13 +11,15 @@ var RosterMenu = React.createClass({
       return (
         <div id="menu" className="section active">
           <SharePanel
-            teamData={this.props.teamData}
             rosterInfo={this.props.rosterInfo}
+            teamName={this.props.teamData.name}
             handleRosterSubmit={this.props.onRosterSubmit} />
           <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
-            playerData={this.props.teamData.players}
+            playerData={this.props.teamData.players.forwards}
             activePlayers={this.props.activePlayers}
             activeTrade={this.props.activeTrade}
+            handleMouseOver={this.props.onMouseOver}
+            handleMouseLeave={this.props.onMouseLeave}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
@@ -26,9 +28,11 @@ var RosterMenu = React.createClass({
             handleRemoveDragEnter={this.props.onRemoveDragEnter}
             handleRemoveDragLeave={this.props.onRemoveDragLeave} />
           <PlayersPanel playerType="defensemen" panelTitle="Defense" panelId="defense-list"
-            playerData={this.props.teamData.players}
+            playerData={this.props.teamData.players.defensemen}
             activePlayers={this.props.activePlayers}
             activeTrade={this.props.activeTrade}
+            handleMouseOver={this.props.onMouseOver}
+            handleMouseLeave={this.props.onMouseLeave}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
@@ -37,9 +41,11 @@ var RosterMenu = React.createClass({
             handleRemoveDragEnter={this.props.onRemoveDragEnter}
             handleRemoveDragLeave={this.props.onRemoveDragLeave} />
           <PlayersPanel playerType="goaltenders" panelTitle="Goalies" panelId="goalies-list"
-            playerData={this.props.teamData.players}
+            playerData={this.props.teamData.players.goaltenders}
             activePlayers={this.props.activePlayers}
             activeTrade={this.props.activeTrade}
+            handleMouseOver={this.props.onMouseOver}
+            handleMouseLeave={this.props.onMouseLeave}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}
@@ -48,9 +54,12 @@ var RosterMenu = React.createClass({
             handleRemoveDragEnter={this.props.onRemoveDragEnter}
             handleRemoveDragLeave={this.props.onRemoveDragLeave} />
           <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
-            playerData={this.props.teamData.players}
+            createdData={this.props.teamData.players.created}
+            playerData={this.props.teamData.players.inactive}
             activePlayers={this.props.activePlayers}
             activeTrade={this.props.activeTrade}
+            handleMouseOver={this.props.onMouseOver}
+            handleMouseLeave={this.props.onMouseLeave}
             handleMouseDown={this.props.onMouseDown}
             handleMouseUp={this.props.onMouseUp}
             handleDragStart={this.props.onDragStart}

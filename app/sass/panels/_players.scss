@@ -31,21 +31,12 @@
     opacity: 1;
     transition: .3s;
 
-    &:first-of-type .item, &.first-active .item {
-      box-shadow: none;
-    }
-
-    &.last-visible .item.hover {
-      border-bottom-right-radius: 2px;
-    }
-
     &.engaged {
       opacity: .3;
     }
 
     &.inplay {
       height: 0;
-      border: none;
       overflow: hidden;
     }
 
@@ -70,6 +61,15 @@
     }
   }
 
+  .row:not(.inplay) {
+    box-shadow: 0 1px 0 rgba(0,0,0, 0) inset;
+  }
+
+  .row:not(.inplay) ~ .row:not(.inplay) {
+    box-shadow: 0 1px 0 rgba(0,0,0, .2) inset;
+    transition: height .3s, box-shadow 0s;
+  }
+
   .item {
     position: relative;
     float: right;
@@ -78,10 +78,9 @@
     padding-left: 0;
     line-height: 33px;
     background: linear-gradient(to right, rgba(0,0,0, .2) 0%, rgba(255,255,255, .04) 75%, transparent);
-    box-shadow: 0 1px 0 rgba(0,0,0, 0.15) inset;
     opacity: 1;
     overflow: hidden;
-    transition: all .2s, border-radius .01s;
+    transition: all .2s, border-radius 0s;
 
     &.hover {
       background: linear-gradient(to right, rgba(0,0,0, .35) 0%, rgba(255,255,255, .05) 75%, rgba(255,255,255, .05));
@@ -108,8 +107,7 @@
     &.clicked {
       padding-left: 83px;
       background: linear-gradient(to right, rgba(0,0,0, 0) 0%, rgba(255,255,255, .05) 75%, rgba(255,255,255, .15));
-      border-color: rgba(0,0,0, 0);
-      box-shadow: 0 -1px 2px rgba(0,0,0, 0.2);
+      box-shadow: 0 3px 3px rgba(0,0,0, .15);
       border-bottom-right-radius: 2px;
       border-top-right-radius: 2px;
 

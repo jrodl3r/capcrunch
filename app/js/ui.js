@@ -8,9 +8,13 @@ var UI = {
   payroll_height        : 0,
 
   init: function() {
-    UI.featureDetect();
-    // roster mouseup catchall
-    $('#app').on('mouseup', UI.unhighlightItems);
+    UI.detect();
+    UI.events();
+  },
+
+  events: function() {
+    // clear drag actions
+    $('#app').on('mouseup', UI.clearDragActions);
     // toggle transactions tabs
     $('#transactions-menu').on('click', 'a', UI.toggleTransactionsView);
     // reset team-select + panel scroll
@@ -23,12 +27,12 @@ var UI = {
     $('#roster-stats-menu').on('mouseleave', UI.toggleRosterMenu);
     // block right-click
     $('body').on('contextmenu', UI.blockRightClick);
-    // testing
+    // testing...
     //$('#team-select').val('BUF').change();
   },
 
   // mobile/touch splash
-  featureDetect: function() {
+  detect: function() {
     var device  = navigator.userAgent.toLowerCase(),
         isTouch = Modernizr.touch || (device.match(/(iphone|ipod|ipad)/) || device.match(/(android)/) || device.match(/(iemobile)/) ||
           device.match(/iphone/i) || device.match(/ipad/i) || device.match(/ipod/i) || device.match(/blackberry/i) || device.match(/bada/i));
@@ -70,8 +74,8 @@ var UI = {
     $('#payroll .inner, #app .wrap').css('height', 'auto');
   },
 
-  // player-list mouseup catchall
-  unhighlightItems: function() {
+  // clear drag actions
+  clearDragActions: function() {
     $('#menu .player-list .item.clicked').removeClass('clicked');
     $('#roster .player.active.clicked').removeClass('clicked');
     $('#roster .grid.dragging').removeClass('dragging');

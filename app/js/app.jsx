@@ -563,18 +563,29 @@ var App = React.createClass({
 // Player List Items
 // --------------------------------------------------
 
+  handleMouseOver: function(e) {
+    if (!this.state.dragging) {
+      var item = e.currentTarget;
+      item.className = item.className + ' hover';
+    }
+  },
+  handleMouseLeave: function(e) {
+    var item = e.currentTarget;
+    item.className = item.className.replace(' hover', '');
+  },
   handleMouseDown: function(e) {
     var dragItem   = e.currentTarget,
         playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index];
     if (!playerData.actions || playerData.actions && playerData.actions.indexOf('traded') === -1) {
       dragItem.className = 'item clicked';
       this.highlightGrid('on', dragItem.dataset.type, playerData.position);
-      this.setState({ curDragPlayer : playerData });
+      this.setState({ curDragPlayer : playerData, dragging : true });
     }
   },
   handleMouseUp: function(e) {
     e.currentTarget.className = 'item hover';
     this.highlightGrid('off');
+    this.setState({ dragging : false });
   },
   handleDragStart: function(e) {
     var dragItem = e.currentTarget;
@@ -661,6 +672,7 @@ var App = React.createClass({
     this.highlightGrid('off');
     this.checkEmptyAltLines();
     this.props.addTradePlayer = false;
+    this.setState({ dragging : false });
   },
 
 
@@ -1006,6 +1018,8 @@ var App = React.createClass({
               activeTrade={this.state.activeTrade}
               activePlayers={this.state.activePlayers}
               onRosterSubmit={this.handleRosterSubmit}
+              onMouseOver={this.handleMouseOver}
+              onMouseLeave={this.handleMouseLeave}
               onMouseDown={this.handleMouseDown}
               onMouseUp={this.handleMouseUp}
               onDragStart={this.handleDragStart}
