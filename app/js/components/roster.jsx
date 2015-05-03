@@ -1,11 +1,33 @@
-// CapCrunch Roster (Component)
+// Roster Grid
 // ==================================================
 'use strict';
 
 var Roster = React.createClass({
+    onGridDragOver: function(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+    },
+    onPlayerMouseOver: function(e) {
+      if (e.currentTarget.parentNode.dataset.state === 'active') {
+        e.currentTarget.className = 'player active hover';
+      }
+    },
+    onPlayerMouseOut: function(e) {
+      if (e.currentTarget.parentNode.dataset.state === 'active') {
+        e.currentTarget.className = 'player active';
+      }
+    },
+    hideRemovePlayer: function() {
+      var menu = document.getElementById('menu');
+      menu.className = menu.className.replace(' show-remove-player', '');
+    },
+    blockRightClick: function(e) {
+      e.preventDefault();
+      return false;
+    },
     playerTile: function(grid_id) {
       var playerData  = this.props.rosterData[grid_id],
-          playerState = this.props.dragging ? 'clicked' : 'hover';
+          playerState = this.props.dragData.state ? 'clicked' : 'hover';
 
       return (
         <div id={grid_id}
@@ -16,9 +38,9 @@ var Roster = React.createClass({
           onDragOver={this.onGridDragOver}>
       { playerData.status !== 'empty'
         ? <div draggable="true"
-            className={ this.props.curDragPlayer.id === playerData.id  ? 'player active ' + playerState : 'player active' }
-            onMouseOut={this.props.onPlayerMouseOut}
-            onMouseOver={this.props.onPlayerMouseOver}
+            className={ this.props.dragData.player.id === playerData.id  ? 'player active ' + playerState : 'player active' }
+            onMouseOut={this.onPlayerMouseOut}
+            onMouseOver={this.onPlayerMouseOver}
             onMouseDown={this.props.onPlayerMouseDown}
             onMouseUp={this.props.onPlayerMouseUp}
             onDragStart={this.props.onPlayerDragStart}
@@ -62,20 +84,15 @@ var Roster = React.createClass({
         </div>
       );
     },
-    blockRightClick: function(e) {
-      e.preventDefault();
-      return false;
-    },
-    hideRemovePlayer: function() {
-      var menu = document.getElementById('menu');
-      menu.className = menu.className.replace(' show-remove-player', '');
-    },
-    onGridDragOver: function(e) {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-    },
 
     render: function() {
+      var dragState = this.props.dragData.state,
+          dragType  = this.props.dragData.type,
+          dragPos   = this.props.dragData.player.position,
+          dragGT    = dragType === 'goaltenders' || dragPos === 'G' ? true : false,
+          dragDF    = dragType === 'defensemen' || dragPos === 'D' ? true : false,
+          dragFW    = !dragDF && !dragGT ? true : false;
+
       return (
         <div id="roster" className="section active"
           onMouseUp={this.hideRemovePlayer}
@@ -104,7 +121,7 @@ var Roster = React.createClass({
               </ul>
             </div>
           </div>
-          <div id="forwards" className="grid">
+          <div id="forwards" className={ dragState && dragFW ? 'grid dragging' : 'grid' }>
             <div className="title">
               <div className="left">LW</div>
               <div className="center">C</div>
@@ -193,7 +210,7 @@ var Roster = React.createClass({
               </ul>
             </div>
           </div>
-          <div id="defense" className="grid defense">
+          <div id="defense" className={ dragState && dragDF ? 'grid defense dragging' : 'grid defense' }>
             <div className="title">
               <div className="left">LD</div>
               <div className="right">RD</div>
@@ -254,7 +271,7 @@ var Roster = React.createClass({
               </ul>
             </div>
           </div>
-          <div id="goalies" className="grid defense">
+          <div id="goalies" className={ dragState && dragGT ? 'grid defense dragging' : 'grid defense' }>
             <div className="title">G</div>
             <div className="inner">
               <div id="G1" className="line">

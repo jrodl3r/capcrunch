@@ -54,6 +54,7 @@
 - 'editable player tile info (salary) + add to LTIR button'
 - 'cleanup payroll layout + icons'
 - 'roster text-only output'
+- 'slim/space-saving alt-lines (no player image/jersey)'
 »»» Refactor Trade Logic »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
   - 'trade player cap violation/overage check + warning'
   - 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
@@ -73,8 +74,9 @@
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
 - 'cleanup ui.js'
-- 'minimize roster grid rendering'
+- 'cleanup roster grid rendering'
 - 'cleanup cap stats transitions + distill component'
+- 'cleanup list item hovers'
 - 'fix player list item drag over other list issue (add cover onDrag)'
   - 'Player List Drag Covers » onDragOver={this.onDragOver}'
 - 'add full screen team-select splash intro + add loading view'
@@ -89,6 +91,7 @@
 
 #### READY
 
+- 'cleanup active drag data + grid-highlight logic'
 - 'share roster close button + text-only output link'
 - 'add error messages to props messages object'
 - 'minimize player panel rendering + list item display logic'
