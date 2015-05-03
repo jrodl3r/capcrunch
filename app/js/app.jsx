@@ -288,6 +288,7 @@ var App = React.createClass({
     if (status === 'loading') {
       document.getElementById('share-form').className = '';
       document.getElementById('share-dialog').className = 'active';
+      document.getElementById('share-loading').className = 'active';
     } else if (status === 'success' && roster_id) {
       document.getElementById('share-loading').className = '';
       document.getElementById('share-confirm').className = 'active';

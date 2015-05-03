@@ -52,6 +52,8 @@
 - 'payroll: show/apply user transactions settings'
 - 'pre-cache team + player images on select/hover'
 - 'editable player tile info (salary) + add to LTIR button'
+- 'cleanup payroll layout + icons'
+- 'roster text-only output'
 »»» Refactor Trade Logic »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
   - 'trade player cap violation/overage check + warning'
   - 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
@@ -75,8 +77,6 @@
 - 'cleanup cap stats transitions + distill component'
 - 'fix player list item drag over other list issue (add cover onDrag)'
   - 'Player List Drag Covers » onDragOver={this.onDragOver}'
-- 'share roster close button'
-- 'share roster text-only output'
 - 'add full screen team-select splash intro + add loading view'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade summary button/view layout + logic'
@@ -89,6 +89,7 @@
 
 #### READY
 
+- 'share roster close button + text-only output link'
 - 'add error messages to props messages object'
 - 'minimize player panel rendering + list item display logic'
 - 'minimize inactive payroll rendering activity'

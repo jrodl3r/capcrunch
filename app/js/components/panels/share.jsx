@@ -13,9 +13,28 @@ var SharePanel = React.createClass({
       if (!/\w|-|\s/.test(key) || e.charCode === 13) { return false; }
       else if (/\_|-|\s/.test(key) && /\_|-|\s/.test(str.substr(str.length - 1))) { return false; }
     },
+    shareTwitter: function(e) {
+      e.preventDefault();
+
+      // TODO
+
+    },
+    shareFacebook: function(e) {
+      e.preventDefault();
+
+      // TODO
+
+    },
+    closeConfirm: function(e) {
+      e.preventDefault();
+      document.getElementById('share-form').className = 'active';
+      document.getElementById('share-dialog').className = '';
+      document.getElementById('share-confirm').className = '';
+    },
     blockPaste: function() {
       return false;
     },
+
     render: function() {
       var placeholder = this.props.rosterInfo.name || this.props.teamName;
       return (
@@ -34,9 +53,11 @@ var SharePanel = React.createClass({
               <h3>Show off your GM skills...</h3>
               <p>Share your roster with friends for the win.</p>
               <input id="roster-url" type="text" value={this.props.rosterInfo.link} readOnly />
-              <button id="twitter-share"><i className="fa fa-twitter"></i> Share on Twitter</button>
-              <button id="facebook-share"><i className="fa fa-facebook"></i> Share on Facebook</button>
+              <button id="twitter-share" onClick={this.shareTwitter}><i className="fa fa-twitter"></i> Share on Twitter</button>
+              <button id="facebook-share" onClick={this.shareFacebook}><i className="fa fa-facebook"></i> Share on Facebook</button>
               <a id="roster-link" target="_blank" href={this.props.rosterInfo.link}><i className="fa fa-link"></i></a>
+              <a id="share-close" onClick={this.closeConfirm}><i className="fa fa-times"></i></a>
+              <a id="text-share"><i className="fa fa-pencil"></i>text-only version</a>
             </div>
           </div>
         </div>
