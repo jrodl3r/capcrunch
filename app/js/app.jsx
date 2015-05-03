@@ -69,7 +69,12 @@ var App = React.createClass({
       removePlayer     : false,
       addTradePlayer   : false,
       addAltLinePlayer : false,
+      minRosterPlayers : 6,
       messages         : {
+        error_team_loading    : 'Sorry, There was an error loading that team.',
+        error_roster_loading  : 'Sorry, There was an error loading that roster.',
+        error_roster_saving   : 'Sorry, There was an error saving your roster.',
+        error_min_players     : 'Try adding a few more players to your roster first.',
         trade_players_heading : 'Execute a blockbuster trade for your team:',
         trade_players_max     : 'Five players per team trade maximum...',
         trade_players_oneway  : 'One-way trades only...',
@@ -143,7 +148,7 @@ var App = React.createClass({
           this.hideLoading();
         });
       }.bind(this), 300);
-    } else { this.showNotification('error', 'Sorry, There was an error loading that team.'); }
+    } else { this.showNotification('error', this.props.messages.error_team_loading); }
   },
   loadPlayerData: function(team_id, data) {
     if (data && data !== 'error') {
@@ -159,7 +164,7 @@ var App = React.createClass({
       });
       this.setState(updatePlayerData);
     } else {
-      this.showNotification('error', 'Sorry, There was an error loading that team.');
+      this.showNotification('error', this.props.messages.error_team_loading);
     }
   },
   updatePlayerData: function(players, trades) {
@@ -260,7 +265,7 @@ var App = React.createClass({
       });
       document.getElementById('team-select').value = roster_data.activeTeam;
       this.handleChangeTeam(roster_data.activeTeam);
-    } else { this.showNotification('error', 'There was an error loading that roster.'); }
+    } else { this.showNotification('error', this.props.messages.error_roster_loading); }
   },
   clearRosterData: function() {
     var clearRosterData, blank = [],
@@ -292,14 +297,14 @@ var App = React.createClass({
       });
       this.setState(updateRosterLink);
     } else if (status === 'error') {
-      this.showNotification('error', 'Sorry, There was an error saving your roster.');
+      this.showNotification('error', this.props.messages.error_roster_saving);
     }
   },
   handleRosterSubmit: function(e) {
     e.preventDefault();
     var roster_data = {},
         roster_name = this.state.rosterInfo.name || this.state.teamData.name;
-    if (this.state.activePlayers.length > 10) {
+    if (this.state.activePlayers.length >= this.props.minRosterPlayers) {
       roster_data.name          = roster_name;
       roster_data.hit           = this.state.rosterInfo.hit;
       roster_data.space         = this.state.rosterInfo.space;
@@ -312,7 +317,7 @@ var App = React.createClass({
       setTimeout(function() {
         Socket.emit('save roster', roster_data);
       }, 1000);
-    } else { this.showNotification('tip', 'Try adding a few more players to your roster first.'); }
+    } else { this.showNotification('tip', this.props.messages.error_min_players); }
   },
   parseRosterURI: function() {
     var roster_id = decodeURI(location.pathname.substr(1));

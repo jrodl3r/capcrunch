@@ -72,13 +72,12 @@
 
 - 'cleanup ui.js'
 - 'minimize roster grid rendering'
+- 'cleanup cap stats transitions + distill component'
 - 'fix player list item drag over other list issue (add cover onDrag)'
   - 'Player List Drag Covers » onDragOver={this.onDragOver}'
 - 'share roster close button'
 - 'share roster text-only output'
 - 'add full screen team-select splash intro + add loading view'
-- 'cleanup cap stats transitions'
-- 'add error messages to props messages object'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade summary button/view layout + logic'
 - 'block acquired players on trades (one-way only)'
@@ -90,6 +89,7 @@
 
 #### READY
 
+- 'add error messages to props messages object'
 - 'minimize player panel rendering + list item display logic'
 - 'minimize inactive payroll rendering activity'
 - 'cleanup change/update view (roster/payroll) logic'
