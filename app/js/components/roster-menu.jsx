@@ -2,9 +2,9 @@
 // ==================================================
 'use strict';
 
-var SharePanel        = require('./panels/share.jsx'),
-    PlayersPanel      = require('./panels/players.jsx'),
-    TransactionsPanel = require('./panels/transactions.jsx');
+var SharePanel   = require('./panels/share.jsx'),
+    PlayersPanel = require('./panels/players.jsx'),
+    ActionsPanel = require('./panels/actions.jsx');
 
 var RosterMenu = React.createClass({
     render: function() {
@@ -67,7 +67,7 @@ var RosterMenu = React.createClass({
             handleDragEnter={this.props.onDragEnter}
             handleRemoveDragEnter={this.props.onRemoveDragEnter}
             handleRemoveDragLeave={this.props.onRemoveDragLeave} />
-          <TransactionsPanel
+          <ActionsPanel
             playerData={this.props.playerData}
             activeTeam={this.props.activeTeam}
             activeTrade={this.props.activeTrade}

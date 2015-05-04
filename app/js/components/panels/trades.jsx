@@ -193,16 +193,13 @@ var Trades = React.createClass({
           passivePlayers  = this.buildPlayerGroup(this.props.activeTrade.passive.players, 'passive'),
           haveActive      = activeIdList.length ? true : false,
           havePassive     = passiveIdList.length ? true : false,
-          playerTradeSize = '',
-          threePlayerDeal = activeIdList.length === 3 || passiveIdList.length === 3 ? true : false,
-          fourPlayerDeal  = activeIdList.length === 4 || passiveIdList.length === 4 ? true : false,
-          fivePlayerDeal  = activeIdList.length === 5 || passiveIdList.length === 5 ? true : false;
-      if (threePlayerDeal) { playerTradeSize = ' three-player-trade'; }
-      if (fourPlayerDeal)  { playerTradeSize = ' four-player-trade'; }
-      if (fivePlayerDeal)  { playerTradeSize = ' five-player-trade'; }
+          tradeSize = activeIdList.length === 3 || passiveIdList.length === 3 ? ' three-player-trade' : '',
+          tradeSize = activeIdList.length === 4 || passiveIdList.length === 4 ? ' four-player-trade' : tradeSize,
+          tradeSize = activeIdList.length === 5 || passiveIdList.length === 5 ? ' five-player-trade' : tradeSize,
+          tab = this.props.activeTab;
 
       return (
-        <div id="trades" className={'tab-area active' + playerTradeSize}>
+        <div id="trades" className={ tab === 'trades' ? 'tab-area active' + tradeSize : 'tab-area' + tradeSize }>
           <div className="inner">
             <p id="trade-player-msg">{this.props.messages.heading}</p>
             <div id="trade-drop-area" onDragOver={this.onPlayerDropDragOver}>

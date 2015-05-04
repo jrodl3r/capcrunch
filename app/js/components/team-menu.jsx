@@ -11,6 +11,7 @@ var TeamMenu = React.createClass({
     },
     handleChangeTeam: function(e) {
       var team_id = e.target.value;
+      UI.resetScroll();
       this.props.onChangeTeam(team_id);
     },
     handleChangeView: function(e) {

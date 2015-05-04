@@ -9,29 +9,24 @@ var UI = {
 
   init: function() {
     UI.detect();
-    UI.events();
+    UI.mouse();
+    //UI.test();
   },
 
-  events: function() {
-    // clear drag actions
-    $('#app').on('mouseup', UI.clearDragActions);
-    // toggle transactions tabs
-    $('#transactions-menu').on('click', 'a', UI.toggleTransactionsView);
-    // reset team-select + panel scroll
-    $('#team-select').val('0');
-    $('#team-select').on('change', UI.resetScroll);
-    // toggle panel view
-    $('.panel-toggle-button').on('click', UI.togglePanelView);
-    // toggle roster/cap menu
-    $('#roster-stats-button').on('mouseover', UI.toggleRosterMenu);
-    $('#roster-stats-menu').on('mouseleave', UI.toggleRosterMenu);
-    // block right-click
-    $('body').on('contextmenu', UI.blockRightClick);
-    // testing...
-    //$('#team-select').val('BUF').change();
+  // testing
+  test: function() {
+    $('#team-select').val('BUF').change();
   },
 
-  // mobile/touch splash
+  // mouse events
+  mouse: function() {
+    // block context menu (right-click)
+    $('body').on('contextmenu', UI.blockClick);
+    // clear drag actions (mouse-up)
+    $('#app').on('mouseup', UI.clearDrag);
+  },
+
+  // detect mobile
   detect: function() {
     var device  = navigator.userAgent.toLowerCase(),
         isTouch = Modernizr.touch || (device.match(/(iphone|ipod|ipad)/) || device.match(/(android)/) || device.match(/(iemobile)/) ||
@@ -74,51 +69,21 @@ var UI = {
     $('#payroll .inner, #app .wrap').css('height', 'auto');
   },
 
-  // clear drag actions
-  clearDragActions: function() {
-    $('#menu .player-list .item.clicked').removeClass('clicked');
-    $('#roster .player.active.clicked').removeClass('clicked');
-    $('#roster .grid.dragging').removeClass('dragging');
-  },
-
-  // toggle transactions tab menu
-  toggleTransactionsView: function(e) {
-    e.preventDefault();
-    $('#transactions-menu a, #transactions .tab-area').removeClass('active');
-    $(this).addClass('active');
-    $('#' + $(this).attr('data-tabview')).addClass('active');
-    $('#transactions > .inner').removeClass('createplayer-active freeagents-active trades-active');
-    $('#transactions > .inner').addClass($(this).attr('data-tabview') + '-active');
-  },
-
-  // toggle panel view
-  togglePanelView: function(e) {
-    e.preventDefault();
-    if ($(this).hasClass('active')) {
-      $(this).parent().parent().removeClass('collapsed');
-    } else {
-      $(this).parent().parent().addClass('collapsed');
-    }
-    $(this).toggleClass('active');
-  },
-
-  // toggle roster/cap menu
-  toggleRosterMenu: function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!$(this).hasClass('disabled')) {
-      $('#roster-stats-menu').toggleClass('active');
-    }
-  },
-
-  // reset panel scroll
+  // reset scroll
   resetScroll: function() {
     setTimeout(function() {
       $('.panel.player-list .inner ul').scrollTop(0);
     }, 250);
   },
 
-  blockRightClick: function(e) {
+  // clear drag actions
+  clearDrag: function() {
+    $('#menu .player-list .item.hover').removeClass('hover');
+    $('#menu .player-list .item.clicked').removeClass('clicked');
+  },
+
+  // block mouse actions
+  blockClick: function(e) {
     e.preventDefault();
     return false;
   }

@@ -73,9 +73,8 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'cleanup ui.js'
-- 'cleanup roster grid rendering'
 - 'cleanup cap stats transitions + distill component'
+- 'cleanup roster grid rendering'
 - 'cleanup list item hovers'
 - 'fix player list item drag over other list issue (add cover onDrag)'
   - 'Player List Drag Covers » onDragOver={this.onDragOver}'
@@ -91,6 +90,7 @@
 
 #### READY
 
+- 'cleanup ui.js'
 - 'cleanup active drag data + grid-highlight logic'
 - 'share roster close button + text-only output link'
 - 'add error messages to props messages object'

@@ -178,8 +178,10 @@ var CreatePlayer = React.createClass({
     },
 
     render: function() {
+      var tab = this.props.activeTab;
+
       return (
-        <div id="createplayer" className="tab-area">
+        <div id="createplayer" className={ tab === 'createplayer' ? 'tab-area active' : 'tab-area' }>
           <div className="inner">
             <p id="create-player-msg">{this.props.messages.heading}</p>
             <input id="create-player-fname" type="text" placeholder="First Name"

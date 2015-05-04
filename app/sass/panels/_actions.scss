@@ -1,21 +1,21 @@
 // Transactions Panel
 // ==================================================
 
-#transactions {
+#actions {
   transform: translateZ(0);
 
-  #transactions-menu {
-    height: $transactions-menu-height;
+  #actions-menu {
+    height: $actions-menu-height;
     width: 300px;
     margin-left: 1px;
     transition: .3s;
 
     li {
       float: left;
-      height: $transactions-menu-height;
+      height: $actions-menu-height;
       width: 100px;
       margin: 0;
-      line-height: $transactions-menu-height;
+      line-height: $actions-menu-height;
 
       a {
         float: left;
@@ -48,7 +48,7 @@
   .show-loading & {
     background: #000;
 
-    #transactions-menu {
+    #actions-menu {
       opacity: .25;
     }
   }
@@ -63,39 +63,39 @@
 
     &.inactive {
 
-      #transactions-menu, #createplayer, #trades, #freeagents {
+      #actions-menu, #createplayer, #trades, #freeagents {
         display: none;
       }
 
       .team-select-reminder {
         display: block;
-        height: $trades-height + $transactions-menu-height;
-        line-height: $trades-height + $transactions-menu-height;
+        height: $actions-panel-height;
+        line-height: $actions-panel-height;
       }
     }
 
     &.trades-active {
-      height: $trades-height + $transactions-menu-height;
+      height: $trades-height + $actions-menu-height;
 
       &.three-player-trade {
-        height: $trades-height-3-player + $transactions-menu-height;
+        height: $trades-height-3-player + $actions-menu-height;
       }
 
       &.four-player-trade {
-        height: $trades-height-4-player + $transactions-menu-height;
+        height: $trades-height-4-player + $actions-menu-height;
       }
 
       &.five-player-trade {
-        height: $trades-height-5-player + $transactions-menu-height;
+        height: $trades-height-5-player + $actions-menu-height;
       }
     }
 
     &.freeagents-active {
-      height: $transactions-height;
+      height: $actions-height;
     }
 
     &.createplayer-active {
-      height: $transactions-height;
+      height: $actions-height;
     }
   }
 
@@ -107,7 +107,7 @@
     transition: opacity .4s, height 0s .4s;
 
     &.active {
-      height: $transactions-panel-height;
+      height: $actions-panel-height;
       opacity: 1;
       transition: opacity .4s .4s, height 0s .4s;
     }

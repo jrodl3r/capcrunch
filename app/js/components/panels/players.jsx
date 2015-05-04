@@ -63,6 +63,19 @@ var PlayersPanel = React.createClass({
       }.bind(this));
       return player_list;
     },
+    togglePanelView: function(e) {
+      var button = e.currentTarget,
+          id     = button.dataset.panel,
+          panel  = document.getElementById(id);
+      e.preventDefault();
+      if (button.className === 'active') {
+        panel.className = panel.className.replace(' collapsed', '');
+        button.className = button.className.replace('active', '');
+      } else {
+        panel.className = panel.className + ' collapsed';
+        button.className = button.className + 'active';
+      }
+    },
     onDragOver: function(e) {
       e.preventDefault();
       e.dataTransfer.dropEffect = 'move';
@@ -79,7 +92,7 @@ var PlayersPanel = React.createClass({
         <div id={this.props.panelId} className={ playerType === 'goaltenders' ? 'panel short player-list' : 'panel player-list' }>
           <div className="title">
             {this.props.panelTitle}
-            <a className="panel-toggle-button">
+            <a className="" data-panel={this.props.panelId} onClick={this.togglePanelView}>
               <i className="fa fa-chevron-up"></i>
             </a>
           </div>

@@ -2,6 +2,8 @@
 // ==================================================
 'use strict';
 
+var UI = require('../ui.js');
+
 var Roster = React.createClass({
     onGridDragOver: function(e) {
       e.preventDefault();
@@ -20,10 +22,6 @@ var Roster = React.createClass({
     hideRemovePlayer: function() {
       var menu = document.getElementById('menu');
       menu.className = menu.className.replace(' show-remove-player', '');
-    },
-    blockRightClick: function(e) {
-      e.preventDefault();
-      return false;
     },
     playerTile: function(grid_id) {
       var playerData  = this.props.rosterData[grid_id],
@@ -45,7 +43,7 @@ var Roster = React.createClass({
             onMouseUp={this.props.onPlayerMouseUp}
             onDragStart={this.props.onPlayerDragStart}
             onDragEnd={this.props.onPlayerDragEnd}
-            onContextMenu={this.blockRightClick}>
+            onContextMenu={UI.blockClick}>
             <div className={playerData.team + ' inner'}>
               <div className="photo">
                 <img src={ playerData.image ? playerData.image : 'http://img.capcrunch.io/players/default.png' }/>
