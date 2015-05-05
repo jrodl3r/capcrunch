@@ -1,8 +1,9 @@
-// CapCrunch Payroll (Component)
+// Payroll
 // ==================================================
 'use strict';
 
-var UI = require('../ui.js');
+var CapStats = require('./capstats.jsx'),
+    UI       = require('../ui.js');
 
 var Payroll = React.createClass({
     shouldComponentUpdate: function(nextProps) {
@@ -66,32 +67,10 @@ var Payroll = React.createClass({
       return (
         <div id="payroll" className="section">
           <h2>{this.props.teamData.name}
-            <div id="payroll-stats" className="cap-stats active">
-              <div id="pcap-player-count" className="section">
-                Roster Players <span className="value">
-                  {playerData.forwards.length + playerData.defensemen.length + playerData.goaltenders.length}
-                </span>
-              </div>
-              <div id="pcap-payroll-total" className="section">
-                Payroll Total <span className="value">{this.props.teamData.cap.hit}</span>
-              </div>
-              <div id="pcap-cap-space" className="section">
-                Cap Space <span className="value">{this.props.teamData.cap.space}</span>
-              </div>
-              <div id="pcap-salary-cap" className="section salary-cap">
-                Salary Cap <span className="value">{this.props.leagueData.cap}</span>
-              </div>
-              <a id="payroll-stats-button" className="cap-stats-menu-button disabled">
-                <i className="fa fa-gear"></i>
-              </a>
-              <div id="payroll-stats-menu" className="cap-stats-menu">
-                <ul>
-                  <li>
-                    <a><i className="fa fa-close"></i> Menu Item</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <CapStats activeView="payroll"
+              playerCount={playerData.forwards.length + playerData.defensemen.length + playerData.goaltenders.length}
+              teamInfo={this.props.teamData.cap}
+              cap={this.props.leagueData.cap} />
           </h2>
           <div className="inner">
             <table id="payroll-table">

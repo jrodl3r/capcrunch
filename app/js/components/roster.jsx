@@ -2,7 +2,8 @@
 // ==================================================
 'use strict';
 
-var UI = require('../ui.js');
+var CapStats = require('./capstats.jsx'),
+    UI       = require('../ui.js');
 
 var Roster = React.createClass({
     onGridDragOver: function(e) {
@@ -84,42 +85,21 @@ var Roster = React.createClass({
     },
 
     render: function() {
-      var dragState = this.props.dragData.state,
-          dragType  = this.props.dragData.type,
-          dragPos   = this.props.dragData.player.position,
-          dragGT    = dragType === 'goaltenders' || dragPos === 'G' ? true : false,
-          dragDF    = dragType === 'defensemen' || dragPos === 'D' ? true : false,
-          dragFW    = !dragDF && !dragGT ? true : false;
+      var dragging = this.props.dragData.state,
+          dragG    = this.props.dragData.type === 'goaltenders' || this.props.dragData.player.position === 'G' ? true : false,
+          dragD    = this.props.dragData.type === 'defensemen' || this.props.dragData.player.position === 'D' ? true : false,
+          dragF    = !dragG && !dragD ? true : false;
 
       return (
         <div id="roster" className="section active"
           onMouseUp={this.hideRemovePlayer}
           onDragEnter={this.props.onGridDragEnter}>
-          <div id="roster-stats" className={ this.props.activePlayers.length ? 'cap-stats active' : 'cap-stats' }>
-            <div id="rcap-player-count" className="section">
-              <span>Roster Players <span className="value">{this.props.activePlayers.length}</span></span>
-            </div>
-            <div id="rcap-payroll-total" className="section">
-              <span>Payroll Total <span className="value">{this.props.rosterInfo.hit}</span></span>
-            </div>
-            <div id="rcap-cap-space" className="section">
-              <span>Cap Space <span className={ this.props.rosterInfo.space > 0 ? 'value' : 'value overage' }>{this.props.rosterInfo.space}</span></span>
-            </div>
-            <div id="rcap-salary-cap" className="section salary-cap">
-              <span>Salary Cap <span className="value">{this.props.leagueData.cap}</span></span>
-            </div>
-            <a id="roster-stats-button" className={ this.props.activePlayers.length ? 'cap-stats-menu-button' : 'cap-stats-menu-button disabled' }>
-              <i className="fa fa-gear"></i>
-            </a>
-            <div id="roster-stats-menu" className={ this.props.activePlayers.length ? 'cap-stats-menu' : 'cap-stats-menu disabled' }>
-              <ul>
-                <li>
-                  <a onClick={this.props.clearRosterData}><i className="fa fa-trash"></i> Remove All</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div id="forwards" className={ dragState && dragFW ? 'grid dragging' : 'grid' }>
+          <CapStats activeView="roster"
+            playerCount={this.props.activePlayers.length}
+            teamInfo={this.props.rosterInfo}
+            cap={this.props.leagueData.cap}
+            clearRosterData={this.props.clearRosterData} />
+          <div id="forwards" className={ dragging && dragF ? 'grid dragging' : 'grid' }>
             <div className="title">
               <div className="left">LW</div>
               <div className="center">C</div>
@@ -208,7 +188,7 @@ var Roster = React.createClass({
               </ul>
             </div>
           </div>
-          <div id="defense" className={ dragState && dragDF ? 'grid defense dragging' : 'grid defense' }>
+          <div id="defense" className={ dragging && dragD ? 'grid defense dragging' : 'grid defense' }>
             <div className="title">
               <div className="left">LD</div>
               <div className="right">RD</div>
@@ -269,7 +249,7 @@ var Roster = React.createClass({
               </ul>
             </div>
           </div>
-          <div id="goalies" className={ dragState && dragGT ? 'grid defense dragging' : 'grid defense' }>
+          <div id="goalies" className={ dragging && dragG ? 'grid defense dragging' : 'grid defense' }>
             <div className="title">G</div>
             <div className="inner">
               <div id="G1" className="line">
