@@ -69,10 +69,18 @@ a, button, input, select {
 #app {
   display: flex;
   flex-direction: column;
+  height: 860px;
   min-height: 100%;
   width: 100%;
   margin-bottom: -$footer-height;
   overflow: hidden;
+  opacity: 0;
+  transition: opacity .3s;
+
+  &.active {
+    height: initial;
+    opacity: 1;
+  }
 
   &:after {
     content: "";
@@ -94,8 +102,37 @@ a, button, input, select {
 }
 
 
-// Unsupported Splash
+// Splash Views
 // --------------------------------------------------
+
+#loading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 0;
+  width: 300px;
+  margin: auto;
+  color: rgba(255,255,255, .3);
+  font-size: 26px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 100px;
+  opacity: 0;
+  transition: opacity .3s, height 0s .3s;
+
+  &.active {
+    height: 100px;
+    opacity: 1;
+    transition: opacity .3s, height 0s;
+  }
+
+  i {
+    position: relative;
+    left: -5px;
+  }
+}
 
 #unsupported {
   position: absolute;

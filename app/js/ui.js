@@ -7,35 +7,68 @@ var UI = {
   payroll_header_height : 92,
   payroll_height        : 0,
 
-  init: function() {
-    UI.detect();
-    UI.mouse();
-    //UI.test();
+  init: function(type) {
+    var isMobile = UI.detect();
+    if (isMobile) {
+      UI.showMobileView();
+    } else {
+      UI.launch(type);
+      UI.events();
+    }
   },
 
-  // testing
-  test: function() {
-    $('#team-select').val('BUF').change();
+  detect: function() {
+    var device   = navigator.userAgent.toLowerCase(),
+        isMobile = Modernizr.touch || (device.match(/(iphone|ipod|ipad)/) || device.match(/(android)/) || device.match(/(iemobile)/) || device.match(/iphone/i) || device.match(/ipad/i) || device.match(/ipod/i) || device.match(/blackberry/i) || device.match(/bada/i));
+    return isMobile;
+  },
+
+  launch: function(shared) {
+    if (!shared) {
+      setTimeout(function() {
+        UI.showTeamsGrid();
+      }, 400);
+    }
   },
 
   // mouse events
-  mouse: function() {
-    // block context menu (right-click)
+  events: function() {
     $('body').on('contextmenu', UI.blockClick);
-    // clear drag actions (mouse-up)
     $('#app').on('mouseup', UI.clearDrag);
+    $('#teams .grid div').on('mouseenter', function() {
+      var team = $(this).attr('class');
+      $('#grid-svg').contents().find('g.' + team).css('opacity', '1');
+    });
+    $('#teams .grid div').on('mouseleave', function() {
+      var team = $(this).attr('class');
+      $('#grid-svg').contents().find('g.' + team).css('opacity', '.4');
+    });
   },
 
-  // detect mobile
-  detect: function() {
-    var device  = navigator.userAgent.toLowerCase(),
-        isTouch = Modernizr.touch || (device.match(/(iphone|ipod|ipad)/) || device.match(/(android)/) || device.match(/(iemobile)/) ||
-          device.match(/iphone/i) || device.match(/ipad/i) || device.match(/ipod/i) || device.match(/blackberry/i) || device.match(/bada/i));
-    if (isTouch) {
-      $('#app, header, footer').css('display', 'none');
-      $('body').addClass('unsupported');
-      $('#main').append('<div id="unsupported"><img className="logo" src="img/logo.min.svg"/><p>Mobile Version Coming Soon...</p></div>');
-    }
+  // show mobile splash
+  showMobileView: function() {
+    $('#loading, #app, header, footer').css('display', 'none');
+    $('body').addClass('unsupported');
+    $('#main').append('<div id="unsupported"><img className="logo" src="img/logo.min.svg"/><p>Mobile Version Coming Soon...</p></div>');
+  },
+
+  // show team select grid
+  showTeamsGrid: function() {
+    $('#loading, #app, #team-menu').removeClass('active');
+    $('#teams').addClass('active');
+  },
+
+  // hide team select grid
+  hideTeamsGrid: function() {
+    UI.resetScroll();
+    $('#app, #team-menu').addClass('active');
+    $('#teams').removeClass('active');
+  },
+
+  // hide loading splash
+  hideLoading: function() {
+    $('#app, #team-menu').addClass('active');
+    $('#loading').removeClass('active');
   },
 
   // toggle view
@@ -71,9 +104,7 @@ var UI = {
 
   // reset scroll
   resetScroll: function() {
-    setTimeout(function() {
-      $('.panel.player-list .inner ul').scrollTop(0);
-    }, 250);
+    $('.panel.player-list .inner ul').scrollTop(0);
   },
 
   // clear drag actions
@@ -88,7 +119,5 @@ var UI = {
     return false;
   }
 };
-
-$(document).ready(UI.init);
 
 module.exports = UI;

@@ -83,12 +83,19 @@ header {
     padding-right: 0;
     line-height: 30px;
     text-align: right;
+    opacity: 0;
+    transition: .3s;
+
+    &.active {
+      opacity: 1;
+    }
 
     ul {
       float: right;
     }
 
     li {
+      position: relative;
       float: right;
       height: inherit;
 
@@ -119,6 +126,15 @@ header {
       }
     }
 
+    .team-select-cover {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      right: 0;
+      height: 28px;
+      width: 180px;
+    }
+
     #team-select {
       float: right;
       height: 24px;
@@ -132,26 +148,6 @@ header {
       background-color: #D6D6D6;
       border: 0;
     }
-
-    #team-select-reminder {
-      position: absolute;
-      z-index: 4;
-      top: 38px;
-      right: 170px;
-      height: 30px;
-      width: 120px;
-      background: url(../img/select-team-reminder.svg);
-      background-size: 100%;
-      background-repeat: no-repeat;
-      background-position: center center;
-      opacity: 0;
-      cursor: default;
-      transition: .35s;
-
-      &.active {
-        opacity: .35;
-      }
-    }
   }
 }
 
@@ -162,14 +158,14 @@ footer {
   padding-right: 10px;
   line-height: 30px;
   text-align: right;
-  color: rgba(120,120,120, .5);
+  color: rgba(120,120,120, .65);
   font-size: 10px;
   font-weight: bold;
-  text-shadow: 0 0 2px rgba(0,0,0, .25);
+  text-shadow: 0 0 2px rgba(0,0,0, .5);
   cursor: default;
 
   span.cap {
-    color: rgba(130,130,130, .325);
+    color: rgba(130,130,130, .45);
   }
 
   span.version {

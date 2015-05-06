@@ -73,12 +73,11 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'add full screen team-select splash intro + add loading view'
 - 'cleanup roster grid rendering'
 - 'cleanup list item hovers'
 - 'fix player list item drag over other list issue (add cover onDrag)'
   - 'Player List Drag Covers » onDragOver={this.onDragOver}'
-- 'rebuild/remove cap stats menu (move to header)'
+- 'rebuild/remove cap stats menu (move to header?)'
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'trade summary button/view layout + logic'
 - 'block acquired players on trades (one-way only)'
@@ -90,6 +89,7 @@
 
 #### READY
 
+- 'add full screen team-select splash intro + add loading view'
 - 'cleanup + distill cap stats into component'
 - 'cleanup ui.js'
 - 'cleanup active drag data + grid-highlight logic'

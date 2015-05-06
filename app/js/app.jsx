@@ -2,10 +2,12 @@
 // ==================================================
 'use strict';
 
-var TeamMenu    = require('./components/team-menu.jsx'),
+var TeamGrid    = require('./components/team-grid.jsx'),
+    TeamMenu    = require('./components/team-menu.jsx'),
     Payroll     = require('./components/payroll.jsx'),
     Roster      = require('./components/roster.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
+    UI          = require('./ui.js'),
     Socket      = io.connect('', { 'transports': ['websocket'] });
 
 var dropZoneData = {
@@ -21,13 +23,7 @@ var App = React.createClass({
       activeView     : 'roster',
       activeTeam     : '',
       activePlayers  : [],
-      rosterInfo     : {
-        id           : '',
-        name         : '',
-        link         : '',
-        hit          : '0.000',
-        space        : '69.000'
-      },
+      rosterInfo     : { id : '', name : '', link : '', hit : '0.000', space : '69.000' },
       rosterData  : {
              F1L  : { status : 'empty' }, F1C : { status : 'empty' }, F1R : { status : 'empty' },
              F2L  : { status : 'empty' }, F2C : { status : 'empty' }, F2R : { status : 'empty' },
@@ -44,18 +40,12 @@ var App = React.createClass({
              GB1  : { status : 'empty' }, GB2 : { status : 'empty' },
              GR1  : { status : 'empty' }, GR2 : { status : 'empty' }
       },
-      teamData    : {
-        id        : '',
-        name      : '',
+      teamData    : { id : '', name : '',
         cap       : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
         players   : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [], created : [] }
       },
       playerData  : { team : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
-      leagueData  : {
-        cap       : '69.000',
-        trades    : [],
-        created   : []
-      },
+      leagueData  : { cap : '69.000', trades : [], created : [] },
       activeTrade : {
         active    : { team : '', players : [], id_list : [] },
         passive   : { team : '', players : [], id_list : [] }
@@ -82,14 +72,16 @@ var App = React.createClass({
     };
   },
   componentDidMount: function() {
+    var roster;
     if (this.parseRosterURI()) {
-      var roster_id = this.parseRosterURI();
-      Socket.emit('get roster', roster_id);
+      roster = this.parseRosterURI();
+      Socket.emit('get roster', roster);
     }
     Socket.on('load team', this.loadTeamData);
     Socket.on('load roster', this.loadRosterData);
     Socket.on('load players', this.loadPlayerData);
     Socket.on('roster saved', this.showShareDialog);
+    UI.init(roster);
   },
 
 
@@ -128,7 +120,6 @@ var App = React.createClass({
   handleChangeTeam: function(id) {
     Socket.emit('get team', id);
     this.setState({ activeTeam : id });
-    this.showLoading();
   },
   loadTeamData: function(data) {
     if (data && data !== 'error') {
@@ -141,12 +132,10 @@ var App = React.createClass({
       }
       trade_data = this.getTradeData(this.state.activeTeam, 'active');
       team_data.players = this.updatePlayerData(team_data.players, trade_data);
-      setTimeout(function() {
-        this.setState({ teamData: team_data }, function() {
-          this.resetTradeData();
-          this.hideLoading();
-        });
-      }.bind(this), 300);
+      this.setState({ teamData: team_data }, function() {
+        this.resetTradeData();
+        UI.hideTeamsGrid();
+      });
     } else { this.showNotification('error', this.props.messages.error_team_loading); }
   },
   loadPlayerData: function(team_id, data) {
@@ -261,8 +250,8 @@ var App = React.createClass({
       });
       this.setState(updateRosterInfo, function() {
         this.checkActiveAltLines(this.state.rosterData);
+        UI.hideLoading();
       });
-      document.getElementById('team-select').value = roster_data.activeTeam;
       this.handleChangeTeam(roster_data.activeTeam);
     } else { this.showNotification('error', this.props.messages.error_roster_loading); }
   },
@@ -1009,6 +998,7 @@ var App = React.createClass({
           activeView={this.state.activeView}
           onChangeTeam={this.handleChangeTeam}
           onChangeView={this.handleChangeView} />
+        <TeamGrid onChangeTeam={this.handleChangeTeam} />
         <div id="app">
           <div className="wrap">
             <Payroll
@@ -1058,6 +1048,7 @@ var App = React.createClass({
               onTriggerDragLeave={this.handleTriggerDragLeave} />
           </div>
         </div>
+        <div id="loading" className="active"><i className="fa fa-cog fa-spin"></i> Loading</div>
         <footer><span className="cap">CAP</span>CRUNCH <span className="version">0.9.2</span></footer>
       </div>
     );

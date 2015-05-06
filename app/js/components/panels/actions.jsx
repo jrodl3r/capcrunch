@@ -66,7 +66,6 @@ var ActionsPanel = React.createClass({
             <CreatePlayer
               activeTab={this.state.activeTab}
               handleCreatePlayer={this.props.handleCreatePlayer} />
-            <div className="team-select-reminder"></div>
           </div>
         </div>
       );

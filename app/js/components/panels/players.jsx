@@ -105,9 +105,7 @@ var PlayersPanel = React.createClass({
                 {rosterPlayers}
               </ul> }
           </div>
-        : <div className="inner">
-            <div className="team-select-reminder"></div>
-          </div> }
+        : null }
           <div className="remove-player" onDragOver={this.onDragOver}>
             <i className="fa fa-rotate-left"></i> Remove Player
             <div className="cover"

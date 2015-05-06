@@ -62,15 +62,12 @@
     transition: .4s;
 
     &.inactive {
+      display: block;
+      height: $actions-panel-height;
+      line-height: $actions-panel-height;
 
       #actions-menu, #createplayer, #trades, #freeagents {
         display: none;
-      }
-
-      .team-select-reminder {
-        display: block;
-        height: $actions-panel-height;
-        line-height: $actions-panel-height;
       }
     }
 
@@ -282,10 +279,6 @@
       left: 0;
       height: 50%;
     }
-  }
-
-  .team-select-reminder {
-    display: none;
   }
 }
 
@@ -532,7 +525,7 @@
   }
 
   .transaction-confirm {
-    line-height: $trades-height;
+    line-height: 240px;
 
     &.active {
       height: $trades-height;
@@ -572,10 +565,10 @@
 #freeagents {
 
   .inner {
-    background: url(../img/coming-soon-banner.svg);
+    background: url(../img/coming-soon-splash.svg);
     background-size: 48%;
     background-repeat: no-repeat;
-    background-position: center 40%;
+    background-position: center 48%;
     opacity: .15;
   }
 }
