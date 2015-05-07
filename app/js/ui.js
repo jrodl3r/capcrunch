@@ -4,6 +4,9 @@
 
 var UI = {
 
+  app_loaded            : false,
+  loading_delay         : 500,
+  view_update_delay     : 400,
   payroll_header_height : 92,
   payroll_height        : 0,
 
@@ -27,7 +30,7 @@ var UI = {
     if (!shared) {
       setTimeout(function() {
         UI.showTeamsGrid();
-      }, 400);
+      }, UI.loading_delay);
     }
   },
 
@@ -63,6 +66,10 @@ var UI = {
     UI.resetScroll();
     $('#app, #team-menu').addClass('active');
     $('#teams').removeClass('active');
+    if (!UI.app_loaded) {
+      $('#grid-reminder').addClass('disabled');
+      UI.app_loaded = true;
+    }
   },
 
   // hide loading splash
@@ -78,13 +85,13 @@ var UI = {
       UI.updateViewHeight('force');
       setTimeout(() => {
         $('#payroll').toggleClass('active');
-      }, 300);
+      }, UI.view_update_delay);
     } else {
       $('#payroll').toggleClass('active');
       setTimeout(() => {
         UI.resetViewHeight();
         $('#menu, #roster').toggleClass('active');
-      }, 300);
+      }, UI.view_update_delay);
     }
   },
 

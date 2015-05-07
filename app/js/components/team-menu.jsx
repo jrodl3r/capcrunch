@@ -25,8 +25,11 @@ var TeamMenu = React.createClass({
         }
       }
     },
-    showTeamsGrid: function(e) {
-      e.stopPropagation();
+    getTeamName: function(id) {
+      var team = this.props.teams ? this.props.teams.filter(function(o) { return o.id === id; }) : null;
+      return team ? team[0].name : null;
+    },
+    showTeamsGrid: function() {
       UI.showTeamsGrid();
     },
 
@@ -41,12 +44,16 @@ var TeamMenu = React.createClass({
             <nav id="team-menu">
               <ul>
                 <li>
-                  <span className="team-select-cover" onClick={this.showTeamsGrid}></span>
-                  <select id="team-select" value={this.props.activeTeam}>
-                    {this.props.teams.map(function(team) {
-                      return <option key={team.id} value={team.id}>{team.name}</option>;
-                    })}
-                  </select>
+                  <div className="team-select-display" onClick={this.showTeamsGrid}>
+                    { this.props.activeTeam ? this.getTeamName(this.props.activeTeam) : '' }
+                    <i className="fa fa-caret-up"></i>
+                    <i className="fa fa-caret-down"></i>
+                  </div>
+                  <!--// <select id="team-select" value={this.props.activeTeam}>
+                  //   {this.props.teams.map(function(team) {
+                  //     return <option key={team.id} value={team.id}>{team.name}</option>;
+                  //   })}
+                  // </select>-->
                 </li>
                 <li>
                   <a className={ this.props.activeView === 'payroll' ? 'payroll active' : 'payroll' } onClick={this.handleChangeView}>Payroll</a>

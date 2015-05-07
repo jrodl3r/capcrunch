@@ -13,7 +13,7 @@ var TeamGrid = React.createClass({
       return (
         <div id="teams">
           <div className="inner">
-            <div className="grid-reminder"></div>
+            <div id="grid-reminder"></div>
             <object id="grid-svg" data="../img/team-select-grid.svg" type="image/svg+xml"></object>
             <div className="grid">
               <div className="ANA" onClick={this.handleChangeTeam}></div>

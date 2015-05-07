@@ -34,6 +34,7 @@
 - »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 - 'gulp asset management + optimization (fonts, images)'
 - 'player image CDN (uptime/redundancy/speed)'
+- 'upgrade app data + upgrade Mongolab'
 - 'SEO friendly ReactJS SSR markup'
 
 
@@ -47,49 +48,42 @@
 - 'wire-up create-player add salary row button'
 - 'scroll player group into view on item drag-start (if not fully visible)'
 - 'scroll player list into view on scroll-end (if related player group focused)'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'free agents panel + logic'
-- 'payroll: show/apply user transactions settings'
-- 'pre-cache team + player images on select/hover'
-- 'editable player tile info (salary) + add to LTIR button'
-- 'cleanup payroll layout + icons'
-- 'roster text-only output'
-- 'slim/space-saving alt-lines (no player image/jersey)'
 »»» Refactor Trade Logic »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-  - 'trade player cap violation/overage check + warning'
-  - 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
-  - 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
-  - 'clear roster on team change?'
-  - 'warn about disabled trade functionality?'
-  - 'warn about allstar mode?'
+  //- 'trade player cap violation/overage check + warning'
+  //- 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
+  //- 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
   - 'trade player assets / draft picks layout + logic'
   - 'scrape team draft pick data
-»»» Footer »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-  - 'credits'
-  - 'feedback + support'
-  - 'copyright + disclaimer'
-  - 'next feature voting'
 
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'cleanup roster grid rendering'
-- 'cleanup list item hovers'
-- 'fix player list item drag over other list issue (add cover onDrag)'
-  - 'Player List Drag Covers » onDragOver={this.onDragOver}'
-- 'rebuild/remove cap stats menu (move to header?)'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-- 'trade summary button/view layout + logic'
+- 'cleanup view transition logic'
+- 'rebuild trade player + trade data persistence logic'
 - 'block acquired players on trades (one-way only)'
+- 'on team change warn about disabled trading / allstar mode (if active trades)'
+- 'add draft picks coming soon on trades dropdown'
+- 'trade summary button/view layout + logic'
+- 'add player list drag covers / fix drag-over issue'
+- 'rebuild/remove cap stats menu (move to header?)'
+- 'wire-up share twitter, facebook + text-output'
+- 'cleanup payroll layout + icons'
 - 'update notifications layout + logic (slide-out + fade-in)'
 - 'cleanup validation/error message display/timing consistency'
-- 'wire-up Twitter + Facebook share buttons'
-- 'upgrade app data + upgrade Mongolab'
+- 'Footer (credits | feedback + support | copyright + disclaimer | next features)'
+- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] «
+- 'free agents panel + logic'
+- 'payroll: show/apply user transactions settings'
+- 'pre-cache team + player images on select/hover'
+- 'editable player tile info (salary) + add to LTIR button'
+- 'slim/space-saving alt-lines (no player image/jersey)'
+- 'roster menu panel vertical drag repositioning'
 
 
 #### READY
 
-- 'add full screen team-select splash intro + add loading view'
+- 'normalize header team select display component'
+- 'add full screen team-select splash intro + loading view'
 - 'cleanup + distill cap stats into component'
 - 'cleanup ui.js'
 - 'cleanup active drag data + grid-highlight logic'

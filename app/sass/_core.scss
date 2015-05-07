@@ -69,16 +69,14 @@ a, button, input, select {
 #app {
   display: flex;
   flex-direction: column;
-  height: 860px;
   min-height: 100%;
   width: 100%;
   margin-bottom: -$footer-height;
   overflow: hidden;
   opacity: 0;
-  transition: opacity .3s;
+  transition: .3s;
 
   &.active {
-    height: initial;
     opacity: 1;
   }
 

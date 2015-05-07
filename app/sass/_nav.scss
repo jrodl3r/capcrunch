@@ -85,6 +85,7 @@ header {
     text-align: right;
     opacity: 0;
     transition: .3s;
+    transform: translateZ(0);
 
     &.active {
       opacity: 1;
@@ -126,13 +127,38 @@ header {
       }
     }
 
-    .team-select-cover {
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      right: 0;
-      height: 28px;
+    .team-select-display {
+      position: relative;
+      float: right;
+      height: 24px;
       width: 180px;
+      margin-top: 3px;
+      margin-left: 20px;
+      padding-left: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: left;
+      line-height: 24px;
+      background: #D6D6D6;
+      border-radius: 5px;
+      opacity: .5;
+      transition: .3s;
+
+      &:hover {
+        opacity: .9;
+        cursor: default;
+      }
+
+      i {
+        position: absolute;
+        top: 4px;
+        right: 7px;
+        font-size: 11px;
+
+        &:last-of-type {
+          top: 10px;
+        }
+      }
     }
 
     #team-select {
