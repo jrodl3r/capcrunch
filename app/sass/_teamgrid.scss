@@ -8,21 +8,19 @@
   right: 0;
   left: 0;
   height: 0;
+  width: 1020px;
   margin: 0 auto;
   padding: 0;
   opacity: 0;
   overflow: hidden;
-  transition: opacity .5s, height 0s .5s, padding 0s .5s;
+  transition: opacity .3s, height 0s .3s, padding 0s .3s;
   transform: translateZ(0);
 
   &.active {
     height: 100%;
-    width: 1020px;
-    padding-left: 60px;
-    padding-right: 60px;
     opacity: 1;
     overflow: visible;
-    transition: opacity .5s, height 0s, padding 0s;
+    transition: opacity .3s, height 0s, padding 0s;
   }
 
   .inner {
@@ -70,7 +68,12 @@
     width: 240px;
     background: url(../img/select-team-splash.svg) no-repeat;
     background-size: 90%;
-    opacity: .2;
+    opacity: 0;
+
+    &.active {
+      opacity: .25;
+      transition: opacity .5s 1s;
+    }
 
     &.disabled {
       display: none;

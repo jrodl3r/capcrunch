@@ -2,6 +2,8 @@
 // ==================================================
 'use strict';
 
+var UI = require('../ui.js');
+
 var CapStats = React.createClass({
   toggleMenu: function(e) {
     var view = this.props.activeView,
@@ -12,10 +14,6 @@ var CapStats = React.createClass({
     } else {
       menu.className = menu.className.replace(' active', '');
     }
-  },
-  blockClick: function(e) {
-    e.preventDefault();
-    return false;
   },
 
   render: function() {
@@ -38,7 +36,7 @@ var CapStats = React.createClass({
         <div className="section salary-cap">
           <span>Salary Cap <span className="value">{cap}</span></span>
         </div>
-        <a id={ view + '-stats-button' } onClick={this.blockClick}
+        <a id={ view + '-stats-button' } onClick={UI.blockClick}
           className={ view === 'roster' && count || view === 'payroll' ? 'cap-stats-menu-button' : 'cap-stats-menu-button disabled' }
           onMouseEnter={ view === 'roster' && count || view === 'payroll' ? this.toggleMenu : null }>
           <i className="fa fa-gear"></i>

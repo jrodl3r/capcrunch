@@ -3,7 +3,9 @@
 'use strict';
 
 var TeamGrid    = require('./components/team-grid.jsx'),
-    TeamMenu    = require('./components/team-menu.jsx'),
+    Loading     = require('./components/loading.jsx'),
+    Header      = require('./components/header.jsx'),
+    Footer      = require('./components/footer.jsx'),
     Payroll     = require('./components/payroll.jsx'),
     Roster      = require('./components/roster.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
@@ -20,7 +22,8 @@ var dropZoneData = {
 var App = React.createClass({
   getInitialState: function() {
     return {
-      activeView     : 'roster',
+      activeView     : 'loading',
+      lastView       : '',
       activeTeam     : '',
       activePlayers  : [],
       rosterInfo     : { id : '', name : '', link : '', hit : '0.000', space : '69.000' },
@@ -72,24 +75,37 @@ var App = React.createClass({
     };
   },
   componentDidMount: function() {
-    var roster;
-    if (this.parseRosterURI()) {
-      roster = this.parseRosterURI();
-      Socket.emit('get roster', roster);
-    }
+    var roster = this.parseRosterURI();
+    if (roster) { Socket.emit('get roster', roster); }
+    else { this.changeView('teams'); }
     Socket.on('load team', this.loadTeamData);
     Socket.on('load roster', this.loadRosterData);
     Socket.on('load players', this.loadPlayerData);
     Socket.on('roster saved', this.showShareDialog);
-    UI.init(roster);
   },
 
 
 // UI + View
 // --------------------------------------------------
 
-  handleChangeView: function(view) {
-    this.setState({ activeView : view });
+  changeView: function(view) {
+    var activeView = this.state.activeView,
+        lastView = this.state.lastView,
+        nextView = activeView === 'teams' && lastView === 'payroll' ? 'payroll' : null,
+        updateView;
+    if (this.state.nextView && view === 'roster') { view = 'payroll'; }
+    if (view !== activeView) {
+      updateView = React.addons.update(this.state, {
+        lastView   : { $set: activeView },
+        nextView   : { $set: nextView },
+        activeView : { $set: view }
+      });
+      this.setState(updateView, function() {
+        if (view === 'roster') { UI.resetScroll(); }
+        if (view === 'payroll') { UI.updateViewHeight(); }
+        else if (activeView === 'payroll') { UI.resetViewHeight(); }
+      });
+    }
   },
   showNotification: function(type, msg) {
     if (type === 'error') {
@@ -117,13 +133,15 @@ var App = React.createClass({
 // Team + Player Data
 // --------------------------------------------------
 
-  handleChangeTeam: function(id) {
+  changeTeam: function(id) {
+    this.changeView('loading');
     Socket.emit('get team', id);
     this.setState({ activeTeam : id });
   },
   loadTeamData: function(data) {
+    var team_data, trade_data;
     if (data && data !== 'error') {
-      var trade_data, team_data = data;
+      team_data = data;
       team_data.players.created = [];
       for (var i = 0; i < this.state.leagueData.created.length; i++) {
         if (this.state.leagueData.created[i].team === team_data.id) {
@@ -134,7 +152,7 @@ var App = React.createClass({
       team_data.players = this.updatePlayerData(team_data.players, trade_data);
       this.setState({ teamData: team_data }, function() {
         this.resetTradeData();
-        UI.hideTeamsGrid();
+        this.changeView('roster');
       });
     } else { this.showNotification('error', this.props.messages.error_team_loading); }
   },
@@ -230,16 +248,16 @@ var App = React.createClass({
 // --------------------------------------------------
 
   loadRosterData: function(data) {
+    var roster_data, roster_grid, updateRoster;
     if (data && data !== 'error') {
-      var roster_data = data,
-          roster_grid = this.state.rosterData,
-          updateRosterInfo;
+      roster_data = data;
+      roster_grid = this.state.rosterData;
       for (var pos in roster_grid) {
         if (roster_data.lines.hasOwnProperty(pos)) {
           roster_grid[pos] = roster_data.lines[pos];
         }
       }
-      updateRosterInfo = React.addons.update(this.state, {
+      updateRoster = React.addons.update(this.state, {
         rosterData    : { $set: roster_grid },
         rosterInfo    : { name  : { $set: roster_data.name },
                           hit   : { $set: roster_data.hit },
@@ -248,11 +266,10 @@ var App = React.createClass({
         leagueData    : { created : { $set: roster_data.created },
                           trades  : { $set: roster_data.trades }}
       });
-      this.setState(updateRosterInfo, function() {
+      this.setState(updateRoster, function() {
         this.checkActiveAltLines(this.state.rosterData);
-        UI.hideLoading();
       });
-      this.handleChangeTeam(roster_data.activeTeam);
+      this.changeTeam(roster_data.activeTeam);
     } else { this.showNotification('error', this.props.messages.error_roster_loading); }
   },
   clearRosterData: function() {
@@ -993,21 +1010,25 @@ var App = React.createClass({
   render: function() {
     return (
       <div id="main">
-        <TeamMenu
-          activeTeam={this.state.activeTeam}
+        <Loading activeView={this.state.activeView} />
+        <Header
           activeView={this.state.activeView}
-          onChangeTeam={this.handleChangeTeam}
-          onChangeView={this.handleChangeView} />
-        <TeamGrid onChangeTeam={this.handleChangeTeam} />
-        <div id="app">
+          activeTeam={this.state.activeTeam}
+          onChangeView={this.changeView} />
+        <TeamGrid
+          activeView={this.state.activeView}
+          activeTeam={this.state.activeTeam}
+          onChangeTeam={this.changeTeam} />
+        <div id="app" className={ this.state.activeView === 'roster' || this.state.activeView === 'payroll' ? 'active' : null }>
           <div className="wrap">
             <Payroll
-              teamData={this.state.teamData}
+              activeView={this.state.activeView}
               leagueData={this.state.leagueData}
-              activeView={this.state.activeView} />
+              teamData={this.state.teamData} />
             <RosterMenu
-              teamData={this.state.teamData}
+              activeView={this.state.activeView}
               leagueData={this.state.leagueData}
+              teamData={this.state.teamData}
               playerData={this.state.playerData}
               rosterInfo={this.state.rosterInfo}
               activeTeam={this.state.activeTeam}
@@ -1031,6 +1052,7 @@ var App = React.createClass({
               onAddTradePlayer={this.handleAddTradePlayer}
               onRemoveTradePlayer={this.handleRemoveTradePlayer} />
             <Roster
+              activeView={this.state.activeView}
               dragData={this.state.dragData}
               leagueData={this.state.leagueData}
               rosterInfo={this.state.rosterInfo}
@@ -1048,8 +1070,7 @@ var App = React.createClass({
               onTriggerDragLeave={this.handleTriggerDragLeave} />
           </div>
         </div>
-        <div id="loading" className="active"><i className="fa fa-cog fa-spin"></i> Loading</div>
-        <footer><span className="cap">CAP</span>CRUNCH <span className="version">0.9.2</span></footer>
+        <Footer />
       </div>
     );
   }

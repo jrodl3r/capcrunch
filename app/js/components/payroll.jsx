@@ -7,12 +7,7 @@ var CapStats = require('./capstats.jsx'),
 
 var Payroll = React.createClass({
     shouldComponentUpdate: function(nextProps) {
-      return this.props.teamData.id !== nextProps.teamData.id;
-    },
-    componentDidUpdate: function() {
-      if (this.props.activeView === 'payroll') {
-        UI.updateViewHeight();
-      }
+      return this.props.activeView !== nextProps.activeView;
     },
     buildPlayerGroup: function(players, player_type) {
       var player_list, status_class;
@@ -65,7 +60,7 @@ var Payroll = React.createClass({
           inactiveItems = this.buildPlayerGroup(playerData.inactive, 'other');
 
       return (
-        <div id="payroll" className="section">
+        <div id="payroll" className={ this.props.activeView === 'payroll' ? 'section active' : 'section' }>
           <h2>{this.props.teamData.name}
             <CapStats activeView="payroll"
               playerCount={playerData.forwards.length + playerData.defensemen.length + playerData.goaltenders.length}

@@ -127,7 +127,7 @@ header {
       }
     }
 
-    .team-select-display {
+    #team-select {
       position: relative;
       float: right;
       height: 24px;
@@ -161,7 +161,7 @@ header {
       }
     }
 
-    #team-select {
+    /* #team-select {
       float: right;
       height: 24px;
       width: 180px;
@@ -173,7 +173,7 @@ header {
       font-weight: bold;
       background-color: #D6D6D6;
       border: 0;
-    }
+    } */
   }
 }
 
@@ -184,17 +184,17 @@ footer {
   padding-right: 10px;
   line-height: 30px;
   text-align: right;
-  color: rgba(120,120,120, .65);
+  color: rgba(140,140,140, .75);
   font-size: 10px;
   font-weight: bold;
-  text-shadow: 0 0 2px rgba(0,0,0, .5);
+  text-shadow: 0 0 3px rgba(0,0,0, .75);
   cursor: default;
 
   span.cap {
-    color: rgba(130,130,130, .45);
+    color: rgba(190,190,190, .4);
   }
 
   span.version {
-    color: rgba(130,130,130, .75);
+    color: rgba(255,255,255, .35);
   }
 }

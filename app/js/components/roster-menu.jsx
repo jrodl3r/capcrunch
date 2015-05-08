@@ -9,7 +9,7 @@ var SharePanel   = require('./panels/share.jsx'),
 var RosterMenu = React.createClass({
     render: function() {
       return (
-        <div id="menu" className="section active">
+        <div id="menu" className={ this.props.activeView === 'roster' ? 'section active' : 'section' }>
           <SharePanel
             rosterInfo={this.props.rosterInfo}
             teamName={this.props.teamData.name}

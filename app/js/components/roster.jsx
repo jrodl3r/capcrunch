@@ -91,7 +91,7 @@ var Roster = React.createClass({
           dragF    = !dragG && !dragD ? true : false;
 
       return (
-        <div id="roster" className="section active"
+        <div id="roster" className={ this.props.activeView === 'roster' ? 'section active' : 'section' }
           onMouseUp={this.hideRemovePlayer}
           onDragEnter={this.props.onGridDragEnter}>
           <CapStats activeView="roster"

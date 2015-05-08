@@ -90,6 +90,7 @@ a, button, input, select {
   position: relative;
   display: flex;
   flex: 1 1 auto;
+  min-height: 680px;
   width: $content-width;
   margin: $header-height auto $footer-height;
   transform: translateZ(0);
@@ -104,26 +105,28 @@ a, button, input, select {
 // --------------------------------------------------
 
 #loading {
-  position: absolute;
+  position: fixed;
+  z-index: 99;
   top: 0;
   right: 0;
   left: 0;
-  bottom: 0;
   height: 0;
   width: 300px;
   margin: auto;
-  color: rgba(255,255,255, .3);
+  color: rgba(0,0,0, .25);
   font-size: 26px;
-  font-weight: 400;
+  font-weight: 500;
   text-align: center;
   line-height: 100px;
   opacity: 0;
-  transition: opacity .3s, height 0s .3s;
+  overflow: hidden;
+  transition: opacity .05s, height 0s .05s;
 
   &.active {
-    height: 100px;
+    height: 100%;
+    padding-top: 30%;
     opacity: 1;
-    transition: opacity .3s, height 0s;
+    transition: opacity .05s, height 0s;
   }
 
   i {

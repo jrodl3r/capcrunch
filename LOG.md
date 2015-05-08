@@ -48,6 +48,7 @@
 - 'wire-up create-player add salary row button'
 - 'scroll player group into view on item drag-start (if not fully visible)'
 - 'scroll player list into view on scroll-end (if related player group focused)'
+- 'fix svg + static team list order (COL/CLB+NAS/NJD)'
 »»» Refactor Trade Logic »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
   //- 'trade player cap violation/overage check + warning'
   //- 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
@@ -58,8 +59,8 @@
 
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'cleanup view transition logic'
 - 'rebuild trade player + trade data persistence logic'
+- 'load actions logic ondemand post-onboard'
 - 'block acquired players on trades (one-way only)'
 - 'on team change warn about disabled trading / allstar mode (if active trades)'
 - 'add draft picks coming soon on trades dropdown'
@@ -82,6 +83,7 @@
 
 #### READY
 
+- 'cleanup view logic'
 - 'normalize header team select display component'
 - 'add full screen team-select splash intro + loading view'
 - 'cleanup + distill cap stats into component'

@@ -2,13 +2,16 @@
 // ==================================================
 
 #roster {
+  height: 0;
   width: 640px;
   opacity: 0;
-  transition: .4s;
+  transition: opacity .3s, height 0s .3s;
   transform: translateZ(0);
 
   &.active {
+    height: auto;
     opacity: 1;
+    transition: opacity .4s .3s, height 0s .3s;
   }
 
   .cap-stats {
