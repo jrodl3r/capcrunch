@@ -1,23 +1,26 @@
 // Variables
 // ==================================================
 
-$font-family                   :    'Helvetica Neue', Helvetica, Arial, sans-serif;
-$hover-duration                :    .3s;
-$border-radius                 :    3px;
-$header-height                 :    80px;
-$footer-height                 :    30px;
-$page-spacing                  :    20px;
-$page-width                    :    1020px;
-$content-width                 :    $page-width - ($page-spacing * 3);
-$share-height                  :    165px;
-$actions-panel-height          :    220px;
-$actions-menu-height           :    26px;
-$actions-height                :    $actions-panel-height + $actions-menu-height;
-$trade-player-item-height      :    24px;
-$trade-player-item-margin      :    4px;
-$trade-player-item             :    $trade-player-item-margin + $trade-player-item-height;
-$trade-breakdown-height        :    62px;
-$trades-height                 :    270px;
-$trades-height-3-player        :    $trades-height + $trade-player-item;
-$trades-height-4-player        :    $trades-height + ($trade-player-item * 2);
-$trades-height-5-player        :    $trades-height + ($trade-player-item * 3);
+$font-family               :  'Helvetica Neue', Helvetica, Arial, sans-serif;
+$view-shift                :  .4s;
+$view-delay                :  .4s .3s;
+$view-hide                 :  0s .4s;
+$border-radius             :  3px;
+$header-height             :  80px;
+$footer-height             :  30px;
+$page-spacing              :  20px;
+$page-width                :  1020px;
+$content-width             :  $page-width - ($page-spacing * 3);
+$share-height              :  165px;
+$actions-panel-height      :  220px;
+$actions-menu-height       :  26px;
+$actions-height            :  $actions-panel-height + $actions-menu-height;
+$trade-player-item-height  :  24px;
+$trade-player-item-margin  :  4px;
+$trade-player-item         :  $trade-player-item-margin + $trade-player-item-height;
+$trade-breakdown-height    :  62px;
+$trades-height             :  270px;
+$trades-height-3-player    :  $trades-height + $trade-player-item;
+$trades-height-4-player    :  $trades-height + ($trade-player-item * 2);
+$trades-height-5-player    :  $trades-height + ($trade-player-item * 3);
+$img-url                   :  'http://res.cloudinary.com/capcrunch/image/upload/v1432113716/';

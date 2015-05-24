@@ -1,89 +1,209 @@
-#### RELEASE
 
-- 'Round #1 » private sharing/testing (gchat, dm, nhl#s, JSmeetup)'
-  - whitey@wgr550.com, ckanal, kris baker (SabresProspects.com)
-- 'Round #2 » public release (HF, HN, #reactjs)
-  - http://goo.gl/06SsOZ
-  - http://goo.gl/VYF5sg
-  - https://twitter.com/TGfireandice/status/578747221308370944
-  - http://fireandice.northjersey.com
-  - http://war-on-ice.com
-  - http://diebytheblade.com
-  - http://mirtle.blogspot.ca/2015/03/matthew-wuest-1979-2015.html
-  - http://www.inlouwetrust.com/2015/3/23/8272707/who-else-other-than-the-nhl-can-try-to-make-a-new-capgeek
-  - http://thehockeywriters.com/the-dream-team-an-nhl-11-case-study
-  - https://twitter.com/bruce_arthur/status/578716668484005888
-  - https://twitter.com/chrismpeters/status/578977478875553792
-
-
-#### FEEDBACK (User Testing)
-
-- Add multiple years for the roster (ex: this is 2015 but if I wanted to build the 2015-16 team, then the partial salaries need to reflect a full year, not the partial year)
-- Add spots on the roster for the players in the press box (scratches) – to get accurate cap and cap space, so including roster players that are not part of the 12 forwards, six defenseman, and two goalies.
-- Add spots on the roster for the players who have salary retained
-- The page should refresh when the team is changed (A refresh button would be nice.)
-- There should be a way to undo a trade
-
-
-#### LATER (Technical)
-
+---------------------------------------------------------------
+#### LATER (Technical) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
-- 'session state clear + restore (cookies)'
-- 'distill cap stats instances to single component'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+- 'on-before-unload clear + restore state (socket/cookies?)'
+---------------------------------------------------------------
+- 'checkout CodeClimate, SpeedCurve, GTMetrix'
 - 'gulp asset management + optimization (fonts, images)'
-- 'player image CDN (uptime/redundancy/speed)'
+- 'confirm image scaling not problematic (100x100/48x48)'
 - 'upgrade app data + upgrade Mongolab'
-- 'SEO friendly ReactJS SSR markup'
+- 'back/forward browser action management'
+- 'gulp cndizer local/prod script assets'
+- 'error pages (h5bp)'
+- 'test performance of getAttribute vs object state + action scan'
+---------------------------------------------------------------
 
 
-#### LATER (Features)
 
-- 'minor team roster/lineup'
-- 'special teams (PP1/PP2/PK1/PK2) layout + logic'
-- 'message-board sharing widget (dynamic image generator)'
-- 'sticky cap stats panel + payroll table headers (try cloning)'
-- 'player-list + payroll player details onHover'
-- 'wire-up create-player add salary row button'
-- 'scroll player group into view on item drag-start (if not fully visible)'
-- 'scroll player list into view on scroll-end (if related player group focused)'
-- 'fix svg + static team list order (COL/CLB+NAS/NJD)'
-»»» Refactor Trade Logic »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
-  //- 'trade player cap violation/overage check + warning'
-  //- 'share: if (multiple active-team trades) re-confirm team-select (warn: active-team trades only)'
-  //- 'share: if (all-star mode) re-confirm team-select (warn: active-team)'
-  - 'trade player assets / draft picks layout + logic'
-  - 'scrape team draft pick data
+---------------------------------------------------------------
+#### LATER (Features) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+- 'tools: buyout calculator'
+- 'roster: minor team roster/lineup'
+- 'roster: special teams (PP1/PP2/PK1/PK2) layout + logic'
+- 'share: message-board sharing widget (dynamic image generator)'
+- 'team-select: fix svg + static team list order (COL/CLB+NAS/NJD)'
+- 'minimum browser spec check + splash (zepto)'
+- 'static dropData to state [?]'
+---------------------------------------------------------------
 
 
-#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] «
 
-- 'rebuild trade player + trade data persistence logic'
-- 'load actions logic ondemand post-onboard'
-- 'block acquired players on trades (one-way only)'
-- 'on team change warn about disabled trading / allstar mode (if active trades)'
-- 'add draft picks coming soon on trades dropdown'
-- 'trade summary button/view layout + logic'
-- 'add player list drag covers / fix drag-over issue'
-- 'rebuild/remove cap stats menu (move to header?)'
-- 'wire-up share twitter, facebook + text-output'
-- 'cleanup payroll layout + icons'
-- 'update notifications layout + logic (slide-out + fade-in)'
-- 'cleanup validation/error message display/timing consistency'
-- 'Footer (credits | feedback + support | copyright + disclaimer | next features)'
-- »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] «
-- 'free agents panel + logic'
-- 'payroll: show/apply user transactions settings'
-- 'pre-cache team + player images on select/hover'
-- 'editable player tile info (salary) + add to LTIR button'
+---------------------------------------------------------------
+## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+- 'CHROME: dragover sticking-hover issue'
+- 'FF: dragend sticking-hover issue'
+- 'FF: panel scrollbars (windows)'
+- 'IE: white svg flash onload'
+---------------------------------------------------------------
+
+
+
+## Panels
+---------------------------------------------------------------
+- 'obfuscated list slides into view (scroll-end)'
+- 'player details (info icon click/hover?)'
+- 'panel vertical order dragging'
+---------------------------------------------------------------
+
+
+## Roster
+---------------------------------------------------------------
+- 'obfuscated group slides into view (list-item-clicked)'
+- 'player: swap-tiles drop action'
+- 'player button/icons/menu: [ info | edit | buyout | +IR | +BN ]'
+---------------------------------------------------------------
+
+
+## Payroll
+---------------------------------------------------------------
+- 'player details (info icon click/hover?)'
+- 'sticky table headers'
+---------------------------------------------------------------
+
+
+## Options
+---------------------------------------------------------------
+- 'cleanup interaction + veritcal layout'
+- 'payroll: show user actions'
+- 'trades: trade summary layout + logic [or just actions summary?]'
+- 'make reusable component'
+- 'year ticker [2015-16 ⇵]
+- 'status icon legend'
+- 'clear roster'
+---------------------------------------------------------------
+
+
+## CapStats
+---------------------------------------------------------------
+- 'obfuscated slides into view (scroll-end + !dragging)'
+- 'slides-up if covering active tiles (dragging)'
+---------------------------------------------------------------
+
+
+## GM Overview 🏆
+---------------------------------------------------------------
+!! - 'actions summary panel layout + logic (above forwards)'
+!! - 'team change w/ active trades: notify trading disabled'
+    - 'Trades have been disabled because you have active trades w/ another team (XXX)'
+    - 'Would you like to reset trade? [Yes]'
+    - 'Would you like to switch back to XXX? [Yes]'
+!! - 'roster player added/team conflict: notify mode-changed + trading disabled'
+    - 'Trades have been disabled because you are in all-star mode'
+- 'visual summary:'
+  - 'trade breakdowns'
+  - 'contract buyouts'
+  - 'created/signed players'
+  - 'injured/IR + benched/BN players'
+---------------------------------------------------------------
+
+
+## Transactions
+---------------------------------------------------------------
+- 'free-agents panel (data + layout + logic)'
+---------------------------------------------------------------
+- 'create: add salary row button'
+- 'create: players goto F/D/G panel (makes sense)'
+---------------------------------------------------------------
+- 'trade: asset + salary summary breakdown'
+- 'trade: cap violation/overage check + warning'
+- 'trade: league player select salary info [ X. Xxx (0.000) ]'
+---------------------------------------------------------------
+
+
+##### Share
+---------------------------------------------------------------
+- 'confirm active team (team mismatch / mixed roster)'
+!! - 'twitter, facebook + text-only share buttons'
+!! - 'text roster w/ actions summary'
+!! - 'increase share loading splash size'
+---------------------------------------------------------------
+
+
+
+## Footer
+----------------------------------------------------------------------------
+ What's Next? ⋮ Credits ⋮ Twitter    some rights reserved ⋮ CapCRUNCH © 2015
+----------------------------------------------------------------------------
+
+
+
+## ActiveTeam Flow
+----------------------------------------------------------------------------
+- [User Selects Team]
+  » is PlayerData.team set?
+    » (NO)
+      - Load TeamData (cap, players, etc.)
+      - Clone TeamData.players into ActiveTeam
+
+    » (YES)
+      - Load TeamData (cap, players, etc.)
+      
+
+
+----------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------
+#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] »
+---------------------------------------------------------------
+
+- 'trade logic: rewire unsafe player array splice mutation'
+
+- 'normalize status/action:'
+  - 'player: action (created/acquired/traded/queued)'
+  - 'player: status (active/inplay/injured/benched)'
+  - 'tile: status (empty/inplay/ir/benched)'
+
+---------------------------------------------------------------
+* 'scrub css selectors + tune visual performance'
+  - 'remove defs that can cascade from parent'
+  - 'use more ids'
+  - 'reduct child/decendant depth'
+  - 'replace sibling selectors w/ classes'
+  - 'narrow: user-select, '
+  - 'simplify remove + trade hovers'
+---------------------------------------------------------------
+- 'onboard: drag-n-drop splash + update coming soon splash'
+- 'pre-cache team + player images on team select'
+- 'cap stats menu (¿header/panels/capStats?)'
+- 'footer + mini-features (whats-next voter, credits slide-out)'
+- 'update data: 2015/16 + strip player image urls'
+- 'draft-picks: data + layout + logic'
+- 'cleanup payroll'
+---------------------------------------------------------------
+- 'React initial DOM SSR'
+- 'set expires headers caching'
+- 'cleanup notifications (slide/fade)'
+- 'enable shared roster + payroll viewing on mobile'
+- '1st list item: not displaying + missed click/drag-start issue'
+---------------------------------------------------------------
+
+
+
+---------------------------------------------------------------
+#### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
 - 'slim/space-saving alt-lines (no player image/jersey)'
-- 'roster menu panel vertical drag repositioning'
-
-
-#### READY
-
-- 'cleanup view logic'
+- 'setup new alt-line transitions + tile styles'
+- 'optimize player + team png images'
+- 'lighten-up background image'
+- 'fade-in app on load'
+- 'add image CDN (cloudinary.com)'
+- 'fix scrollTo only working on Webkit'
+- 'cleanup panel + view scroll reset on view change'
+- 'cleanup notify + action messages timing'
+- 'block acquired players on trades (one-way only)'
+- 'optimize fontawesome glyph icons'
+- 'refactor core + trade logic'
+- 'cleanup player tiles + remove-player transitions'
+- 'ease-out transition: panels, roster, actions'
+- 'refactor view state logic'
 - 'normalize header team select display component'
 - 'add full screen team-select splash intro + loading view'
 - 'cleanup + distill cap stats into component'
@@ -212,15 +332,22 @@
 - 'setup node server (Express, Socket.io) + restructure public assets [v0.2.0]'
 - 'update docs, favicon, dependencies [v0.1.1]'
 - 'initial build'
+---------------------------------------------------------------
 
 
 
-#### NOTES
+---------------------------------------------------------------
+#### NOTES »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
 
-###### Local DB Backup
+
+## Local DB Backup
+---------------------------------------------------------------
 $ mongoexport -d cc -c teams -o backup.json (-v --pretty)
 
-###### Local DB Rebuild + Import
+
+## Local DB Rebuild + Import
+---------------------------------------------------------------
 $ mongo --shell
 $ use cc
 $ db.teams.drop()
@@ -228,8 +355,47 @@ $ db.createCollection('teams')
 $ exit
 $ mongoimport --db cc --collection teams --type json --file TEAM_ID.json --jsonArray
 
-###### Prod DB Backup
+
+## Prod DB Backup
+---------------------------------------------------------------
 $ mongoexport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p nmqh43ko5r8p3qkgjull6p0v1a -o backup.json
 
-###### Prod DB Import
+
+## Prod DB Import
+---------------------------------------------------------------
 $ mongoimport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p nmqh43ko5r8p3qkgjull6p0v1a --file teams.json
+
+
+
+---------------------------------------------------------------
+#### RELEASE »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+- 'Round #1 » private sharing/testing (gchat, dm, nhl#s, JSmeetup)'
+  - whitey@wgr550.com, ckanal, kris baker (SabresProspects.com)
+- 'Round #2 » public release (HF, HN, #reactjs)
+  - http://goo.gl/06SsOZ
+  - http://goo.gl/VYF5sg
+  - https://twitter.com/TGfireandice/status/578747221308370944
+  - http://fireandice.northjersey.com
+  - http://war-on-ice.com
+  - http://diebytheblade.com
+  - http://mirtle.blogspot.ca/2015/03/matthew-wuest-1979-2015.html
+  - http://www.inlouwetrust.com/2015/3/23/8272707/who-else-other-than-the-nhl-can-try-to-make-a-new-capgeek
+  - http://thehockeywriters.com/the-dream-team-an-nhl-11-case-study
+  - https://twitter.com/bruce_arthur/status/578716668484005888
+  - https://twitter.com/chrismpeters/status/578977478875553792
+
+
+
+---------------------------------------------------------------
+#### FEEDBACK (User Testing) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+- Add multiple years for the roster (ex: this is 2015 but if I wanted to build the 2015-16 team, then the partial salaries need to reflect a full year, not the partial year)
+- Add spots on the roster for the players in the press box (scratches) – to get accurate cap and cap space, so including roster players that are not part of the 12 forwards, six defenseman, and two goalies.
+- Add spots on the roster for the players who have salary retained
+- The page should refresh when the team is changed (A refresh button would be nice.)
+- There should be a way to undo a trade
+
+
+
+------------------------- [ END ] -----------------------------

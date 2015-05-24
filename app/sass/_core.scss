@@ -50,8 +50,8 @@ ul {
 }
 
 a, button {
-  transition: $hover-duration;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  transition: .3s ease-out;
+  -webkit-tap-highlight-color: rgba(0,0,0, 0);
 }
 
 a, button, input, select {
@@ -64,6 +64,8 @@ a, button, input, select {
   max-width: $page-width;
   margin: 0 auto;
   user-select: none;
+  transition: .5s ease-out;
+  transform: translateZ(0);
 }
 
 #app {
@@ -73,12 +75,7 @@ a, button, input, select {
   width: 100%;
   margin-bottom: -$footer-height;
   overflow: hidden;
-  opacity: 0;
-  transition: .3s;
-
-  &.active {
-    opacity: 1;
-  }
+  transform: translateZ(0);
 
   &:after {
     content: "";
@@ -98,6 +95,22 @@ a, button, input, select {
 
 .section {
   flex-direction: column;
+  height: 0;
+  opacity: 0;
+  cursor: default;
+  transition: opacity $view-shift, height $view-hide;
+  transition-timing-function: ease-out;
+  transform: translateZ(0);
+
+  &.active {
+    height: auto;
+    opacity: 1;
+    transition: opacity $view-delay, height $view-hide;
+  }
+}
+
+.nohover {
+  pointer-events: none;
 }
 
 
@@ -107,30 +120,32 @@ a, button, input, select {
 #loading {
   position: fixed;
   z-index: 99;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 0;
-  width: 300px;
-  margin: auto;
-  color: rgba(0,0,0, .25);
+  top: -100px;
+  left: 50%;
+  height: 100px;
+  width: 200px;
+  margin-top: -50px;
+  margin-left: -100px;
+  color: #000;
   font-size: 26px;
   font-weight: 500;
   text-align: center;
   line-height: 100px;
   opacity: 0;
   overflow: hidden;
-  transition: opacity .05s, height 0s .05s;
+  cursor: default;
+  transform: translateZ(0);
+  transition: opacity .01s, height 0s .01s;
 
   &.active {
-    height: 100%;
-    padding-top: 30%;
-    opacity: 1;
-    transition: opacity .05s, height 0s;
+    top: 50%;
+    opacity: .25;
+    transition: opacity .01s, height 0s;
   }
 
   i {
     position: relative;
+    top: 2px;
     left: -5px;
   }
 }

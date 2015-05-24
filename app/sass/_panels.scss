@@ -1,35 +1,10 @@
-// Sidebar/Menu Panels
+// Roster Menu
 // ==================================================
 
 #menu {
   position: relative;
-  height: 0;
   width: 300px;
   margin-right: $page-spacing;
-  opacity: 0;
-  transition: opacity .3s, height 0s .3s;
-  transform: translateZ(0);
-
-  &.active {
-    height: auto;
-    opacity: 1;
-    transition: opacity .4s .3s, height 0s .3s;
-  }
-
-  .panel .inner {
-    height: 166px;
-    overflow: hidden;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-  }
-
-  .panel.inactive .inner {
-    height: 0;
-  }
-
-  .panel.short .inner {
-    height: 100px;
-  }
 }
 
 .panel {
@@ -41,8 +16,7 @@
   border-radius: $border-radius;
   box-shadow: 0 0 2px 0 rgba(123,123,123, .1) inset;
   overflow: hidden;
-  cursor: default;
-  transition: .4s;
+  transition: .3s;
   transform: translateZ(0);
 
   &:last-of-type {
@@ -57,6 +31,22 @@
     }
   }
 
+  &.inactive .inner {
+    height: 0;
+  }
+
+  .inner {
+    width: inherit;
+    color: #777;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    transform: translateZ(0);
+  }
+
   .title {
     height: 33px;
     margin-bottom: 1px;
@@ -68,7 +58,8 @@
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     background: linear-gradient(to top, #151515 0%, #232323);
-    transition: .5s;
+    transform: translateZ(0);
+    transition: .3s;
 
     a {
       position: absolute;
@@ -78,6 +69,7 @@
       color: #3F3F3F;
       font-weight: bold;
       line-height: 28px;
+      transform: translateZ(0);
       transition: color .4s;
 
       &:hover {
@@ -92,21 +84,96 @@
 
       i {
         font-size: 11px;
-        transition: transform .15s;
+        transition: transform .15s ease-out;
         transform: translateZ(0) rotate(0deg);
       }
     }
   }
 
-  > .inner {
-    background: rgba(255,255,255, .025);
+  .list-drag-cover {
+    display: none;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+
+    .list-engaged & {
+      display: block;
+    }
+  }
+}
+
+
+// Alt Views
+// --------------------------------------------------
+
+.loading-list, .remove-player {
+  position: absolute;
+  top: 0;
+  height: 0;
+  width: 300px;
+  color: rgba(255,255,255, .2);
+  font-size: 18px;
+  font-weight: 500;
+  text-shadow: 0 5px 35px rgba(0,0,0, .6);
+  text-align: center;
+  line-height: 200px;
+  background: rgba(23,24,25, .8);
+  border-radius: $border-radius;
+  box-shadow: 0 0 100px 0 rgba(0,0,0, .5) inset;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity .3s, height 0s .3s;
+
+  .short & {
+    line-height: 134px;
   }
 
-  .inner {
-    width: inherit;
-    color: #777;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
+  i {
+    position: relative;
+	  right: 5px;
+    font-size: 18px;
+  }
+
+  .cover {
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.show-loading .loading-list,
+.show-remove-player .remove-player {
+  z-index: 3;
+  height: 200px;
+  opacity: 1;
+  transition: opacity .4s, height 0s, color .4s, box-shadow .4s;
+
+  &.hover {
+    color: rgba(255,255,255, .4);
+    text-shadow: 0 0 40px rgba(0,0,0, 1);
+    background: rgba(23,24,25, .9);
+    box-shadow: 0 0 120px 0 rgba(0,0,0, .8) inset;
+    transition: 1s ease-out;
+  }
+}
+
+.short.show-loading .loading-list,
+.short.show-remove-player .remove-player {
+  height: 134px;
+}
+
+.loading-list {
+  background: rgba(23,24,25, .92);
+  transition: opacity .3s .2s, height 0s .5s;
+
+  i {
+    position: relative;
+    top: 2px;
+    left: -6px;
+    font-size: 21px;
   }
 }

@@ -5,15 +5,9 @@
   position: absolute;
   z-index: -1;
   width: 960px;
-  height: 100%;
-  opacity: 0;
-  transition: .3s;
-  transform: translateZ(0);
 
   &.active {
     z-index: 3;
-    opacity: 1;
-    transition: .4s .3s;
   }
 
   h2 {
@@ -142,7 +136,7 @@ table {
         background: rgba(0,0,0, .2);
       }
 
-      &:hover {
+      /* &:hover {
         color: #DDD;
         text-shadow: 0 0 2px rgba(255,255,255, .2);
         background: rgba(1,131,218, .15);
@@ -166,7 +160,7 @@ table {
         .jersey {
           color: #BBB;
         }
-      }
+      } */
 
       td.cap {
         position: relative;
@@ -193,7 +187,7 @@ table {
         text-align: center;
         transition: .3s;
 
-        &:hover {
+        /* &:hover {
           color: #AAA;
         }
 
@@ -207,7 +201,7 @@ table {
 
         &.fa-suitcase {
           font-size: 12px;
-        }
+        } */
       }
     }
 

@@ -1,25 +1,29 @@
-// CapCrunch UI
-// ==================================================
 'use strict';
 
+var Timers   = require('./static/timers.js'),
+    Messages = require('./static/messages.js');
+
 var UI = {
+
+  msg_timeout : null,
 
   init: function() {
     UI.detect();
     UI.events();
   },
 
+  // load: function() {
+  //   $('header .inner, footer .inner, #teams .inner').removeClass('unload');
+  // },
+
   detect: function() {
-    var device   = navigator.userAgent.toLowerCase(),
-        isMobile = Modernizr.touch || (device.match(/(iphone|ipod|ipad)/) || device.match(/(android)/) || device.match(/(iemobile)/) || device.match(/iphone/i) || device.match(/ipad/i) || device.match(/ipod/i) || device.match(/blackberry/i) || device.match(/bada/i));
-    if (isMobile) {
+    if ($.os.phone || $.os.tablet && !$.browser.ie) {
       UI.showMobileSplash();
     }
   },
 
   events: function() {
-    $('body').on('contextmenu', UI.blockClick);
-    $('#app').on('mouseup', UI.clearDrag);
+    $('body').on('contextmenu', UI.blockAction);
     $('#teams').on('mouseenter', '.grid div', function() {
       var team = $(this).attr('class');
       $('#grid-svg').contents().find('g.' + team).css('opacity', '1');
@@ -30,7 +34,6 @@ var UI = {
     });
   },
 
-  // update view
   updateViewHeight: function() {
     var table_height = $('#payroll-table').height(),
         full_height = table_height + 92;
@@ -38,36 +41,116 @@ var UI = {
     $('#app .wrap').css('height', full_height);
   },
 
-  // reset view
   resetViewHeight: function() {
     $('#payroll .inner, #app .wrap').css('height', 'auto');
   },
 
-  // reset scroll
-  resetScroll: function() {
-    $('.panel.player-list .inner ul').scrollTop(0);
+  resetViewScroll: function() {
+    var el = $.browser.firefox ? 'html' : 'body';
+    if ($(el).scrollTop()) {
+      $(el).scrollTo({ endY: 0, duration: 750 });
+    }
   },
 
-  // clear drag actions
+  togglePanelView: function(e) {
+    e.preventDefault();
+    $(e.currentTarget).toggleClass('active');
+    $(e.currentTarget).parent().parent().toggleClass('collapsed');
+  },
+
+  resetPanelScroll: function(panel) {
+    if (panel) {
+      panel = '#' + panel + '-list ul';
+      if ($(panel).scrollTop()) {
+        $(panel).scrollTo({ endY: 0, duration: 750 });
+      }
+    } else {
+      ['forwards', 'defense', 'goalies', 'inactive'].forEach(function(e, i){
+        panel = '#' + e + '-list ul';
+        if ($(panel).scrollTop()) {
+          $(panel).scrollTo({ endY: 0, duration: 750 });
+        }
+      });
+    }
+  },
+
+  confirmAction: function(type) {
+    $('#' + type + '-player-confirm').attr('class', 'transaction-confirm active');
+    $('#' + type + '-player-button').attr('class', 'clicked');
+  },
+
+  clearAction: function(type) {
+    if (type === 'create') {
+      $('#create-player-fname, #create-player-lname, #create-player-jersey, #create-player-salary').attr('class', '').val('');
+      $('#create-player-shot, #create-player-position, #create-player-duration').attr('class', '').val('0');
+    } else if (type === 'trade-player') {
+      $('#trade-player-select').val('0');
+      $('#add-trade-player').attr('class', 'add-button');
+    } else {
+      $('#trade-team-select, #trade-player-select').val('0');
+      $('#add-trade-player').attr('class', 'add-button');
+    }
+    $('#' + type + '-player-confirm').attr('class', 'transaction-confirm');
+    $('#' + type + '-player-button').attr('class', '');
+  },
+
+  showActionMessage: function(type, msg) {
+    if (UI.msg_timeout) { clearTimeout(UI.msg_timeout); }
+    if (type === 'create') {
+      $('#create-player-msg').attr('class', 'warning').text(msg);
+    } else {
+      $('#trade-player-msg').attr('class', 'warning').text(msg);
+      $('#trade-drop-area').removeClass('hover');
+    }
+    UI.msg_timeout = setTimeout(UI.resetActionMessage, Timers.warning);
+  },
+
+  resetActionMessage: function() {
+    $('#create-player-msg').removeClass('warning').text(Messages.create.heading);
+    $('#trade-player-msg').removeClass('warning').text(Messages.trade.heading);
+    UI.msg_timeout = null;
+  },
+
+  missingCreateInput: function(input, msg) {
+    $('#create-player-' + input).attr('class', 'missing').focus();
+    UI.showActionMessage('create', msg);
+  },
+
+  missingTradeInput: function() {
+    if ($('#trade-team-select').val() === '0') {
+      $('#trade-team-select').attr('class', 'missing').focus();
+    } else if ($('#trade-player-select').val() === '0') {
+      $('#trade-player-select').attr('class', 'missing').focus();
+    }
+  },
+
   clearDrag: function() {
-    $('#menu .player-list .item.hover').removeClass('hover');
-    $('#menu .player-list .item.clicked').removeClass('clicked');
+    $('#menu .item.clicked').removeClass('clicked');
+    $('#roster .player.clicked').removeClass('clicked');
+    $('#menu .remove-player.hover').removeClass('hover');
+    $('#menu.list-engaged').removeClass('list-engaged');
+    $('#menu.show-remove-player').removeClass('show-remove-player');
   },
 
-  // prevent mouse action
-  blockClick: function(e) {
+  dropEffect: function(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+  },
+
+  blockAction: function(e) {
+    e.stopPropagation();
     e.preventDefault();
     return false;
   },
 
-  // show mobile splash
   showMobileSplash: function() {
     $('body').addClass('unsupported');
     $('#loading, #teams, #app, header, footer').css('display', 'none');
-    $('#main').append('<div id="unsupported"><img className="logo" src="img/logo.min.svg"/><p>Mobile Version Coming Soon...</p></div>');
+    $('#main').append('<div id="unsupported"><img className="logo" src="img/logo.svg"/><p>Mobile Version Coming Soon...</p></div>');
   }
 };
 
 $(document).ready(UI.init);
+// $(window).on('load', UI.load);
 
 module.exports = UI;

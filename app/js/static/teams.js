@@ -1,5 +1,3 @@
-// CapCrunch Teams (Static)
-// ==================================================
 'use strict';
 
 var Teams = [

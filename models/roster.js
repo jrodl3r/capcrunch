@@ -8,13 +8,9 @@ var rosterSchema = new mongoose.Schema({
       id: String,
       name: String,
       name_id: String,
-      hit: String,
-      space: String,
       activeTeam: String,
-      activePlayers: [],
-      trades: [],
-      created: [],
-      lines: {
+      playerData: { team: String, inplay: [], benched: [], ir: [], cleared: [], traded: [], acquired: [], created: [] },
+      rosterData: {
         F1L: {}, F1C: {}, F1R: {},
         F2L: {}, F2C: {}, F2R: {},
         F3L: {}, F3C: {}, F3R: {},
@@ -29,7 +25,9 @@ var rosterSchema = new mongoose.Schema({
         G1L: {}, G1R: {},
         GB1: {}, GB2: {},
         GR1: {}, GR2: {}
-      }
+      },
+      altLines: { FR : Boolean, FB : Boolean, DR : Boolean, DB : Boolean, GR : Boolean, GB : Boolean },
+      capData: { year : String, hit : String, space : String }
     });
 
 module.exports = mongoose.model('Roster', rosterSchema);

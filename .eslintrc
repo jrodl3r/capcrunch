@@ -2,7 +2,29 @@
   "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "settings": {
+    "ecmascript": 6
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "rules": {
+    "indent": [2, 2],
+    "strict": [2, "global"],
+    "quotes": [2, "single"],
+    "no-underscore-dangle": false,
+    "no-mixed-requires": false,
+    "no-multi-spaces": false,
+    "no-unused-vars": false,
+    "key-spacing": false,
+    "comma-spacing": false,
+    "camelcase": false
   },
   "globals": {
     "__DEV__": true,
@@ -11,35 +33,6 @@
     "socket": false,
     "React": false,
     "io": false,
-    "$": false,
-
-    // Temp (ESLint JSX Bug)
-    "App": false,
-    "Team": false,
-    "TeamMenu": true,
-    "Payroll": true,
-    "Roster": true,
-    "RosterMenu": true,
-    "Footer": true
-  },
-  "rules": {
-    // Strict mode
-    "strict": [2, "global"],
-
-    // Code style
-    "indent": [2, 2],
-    "quotes": [2, "single"],
-
-    // Preferences
-    "no-mixed-requires": false,
-    "no-multi-spaces": false,
-    "no-unused-vars": false,
-    "key-spacing": false,
-    "no-trailing-spaces": false,
-    "no-redeclare": false,
-    "camelcase": false,
-    "no-empty": false,
-    "comma-spacing": false,
-    "indent": false
+    "$": false
   }
 }

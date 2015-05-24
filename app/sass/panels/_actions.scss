@@ -4,53 +4,8 @@
 #actions {
   transform: translateZ(0);
 
-  #actions-menu {
-    height: $actions-menu-height;
-    width: 300px;
-    margin-left: 1px;
-    transition: .3s;
-
-    li {
-      float: left;
-      height: $actions-menu-height;
-      width: 100px;
-      margin: 0;
-      line-height: $actions-menu-height;
-
-      a {
-        float: left;
-        height: inherit;
-        width: 100%;
-        color: #444;
-        font-size: 11px;
-        line-height: inherit;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
-        transition: .3s;
-
-        &:hover {
-          color: #777;
-          text-shadow: 0 1px 2px rgba(0,0,0, .3);
-        }
-
-        &.active, &.active:hover {
-          color: #888;
-          text-shadow: 0 1px 2px rgba(0,0,0, .3);
-          background: linear-gradient(to bottom, rgba(255,255,255, .1) 20%, transparent 70%, transparent 100%);
-          cursor: default;
-        }
-      }
-    }
-  }
-
   .show-loading & {
     background: #000;
-
-    #actions-menu {
-      opacity: .25;
-    }
   }
 
   &.panel > .inner {
@@ -74,15 +29,15 @@
     &.trades-active {
       height: $trades-height + $actions-menu-height;
 
-      &.three-player-trade {
+      &.trade-size-3 {
         height: $trades-height-3-player + $actions-menu-height;
       }
 
-      &.four-player-trade {
+      &.trade-size-4 {
         height: $trades-height-4-player + $actions-menu-height;
       }
 
-      &.five-player-trade {
+      &.trade-size-5 {
         height: $trades-height-5-player + $actions-menu-height;
       }
     }
@@ -116,11 +71,12 @@
 
       p {
         margin: 15px 0;
-        color: #565656;
+        color: #717171;
         font-size: 11px;
-        transition: .3s;
+        transition: 0s;
 
         &.warning {
+          transition: .3s;
           color: #999;
         }
       }
@@ -166,6 +122,7 @@
       color: #000;
       background: #AAA;
       box-shadow: 0 0 10px rgba(255,255,255, .5);
+      transition: .1s;
     }
   }
 
@@ -214,9 +171,13 @@
       opacity: .85;
       transition: all .1s;
     }
+
+    &.clicked {
+      cursor: default;
+    }
   }
 
-  a.add-button {
+  .add-button {
     float: left;
     height: 26px;
     width: 35px;
@@ -230,13 +191,13 @@
       color: #777;
       text-shadow: 0 0 2px rgba(0,0,0, .85);
       opacity: .8;
-    }
 
-    &.active.hover {
-      color: #999;
-      text-shadow: 0 0 4px rgba(0,0,0, .95);
-      opacity: 1;
-      cursor: pointer;
+      &:hover {
+        color: #999;
+        text-shadow: 0 0 4px rgba(0,0,0, .95);
+        opacity: 1;
+        cursor: pointer;
+      }
     }
   }
 
@@ -244,41 +205,100 @@
     position: absolute;
     top: 0;
     height: 0;
-    width: 100%;
-    padding-left: 15px;
-    color: #444;
-    font-size: 16px;
+    width: 300px;
+    color: rgba(255,255,255, .2);
+    font-size: 18px;
     font-weight: 500;
-    line-height: 180px;
+    text-shadow: 0 5px 35px rgba(0,0,0, .6);
     text-align: center;
-    text-shadow: 0 0 45px rgba(0,0,0, .45);
+    line-height: 180px;
+    background: rgba(23,24,25, .92);
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    box-shadow: 0 0 100px 0 rgba(0,0,0, .5) inset;
     opacity: 0;
     overflow: hidden;
-    background: rgba(23,24,25, .95);
-    box-shadow: 0 0 150px 0 rgba(0,0,0, .35) inset;
-    transition: .4s;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: opacity .3s, height 0s .3s;
 
     &.active {
+      z-index: 3;
       height: 220px;
       opacity: 1;
-      transition: opacity .4s, height 0s;
+      transition: opacity .4s, height 0s, color .4s, box-shadow .4s;
     }
 
     i {
-      font-size: 15px;
-      padding: 0 6px 0 5px;
+      position: relative;
+  	  right: -5px;
+      font-size: 18px;
     }
+  }
 
-    p {
-      display: none;
-      position: absolute;
-      top: 16px;
-      width: 100%;
-      color: #BBB;
-      font-size: 11px;
-      left: 0;
-      height: 50%;
+  #actions-drag-cover {
+    display: none;
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    &.active {
+      display: block;
     }
+  }
+}
+
+// Tab Menu
+// --------------------------------------------------
+
+#actions-menu {
+  position: relative;
+  height: $actions-menu-height;
+  width: 300px;
+  margin-left: 1px;
+  transition: .3s;
+
+  li {
+    float: left;
+    height: $actions-menu-height;
+    width: 100px;
+    margin: 0;
+    line-height: $actions-menu-height;
+
+    a {
+      float: left;
+      height: inherit;
+      width: 100%;
+      color: #666;
+      font-size: 11px;
+      line-height: inherit;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
+      transition: .3s;
+
+      &:hover {
+        color: #888;
+        text-shadow: 0 1px 2px rgba(0,0,0, .3);
+      }
+
+      &.active, &.active:hover {
+        color: #999;
+        text-shadow: 0 1px 2px rgba(0,0,0, .3);
+        background: linear-gradient(to bottom, rgba(255,255,255, .1) 20%, transparent 70%, transparent 100%);
+        cursor: default;
+      }
+    }
+  }
+
+  .show-loading & {
+    opacity: .25;
   }
 }
 
@@ -291,15 +311,15 @@
   &.tab-area.active {
     height: $trades-height + $trade-player-item-height;
 
-    &.three-player-trade {
+    &.trade-size-3 {
       height: $trades-height-3-player + $trade-player-item-height;
     }
 
-    &.four-player-trade {
+    &.trade-size-4 {
       height: $trades-height-4-player + $trade-player-item-height;
     }
 
-    &.five-player-trade {
+    &.trade-size-5 {
       height: $trades-height-5-player + $trade-player-item-height;
     }
   }
@@ -314,30 +334,21 @@
     border: 1px dashed rgba(255,255,255, .1);
     border-radius: $border-radius;
     background: rgba(0,0,0, .15);
-    transition: .2s;
+    transition: .35s ease-out;
 
     &.hover {
       color: rgba(255,255,255, .35);
       text-shadow: 0 3px 7px rgba(0,0,0, .35);
-      background: rgba(23,24,25, .6);
-      border-color: rgba(255,255,255, .1);
+      background: rgba(23,24,25, .5);
       box-shadow: 0 5px 40px 0 rgba(0,0,0, .5) inset;
     }
-  }
-
-  #trade-drop-area-cover {
-    position: absolute;
-    z-index: 4;
-    top: 0;
-    height: 100%;
-    width: 100%;
   }
 
   #trade-team-select {
     width: 70px;
   }
 
-  #trade-players-select {
+  #trade-player-select {
     width: 155px;
     margin-left: 10px;
   }
@@ -351,7 +362,7 @@
     transition: .4s;
   }
 
-  &.three-player-trade #trade-player-breakdown {
+  &.trade-size-3 #trade-player-breakdown {
     height: $trade-breakdown-height + $trade-player-item;
 
     ul {
@@ -359,7 +370,7 @@
     }
   }
 
-  &.four-player-trade #trade-player-breakdown {
+  &.trade-size-4 #trade-player-breakdown {
     height: $trade-breakdown-height + ($trade-player-item * 2);
 
     ul {
@@ -367,7 +378,7 @@
     }
   }
 
-  &.five-player-trade #trade-player-breakdown {
+  &.trade-size-5 #trade-player-breakdown {
     height: $trade-breakdown-height + ($trade-player-item * 3);
 
     ul {
@@ -420,7 +431,7 @@
         font-size: 10px;
         text-shadow: 0 1px 2px rgba(0,0,0, .3);
         opacity: 1;
-        transition: opacity .45s, height .35s;
+        transition: opacity .35s, height .25s;
 
         a {
           height: 14px;
@@ -485,17 +496,17 @@
     transition: .4s;
   }
 
-  &.three-player-trade .trade-player-list-placeholder li {
+  &.trade-size-3 .trade-player-list-placeholder li {
     height: ($trade-player-item-height * 3) + ($trade-player-item-margin * 2);
     line-height: ($trade-player-item-height * 3) + ($trade-player-item-margin * 2);
   }
 
-  &.four-player-trade .trade-player-list-placeholder li {
+  &.trade-size-4 .trade-player-list-placeholder li {
     height: ($trade-player-item-height * 4) + ($trade-player-item-margin * 3);
     line-height: ($trade-player-item-height * 4) + ($trade-player-item-margin * 3);
   }
 
-  &.five-player-trade .trade-player-list-placeholder li {
+  &.trade-size-5 .trade-player-list-placeholder li {
     height: ($trade-player-item-height * 5) + ($trade-player-item-margin * 4);
     line-height: ($trade-player-item-height * 5) + ($trade-player-item-margin * 4);
   }
@@ -532,8 +543,7 @@
     }
   }
 
-
-  &.three-player-trade .transaction-confirm {
+  &.trade-size-3 .transaction-confirm {
     line-height: $trades-height-3-player;
 
     &.active {
@@ -541,7 +551,7 @@
     }
   }
 
-  &.four-player-trade .transaction-confirm {
+  &.trade-size-4 .transaction-confirm {
     line-height: $trades-height-4-player;
 
     &.active {
@@ -549,7 +559,7 @@
     }
   }
 
-  &.five-player-trade .transaction-confirm {
+  &.trade-size-5 .transaction-confirm {
     line-height: $trades-height-5-player;
 
     &.active {
@@ -565,11 +575,11 @@
 #freeagents {
 
   .inner {
-    background: url(../img/coming-soon-splash.svg);
-    background-size: 48%;
+    background: url($img-url + 'app/coming-soon-splash.svg');
+    background-size: 60%;
     background-repeat: no-repeat;
     background-position: center 48%;
-    opacity: .15;
+    opacity: .2;
   }
 }
 
@@ -602,7 +612,7 @@
     margin-left: 30px;
   }
 
-  #create-player-salary-duration {
+  #create-player-duration {
     width: 95px;
     margin-bottom: 0;
     margin-left: 10px;

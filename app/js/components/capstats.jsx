@@ -1,11 +1,8 @@
-// Cap Stats
-// ==================================================
 'use strict';
 
-var UI = require('../ui.js');
-
 var CapStats = React.createClass({
-  toggleMenu: function(e) {
+
+  toggleMenu: function() {
     var view = this.props.activeView,
         id   = view + '-stats-menu',
         menu = document.getElementById(id);
@@ -17,38 +14,39 @@ var CapStats = React.createClass({
   },
 
   render: function() {
+
     var view  = this.props.activeView,
-        cap   = this.props.cap,
-        info  = this.props.teamInfo ? this.props.teamInfo : null,
+        info  = this.props.capData ? this.props.capData : { hit : 0, space : 0 },
         count = this.props.playerCount ? this.props.playerCount : 0;
 
+    // TODO:
+    //   <a id={ view + '-stats-button' } onClick={UI.blockAction}
+    //     className={ view === 'roster' && count || view === 'payroll' ? 'cap-stats-menu-button' : 'cap-stats-menu-button disabled' }
+    //     onMouseEnter={ view === 'roster' && count || view === 'payroll' ? this.toggleMenu : null }>
+    //     <i className="fa fa-gear"></i>
+    //   </a>
+    //   <div id={ view + '-stats-menu' } className="cap-stats-menu" onMouseLeave={this.toggleMenu}>
+    // { view === 'roster'
+    //   ? <ul>
+    //       <li><a onClick={this.props.resetRoster}><i className="fa fa-trash"></i> Remove All</a></li>
+    //     </ul>
+    //   : <ul>
+    //       <li><a><i className="fa fa-close"></i> Menu Item</a></li>
+    //     </ul> }
+    //   </div>
     return (
       <div id={ view + '-stats' } className={ view === 'roster' && count || view === 'payroll' ? 'cap-stats active' : 'cap-stats' }>
-        <div className="section">
+        <div>
           <span>Roster Players <span className="value">{count}</span></span>
         </div>
-        <div className="section">
+        <div>
           <span>Payroll Total <span className="value">{info.hit}</span></span>
         </div>
-        <div className="section">
+        <div>
           <span>Cap Space <span className={ info.space > 0 ? 'value' : 'value overage' }>{info.space}</span></span>
         </div>
-        <div className="section salary-cap">
-          <span>Salary Cap <span className="value">{cap}</span></span>
-        </div>
-        <a id={ view + '-stats-button' } onClick={UI.blockClick}
-          className={ view === 'roster' && count || view === 'payroll' ? 'cap-stats-menu-button' : 'cap-stats-menu-button disabled' }
-          onMouseEnter={ view === 'roster' && count || view === 'payroll' ? this.toggleMenu : null }>
-          <i className="fa fa-gear"></i>
-        </a>
-        <div id={ view + '-stats-menu' } className="cap-stats-menu" onMouseLeave={this.toggleMenu}>
-      { view === 'roster'
-        ? <ul>
-            <li><a onClick={this.props.clearRosterData}><i className="fa fa-trash"></i> Remove All</a></li>
-          </ul>
-        : <ul>
-            <li><a><i className="fa fa-close"></i> Menu Item</a></li>
-          </ul> }
+        <div className="salary-cap">
+          <span>Salary Cap <span className="value">69.000</span></span>
         </div>
       </div>
     );

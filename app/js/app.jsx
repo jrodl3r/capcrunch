@@ -1,5 +1,3 @@
-// CapCrunch App
-// ==================================================
 'use strict';
 
 var TeamGrid    = require('./components/team-grid.jsx'),
@@ -7,126 +5,139 @@ var TeamGrid    = require('./components/team-grid.jsx'),
     Header      = require('./components/header.jsx'),
     Footer      = require('./components/footer.jsx'),
     Payroll     = require('./components/payroll.jsx'),
-    Roster      = require('./components/roster.jsx'),
+    RosterGrid  = require('./components/roster.jsx'),
     RosterMenu  = require('./components/roster-menu.jsx'),
+    Messages    = require('./static/messages.js'),
+    Timers      = require('./static/timers.js'),
     UI          = require('./ui.js'),
     Socket      = io.connect('', { 'transports': ['websocket'] });
 
-var dropZoneData = {
-    last   : '',
-    cur    : null,
-    origin : null,
-    alt    : { cur : '', last : '' }
-  };
+var update   = React.addons.update,
+    dropData = { origin : '', cur : '', last : null, action : '' };
 
 var App = React.createClass({
+
   getInitialState: function() {
     return {
-      activeView     : 'loading',
-      lastView       : '',
-      activeTeam     : '',
-      activePlayers  : [],
-      rosterInfo     : { id : '', name : '', link : '', hit : '0.000', space : '69.000' },
-      rosterData  : {
-             F1L  : { status : 'empty' }, F1C : { status : 'empty' }, F1R : { status : 'empty' },
-             F2L  : { status : 'empty' }, F2C : { status : 'empty' }, F2R : { status : 'empty' },
-             F3L  : { status : 'empty' }, F3C : { status : 'empty' }, F3R : { status : 'empty' },
-             F4L  : { status : 'empty' }, F4C : { status : 'empty' }, F4R : { status : 'empty' },
-             FB1  : { status : 'empty' }, FB2 : { status : 'empty' }, FB3 : { status : 'empty' },
-             FR1  : { status : 'empty' }, FR2 : { status : 'empty' }, FR3 : { status : 'empty' },
-             D1L  : { status : 'empty' }, D1R : { status : 'empty' },
-             D2L  : { status : 'empty' }, D2R : { status : 'empty' },
-             D3L  : { status : 'empty' }, D3R : { status : 'empty' },
-             DB1  : { status : 'empty' }, DB2 : { status : 'empty' },
-             DR1  : { status : 'empty' }, DR2 : { status : 'empty' },
-             G1L  : { status : 'empty' }, G1R : { status : 'empty' },
-             GB1  : { status : 'empty' }, GB2 : { status : 'empty' },
-             GR1  : { status : 'empty' }, GR2 : { status : 'empty' }
-      },
-      teamData    : { id : '', name : '',
-        cap       : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
-        players   : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [], created : [] }
-      },
-      playerData  : { team : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
-      leagueData  : { cap : '69.000', trades : [], created : [] },
-      activeTrade : {
-        active    : { team : '', players : [], id_list : [] },
-        passive   : { team : '', players : [], id_list : [] }
-      },
-      dragData    : { state : false, player : {}, type : '' }
+      rosterData : {
+        F1L : { status : 'empty' }, F1C : { status : 'empty' }, F1R : { status : 'empty' },
+        F2L : { status : 'empty' }, F2C : { status : 'empty' }, F2R : { status : 'empty' },
+        F3L : { status : 'empty' }, F3C : { status : 'empty' }, F3R : { status : 'empty' },
+        F4L : { status : 'empty' }, F4C : { status : 'empty' }, F4R : { status : 'empty' },
+        FB1 : { status : 'empty' }, FB2 : { status : 'empty' }, FB3 : { status : 'empty' },
+        FR1 : { status : 'empty' }, FR2 : { status : 'empty' }, FR3 : { status : 'empty' },
+        D1L : { status : 'empty' }, D1R : { status : 'empty' },
+        D2L : { status : 'empty' }, D2R : { status : 'empty' },
+        D3L : { status : 'empty' }, D3R : { status : 'empty' },
+        DB1 : { status : 'empty' }, DB2 : { status : 'empty' },
+        DR1 : { status : 'empty' }, DR2 : { status : 'empty' },
+        G1L : { status : 'empty' }, G1R : { status : 'empty' },
+        GB1 : { status : 'empty' }, GB2 : { status : 'empty' },
+        GR1 : { status : 'empty' }, GR2 : { status : 'empty' }},
+      teamData : {
+        id       : '',
+        name     : '',
+        cap      : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
+        players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] }},
+      activeTeam : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] },
+      playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], created : [] },
+      altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },
+      tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
+      tradeData  : { user : [], league : [], players : { user : [], league : [] }},
+      panelData  : { active : 'trades', loading : false, engaged : false },
+      capData    : { year : '2015', hit : '0.000', space : '69.000' },
+      viewData   : { active : 'loading', last : '', next : '' },
+      shareData  : { name : '', link : '', view : 'input' },
+      dragData   : { type : '', group : '', index : '' },
+      notify     : { label : '', msg : '' }
     };
   },
+
   getDefaultProps: function() {
     return {
-      removePlayer     : false,
-      addTradePlayer   : false,
-      addAltLinePlayer : false,
-      minRosterPlayers : 6,
-      messages         : {
-        error_team_loading    : 'Sorry, There was an error loading that team.',
-        error_roster_loading  : 'Sorry, There was an error loading that roster.',
-        error_roster_saving   : 'Sorry, There was an error saving your roster.',
-        error_min_players     : 'Try adding a few more players to your roster first.',
-        trade_players_heading : 'Execute a blockbuster trade for your team:',
-        trade_players_max     : 'Five players per team trade maximum...',
-        trade_players_oneway  : 'One-way trades only...',
-        trade_players_created : 'Active player trades only...'
-      }
+      minPlayers : 6,
+      maxPlayers : 5,
+      altLines   : ['FR', 'FB', 'DR', 'DB', 'GR', 'GB'],
+      altTiles   : ['FR1', 'FR2', 'FR3', 'FB1', 'FB2', 'FB3', 'DR1', 'DR2', 'DB1', 'DB2', 'GR1', 'GR2', 'GB1', 'GB2']
     };
   },
+
   componentDidMount: function() {
-    var roster = this.parseRosterURI();
-    if (roster) { Socket.emit('get roster', roster); }
+    var id = this.getRosterId();
+    if (id) { Socket.emit('get roster', id); }
     else { this.changeView('teams'); }
-    Socket.on('load team', this.loadTeamData);
-    Socket.on('load roster', this.loadRosterData);
-    Socket.on('load players', this.loadPlayerData);
-    Socket.on('roster saved', this.showShareDialog);
+    Socket.on('load team', this.loadTeam);
+    Socket.on('load trade team', this.loadTradeTeam);
+    Socket.on('load roster', this.loadRoster);
+    Socket.on('roster saved', this.confirmShare);
   },
 
 
-// UI + View
+// View + UI
 // --------------------------------------------------
 
   changeView: function(view) {
-    var activeView = this.state.activeView,
-        lastView = this.state.lastView,
-        nextView = activeView === 'teams' && lastView === 'payroll' ? 'payroll' : null,
-        updateView;
-    if (this.state.nextView && view === 'roster') { view = 'payroll'; }
-    if (view !== activeView) {
-      updateView = React.addons.update(this.state, {
-        lastView   : { $set: activeView },
-        nextView   : { $set: nextView },
-        activeView : { $set: view }
+    var active = this.state.viewData.active;
+    var last = this.state.viewData.last;
+    var next = active === 'teams' && last === 'payroll' ? 'payroll' : null;
+    if (this.state.viewData.next && view === 'roster') { view = 'payroll'; }
+    if (view !== active) {
+      var viewData = update(this.state.viewData, {
+        active : { $set: view },
+        last   : { $set: active },
+        next   : { $set: next }
       });
-      this.setState(updateView, function() {
-        if (view === 'roster') { UI.resetScroll(); }
+      this.setState({ viewData : viewData }, function() {
+        if (view === 'roster') { UI.resetPanelScroll(); }
         if (view === 'payroll') { UI.updateViewHeight(); }
-        else if (activeView === 'payroll') { UI.resetViewHeight(); }
+        else if (active === 'payroll') { UI.resetViewHeight(); }
       });
     }
   },
-  showNotification: function(type, msg) {
-    if (type === 'error') {
-      document.getElementById('notify').className = 'active error';
-    } else if (type === 'tip') {
-      document.getElementById('notify').className = 'active tip';
-    } else if (type === 'success') {
-      document.getElementById('notify').className = 'active success';
+
+  changePanelView: function(view) {
+    var panelData = this.state.panelData;
+    if (view === 'loading') { panelData.loading = true; }
+    else { panelData.active = view; }
+    this.setState({ panelData : panelData });
+  },
+
+  toggleActionsTab: function(e) {
+    var tab = e.currentTarget.getAttribute('data-tab');
+    e.preventDefault();
+    if (tab !== this.state.panelData.active) {
+      var panelData = update(this.state.panelData, { active : { $set: tab } });
+      this.setState({ panelData : panelData });
     }
-    document.getElementById('notify').innerText = msg;
-    setTimeout(function() {
-      document.getElementById('notify').className = '';
-    }, 4000);
   },
-  showLoading: function() {
-    var menu = document.getElementById('menu');
-    menu.className = menu.className + ' show-loading';
+
+  notifyUser: function(label, msg) {
+    if (!this.state.notify.label) {
+      var notify = { label : label, msg : msg };
+      this.setState({ notify : notify });
+      setTimeout(this.hideNotify, Timers.notify);
+    }
   },
-  hideLoading: function() {
-    var menu = document.getElementById('menu');
-    menu.className = menu.className.replace(' show-loading', '');
+
+  hideNotify: function() {
+    var notify = this.state.notify;
+    notify.label = '';
+    this.setState({ notify : notify });
+  },
+
+  clearDrag: function() {
+    var updateData = update(this.state, {
+      dragData  : { $set: { type : '', group : '', index : '' }},
+      panelData : { engaged : { $set: false }}
+    });
+    this.setState(updateData, function() {
+      this.updateAltLines();
+    });
+  },
+
+  clearDrop: function() {
+    dropData = { origin : '', cur : '', last : null, action : '' };
+    UI.clearDrag();
   },
 
 
@@ -136,929 +147,666 @@ var App = React.createClass({
   changeTeam: function(id) {
     this.changeView('loading');
     Socket.emit('get team', id);
-    this.setState({ activeTeam : id });
+    UI.resetViewScroll();
   },
-  loadTeamData: function(data) {
-    var team_data, trade_data;
+
+  loadTeam: function(data) {
     if (data && data !== 'error') {
-      team_data = data;
-      team_data.players.created = [];
-      for (var i = 0; i < this.state.leagueData.created.length; i++) {
-        if (this.state.leagueData.created[i].team === team_data.id) {
-          team_data.players.created.push(this.state.leagueData.created[i]);
-        }
+      var teamData = this.loadTradeData('roster', data);
+      if (!teamData) {
+        teamData = data; // TODO: Trade Team Conflict / No Trade Data
       }
-      trade_data = this.getTradeData(this.state.activeTeam, 'active');
-      team_data.players = this.updatePlayerData(team_data.players, trade_data);
-      this.setState({ teamData: team_data }, function() {
-        this.resetTradeData();
+      this.setState({ teamData: teamData }, function() {
         this.changeView('roster');
       });
-    } else { this.showNotification('error', this.props.messages.error_team_loading); }
+    } else {
+      this.changeView('teams');
+      this.notifyUser('error', Messages.error.loading_team);
+    }
   },
-  loadPlayerData: function(team_id, data) {
+
+  changeTradeTeam: function(id) {
+    Socket.emit('get trade team', id);
+  },
+
+  loadTradeTeam: function(id, data) {
     if (data && data !== 'error') {
-      var updatePlayerData, trade_data, player_data = data;
-      trade_data  = this.getTradeData(team_id, 'passive');
-      player_data = this.updatePlayerData(player_data, trade_data);
-      updatePlayerData = React.addons.update(this.state, {
-        playerData : { team        : { $set: player_data.team },
-                       forwards    : { $set: player_data.forwards },
-                       defensemen  : { $set: player_data.defensemen },
-                       goaltenders : { $set: player_data.goaltenders },
-                       inactive    : { $set: player_data.inactive }}
+      var updateData = update(this.state.tradeTeam, {
+        id          : { $set: id },
+        forwards    : { $set: data.forwards },
+        defensemen  : { $set: data.defensemen },
+        goaltenders : { $set: data.goaltenders },
+        inactive    : { $set: data.inactive }
       });
-      this.setState(updatePlayerData);
+      this.setState({ tradeTeam : updateData });
+    } else { this.notifyUser('error', Messages.error.loading_team); }
+  },
+
+  getPlayerSortIndex: function(contract, group) {
+    var len = group.length, z;
+    for (z = 0; z < len; z++) {
+      if (contract[0] > group[z].contract[0]) {
+        return z;
+      } else if (contract[0] === group[z].contract[0] && contract[0] > group[z + 1].contract[0] || z === len - 1) {
+        return z + 1;
+      }
+    }
+  },
+
+  // clonePlayer: function(player) {
+  //   var target = {}, p;
+  //   for (p in player) {
+  //     if (player.hasOwnProperty(p)) {
+  //       target[p] = player[p];
+  //     }
+  //   }
+  //   return target;
+  // },
+
+
+// Roster + Share Data
+// --------------------------------------------------
+
+  loadRoster: function(res) {
+    if (res && res !== 'error') {
+      var data = res;
+      var updateData = update(this.state, {
+        rosterData : { $set: data.rosterData },
+        playerData : { $set: data.playerData },
+        shareData  : { name : { $set: data.name }},
+        altLines   : { $set: data.altLines },
+        capData    : { $set: data.capData }
+      });
+      this.setState(updateData, function() {
+        this.changeTeam(data.activeTeam);
+        this.loadAltLines();
+      });
     } else {
-      this.showNotification('error', this.props.messages.error_team_loading);
+      this.changeView('teams');
+      this.notifyUser('error', Messages.error.loading_roster);
     }
   },
-  updatePlayerData: function(players, trades) {
-    players.forwards    = this.updatePlayerGroup(players.forwards, trades, 'forwards');
-    players.defensemen  = this.updatePlayerGroup(players.defensemen, trades, 'defensemen');
-    players.goaltenders = this.updatePlayerGroup(players.goaltenders, trades, 'goaltenders');
-    players.inactive    = this.updatePlayerGroup(players.inactive, trades, 'inactive');
-    return players;
+
+  saveRoster: function(name) {
+    if (this.state.playerData.inplay.length >= this.props.minPlayers) {
+      var data = {
+        name       : name,
+        activeTeam : this.state.teamData.id, // TODO: this.state.playerData.team
+        playerData : this.state.playerData,
+        rosterData : this.state.rosterData,
+        altLines   : this.state.altLines,
+        capData    : this.state.capData
+      };
+      var shareData = this.state.shareData;
+      shareData.name = name || this.state.teamData.name;
+      shareData.view = 'loading';
+      this.setState({ shareData : shareData });
+      setTimeout(function() {
+        Socket.emit('save roster', data);
+      }, Timers.save);
+    } else { this.notifyUser('tip', Messages.error.min_players); }
   },
-  updatePlayerGroup: function(players, trades, type) {
-    var acquired, traded, duplicate, new_players = [];
-    if (trades.length) {
-      for (var x = 0; x < trades.length; x++) {
-        if (trades[x].acquired.length) {
-          acquired = trades[x].acquired;
-          for (var y = 0; y < acquired.length; y++) {
-            if (acquired[y].type === type) {
-              duplicate = false;
-              for (var z = 0; z < players.length; z++) {
-                if (acquired[y].id === players[z].id) {
-                  duplicate = true;
-                  if (players[z].actions && players[z].actions.indexOf('traded') !== -1) {
-                    players[z].actions.splice(players[z].actions.indexOf('traded'), 1);
-                  }
-                }
-              }
-              if (!duplicate) {
-                if (acquired[y].actions && acquired[y].actions.length) {
-                  if (acquired[y].actions.indexOf('acquired') === -1) {
-                    acquired[y].actions.push('acquired');
-                  }
-                } else { acquired[y].actions = ['acquired']; }
-                new_players.push(acquired[y]);
-              }
-            }
-          }
-          if (new_players.length) {
-            players = players.concat(new_players);
-            players.sort(this.sortPlayersBySalary);
-            new_players = [];
-          }
-        }
-        if (trades[x].traded.length) {
-          traded = trades[x].traded;
-          for (var i = 0; i < traded.length; i++) {
-            if (traded[i].type === type) {
-              for (var j = 0; j < players.length; j++) {
-                if (traded[i].id === players[j].id) {
-                  if (players[j].actions && players[j].actions.length) {
-                    if (players[j].actions.indexOf('traded') === -1) {
-                      players[j].actions.push('traded');
-                    }
-                  } else {
-                    players[j].actions = ['traded'];
-                  }
-                }
-              }
-            }
-          }
-        }
+
+  resetRoster: function() {
+    var playerData = this.state.playerData, updateData,
+        roster = this.state.rosterData, pos;
+    for (pos in roster) {
+      if (roster.hasOwnProperty(pos)) {
+        roster[pos] = { status : 'empty' };
       }
     }
-    return players;
+    playerData.inplay = [];
+    playerData.ir = [];
+    playerData.benched = [];
+    playerData.cleared = []; // TODO: playerData.cleared.forEach( player.status = 'injured' )
+    updateData = update(this.state, {
+      rosterData : { $set: roster },
+      playerData : { $set: playerData },
+      capData    : { $set: { year : '2015', hit : '0.000', space : '69.000' }}
+    });
+    this.setState(updateData);
   },
-  sortPlayersBySalary: function(a, b) {
-    if (b.contract[0] === a.contract[0] && b.contract.length >= 2 && a.contract.length >= 2) {
-      return b.contract[1] - a.contract[1];
+
+  getRosterId: function() {
+    var id = decodeURI(location.pathname.substr(1));
+    return id ? id : false;
+  },
+
+  confirmShare: function(res, id) {
+    if (res === 'success') {
+      var link = 'http://' + location.host + '/' + id;
+      var shareData = this.state.shareData;
+      shareData.link = link;
+      shareData.view = res;
+      this.setState({ shareData : shareData });
     } else {
-      return b.contract[0] - a.contract[0];
+      this.resetShare();
+      this.notifyUser('error', Messages.error.saving_roster);
     }
   },
 
-
-// Share Roster
-// --------------------------------------------------
-
-  loadRosterData: function(data) {
-    var roster_data, roster_grid, updateRoster;
-    if (data && data !== 'error') {
-      roster_data = data;
-      roster_grid = this.state.rosterData;
-      for (var pos in roster_grid) {
-        if (roster_data.lines.hasOwnProperty(pos)) {
-          roster_grid[pos] = roster_data.lines[pos];
-        }
-      }
-      updateRoster = React.addons.update(this.state, {
-        rosterData    : { $set: roster_grid },
-        rosterInfo    : { name  : { $set: roster_data.name },
-                          hit   : { $set: roster_data.hit },
-                          space : { $set: roster_data.space }},
-        activePlayers : { $set: roster_data.activePlayers },
-        leagueData    : { created : { $set: roster_data.created },
-                          trades  : { $set: roster_data.trades }}
-      });
-      this.setState(updateRoster, function() {
-        this.checkActiveAltLines(this.state.rosterData);
-      });
-      this.changeTeam(roster_data.activeTeam);
-    } else { this.showNotification('error', this.props.messages.error_roster_loading); }
+  resetShare: function() {
+    var shareData = this.state.shareData;
+    shareData.view = 'input';
+    this.setState({ shareData : shareData });
   },
-  clearRosterData: function() {
-    var clearRosterData, blank = [],
-        roster_grid = this.state.rosterData;
-    for (var pos in roster_grid) {
-      if (pos.status !== 'empty') {
-        roster_grid[pos] = { status : 'empty' };
-      }
-    }
-    clearRosterData = React.addons.update(this.state, {
-      activePlayers : { $set: blank },
-      rosterInfo    : { hit   : { $set: '0.000' },
-                        space : { $set: '69.000' }},
-      rosterData    : { $set: roster_grid }
-    });
-    this.setState(clearRosterData);
-    document.getElementById('roster-stats-menu').className = 'cap-stats-menu disabled';
-  },
-  showShareDialog: function(status, roster_id) {
-    if (status === 'loading') {
-      document.getElementById('share-form').className = '';
-      document.getElementById('share-dialog').className = 'active';
-      document.getElementById('share-loading').className = 'active';
-    } else if (status === 'success' && roster_id) {
-      document.getElementById('share-loading').className = '';
-      document.getElementById('share-confirm').className = 'active';
-      var rosterLink = 'http://' + location.host + '/' + roster_id;
-      var updateRosterLink = React.addons.update(this.state, {
-        rosterInfo : { link : { $set: rosterLink }}
-      });
-      this.setState(updateRosterLink);
-    } else if (status === 'error') {
-      this.showNotification('error', this.props.messages.error_roster_saving);
-    }
-  },
-  handleRosterSubmit: function(e) {
-    e.preventDefault();
-    var roster_data = {},
-        roster_name = this.state.rosterInfo.name || this.state.teamData.name;
-    if (this.state.activePlayers.length >= this.props.minRosterPlayers) {
-      roster_data.name          = roster_name;
-      roster_data.hit           = this.state.rosterInfo.hit;
-      roster_data.space         = this.state.rosterInfo.space;
-      roster_data.activeTeam    = this.state.activeTeam;
-      roster_data.activePlayers = this.state.activePlayers;
-      roster_data.trades        = this.getTradeData(this.state.activeTeam, 'share');
-      roster_data.created       = this.getCreatedPlayers(this.state.activeTeam);
-      roster_data.lines         = this.state.rosterData;
-      this.showShareDialog('loading');
-      setTimeout(function() {
-        Socket.emit('save roster', roster_data);
-      }, 1000);
-    } else { this.showNotification('tip', this.props.messages.error_min_players); }
-  },
-  parseRosterURI: function() {
-    var roster_id = decodeURI(location.pathname.substr(1));
-    if (roster_id) {
-      var updateRosterId = React.addons.update(this.state, {
-        rosterInfo : { id : { $set: roster_id }}
-      });
-      this.setState(updateRosterId);
-      return roster_id;
-    } else { return false; }
-  },
-
-
-// Trade Players
-// --------------------------------------------------
-
-  getTradeData: function(team_id, status) {
-    var cur_trade, trade_data = [], trade_count = 0;
-    if (this.state.leagueData.trades.length) {
-      for (var i = 0; i < this.state.leagueData.trades.length; i++) {
-        cur_trade = this.state.leagueData.trades[i];
-        if (status === 'active') {
-          if (cur_trade.active.prev_team === team_id && cur_trade.passive.team === team_id) {
-            trade_data[trade_count] = { acquired : [], traded : [] };
-            trade_data[trade_count].traded = cur_trade.active.players;
-            for (var j = 0; j < cur_trade.passive.players.length; j++) {
-              cur_trade.passive.players[j].team = team_id;
-            }
-            trade_data[trade_count].acquired = cur_trade.passive.players;
-            trade_count = trade_count + 1;
-          }
-        } else if (status === 'passive') {
-          if (cur_trade.passive.prev_team === team_id && cur_trade.active.team === team_id &&
-              cur_trade.active.prev_team === this.state.activeTeam) {
-            trade_data[trade_count] = { acquired : [], traded : [] };
-            trade_data[trade_count].traded = cur_trade.passive.players;
-            trade_data[trade_count].acquired = cur_trade.active.players;
-            trade_count = trade_count + 1;
-          }
-        } else if (status === 'share') {
-          if (cur_trade.active.prev_team === team_id && cur_trade.passive.team === team_id) {
-            trade_data.push(cur_trade);
-          }
-        }
-      }
-    }
-    return trade_data;
-  },
-  resetTradeData: function() {
-    var blank = '', empty = [], resetTradeData;
-    resetTradeData = React.addons.update(this.state, {
-        playerData  : { team        : { $set: blank },
-                        forwards    : { $set: empty },
-                        defensemen  : { $set: empty },
-                        goaltenders : { $set: empty },
-                        inactive    : { $set: empty }},
-        activeTrade : {
-          active    : { team    : { $set: blank },
-                        players : { $set: empty },
-                        id_list : { $set: empty }},
-          passive   : { team    : { $set: blank },
-                        players : { $set: empty },
-                        id_list : { $set: empty }}}
-      });
-    this.setState(resetTradeData);
-    document.getElementById('trade-team-select').selectedIndex = 0;
-  },
-  handleTradeExecution: function() {
-    var activeTrade = this.state.activeTrade,
-        tradeData   = this.state.leagueData.trades,
-        blank = '', empty = [], updateTradeData;
-    activeTrade.active.prev_team  = activeTrade.active.team;
-    activeTrade.active.team       = activeTrade.passive.team;
-    activeTrade.passive.prev_team = activeTrade.passive.team;
-    activeTrade.passive.team      = activeTrade.active.prev_team;
-    updateTradeData = React.addons.update(this.state, {
-      leagueData : { trades : { $push: [activeTrade] }}
-    });
-    this.setState(updateTradeData, function() {
-      var player_data, trade_data, updateTeamPlayerData;
-      player_data = this.state.teamData.players;
-      trade_data  = this.getTradeData(this.state.activeTeam, 'active');
-      player_data = this.updatePlayerData(player_data, trade_data);
-      updateTeamPlayerData = React.addons.update(this.state, {
-        teamData : { players : { $set: player_data }}
-      });
-      this.showLoading();
-      this.setState(updateTeamPlayerData, function() {
-        setTimeout(function() {
-          this.resetTradeData();
-          document.getElementById('trade-player-msg').innerText = this.props.messages.trade_players_heading;
-          document.getElementById('trade-player-confirm').className = 'transaction-confirm';
-          this.hideLoading();
-        }.bind(this), 1000);
-      });
-    });
-  },
-  handleChangeTradeTeam: function(id) {
-    var updateTradeData = React.addons.update(this.state, {
-      activeTrade : { passive : { team : { $set: id }}}
-    });
-    this.setState(updateTradeData);
-    Socket.emit('get players', id);
-  },
-  handleAddTradePlayer: function(type, player) {
-    var updateTradeData;
-    if (type === 'passive') {
-      updateTradeData = React.addons.update(this.state, {
-        dragData    : { state : { $set: false }},
-        activeTrade : { passive : { players : { $push: [player] },
-                                    id_list : { $push: [player.id] }}}
-      });
-    } else if (type === 'active') {
-      updateTradeData = React.addons.update(this.state, {
-        dragData    : { state : { $set: false }},
-        activeTrade : { active : { team    : { $set: this.state.activeTeam },
-                                   players : { $push: [player] },
-                                   id_list : { $push: [player.id] }}}
-      });
-    }
-    this.setState(updateTradeData, function() {
-      setTimeout(function() {
-        document.getElementById(player.id + 'item').className = 'active';
-      }, 10);
-    });
-    document.getElementById('trade-drop-area').className = '';
-  },
-  handleRemoveTradePlayer: function(type, id) {
-    document.getElementById(id + 'item').className = '';
-    setTimeout(function() {
-      var index, updateTradeData;
-      if (type === 'passive') {
-        index = this.state.activeTrade.passive.id_list.indexOf(id);
-        updateTradeData = React.addons.update(this.state, {
-          activeTrade : { passive : { players : { $splice: [[index, 1]] },
-                                      id_list : { $splice: [[index, 1]] }}}
-        });
-      } else if (type === 'active') {
-        index = this.state.activeTrade.active.id_list.indexOf(id);
-        if (this.state.activeTrade.active.id_list.length > 1) {
-          updateTradeData = React.addons.update(this.state, {
-            activeTrade : { active : { players : { $splice: [[index, 1]] },
-                                       id_list : { $splice: [[index, 1]] }}}
-          });
-        } else {
-          updateTradeData = React.addons.update(this.state, {
-            activeTrade : { active : { team    : { $set: '' },
-                                       players : { $splice: [[index, 1]] },
-                                       id_list : { $splice: [[index, 1]] }}}
-          });
-        }
-      }
-      this.setState(updateTradeData);
-    }.bind(this), 250);
-  },
-  handleTradeDragEnter: function(e) {
-    this.props.addTradePlayer = true;
-    this.props.removePlayer = false;
-    if (this.state.activeTrade.active.id_list.length) {
-      e.currentTarget.parentNode.className = 'active hover';
-    } else {
-      e.currentTarget.parentNode.className = 'hover';
-    }
-  },
-  handleTradeDragLeave: function(e) {
-    if (this.state.activeTrade.active.id_list.length) {
-      e.currentTarget.parentNode.className = 'active';
-    } else {
-      e.currentTarget.parentNode.className = '';
-    }
-  },
-  handleTradePlayersError: function(type) {
-    var trade_msg  = document.getElementById('trade-player-msg');
-    if (type === 'maxed') {
-      trade_msg.innerText = this.props.messages.trade_players_max;
-      trade_msg.className = 'warning';
-      setTimeout(function() {
-        if (trade_msg.innerText === this.props.messages.trade_players_max) {
-          trade_msg.innerText = this.props.messages.trade_players_heading;
-          trade_msg.className = '';
-        }
-      }.bind(this), 3000);
-    } else if (type === 'oneway') {
-      trade_msg.innerText = this.props.messages.trade_players_oneway;
-      trade_msg.className = 'warning';
-      setTimeout(function() {
-        if (trade_msg.innerText === this.props.messages.trade_players_oneway) {
-          trade_msg.innerText = this.props.messages.trade_players_heading;
-          trade_msg.className = '';
-        }
-      }.bind(this), 3000);
-    } else if (type === 'created') {
-      trade_msg.innerText = this.props.messages.trade_players_created;
-      trade_msg.className = 'warning';
-      setTimeout(function() {
-        if (trade_msg.innerText === this.props.messages.trade_players_created) {
-          trade_msg.innerText = this.props.messages.trade_players_heading;
-          trade_msg.className = '';
-        }
-      }.bind(this), 3000);
-    }
-  },
-
-
-// Create Player
-// --------------------------------------------------
-
-  getCreatedPlayers: function(team_id) {
-    var created = this.state.leagueData.created,
-        created_players = [];
-    if (created.length) {
-      for (var i = 0; i < created.length; i++) {
-        if (created[i].team === team_id) {
-          created_players.push(created[i]);
-        }
-      }
-    }
-    return created_players;
-  },
-  handleCreatePlayer: function(player) {
-    var new_player, updateCreatePlayers;
-    this.showLoading();
-    new_player = {
-      lastname  : player.lastname,
-      firstname : player.firstname,
-      contract  : player.contract,
-      shot      : player.shot,
-      jersey    : player.jersey,
-      image     : '',
-      team      : this.state.activeTeam,
-      id        : (9900 + this.state.leagueData.created.length).toString(),
-      age       : '',
-      nation    : '',
-      position  : player.position,
-      type      : 'inactive',
-      status    : 'created',
-      actions   : ['created']
-    };
-    updateCreatePlayers = React.addons.update(this.state, {
-      teamData   : { players : { created : { $push: [new_player] }}},
-      leagueData : { created : { $push: [new_player] }}
-    });
-    setTimeout(function() {
-      this.setState(updateCreatePlayers);
-      this.hideLoading();
-    }.bind(this), 1000);
-  },
-
-
-// Player List Items
-// --------------------------------------------------
-
-  handleMouseOver: function(e) {
-    if (!this.state.dragData.state) {
-      var item = e.currentTarget;
-      item.className = item.className + ' hover';
-    }
-  },
-  handleMouseLeave: function(e) {
-    var item = e.currentTarget;
-    item.className = item.className.replace(' hover', '');
-  },
-  handleMouseDown: function(e) {
-    var dragItem   = e.currentTarget,
-        playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index],
-        updateDragData;
-    if (!playerData.actions || playerData.actions && playerData.actions.indexOf('traded') === -1) {
-      dragItem.className = 'item clicked';
-      updateDragData = React.addons.update(this.state, {
-        dragData : { state  : { $set: true },
-                     player : { $set: playerData },
-                     type   : { $set: dragItem.dataset.type }}
-      });
-      this.setState(updateDragData);
-    }
-  },
-  handleMouseUp: function(e) {
-    var updateDragData;
-    e.currentTarget.className = 'item hover';
-    updateDragData = React.addons.update(this.state, {
-      dragData : { state : { $set: false }}
-    });
-    this.setState(updateDragData);
-  },
-  handleDragStart: function(e) {
-    var dragItem = e.currentTarget,
-        itemRow  = dragItem.parentNode;
-    itemRow.className = itemRow.className + ' engaged';
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text', dragItem.id);
-    dropZoneData.last = '';
-  },
-  handleDragEnter: function() {
-    this.props.addTradePlayer = false;
-  },
-  handleDragEnd: function(e) {
-    var dragItem   = e.currentTarget,
-        dropZone   = dropZoneData.cur,
-        playerData = this.state.teamData.players[dragItem.dataset.type][dragItem.dataset.index],
-        rosterData, updateRosterData, updateDragData, capData,
-        trigger, altLine, altLineId, altLineTileId, altLineType;
-
-    // Trade Player
-    if (this.props.addTradePlayer) {
-      if (playerData.team !== this.state.activeTeam ||
-          this.state.activeTrade.active.id_list.length === 5 ||
-          playerData.status === 'created') {
-        dragItem.parentNode.className = dragItem.parentNode.className.replace(' engaged', '');
-        dragItem.className = 'item';
-        if (playerData.team !== this.state.activeTeam) {
-          this.handleTradePlayersError('oneway');
-        } else if (this.state.activeTrade.active.id_list.length === 5) {
-          this.handleTradePlayersError('maxed');
-        } else {
-          this.handleTradePlayersError('created');
-        }
-        updateDragData = React.addons.update(this.state, {
-          dragData : { state : { $set: false }}
-        });
-        this.setState(updateDragData);
-      } else {
-        dragItem.className = 'item';
-        playerData.type = dragItem.dataset.type;
-        this.handleAddTradePlayer('active', playerData);
-      }
-
-    // Add Alt-Line Player
-    } else if (this.props.addAltLinePlayer) {
-      altLineId = dropZoneData.alt.last;
-      altLine = document.getElementById(altLineId);
-      altLine.className = altLine.className + ' active';
-      altLineTileId = altLineId + '1';
-      altLineType = this.checkAltTiles(altLineTileId);
-      dragItem.className = 'item';
-      if (playerData.actions) { playerData.actions.push(altLineType); }
-      else { playerData.actions = [altLineType]; }
-      rosterData = this.state.rosterData;
-      rosterData[altLineTileId] = playerData;
-      capData = this.updateCapStats('add', playerData.contract[0]);
-      updateRosterData = React.addons.update(this.state, {
-        dragData      : { state : { $set: false }},
-        activePlayers : { $push: [playerData.id] },
-        rosterData    : { $set: rosterData },
-        rosterInfo    : { hit   : { $set: capData.hit },
-                          space : { $set: capData.space }}
-      });
-      this.setState(updateRosterData);
-      trigger = document.getElementById(altLineId + '-trigger');
-      trigger.className = altLineId + ' disabled';
-
-    // Add Roster Player
-    } else if (dropZone && !dropZone.dataset.state && dropZone.id === dropZoneData.last) {
-      dragItem.className = 'item';
-      if (this.checkAltTiles(dropZone.id)) {
-        if (playerData.actions) { playerData.actions.push(this.checkAltTiles(dropZone.id)); }
-        else { playerData.actions = [this.checkAltTiles(dropZone.id)]; }
-      }
-      playerData.type = dragItem.dataset.type;
-      rosterData = this.state.rosterData;
-      rosterData[dropZone.id] = playerData;
-      capData = this.updateCapStats('add', playerData.contract[0]);
-      updateRosterData = React.addons.update(this.state, {
-        dragData      : { state : { $set: false }},
-        activePlayers : { $push: [playerData.id] },
-        rosterData    : { $set: rosterData },
-        rosterInfo    : { hit   : { $set: capData.hit },
-                          space : { $set: capData.space }}
-      });
-      this.setState(updateRosterData);
-    } else {
-      dragItem.parentNode.className = dragItem.parentNode.className.replace(' engaged', '');
-      dragItem.className = 'item';
-      updateDragData = React.addons.update(this.state, {
-        dragData : { state : { $set: false }}
-      });
-      this.setState(updateDragData);
-    }
-    this.checkEmptyAltLines();
-    this.props.addTradePlayer = false;
-  },
-
-
-// Remove Player
-// --------------------------------------------------
-
-  showRemovePlayer: function() {
-    document.getElementById('menu').className = 'section active show-remove-player';
-  },
-  hideRemovePlayer: function() {
-    document.getElementById('menu').className = 'section active';
-  },
-  handleRemoveDragEnter: function(e) {
-    this.props.removePlayer = true;
-    this.props.addTradePlayer = false;
-    e.currentTarget.parentNode.className = 'remove-player hover';
-  },
-  handleRemoveDragLeave: function(e) {
-    e.currentTarget.parentNode.className = 'remove-player';
-  },
-
-
-// Cap Stats
-// --------------------------------------------------
 
   updateCapStats: function(type, salary) {
-    var hit   = this.state.rosterInfo.hit,
-        space = this.state.rosterInfo.space,
-        updateCapStats;
+    var capUpdate = this.state.capData;
     if (type === 'add') {
-      hit   = (parseFloat(hit) + parseFloat(salary)).toFixed(3);
-      space = (parseFloat(space) - parseFloat(salary)).toFixed(3);
-    } else if (type === 'remove') {
-      hit   = (parseFloat(hit) - parseFloat(salary)).toFixed(3);
-      space = (parseFloat(space) + parseFloat(salary)).toFixed(3);
+      capUpdate.hit = (parseFloat(capUpdate.hit) + parseFloat(salary)).toFixed(3);
+      capUpdate.space = (parseFloat(capUpdate.space) - parseFloat(salary)).toFixed(3);
+    } else {
+      capUpdate.hit = (parseFloat(capUpdate.hit) - parseFloat(salary)).toFixed(3);
+      capUpdate.space = (parseFloat(capUpdate.space) + parseFloat(salary)).toFixed(3);
     }
-    updateCapStats = { hit : hit, space : space };
-    return updateCapStats;
+    return capUpdate;
   },
 
 
-// Roster Grid TODO...
+// Trade + Create
 // --------------------------------------------------
 
-  checkEmptyAltLines: function() {
-    var rosterData = this.state.rosterData;
-    if (rosterData.FB1.status === 'empty' && rosterData.FB2.status === 'empty' && rosterData.FB3.status === 'empty') { this.hideAltLine('FB'); }
-    if (rosterData.FR1.status === 'empty' && rosterData.FR2.status === 'empty' && rosterData.FR3.status === 'empty') { this.hideAltLine('FR'); }
-    if (rosterData.DB1.status === 'empty' && rosterData.DB2.status === 'empty') { this.hideAltLine('DB'); }
-    if (rosterData.DR1.status === 'empty' && rosterData.DR2.status === 'empty') { this.hideAltLine('DR'); }
-    if (rosterData.GB1.status === 'empty' && rosterData.GB2.status === 'empty') { this.hideAltLine('GB'); }
-    if (rosterData.GR1.status === 'empty' && rosterData.GR2.status === 'empty') { this.hideAltLine('GR'); }
-  },
-  hideAltLine: function(id) {
-    var line    = document.getElementById(id),
-        trigger = document.getElementById(id + '-trigger');
-    line.className = line.className.replace(' active', '');
-    line.className = line.className.replace(' show', '');
-    trigger.className = trigger.className.replace(' disabled', '');
-  },
-  checkActiveAltLines: function(data) {
-    if (data.FB1.status !== 'empty' || data.FB2.status !== 'empty' || data.FB3.status !== 'empty') { this.showAltLine('FB'); }
-    if (data.FR1.status !== 'empty' || data.FR2.status !== 'empty' || data.FR3.status !== 'empty') { this.showAltLine('FR'); }
-    if (data.DB1.status !== 'empty' || data.DB2.status !== 'empty') { this.showAltLine('DB'); }
-    if (data.DR1.status !== 'empty' || data.DR2.status !== 'empty') { this.showAltLine('DR'); }
-    if (data.GB1.status !== 'empty' || data.GB2.status !== 'empty') { this.showAltLine('GB'); }
-    if (data.GR1.status !== 'empty' || data.GR2.status !== 'empty') { this.showAltLine('GR'); }
-  },
-  showAltLine: function(id) {
-    var line = document.getElementById(id),
-        trigger = document.getElementById(id + '-trigger');
-    line.className = line.className + ' show';
-    trigger.className = trigger.className + ' disabled';
-  },
-  checkAltTiles: function(tile_id) {
-    var injured_tiles = ['FR1', 'FR2', 'FR3', 'DR1', 'DR2', 'GR1', 'GR2'],
-        benched_tiles = ['FB1', 'FB2', 'FB3', 'DB1', 'DB2', 'GB1', 'GB2'];
-    if (injured_tiles.indexOf(tile_id) !== -1) {
-      return 'injured';
-    } else if (benched_tiles.indexOf(tile_id) !== -1) {
-      return 'benched';
+  loadTradeData: function(type, team) {
+    var traded = type === 'roster' ? this.state.playerData.traded : this.state.tradeData.players.user,
+        acquired = type === 'roster' ? this.state.playerData.acquired : this.state.tradeData.players.league,
+        traded_len = traded.length, acquired_len = acquired.length, player, index, x, y;
+    if (traded_len) {
+      for (x = 0; x < traded_len; x++) {
+        // Verify Trade Team Data
+        if (!x && type === 'roster' && traded[x].team !== team.id) {
+
+          // TODO: Notify User - Trade Team Conflict + Disable Trading
+          console.log('trade team conflict!');
+
+          return false;
+        } else {
+          player = traded[x];
+          team.players[player.group][player.index].status = 'traded'; // TODO: Action + Can Index Change??? That would be bad... see below
+          // team.players[player.group][player.index].action = 'traded';
+        }
+      }
+      for (y = 0; y < acquired_len; y++) {
+        player = acquired[y];
+        player.status = 'acquired'; // TODO: Action » This is problematic... (if acquired player is injured + if player added to IR/BN)
+        // player.action = 'acquired';
+        index = this.getPlayerSortIndex(player.contract, team.players[player.group]);
+        team.players[player.group].splice(index, 0, player); // NOTE: Much safer to not mutate the array here + include on render? ^^^
+      }
+      return team;
     }
     return false;
   },
-  handleTriggerDragEnter: function(e) {
-    var trigger = e.currentTarget, line_id = '';
-    if (trigger.className.indexOf('disabled') === -1) {
-      this.props.addAltLinePlayer = true;
-      line_id = trigger.className;
-      dropZoneData.alt.cur = line_id;
-      dropZoneData.alt.last = line_id;
-      trigger.className = line_id + ' hover';
-    }
-    setTimeout(function(line) {
-      if (dropZoneData.alt.cur === line_id && trigger.className.indexOf('hover') !== -1) {
-        line = document.getElementById(line_id);
-        line.className = line.className + ' active';
-        trigger.className = line_id + ' disabled';
-        dropZoneData.alt.cur = '';
-        this.props.addAltLinePlayer = false;
+
+  resetTradeData: function() {
+    var playerData = this.state.playerData, tradeData;
+    playerData.traded = [];
+    playerData.acquired = [];
+    tradeData = { user : [], league : [], players : { user : [], league : [] }};
+    var updateData = update(this.state, {
+      tradeData  : { $set: tradeData },
+      playerData : { $set: playerData }
+    });
+    this.setState(updateData);
+    UI.clearAction('trade');
+  },
+
+  executeTrade: function() {
+    this.changePanelView('loading');
+    setTimeout(function() {
+      var teamData = this.loadTradeData('trade', this.state.teamData),
+          traded, acquired, updateData;
+      if (teamData) {
+        traded = this.state.playerData.traded.concat(this.state.tradeData.players.user);
+        acquired = this.state.playerData.acquired.concat(this.state.tradeData.players.league);
+        updateData = update(this.state, {
+          panelData  : { loading : { $set: false }},
+          teamData   : { players : { $set: teamData.players }},
+          tradeData  : { $set: { user : [], league : [], players : { user : [], league : [] }}},
+          playerData : {
+            traded   : { $set: traded },
+            acquired : { $set: acquired }}
+        });
+        this.setState(updateData);
+      } else {
+        UI.showActionMessage('trade', Messages.error.trade_execute);
       }
-    }.bind(this), 500);
+      UI.clearAction('trade');
+      UI.resetPanelScroll();
+    }.bind(this), Timers.confirm);
   },
-  handleTriggerDragLeave: function(e) {
-    var trigger = e.currentTarget;
-    trigger.className = trigger.className.replace(' hover', '');
-    dropZoneData.alt.cur = '';
-  },
-  handleGridDragEnter: function(e) {
-    if (dropZoneData.cur) {
-      dropZoneData.last = '';
+
+  addTradePlayer: function(type, player, index, group) {
+    var capData, updateData;
+    switch (type) {
+      case 'item':
+        updateData = update(this.state, {
+          tradeData : {
+            user    : { $push: [player.id] },
+            players : { user : { $push: [player] }}},
+          panelData : { engaged : { $set: false }},
+          dragData  : { $set: { type : '', group : '', index : '' }}
+        });
+        break;
+      case 'tile':
+        index = this.state.playerData.inplay.indexOf(player.id);
+        capData = this.updateCapStats('remove', player.contract[0]);
+        updateData = update(this.state, {
+          capData    : { $set: capData },
+          tradeData  : {
+            user     : { $push: [player.id] },
+            players  : { user : { $push: [player] }}},
+          playerData : { inplay : { $splice: [[index, 1]] }},
+          rosterData : { [dropData.origin] : { $set: { status : 'empty' }}},
+          dragData   : { $set: { type : '', group : '', index : '' }}
+        });
+        break;
+      case 'league':
+        player = this.state.tradeTeam[group][index];
+        player.group = group;
+        player.team = this.state.teamData.id;
+        updateData = update(this.state, {
+          tradeTeam : { [group] : { $splice: [[index, 1, player]] }},
+          tradeData : {
+            league  : { $push: [player.id] },
+            players : { league : { $push: [player] }}}
+        });
+        break;
+      default: UI.showActionMessage('trade', Messages.error.trade_player);
     }
-    this.props.removePlayer = false;
-    this.props.addTradePlayer = false;
+    this.setState(updateData);
+    setTimeout(function() {
+      $('#' + player.id + '-trade-item').addClass('active');
+    }, Timers.clear);
+    $('#trade-drop-area').removeClass('hover');
   },
+
+  removeTradePlayer: function(type, id) {
+    var updateData, index;
+    setTimeout(function() {
+      if (type === 'user') {
+        index = this.state.tradeData.user.indexOf(id);
+        updateData = update(this.state.tradeData, {
+          user    : { $splice: [[index, 1]] },
+          players : { user : { $splice: [[index, 1]] }}
+        });
+      } else {
+        index = this.state.tradeData.league.indexOf(id);
+        updateData = update(this.state.tradeData, {
+          league  : { $splice: [[index, 1]] },
+          players : { league : { $splice: [[index, 1]] }}
+        });
+      }
+      this.setState({ tradeData : updateData });
+    }.bind(this), Timers.item);
+    $('#' + id + '-trade-item').attr('class', '');
+  },
+
+  verifyTradePlayer: function(action) {
+    if (this.state.tradeData.user.length === this.props.maxPlayers) {
+      UI.showActionMessage('trade', Messages.trade.max_players);
+      return false;
+    } else if (/(created|acquired)/.test(action)) {
+      UI.showActionMessage('trade', Messages.trade.active_only);
+      return false;
+    }
+    return true;
+  },
+
+  createPlayer: function(data) {
+    var player = data;
+    player.image = '';
+    player.team = this.state.teamData.id;
+    player.action = 'created';
+    player.id = (9900 + this.state.playerData.created.length).toString();
+    this.changePanelView('loading');
+    setTimeout(function() {
+      var updateData = update(this.state, {
+        panelData  : { loading : { $set: false }},
+        playerData : { created : { $push: [player] }}
+      });
+      this.setState(updateData);
+      UI.clearAction('create');
+      UI.resetPanelScroll('inactive');
+    }.bind(this), Timers.confirm);
+  },
+
+
+// Panels
+// --------------------------------------------------
+
+  handleItemMouseDown: function(e) {
+    e.target.parentNode.className = 'item clicked';
+    this.setState({ dragData : { type : 'item', group : e.currentTarget.getAttribute('data-group'), index : e.currentTarget.getAttribute('data-index') }});
+  },
+
+  handleItemMouseUp: function(e) {
+    if (e.target.className === 'item clicked') {
+      e.target.className = 'item';
+    }
+    this.setState({ dragData : { type : '', group : '', index : '' }});
+  },
+
+  handleItemDragStart: function(e) {
+    e.target.parentNode.className = 'row engaged';
+    e.dataTransfer.effectAllowed = 'copy';
+    e.dataTransfer.setData('text', '');
+    setTimeout(function() {
+      var panelData = update(this.state.panelData, { engaged : { $set: true }});
+      this.setState({ panelData : panelData });
+    }.bind(this), 10);
+  },
+
+  handleItemDragEnd: function(e) {
+    var drag = this.state.dragData, player;
+    player = drag.group === 'created'
+      ? this.state.playerData.created[drag.index]
+      : this.state.teamData.players[drag.group][drag.index];
+    player.group = drag.group;
+    player.index = drag.index;
+    // Add
+    if (dropData.cur && dropData.cur === dropData.last) {
+      this.addPlayer(player);
+    // Trade
+    } else if (dropData.action === 'trade' && this.verifyTradePlayer(player.status)) { // TODO: Action
+      this.addTradePlayer('item', player);
+    // Undo
+    } else {
+      e.currentTarget.parentNode.className = 'row';
+      e.currentTarget.className = 'item';
+      this.clearDrag();
+    }
+    this.clearDrop();
+  },
+
+  handleListDragEnter: function() {
+    dropData.last = null;
+  },
+
+  handleRemoveDragEnter: function(e) {
+    dropData.last = null;
+    dropData.action = 'remove';
+    $(e.currentTarget).parent().addClass('hover');
+  },
+
+  handleRemoveDragLeave: function(e) {
+    dropData.action = '';
+    $(e.currentTarget).parent().removeClass('hover');
+  },
+
+  handleTradeDragEnter: function() {
+    dropData.last = null;
+    dropData.action = 'trade';
+    if (this.state.panelData.active !== 'trades') {
+      var panelData = update(this.state.panelData, { active : { $set: 'trades' }});
+      this.setState({ panelData : panelData });
+    }
+    $('#trade-drop-area').addClass('hover');
+  },
+
+  handleTradeDragLeave: function() {
+    dropData.action = '';
+    $('#trade-drop-area').removeClass('hover');
+  },
+
+
+// Roster
+// --------------------------------------------------
+
+  handleGridDragEnter: function() {
+    dropData.last = null;
+    dropData.action = '';
+  },
+
   handleTileDragEnter: function(e) {
     e.stopPropagation();
-    var dropZone = e.currentTarget;
-    if (dropZone.dataset.state !== 'active') {
-      dropZone.className = 'tile hover';
-      dropZoneData.cur = dropZone;
+    if (this.state.rosterData[e.currentTarget.id].status === 'empty') {
+      e.currentTarget.className = 'tile hover';
+      dropData.action = this.isAltLine(e.currentTarget.id);
+      dropData.cur = e.currentTarget.id;
     }
-    dropZoneData.last = dropZone.id;
-    this.props.removePlayer = false;
-    this.props.addTradePlayer = false;
-    this.props.addAltLinePlayer = false;
+    dropData.last = e.currentTarget.id;
   },
+
   handleTileDragLeave: function(e) {
-    var dropZone = e.currentTarget;
-    if (dropZone.dataset.state !== 'active') {
+    if (this.state.rosterData[e.currentTarget.id].status === 'empty') {
       e.currentTarget.className = 'tile';
     }
   },
 
-// Player Tiles
+  handlePlayerMouseDown: function(e) {
+    e.currentTarget.className = 'player active clicked';
+    dropData.origin = e.currentTarget.parentNode.id;
+    this.setState({ dragData : { type : 'tile', group : e.currentTarget.getAttribute('data-group'), index : e.currentTarget.getAttribute('data-index') }});
+  },
+
+  handlePlayerMouseUp: function(e) {
+    e.currentTarget.className = 'player active';
+    this.setState({ dragData : { type : '', group : '', index : '' }});
+  },
+
+  handlePlayerDragStart: function(e) {
+    e.dataTransfer.effectAllowed = 'copy';
+    e.dataTransfer.setData('text', '');
+  },
+
+  handlePlayerDragEnd: function(e) {
+    var player = this.state.rosterData[dropData.origin];
+    // Move
+    if (dropData.last === dropData.cur && dropData.last !== dropData.origin) {
+      this.movePlayer(player);
+    } else if (dropData.action) {
+      // Remove
+      if (dropData.action === 'remove') {
+        this.removePlayer(player);
+      // Trade
+      } else if (dropData.action === 'trade' && this.verifyTradePlayer(player.status)) { // TODO: Action
+        this.addTradePlayer('tile', player);
+      } else { this.clearDrag(); }
+    // Undo
+    } else { this.clearDrag(); }
+    e.currentTarget.className = 'player active';
+    this.clearDrop();
+  },
+
+  addPlayer: function(player) {
+    var playerData = this.state.playerData,
+        altStatus = this.isAltLine(dropData.cur),
+        capData, updateData;
+    if (player.status === 'injured') { playerData.cleared.push(player.id); }
+    if (altStatus) { playerData[altStatus].push(player.id); }
+    else { playerData.inplay.push(player.id); }
+    player.status = altStatus || 'inplay';
+    capData = this.updateCapStats('add', player.contract[0]);
+    updateData = update(this.state, {
+      capData    : { $set: capData },
+      playerData : { $set: playerData },
+      rosterData : { [dropData.cur] : { $set: player }},
+      dragData   : { $set: { type : '', group : '', index : '' }},
+      panelData  : { engaged : { $set: false }}
+    });
+    this.setState(updateData, function() {
+      this.updateAltLines();
+    });
+  },
+
+  removePlayer: function(player) {
+    var playerData = this.state.playerData,
+        altStatus = this.isAltLine(dropData.origin),
+        statusIndex, activeIndex, removeCleared, capData, updateData;
+    if (altStatus) {
+      statusIndex = playerData[altStatus].indexOf(player.id);
+      playerData[altStatus].splice(statusIndex, 1);
+      player.status = 'inplay';
+    } else {
+      activeIndex = playerData.inplay.indexOf(player.id);
+      playerData.inplay.splice(activeIndex, 1);
+    }
+    if (playerData.cleared.length) {
+      removeCleared = playerData.cleared.indexOf(player.id);
+      if (removeCleared !== -1) {
+        playerData.cleared.splice(removeCleared, 1);
+        player.status = 'injured';
+      }
+    }
+    capData = this.updateCapStats('remove', player.contract[0]);
+    updateData = update(this.state, {
+      capData    : { $set: capData },
+      playerData : { $set: playerData },
+      rosterData : { [dropData.origin] : { $set: { status : 'empty' }}},
+      dragData   : { $set: { type : '', group : '', index : '' }}
+    });
+    this.setState(updateData, function() {
+      this.updateAltLines();
+    });
+  },
+
+  movePlayer: function(player) {
+    var playerData = this.state.playerData,
+        rosterData = this.state.rosterData,
+        altStatus = this.isAltLine(dropData.cur),
+        activeIndex, statusIndex, updateData;
+    if (altStatus) {
+      if (altStatus !== player.status) {
+        activeIndex = playerData[player.status].indexOf(player.id);
+        playerData[player.status].splice(activeIndex, 1);
+        playerData[altStatus].push(player.id);
+        player.status = altStatus;
+      }
+    } else if (/(ir|benched)/.test(player.status)) {
+      statusIndex = playerData[player.status].indexOf(player.id);
+      playerData[player.status].splice(statusIndex, 1);
+      playerData.inplay.push(player.id);
+      player.status = 'inplay';
+    }
+    rosterData[dropData.cur] = player;
+    rosterData[dropData.origin] = { status : 'empty' };
+    updateData = update(this.state, {
+      rosterData : { $set: rosterData },
+      dragData   : { $set: { type : '', group : '', index : '' }}
+    });
+    this.setState(updateData, function() {
+      this.updateAltLines();
+    });
+  },
+
+
+// Alt Lines
 // --------------------------------------------------
 
-  handlePlayerMouseDown: function(e) {
-    var playerItem = this.state.rosterData[e.currentTarget.parentNode.id],
-        updateDragData;
-    e.currentTarget.className = 'player active clicked';
-    this.showRemovePlayer();
-    updateDragData = React.addons.update(this.state, {
-      dragData : { state  : { $set: true },
-                   type   : { $set: playerItem.type },
-                   player : { $set: playerItem }}
-    });
-    this.setState(updateDragData);
-  },
-  handlePlayerMouseUp: function(e) {
-    var updateDragData;
-    e.currentTarget.className = 'player active';
-    e.currentTarget.parentNode.className = 'tile active';
-    this.hideRemovePlayer();
-    if (this.state.dragData.state) {
-      updateDragData = React.addons.update(this.state, {
-        dragData : { state : { $set: false }}
-      });
-      this.setState(updateDragData);
+  handleTriggerDragEnter: function(e) {
+    var line, lineData;
+    line = e.target.getAttribute('data-line');
+    e.target.className = 'disabled';
+    $('#' + line).addClass('active');
+    if (!this.state.altLines[line]) {
+      lineData = update(this.state.altLines, { [line] : { $set: true }});
+      this.setState({ altLines : lineData });
     }
   },
-  handlePlayerDragStart: function(e) {
-    var playerItem = e.currentTarget,
-        playerData = this.state.rosterData[playerItem.parentNode.id];
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text', playerItem.id);
-    dropZoneData.origin = playerItem.parentNode;
-    dropZoneData.origin.className = 'tile active engaged';
-    this.props.removePlayer = false;
-    this.props.addTradePlayer = false;
+
+  isAltLine: function(id) {
+    var line = this.props.altLines.indexOf(id.substr(0, 2));
+    if (line === -1) { return false; }
+    else if (line % 2) { return 'benched'; }
+    else { return 'ir'; }
   },
-  handlePlayerDragEnd: function() {
-    var rosterData       = this.state.rosterData,
-        activePlayers    = this.state.activePlayers,
-        curDragPlayer    = this.state.dragData.player,
-        dropZone         = dropZoneData.cur,
-        originDropZoneId = dropZoneData.origin.id,
-        actions          = rosterData[originDropZoneId].actions,
-        updateRosterData, updateDragData, capData, index,
-        trigger, altLine, altLineId, altLineTileId, altLineType;
 
-    // Remove Player
-    if (this.props.removePlayer) {
-      capData = this.updateCapStats('remove', rosterData[originDropZoneId].contract[0]);
-      index   = activePlayers.indexOf(rosterData[originDropZoneId].id);
-      if (actions) {
-        if (actions.indexOf('injured') !== -1) {
-          actions.splice(actions.indexOf('injured'), 1);
-        } else if (actions.indexOf('benched') !== -1) {
-          actions.splice(actions.indexOf('benched'), 1);
-        }
-        rosterData[originDropZoneId].actions = actions;
-      }
-      rosterData[originDropZoneId] = { status: 'empty' };
-      activePlayers.splice(index, 1);
-      updateRosterData = React.addons.update(this.state, {
-        dragData      : { state : { $set: false }},
-        activePlayers : { $set: activePlayers },
-        rosterData    : { $set: rosterData },
-        rosterInfo    : { hit   : { $set: capData.hit },
-                          space : { $set: capData.space }}
-      });
-      this.setState(updateRosterData);
+  showAltLine: function(id) {
+    $('#' + id).addClass('show');
+    $('#' + id + '-trigger').addClass('disabled');
+  },
 
-    // Trade Player
-    } else if (this.props.addTradePlayer) {
-      if (this.state.activeTrade.active.id_list.length === 5 ||
-          curDragPlayer.team !== this.state.activeTeam ||
-          curDragPlayer.status === 'created') {
-        if (this.state.activeTrade.active.id_list.length === 5) {
-          this.handleTradePlayersError('maxed');
-        } else if (curDragPlayer.team !== this.state.activeTeam) {
-          this.handleTradePlayersError('oneway');
-        } else {
-          this.handleTradePlayersError('created');
-        }
-        updateDragData = React.addons.update(this.state, {
-          dragData : { state : { $set: false }}
-        });
-        this.setState(updateDragData);
-      } else {
-        capData = this.updateCapStats('remove', rosterData[originDropZoneId].contract[0]);
-        index   = activePlayers.indexOf(rosterData[originDropZoneId].id);
-        if (actions) {
-          if (actions.indexOf('injured') !== -1) {
-            actions.splice(actions.indexOf('injured'), 1);
-          } else if (actions.indexOf('benched') !== -1) {
-            actions.splice(actions.indexOf('benched'), 1);
+  hideAltLine: function(id) {
+    $('#' + id).removeClass('active');
+    $('#' + id + '-trigger').removeClass('disabled');
+  },
+
+  loadAltLines: function() {
+    var id, x;
+    for (x = 0; x < 6; x++) {
+      id = this.props.altLines[x];
+      if (this.state.altLines[id]) { this.showAltLine(id); }
+    }
+  },
+
+  updateAltLines: function() {
+    var lineData = this.state.altLines,
+        changed = false, line, pos, tile, x, y;
+    for (x = 0; x < 6; x++) {
+      line = this.props.altLines[x];
+      if (lineData[line]) {
+        pos = x < 2 ? 3 : 2;
+        for (y = pos; y > 0; y--) {
+          tile = line + y;
+          // line is active
+          if (this.state.rosterData[tile].status !== 'empty') { break; }
+          // line is empty
+          else if (y < 2) {
+            this.hideAltLine(line);
+            lineData[line] = false;
+            changed = true;
           }
-          rosterData[originDropZoneId].actions = actions;
         }
-        rosterData[originDropZoneId] = { status: 'empty' };
-        activePlayers.splice(index, 1);
-        updateRosterData = React.addons.update(this.state, {
-          dragData      : { state : { $set: false }},
-          activePlayers : { $set: activePlayers },
-          rosterData    : { $set: rosterData },
-          rosterInfo    : { hit   : { $set: capData.hit },
-                            space : { $set: capData.space }}
-        });
-        this.setState(updateRosterData);
-        this.handleAddTradePlayer('active', curDragPlayer);
       }
-
-    // Move Player (Alt-Line)
-    } else if (this.props.addAltLinePlayer) {
-      altLineId = dropZoneData.alt.last;
-      altLine = document.getElementById(altLineId);
-      altLine.className = altLine.className + ' active';
-      altLineTileId = altLineId + '1';
-      altLineType = this.checkAltTiles(altLineTileId);
-      if (curDragPlayer.actions) {
-        if (curDragPlayer.actions.indexOf('injured') !== -1) {
-          curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('injured'), 1);
-        }
-        if (curDragPlayer.actions.indexOf('benched') !== -1) {
-          curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('benched'), 1);
-        }
-        curDragPlayer.actions.push(altLineType);
-      } else { curDragPlayer.actions = [altLineType]; }
-      rosterData[altLineTileId] = curDragPlayer;
-      rosterData[originDropZoneId] = { status: 'empty' };
-      updateRosterData = React.addons.update(this.state, {
-        dragData   : { state : { $set: false }},
-        rosterData : { $set: rosterData }
-      });
-      this.setState(updateRosterData);
-      trigger = document.getElementById(altLineId + '-trigger');
-      trigger.className = altLineId + ' disabled';
-
-    // Move Player
-    } else if (dropZone && !dropZone.dataset.state && dropZone.id === dropZoneData.last) {
-      altLineType = this.checkAltTiles(dropZone.id);
-      if (curDragPlayer.actions) {
-        if (curDragPlayer.actions.indexOf('injured') !== -1) {
-          curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('injured'), 1);
-        }
-        if (curDragPlayer.actions.indexOf('benched') !== -1) {
-          curDragPlayer.actions.splice(curDragPlayer.actions.indexOf('benched'), 1);
-        }
-        if (altLineType) { curDragPlayer.actions.push(altLineType); }
-      } else if (altLineType) { curDragPlayer.actions = [altLineType]; }
-      rosterData[dropZone.id] = curDragPlayer;
-      rosterData[originDropZoneId] = { status: 'empty' };
-      updateRosterData = React.addons.update(this.state, {
-        dragData   : { state : { $set: false }},
-        rosterData : { $set: rosterData }
-      });
-      this.setState(updateRosterData);
-    } else {
-      updateDragData = React.addons.update(this.state, {
-        dragData : { state : { $set: false }}
-      });
-      this.setState(updateDragData);
-    }
-    dropZoneData.origin = null;
-    this.props.removePlayer = false;
-    this.props.addTradePlayer = false;
-    this.props.addAltLinePlayer = false;
-    this.checkEmptyAltLines();
-    this.hideRemovePlayer();
+    } if (changed) { this.setState({ altLines : lineData }); }
   },
 
 
   render: function() {
+
     return (
       <div id="main">
-        <Loading activeView={this.state.activeView} />
+        <Loading activeView={this.state.viewData.active} />
         <Header
-          activeView={this.state.activeView}
-          activeTeam={this.state.activeTeam}
-          onChangeView={this.changeView} />
+          activeView={this.state.viewData.active}
+          activeTeam={this.state.teamData.id}
+          changeView={this.changeView}
+          notify={this.state.notify} />
         <TeamGrid
-          activeView={this.state.activeView}
-          activeTeam={this.state.activeTeam}
-          onChangeTeam={this.changeTeam} />
-        <div id="app" className={ this.state.activeView === 'roster' || this.state.activeView === 'payroll' ? 'active' : null }>
+          activeView={this.state.viewData.active}
+          activeTeam={this.state.teamData.id}
+          changeTeam={this.changeTeam} />
+        <div id="app" onMouseUp={this.clearDrop}>
           <div className="wrap">
             <Payroll
-              activeView={this.state.activeView}
-              leagueData={this.state.leagueData}
+              activeView={this.state.viewData.active}
+              capData={this.state.capData}
               teamData={this.state.teamData} />
             <RosterMenu
-              activeView={this.state.activeView}
-              leagueData={this.state.leagueData}
+              viewData={this.state.viewData}
+              panelData={this.state.panelData}
+              dragData={this.state.dragData}
               teamData={this.state.teamData}
+              tradeTeam={this.state.tradeTeam}
+              tradeData={this.state.tradeData}
               playerData={this.state.playerData}
-              rosterInfo={this.state.rosterInfo}
-              activeTeam={this.state.activeTeam}
-              activeTrade={this.state.activeTrade}
-              activePlayers={this.state.activePlayers}
-              onRosterSubmit={this.handleRosterSubmit}
-              onMouseOver={this.handleMouseOver}
-              onMouseLeave={this.handleMouseLeave}
-              onMouseDown={this.handleMouseDown}
-              onMouseUp={this.handleMouseUp}
-              onDragStart={this.handleDragStart}
-              onDragEnd={this.handleDragEnd}
-              onDragEnter={this.handleDragEnter}
+              shareData={this.state.shareData}
+              saveRoster={this.saveRoster}
+              resetShare={this.resetShare}
+              createPlayer={this.createPlayer}
+              executeTrade={this.executeTrade}
+              changeTradeTeam={this.changeTradeTeam}
+              addTradePlayer={this.addTradePlayer}
+              removeTradePlayer={this.removeTradePlayer}
+              onItemMouseDown={this.handleItemMouseDown}
+              onItemMouseUp={this.handleItemMouseUp}
+              onItemDragStart={this.handleItemDragStart}
+              onItemDragEnd={this.handleItemDragEnd}
+              onListDragEnter={this.handleListDragEnter}
               onRemoveDragEnter={this.handleRemoveDragEnter}
               onRemoveDragLeave={this.handleRemoveDragLeave}
               onTradeDragEnter={this.handleTradeDragEnter}
               onTradeDragLeave={this.handleTradeDragLeave}
-              onCreatePlayer={this.handleCreatePlayer}
-              onTradeExecution={this.handleTradeExecution}
-              onChangeTradeTeam={this.handleChangeTradeTeam}
-              onAddTradePlayer={this.handleAddTradePlayer}
-              onRemoveTradePlayer={this.handleRemoveTradePlayer} />
-            <Roster
-              activeView={this.state.activeView}
+              onToggleActionsTab={this.toggleActionsTab} />
+            <RosterGrid
+              activeView={this.state.viewData.active}
+              capData={this.state.capData}
               dragData={this.state.dragData}
-              leagueData={this.state.leagueData}
-              rosterInfo={this.state.rosterInfo}
+              teamData={this.state.teamData}
+              playerData={this.state.playerData}
               rosterData={this.state.rosterData}
-              clearRosterData={this.clearRosterData}
-              activePlayers={this.state.activePlayers}
+              resetRoster={this.resetRoster}
               onGridDragEnter={this.handleGridDragEnter}
               onTileDragEnter={this.handleTileDragEnter}
               onTileDragLeave={this.handleTileDragLeave}
@@ -1066,8 +814,7 @@ var App = React.createClass({
               onPlayerMouseUp={this.handlePlayerMouseUp}
               onPlayerDragStart={this.handlePlayerDragStart}
               onPlayerDragEnd={this.handlePlayerDragEnd}
-              onTriggerDragEnter={this.handleTriggerDragEnter}
-              onTriggerDragLeave={this.handleTriggerDragLeave} />
+              onTriggerDragEnter={this.handleTriggerDragEnter} />
           </div>
         </div>
         <Footer />

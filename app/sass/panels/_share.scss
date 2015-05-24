@@ -51,17 +51,21 @@
       background: linear-gradient(to top, #222 0%, #666);
       box-shadow: 0 0 10px 0 rgba(0,0,0, .95);
     }
+
+    &.clicked {
+      cursor: default;
+    }
   }
 }
 
 #share-form {
   opacity: 0;
-  transition: opacity .4s;
+  transition: opacity .4s ease-out;
 
   &.active {
     height: auto;
     opacity: 1;
-    transition: opacity .4s .55s;
+    transition: opacity .4s .55s ease-out;
   }
 }
 
@@ -78,6 +82,7 @@
   opacity: 0;
   overflow: hidden;
   transition: opacity .25s, height .5s .25s;
+  transition-timing-function: ease-out;
 
   &.active {
     height: $share-height;
@@ -98,6 +103,7 @@
   opacity: 0;
   overflow: hidden;
   transition: opacity .35s, height 0s .35s;
+  transition-timing-function: ease-out;
 
   &.active {
     height: $share-height;
@@ -122,6 +128,7 @@
   opacity: 0;
   overflow: hidden;
   transition: opacity .25s, height .5s .25s;
+  transition-timing-function: ease-out;
 
   &.active {
     height: $share-height;
@@ -146,7 +153,7 @@
     cursor: default;
   }
 
-  a#share-close {
+  #share-close {
     position: absolute;
     top: 8px;
     right: 10px;
@@ -160,14 +167,14 @@
     }
   }
 
-  a#text-share {
+  #text-roster {
     position: absolute;
     right: 15px;
     bottom: 0;
     height: 25px;
     width: 105px;
     padding-right: 5px;
-    color: rgba(255,255,255, .2);
+    color: rgba(255,255,255, .3);
     font-size: 10px;
     font-weight: 600;
     text-align: right;
@@ -175,8 +182,8 @@
     cursor: pointer;
 
     &:hover {
-      color: rgba(255,255,255, .35);
-      text-shadow: 0 0 5px rgba(0,0,0, .35);
+      color: rgba(255,255,255, .5);
+      text-shadow: 0 0 5px rgba(0,0,0, .4);
     }
 
     i {
@@ -185,7 +192,7 @@
     }
   }
 
-  a#roster-link {
+  a#share-link {
     position: absolute;
     top: 65px;
     left: 15px;
@@ -233,7 +240,6 @@
     text-shadow: 0 0 2px rgba(0,0,0, .35);
     border: 1px solid #9A9A9A;
     background: #AAA;
-    transition: .3s;
 
     &:first-of-type {
       width: 125px;
@@ -297,6 +303,7 @@
       font-size: 14px;
       padding: 0 3px 0 6px;
       transition: .4s;
+      transition-timing-function: ease-out;
     }
   }
 }
