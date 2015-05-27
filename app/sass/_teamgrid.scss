@@ -9,18 +9,15 @@
   left: 0;
   height: 0;
   width: 1020px;
-  margin: 0 auto;
-  padding: 0;
+  margin: inherit;
   opacity: 0;
-  cursor: default;
-  transition: opacity .25s, height 0s .25s, padding 0s .25s;
-  // transition-timing-function: ease-out;
+  transition: opacity .25s, height 0s .25s;
   transform: translateZ(0);
 
   &.active {
     height: auto;
     opacity: 1;
-    transition: opacity .5s, height 0s, padding 0s;
+    transition: opacity .5s, height 0s;
 
     .inner {
       transform: translateY(0);
@@ -29,70 +26,70 @@
   }
 
   .inner {
-    position: relative;
     width: 85%;
     max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+    margin: inherit;
     transform: translateY(-200%);
     transition: transform $view-hide;
   }
+}
 
-  .grid, object {
-    position: relative;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
-    transform: translateZ(0);
+#team-grid, #grid-svg {
+  position: relative;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateZ(0);
+  transition: .35s .35s;
+
+  &.active {
+    opacity: 1;
   }
+}
 
-  .grid {
-    position: absolute;
-    z-index: 2;
+#team-grid {
+  position: absolute;
+  z-index: 2;
 
-    div {
-      float: left;
-      height: 20%;
-      width: 16.66%;
-      background: radial-gradient(rgba(255,255,255, .175) 0%, rgba(255,255,255, 0) 65%);
-      opacity: 0;
-      transform: translateZ(0);
-      transition: .25s ease-out;
-
-      &:hover {
-        opacity: 1;
-        cursor: pointer;
-      }
-
-      &.clicked {
-        cursor: default;
-      }
-    }
-  }
-
-  #grid-reminder {
-    position: absolute;
-    top: -100px;
-    right: -30px;
-    height: 100px;
-    width: 240px;
-    background: url($img-url + 'app/select-team-splash.svg') no-repeat;
-    background-size: 90%;
+  div {
+    float: left;
+    height: 20%;
+    width: 16.66%;
+    background: radial-gradient(rgba(255,255,255, .175) 0%, rgba(255,255,255, 0) 65%);
     opacity: 0;
     transform: translateZ(0);
+    transition: .25s ease-out;
 
-    &.active {
-      opacity: .6;
-      transform: translateY(30px) translateX(-30px) scale(1.2, 1.2);
-      transition: all .4s 1.5s ease-out;
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
     }
+  }
+}
 
-    &.disabled {
-      display: none;
-    }
+#grid-reminder {
+  position: absolute;
+  top: -100px;
+  right: -30px;
+  height: 100px;
+  width: 240px;
+  background: url($img-url + 'app/select-team-splash.svg') no-repeat;
+  background-size: 90%;
+  opacity: 0;
+  transform: translateZ(0);
+
+  &.active {
+    opacity: .6;
+    transform: translateY(30px) translateX(-30px) scale(1.2, 1.2);
+    transition: all .4s 1.5s ease-out;
+  }
+
+  &.disabled {
+    display: none;
   }
 }

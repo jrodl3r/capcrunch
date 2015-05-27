@@ -2,29 +2,20 @@
 // ==================================================
 
 #actions {
+  margin-bottom: 0;
   transform: translateZ(0);
 
   .show-loading & {
     background: #000;
   }
 
-  &.panel > .inner {
+  > .inner {
     height: auto;
     min-height: initial;
     max-height: initial;
-    width: 300px;
+    width: inherit;
     background: rgba(255,255,255, .05);
     transition: .4s;
-
-    &.inactive {
-      display: block;
-      height: $actions-panel-height;
-      line-height: $actions-panel-height;
-
-      #actions-menu, #createplayer, #trades, #freeagents {
-        display: none;
-      }
-    }
 
     &.trades-active {
       height: $trades-height + $actions-menu-height;
@@ -51,49 +42,19 @@
     }
   }
 
-  .tab-area {
-    height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateZ(0);
-    transition: opacity .4s, height 0s .4s;
-
-    &.active {
-      height: $actions-panel-height;
-      opacity: 1;
-      transition: opacity .4s .4s, height 0s .4s;
-    }
-
-    .inner {
-      position: relative;
-      height: 100%;
-      max-height: none;
-
-      p {
-        margin: 15px 0;
-        color: #717171;
-        font-size: 11px;
-        transition: 0s;
-
-        &.warning {
-          transition: .3s;
-          color: #999;
-        }
-      }
-    }
-  }
-
   input, select {
     float: left;
     height: 26px;
-    width: 100px;
     margin-bottom: 15px;
-    margin-left: 15px;
+    padding: 0 3px 0 10px;
     color: #212121;
+    font-size: inherit;
+    font-weight: inherit;
     line-height: 24px;
     background: #888;
     border: 0;
     border-radius: 5px;
+    box-shadow: none;
     transition: .35s;
 
     &::placeholder {
@@ -113,6 +74,7 @@
       color: #111;
       background: #777;
     }
+
     &.disabled, &.disabled:hover {
       color: #555;
       background: #777;
@@ -126,37 +88,21 @@
     }
   }
 
-  input {
-    padding: 0 3px 0 10px;
-  }
-
-  select {
-    width: 90px;
-    line-height: 24px;
-    font-size: 12px;
-    font-weight: bold;
-    box-shadow: none;
-  }
-
   button {
-    position: relative;
+    position: inherit;
     bottom: -22px;
-    display: block;
     height: 30px;
-    opacity: 1;
     width: 160px;
     margin: 0 auto;
     color: rgba(255,255,255, .35);
-    font-size: 12px;
-    font-weight: bold;
+    font-size: inherit;
+    font-weight: inherit;
     line-height: 24px;
-    text-align: center;
     text-shadow: none;
     background: linear-gradient(to top, #272727 0%, #595959);
     border: none;
     border-radius: $border-radius;
-    box-shadow: 0 0 4px rgba(0,0,0, .35), 0 0 2px rgba(255,255,255, .09) inset;
-    transition: all .35s;
+    transition: .35s;
 
     &:hover {
       color: rgba(255,255,255, .5);
@@ -169,7 +115,7 @@
       color: rgba(255,255,255, .3);
       box-shadow: 0 0 2px rgba(0,0,0, .4), 0 0 1px rgba(255,255,255, .2) inset;
       opacity: .85;
-      transition: all .1s;
+      transition: .1s;
     }
 
     &.clicked {
@@ -196,64 +142,44 @@
         color: #999;
         text-shadow: 0 0 4px rgba(0,0,0, .95);
         opacity: 1;
-        cursor: pointer;
       }
-    }
-  }
-
-  .transaction-confirm {
-    position: absolute;
-    top: 0;
-    height: 0;
-    width: 300px;
-    color: rgba(255,255,255, .2);
-    font-size: 18px;
-    font-weight: 500;
-    text-shadow: 0 5px 35px rgba(0,0,0, .6);
-    text-align: center;
-    line-height: 180px;
-    background: rgba(23,24,25, .92);
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
-    box-shadow: 0 0 100px 0 rgba(0,0,0, .5) inset;
-    opacity: 0;
-    overflow: hidden;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    transition: opacity .3s, height 0s .3s;
-
-    &.active {
-      z-index: 3;
-      height: 220px;
-      opacity: 1;
-      transition: opacity .4s, height 0s, color .4s, box-shadow .4s;
-    }
-
-    i {
-      position: relative;
-  	  right: -5px;
-      font-size: 18px;
-    }
-  }
-
-  #actions-drag-cover {
-    display: none;
-    position: absolute;
-    z-index: 4;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-
-    &.active {
-      display: block;
     }
   }
 }
 
-// Tab Menu
+.tab-area {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity .4s, height 0s .4s;
+
+  &.active {
+    height: $actions-panel-height;
+    opacity: 1;
+    transition: opacity .4s .4s, height 0s .4s;
+  }
+
+  .inner {
+    position: relative;
+    height: 100%;
+    max-height: none;
+  }
+
+  p {
+    margin: 15px 0;
+    color: #717171;
+    font-size: 11px;
+    transition: 0s;
+
+    &.warning {
+      transition: .3s;
+      color: #999;
+    }
+  }
+}
+
+
+// Menu
 // --------------------------------------------------
 
 #actions-menu {
@@ -269,31 +195,31 @@
     width: 100px;
     margin: 0;
     line-height: $actions-menu-height;
+  }
 
-    a {
-      float: left;
-      height: inherit;
-      width: 100%;
-      color: #666;
-      font-size: 11px;
-      line-height: inherit;
-      text-align: center;
-      text-decoration: none;
-      cursor: pointer;
-      background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
-      transition: .3s;
+  a {
+    float: left;
+    height: inherit;
+    width: 100%;
+    color: #666;
+    font-size: 11px;
+    line-height: inherit;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
+    transition: .3s;
 
-      &:hover {
-        color: #888;
-        text-shadow: 0 1px 2px rgba(0,0,0, .3);
-      }
+    &:hover {
+      color: #888;
+      text-shadow: 0 1px 2px rgba(0,0,0, .3);
+    }
 
-      &.active, &.active:hover {
-        color: #999;
-        text-shadow: 0 1px 2px rgba(0,0,0, .3);
-        background: linear-gradient(to bottom, rgba(255,255,255, .1) 20%, transparent 70%, transparent 100%);
-        cursor: default;
-      }
+    &.active, &.active:hover {
+      color: #999;
+      text-shadow: 0 1px 2px rgba(0,0,0, .3);
+      background: linear-gradient(to bottom, rgba(255,255,255, .1) 20%, transparent 70%, transparent 100%);
+      cursor: default;
     }
   }
 
@@ -309,81 +235,11 @@
 #trades {
 
   &.tab-area.active {
-    height: $trades-height + $trade-player-item-height;
-
-    &.trade-size-3 {
-      height: $trades-height-3-player + $trade-player-item-height;
-    }
-
-    &.trade-size-4 {
-      height: $trades-height-4-player + $trade-player-item-height;
-    }
-
-    &.trade-size-5 {
-      height: $trades-height-5-player + $trade-player-item-height;
-    }
+    height: 100%;
   }
 
-  #trade-drop-area {
-    position: relative;
-    height: 40px;
-    width: 270px;
-    margin: 0 auto 15px;
-    color: rgba(255,255,255, .15);
-    line-height: 37px;
-    border: 1px dashed rgba(255,255,255, .1);
-    border-radius: $border-radius;
-    background: rgba(0,0,0, .15);
-    transition: .35s ease-out;
-
-    &.hover {
-      color: rgba(255,255,255, .35);
-      text-shadow: 0 3px 7px rgba(0,0,0, .35);
-      background: rgba(23,24,25, .5);
-      box-shadow: 0 5px 40px 0 rgba(0,0,0, .5) inset;
-    }
-  }
-
-  #trade-team-select {
-    width: 70px;
-  }
-
-  #trade-player-select {
-    width: 155px;
-    margin-left: 10px;
-  }
-
-  #trade-player-breakdown {
-    position: relative;
-    float: left;
-    height: $trade-breakdown-height;
-    width: 270px;
-    margin-left: 15px;
-    transition: .4s;
-  }
-
-  &.trade-size-3 #trade-player-breakdown {
-    height: $trade-breakdown-height + $trade-player-item;
-
-    ul {
-      height: $trade-breakdown-height + $trade-player-item;
-    }
-  }
-
-  &.trade-size-4 #trade-player-breakdown {
-    height: $trade-breakdown-height + ($trade-player-item * 2);
-
-    ul {
-      height: $trade-breakdown-height + ($trade-player-item * 2);
-    }
-  }
-
-  &.trade-size-5 #trade-player-breakdown {
-    height: $trade-breakdown-height + ($trade-player-item * 3);
-
-    ul {
-      height: $trade-breakdown-height + ($trade-player-item * 3);
-    }
+  button {
+    width: 125px;
   }
 
   ul {
@@ -408,163 +264,196 @@
       border-color: transparent;
       box-shadow: 0 0 30px rgba(255,255,255, .03) inset;
     }
+  }
 
-    li {
-      float: left;
-      height: 0;
-      width: 110px;
-      margin-bottom: 0;
-      padding: 0;
-      text-align: left;
-      font-size: 0;
-      background: linear-gradient(to right, #222 0%, #111 100%);
-      border-radius: $border-radius;
-      opacity: 0;
-      overflow: hidden;
-      transition: opacity .2s, height .3s;
+  li {
+    float: left;
+    height: 0;
+    width: 110px;
+    margin-bottom: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 0;
+    background: linear-gradient(to right, #222 0%, #111 100%);
+    border-radius: $border-radius;
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity .2s, height .3s;
 
-      &.active {
-        height: $trade-player-item-height;
-        margin-bottom: $trade-player-item-margin;
-        padding: 5px 5px 5px 8px;
-        color: #888;
-        font-size: 10px;
-        text-shadow: 0 1px 2px rgba(0,0,0, .3);
-        opacity: 1;
-        transition: opacity .35s, height .25s;
-
-        a {
-          height: 14px;
-          width: 14px;
-          font-size: 9px;
-          line-height: 14px;
-          opacity: 1;
-          transition: all 0s;
-        }
-      }
-
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-
-      > span {
-        float: left;
-        height: 14px;
-        line-height: 14px;
-
-        &.lastname {
-        width: 70px;
-        padding-left: 2px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        }
-      }
+    &.active {
+      height: $trade-player-item-height;
+      margin-bottom: $trade-player-item-margin;
+      padding: 5px 5px 5px 8px;
+      color: #888;
+      font-size: 10px;
+      text-shadow: 0 1px 2px rgba(0,0,0, .3);
+      opacity: 1;
+      transition: opacity .35s, height .25s;
 
       a {
-        float: right;
-        height: 0;
-        width: 0;
-        margin-bottom: 0;
-        padding: 0;
-        color: rgba(255,255,255, .3);
-        font-size: 0;
-        line-height: 0;
-        text-align: center;
-        opacity: 0;
-        overflow: hidden;
+        height: 14px;
+        width: 14px;
+        font-size: 9px;
+        line-height: 14px;
+        opacity: 1;
         transition: all 0s;
+      }
+    }
 
-        &:hover {
-          color: rgba(255,255,255, .5);
-          cursor: pointer;
-        }
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    > span {
+      float: left;
+      height: 14px;
+      line-height: 14px;
+
+      &.lastname {
+      width: 70px;
+      padding-left: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+    }
+
+    a {
+      float: right;
+      height: 0;
+      width: 0;
+      margin-bottom: 0;
+      padding: 0;
+      color: rgba(255,255,255, .3);
+      font-size: 0;
+      line-height: 0;
+      text-align: center;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0s;
+
+      &:hover {
+        color: rgba(255,255,255, .5);
+        cursor: pointer;
       }
     }
   }
 
-  .trade-player-list-placeholder li {
-    height: $trade-player-item-height * 2;
+  .list-placeholder li {
+    height: 20px;
     margin: 0;
     padding: 0;
     color: rgba(255,255,255, .3);
     font-size: 10px;
-    line-height: $trade-player-item-height * 2;
+    line-height: 20px;
     text-align: center;
     background: none;
     opacity: 1;
+    overflow: visible;
     transition: .4s;
-  }
-
-  &.trade-size-3 .trade-player-list-placeholder li {
-    height: ($trade-player-item-height * 3) + ($trade-player-item-margin * 2);
-    line-height: ($trade-player-item-height * 3) + ($trade-player-item-margin * 2);
-  }
-
-  &.trade-size-4 .trade-player-list-placeholder li {
-    height: ($trade-player-item-height * 4) + ($trade-player-item-margin * 3);
-    line-height: ($trade-player-item-height * 4) + ($trade-player-item-margin * 3);
-  }
-
-  &.trade-size-5 .trade-player-list-placeholder li {
-    height: ($trade-player-item-height * 5) + ($trade-player-item-margin * 4);
-    line-height: ($trade-player-item-height * 5) + ($trade-player-item-margin * 4);
-  }
-
-  .trade-marker {
     position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 30px;
-    width: 30px;
-    margin: auto;
-    color: #444;
-    font-size: 15px;
-    line-height: 30px;
-    transition: .3s;
+    top: 50%;
 
-    &.active {
-      color: #666;
-      text-shadow: 0 0 5px rgba(0,0,0, .25);
+    div {
+      position: relative;
+      top: -50%;
     }
-  }
-
-  button {
-    width: 125px;
   }
 
   .transaction-confirm {
     line-height: 240px;
+  }
+}
 
-    &.active {
-      height: $trades-height;
-    }
+#trade-drop-area {
+  position: relative;
+  height: 40px;
+  width: 270px;
+  margin: 0 auto 15px;
+  color: rgba(255,255,255, .15);
+  line-height: 37px;
+  border: 1px dashed rgba(255,255,255, .1);
+  border-radius: $border-radius;
+  background: rgba(0,0,0, .15);
+  transition: .35s;
+
+  &.hover {
+    color: rgba(255,255,255, .35);
+    text-shadow: 0 3px 7px rgba(0,0,0, .35);
+    background: rgba(23,24,25, .5);
+    box-shadow: 0 5px 40px 0 rgba(0,0,0, .5) inset;
+  }
+}
+
+#trade-team-select {
+  width: 70px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+#trade-player-select {
+  width: 155px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+}
+
+#trade-player-breakdown {
+  position: relative;
+  float: left;
+  height: $trade-breakdown-height;
+  width: 270px;
+  margin-left: 15px;
+  transition: .4s;
+
+  .trade-size-3 & {
+    height: $trade-breakdown-height + $trade-player-item;
+    ul { height: $trade-breakdown-height + $trade-player-item; }
   }
 
-  &.trade-size-3 .transaction-confirm {
-    line-height: $trades-height-3-player;
-
-    &.active {
-      height: $trades-height-3-player;
-    }
+  .trade-size-4 & {
+    height: $trade-breakdown-height + ($trade-player-item * 2);
+    ul { height: $trade-breakdown-height + ($trade-player-item * 2); }
   }
 
-  &.trade-size-4 .transaction-confirm {
-    line-height: $trades-height-4-player;
-
-    &.active {
-      height: $trades-height-4-player;
-    }
+  .trade-size-5 & {
+    height: $trade-breakdown-height + ($trade-player-item * 3);
+    ul { height: $trade-breakdown-height + ($trade-player-item * 3); }
   }
+}
 
-  &.trade-size-5 .transaction-confirm {
-    line-height: $trades-height-5-player;
+.trade-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 30px;
+  width: 30px;
+  margin: auto;
+  color: #444;
+  font-size: 16px;
+  line-height: 30px;
+  transition: .3s;
 
-    &.active {
-      height: $trades-height-5-player;
-    }
+  &.active {
+    color: #666;
+    text-shadow: 0 0 5px rgba(0,0,0, .25);
+  }
+}
+
+#actions-drag-cover {
+  display: none;
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  &.active {
+    display: block;
   }
 }
 
@@ -572,49 +461,85 @@
 // Free Agents
 // --------------------------------------------------
 
-#freeagents {
-
-  .inner {
-    background: url($img-url + 'app/coming-soon-splash.svg');
-    background-size: 60%;
-    background-repeat: no-repeat;
-    background-position: center 48%;
-    opacity: .2;
-  }
+#freeagents .inner {
+  background: url($img-url + 'app/coming-soon-splash.svg');
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center 48%;
+  opacity: .2;
 }
 
 
 // Create Player
 // --------------------------------------------------
 
-#createplayer {
+#create-player-fname, #create-player-lname {
+  width: 130px;
+  margin-left: 15px;
+}
 
-  #create-player-fname, #create-player-lname {
-    width: 130px;
+#create-player-lname {
+  margin-left: 10px;
+}
+
+#create-player-jersey {
+  width: 70px;
+  margin-left: 10px;
+}
+
+#create-player-shot {
+  width: 90px;
+  margin-left: 15px;
+}
+
+#create-player-position {
+  width: 90px;
+  margin-left: 10px;
+}
+
+#create-player-salary {
+  width: 130px;
+  margin-bottom: 0 !important;
+  margin-left: 30px;
+}
+
+#create-player-duration {
+  width: 95px;
+  margin-bottom: 0 !important;
+  margin-left: 10px;
+}
+
+.transaction-confirm {
+  position: absolute;
+  top: 0;
+  height: 0;
+  width: 300px;
+  color: rgba(255,255,255, .2);
+  font-size: 18px;
+  font-weight: 500;
+  text-shadow: 0 5px 35px rgba(0,0,0, .6);
+  text-align: center;
+  line-height: 180px;
+  background: rgba(23,24,25, .92);
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+  box-shadow: 0 0 100px 0 rgba(0,0,0, .5) inset;
+  opacity: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: opacity .3s, height 0s .3s;
+
+  &.active {
+    z-index: 3;
+    height: 100%;
+    opacity: 1;
+    transition: opacity .4s, height 0s, color .4s, box-shadow .4s;
   }
 
-  #create-player-lname {
-    margin-left: 10px;
-  }
-
-  #create-player-jersey {
-    width: 70px;
-    margin-left: 10px;
-  }
-
-  #create-player-position {
-    margin-left: 10px;
-  }
-
-  #create-player-salary {
-    width: 130px;
-    margin-bottom: 0;
-    margin-left: 30px;
-  }
-
-  #create-player-duration {
-    width: 95px;
-    margin-bottom: 0;
-    margin-left: 10px;
+  i {
+    position: relative;
+    right: -5px;
+    font-size: 18px;
   }
 }

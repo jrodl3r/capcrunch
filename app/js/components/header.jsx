@@ -21,7 +21,7 @@ Header = React.createClass({
 
     return (
       <header>
-        <div className="inner unloaded">
+        <div className="inner">
           <div className="beta-tag">beta <span className="version">0.9.2</span></div>
           <img src="img/logo.svg" />
           <div id="notify" className={ this.props.notify.label ? 'active ' + this.props.notify.label : '' }>{this.props.notify.msg}</div>

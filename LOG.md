@@ -35,9 +35,7 @@
 ---------------------------------------------------------------
 ## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
-- 'CHROME: dragover sticking-hover issue'
-- 'FF: dragend sticking-hover issue'
-- 'FF: panel scrollbars (windows)'
+- 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
 - 'IE: white svg flash onload'
 ---------------------------------------------------------------
 
@@ -45,9 +43,9 @@
 
 ## Panels
 ---------------------------------------------------------------
-- 'obfuscated list slides into view (scroll-end)'
 - 'player details (info icon click/hover?)'
-- 'panel vertical order dragging'
+- |» 'obfuscated list slides into view (scroll-end)'
+- |» 'panel vertical order dragging'
 ---------------------------------------------------------------
 
 
@@ -117,12 +115,12 @@
 
 ##### Share
 ---------------------------------------------------------------
+- 'cleanup layout + x-browser issues'
 - 'confirm active team (team mismatch / mixed roster)'
 !! - 'twitter, facebook + text-only share buttons'
 !! - 'text roster w/ actions summary'
 !! - 'increase share loading splash size'
 ---------------------------------------------------------------
-
 
 
 ## Footer
@@ -131,64 +129,41 @@
 ----------------------------------------------------------------------------
 
 
-
-## ActiveTeam Flow
-----------------------------------------------------------------------------
-- [User Selects Team]
-  » is PlayerData.team set?
-    » (NO)
-      - Load TeamData (cap, players, etc.)
-      - Clone TeamData.players into ActiveTeam
-
-    » (YES)
-      - Load TeamData (cap, players, etc.)
-      
-
-
-----------------------------------------------------------------------------
-
-
-
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] »
 ---------------------------------------------------------------
+- 'team load playerData diff'
+  - playerData (inplay/benched/ir/cleared/traded/acquired/created)
+    - teams: ['AAA', '...', '...', etc]
 
-- 'trade logic: rewire unsafe player array splice mutation'
-
-- 'normalize status/action:'
-  - 'player: action (created/acquired/traded/queued)'
-  - 'player: status (active/inplay/injured/benched)'
+- 'normalize player object status/action props'
+  - 'player: action (created/acquired/traded/queued/buyout)'
+  - 'player: status (active/injured || inplay/ir/benched)'
   - 'tile: status (empty/inplay/ir/benched)'
 
 ---------------------------------------------------------------
-* 'scrub css selectors + tune visual performance'
-  - 'remove defs that can cascade from parent'
-  - 'use more ids'
-  - 'reduct child/decendant depth'
-  - 'replace sibling selectors w/ classes'
-  - 'narrow: user-select, '
-  - 'simplify remove + trade hovers'
----------------------------------------------------------------
-- 'onboard: drag-n-drop splash + update coming soon splash'
-- 'pre-cache team + player images on team select'
 - 'cap stats menu (¿header/panels/capStats?)'
-- 'footer + mini-features (whats-next voter, credits slide-out)'
 - 'update data: 2015/16 + strip player image urls'
 - 'draft-picks: data + layout + logic'
-- 'cleanup payroll'
+- 'footer'
 ---------------------------------------------------------------
 - 'React initial DOM SSR'
 - 'set expires headers caching'
-- 'cleanup notifications (slide/fade)'
-- 'enable shared roster + payroll viewing on mobile'
-- '1st list item: not displaying + missed click/drag-start issue'
+- 'cleanup + global/fixed-pos user notify (slide/fade)'
+- 'basic mobile support (view shared roster + payroll)'
 ---------------------------------------------------------------
-
+- 'pre-cache team + player images on team select'
+- 'drag-n-drop/trades-create/change-team onboard splash'
+- 'update coming soon splash'
 
 
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'cleanup payroll'
+- 'scrub css selectors + tune visual performance'
+- 'bugfix - CHROME: dragover sticking-hover issue'
+- 'bugfix - FF: panel scrollbars (windows)'
 - 'slim/space-saving alt-lines (no player image/jersey)'
 - 'setup new alt-line transitions + tile styles'
 - 'optimize player + team png images'

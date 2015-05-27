@@ -59,7 +59,7 @@ var SharePanel = React.createClass({
               <i className="fa fa-cog fa-spin"></i> Saving Roster
             </h3>
             <div id="share-confirm" className={ shareView === 'success' ? 'active' : '' }>
-              <a id="share-close" onClick={this.closeShare}><i className="fa fa-times"></i></a>
+              <a id="share-close" onClick={this.closeShare}><i className="fa fa-close"></i></a>
               <a id="share-link" target="_blank" href={shareLink}><i className="fa fa-link"></i></a>
               <h3>Show off your GM skills...</h3>
               <p>Share your roster with friends for the win.</p>

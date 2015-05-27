@@ -4,6 +4,10 @@
 #roster {
   width: 640px;
 
+  .inner {
+    float: left;
+  }
+
   .cap-stats {
     margin: 30px 0;
   }
@@ -16,694 +20,617 @@
     margin-bottom: 0;
     padding-bottom: 20px;
     background: rgba(23,24,25, .5);
-    border-radius: $border-radius;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
     transform: translateZ(0);
 
-    &:last-of-type {
-      margin-bottom: 0;
+    &#defense, &#goalies {
+      border-radius: 0;
     }
 
-    &.defense {
-      width: inherit;
-      margin-left: 0;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-
-      &:last-of-type {
-        padding-bottom: 30px;
-        border-bottom-left-radius: $border-radius;
-        border-bottom-right-radius: $border-radius;
-      }
-
-      > .title {
-        width: 420px;
-        margin-left: 100px;
-      }
-
-      .line {
-        width: 420px;
-        margin-left: 115px;
-      }
+    &#goalies {
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
     }
+  }
 
-    .inner {
-      float: left;
-    }
+  .left, .center, .right {
+    float: left;
+    height: 60px;
+    width: 192px;
+  }
+
+  .left {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .center {
+    margin-right: 5px;
+  }
+
+  .header {
+    float: left;
+    width: 100%;
+    height: 33px;
+    margin-left: 11px;
+    color: #666;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 33px;
+    text-align: center;
+    cursor: default;
 
     .left, .center, .right {
-      float: left;
-      height: 60px;
-      width: 192px;
+      height: inherit;
+      line-height: inherit;
     }
+  }
+}
 
-    .left {
-      margin-right: 5px;
-      margin-left: 5px;
-    }
+#defense, #goalies {
 
-    .center {
-      margin-right: 5px;
-    }
+  .header {
+    width: 420px;
+    margin-left: 115px;
+  }
 
-    .title {
-      float: left;
-      width: 100%;
-      height: 33px;
-      padding-left: 11px;
-      color: #666;
-      font-size: 11px;
-      font-weight: bold;
-      line-height: 33px;
-      text-align: center;
-      cursor: default;
-
-      .left, .center, .right {
-        height: inherit;
-        line-height: inherit;
-      }
-    }
-
-    .line {
-      position: relative;
-      float: left;
-      height: 70px;
-      width: 618px;
-      margin-bottom: 10px;
-      margin-left: 11px;
-      background: linear-gradient(to top, rgba(136,136,136, .06) 0%, rgba(206,206,206, .06));
-      box-shadow: 0 0 30px rgba(255,255,255, .09) inset, 0 0 1px 0 rgba(0,0,0, .05);
-      border-radius: $border-radius;
-
-      .left, .center, .right {
-        margin-top: 5px;
-        background: rgba(255,255,255, 0.1);
-        border-radius: $border-radius;
-        box-shadow: 0 0 70px rgba(255,255,255, .03) inset;
-      }
-
-      .title {
-        position: absolute;
-        height: 70px;
-        width: 27px;
-        right: 0;
-        padding-left: 2px;
-        color: #777;
-        line-height: 70px;
-        text-align: center;
-      }
-
-      &.ir, &.bench {
-        height: 0;
-        opacity: 0;
-        margin-bottom: 0;
-        overflow: hidden;
-        transform: translateZ(0);
-        transition: opacity .35s, height .35s .35s, margin .35s .35s;
-
-        &.active, &.show {
-          height: 40px;
-          margin-bottom: 10px;
-          opacity: 1;
-          transition: opacity .35s .35s, height .35s, margin .35s;
-        }
-
-        &.show {
-          transition: 0s;
-        }
-
-        .left, .center, .right {
-          height: 30px;
-        }
-
-        .title {
-          height: 40px;
-          line-height: 40px;
-        }
-
-        .tile {
-          height: 30px;
-
-          .player.active {
-            height: 30px;
-            opacity: .75;
-
-            .info {
-              height: 30px;
-              width: 174px;
-
-              .name {
-                height: 30px;
-                width: 90px;
-                margin-top: 0;
-                margin-left: 24px;
-                font-size: 11px;
-                line-height: 30px;
-              }
-
-              .jersey {
-                position: absolute;
-              	left: 6px;
-              	height: 30px;
-              	margin: 0;
-                font-size: 11px;
-              	line-height: 30px;
-              }
-
-              .salary {
-              	float: right;
-              	width: auto;
-              	height: 30px;
-              	line-height: 30px;
-              	padding-top: 0;
-              	padding-right: 2px;
-              	padding-left: 0;
-              	border: 0;
-              }
-
-              .status {
-              	float: right;
-              	width: auto;
-              	padding-top: 8px;
-              	padding-right: 0;
-              }
-            }
-
-            .handle {
-              height: 20px;
-              width: 18px;
-              margin-top: 6px;
-              background-size: 35%;
-              background-position: top center;
-            }
-
-            .cover {
-              height: 30px;
-            }
-          }
-        }
-      }
-
-      &.ir {
-        background: linear-gradient(to top, rgba(255,115,115, .05) 0%, rgba(255,155,155, .06));
-        box-shadow: 0 0 30px rgba(255,255,255, .025) inset, 0 0 1px 0 rgba(255,0,0, .05);
-
-        .left, .center, .right {
-          background: rgba(247,217,217, 0.07);
-          box-shadow: 0 0 70px rgba(255,0,0, .05) inset;
-        }
-
-        .title {
-          color: #805C5C;
-        }
-      }
-
-      &.bench {
-        background: linear-gradient(to top, rgba(115,115,115, .05) 0%, rgba(155,155,155, .06));
-        box-shadow: 0 0 30px rgba(255,255,255, .02) inset, 0 0 1px 0 rgba(155,155,155, .045);
-
-        .left, .center, .right {
-          background: rgba(217,217,217, 0.05);
-          box-shadow: 0 0 70px rgba(155,155,155, .04) inset;
-        }
-
-        .title {
-          color: #616161;
-        }
-      }
-    }
+  .line {
+    width: 420px;
+    margin-left: 115px;
   }
 
   .grid-nav {
-    float: left;
-    height: 24px;
-    width: 590px;
-    margin-left: 11px;
-
-    li {
-      float: right;
-      height: 24px;
-      width: 46px;
-      margin-left: 10px;
-      color: #555;
-      font-size: 11px;
-      font-weight: bold;
-      line-height: 24px;
-      text-align: center;
-      background: rgba(0,0,0, .15);
-      border-radius: $border-radius;
-      opacity: 1;
-      cursor: default;
-      transform: translateZ(0);
-      transition: opacity .25s .75s, margin .25s .5s, height .25s .5s, width .25s .5s, font-size 0s .5s;
-
-      &.disabled {
-        height: 0;
-        width: 0;
-        margin-left: 0;
-        font-size: 0;
-        opacity: 0;
-        overflow: hidden;
-        transition: opacity .5s, height 0s 1s, width .5s .5s, margin .5s .5s, font-size 0s .5s;
-        pointer-events: none;
-      }
-    }
-  }
-
-  .defense .grid-nav {
     width: 392px;
     margin-left: 115px;
   }
 }
 
+#goalies {
+  margin-bottom: 0;
+  padding-bottom: 60px !important;
+}
 
-// Player Tiles
-// --------------------------------------------------
+.line {
+  position: relative;
+  float: left;
+  height: 70px;
+  width: 618px;
+  margin-bottom: 10px;
+  margin-left: 11px;
+  background: linear-gradient(to top, rgba(136,136,136, .06) 0%, rgba(206,206,206, .06));
+  /* box-shadow: 0 0 30px rgba(255,255,255, .09) inset, 0 0 1px 0 rgba(0,0,0, .05); */
+  -webkit-box-shadow: 0 0 30px rgba(255,255,255, .1) inset;
+  border-radius: $border-radius;
+
+  &.ir, &.bench {
+    height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(255,255,255, .05) inset;
+    transform: translateZ(0);
+    transition: opacity .35s, height .35s .35s, margin .35s .35s;
+
+    &.active, &.show {
+      height: 40px;
+      margin-bottom: 10px;
+      opacity: 1;
+      transition: opacity .35s .35s, height .35s, margin .35s;
+    }
+
+    &.show {
+      transition: 0s;
+    }
+
+    .title {
+      height: 40px;
+      line-height: 40px;
+    }
+
+    .left, .center, .right, .tile {
+      height: 30px !important;
+    }
+  }
+
+  &.ir {
+    background: rgba(255,115,115, .06);
+
+    .left, .center, .right {
+      background: rgba(255,225,225, .1);
+      -webkit-box-shadow: 0 0 70px rgba(255,0,0, .05) inset;
+    }
+
+    .title {
+      color: #906A6A;
+    }
+  }
+
+  &.bench {
+    background: rgba(115,115,115, .15);
+  }
+
+  .title {
+    position: absolute;
+    height: 70px;
+    width: 27px;
+    right: 0;
+    padding-left: 2px;
+    color: #777;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 70px;
+    text-align: center;
+  }
+
+  .left, .center, .right {
+    margin-top: 5px;
+    background: rgba(255,255,255, 0.1);
+    border-radius: $border-radius;
+    /* -webkit-box-shadow: 0 0 70px rgba(255,255,255, .03) inset; */
+  }
+}
 
 .tile {
   position: relative;
   height: 60px;
   width: 192px;
   border-radius: $border-radius;
-  /* box-shadow: 0 0 4px 0 rgba(0,0,0, .1) inset; */
+  -webkit-box-shadow: 0 0 4px 0 rgba(0,0,0, .1) inset;
   -webkit-transform: translateZ(0);
   transition: .3s ease-out;
 
   .dragging &:not(.active) {
     background: rgba(255,255,255, .05);
-    /* box-shadow: none; */
+    -webkit-box-shadow: none;
   }
 
   &.hover:not(.active) {
     background: rgba(255,255,255, .2);
-    border: none;
-    /* box-shadow: none; */
+    -webkit-box-shadow: none;
   }
+}
 
-  .player {
-    position: relative;
-    width: 192px;
-    height: 0;
-    border-radius: $border-radius;
-    opacity: 0;
-    overflow: hidden;
-    -webkit-transform: translateZ(0);
-    transition: opacity .25s, height 0s .25s, color .25s;
-    transition-timing-function: ease-out;
+.player {
+  position: relative;
+  width: 192px;
+  border-radius: $border-radius;
+  opacity: 0;
+  overflow: hidden;
+  -webkit-box-shadow: 0 0 2px 0 rgba(0,0,0, .25);
+  -webkit-transform: translateZ(0);
+  transition: opacity .25s, height 0s .25s, color .25s;
+  transition-timing-function: ease-out;
 
-    &:before {
-      position: absolute;
-      z-index: -1;
-      left: 0;
-      top: 0;
-      content: ' ';
-      display: block;
-      width: 100%;
-      height: 100%;
-      opacity: 1;
-      overflow: hidden;
-      background: linear-gradient(to top, rgba(165,165,165, .25) 0%, rgba(255,255,255, .85) 100%);
-      border-radius: $border-radius;
-      backface-visibility: hidden;
-      transform: translateZ(0);
-      transition: opacity .25s ease-out;
-    }
+  &.active {
+    height: 60px;
+    opacity: 1;
+    transition: opacity .3s, height 0s, color .3s;
 
-    &:hover, &.clicked {
-
-      &:before {
-        opacity: .85;
-      }
-
-      .inner:before {
-        opacity: .025;
-      }
-
-      .name {
-        color: #474747;
-        text-shadow: 0 0 3px rgba(255,255,255, .25);
-      }
-
-      .jersey {
-        color: #777;
-        text-shadow: 0 0 3px rgba(255,255,255, .3);
-      }
-
-      .salary, .status {
-        border-top: 1px solid rgba(140,140,140, .4);
-
-        > div {
-          opacity: .5;
-        }
-      }
-
-      .handle {
-        opacity: .22;
-      }
-    }
-
-    &.active {
-      height: 60px;
-      opacity: 1;
-      transition: opacity .3s, height 0s, color .3s;
-    }
-
-    &.clicked {
-
-      &:before {
-        opacity: .7;
-        transition-duration: .15s;
-      }
-
-      .inner:before {
-        opacity: .03;
-      }
-
-      .name, .jersey {
-        text-shadow: 0 0 3px rgba(255,255,255, .15);
-      }
-    }
-
-    img {
-      float: left;
-      height: 48px;
-      width: 48px;
-      margin: 6px 7px 6px 6px;
-      background: linear-gradient(to bottom, rgba(206,206,206, .8) 0%, rgba(136,136,136, .8) 100%);
-      border-radius: $border-radius;
-      overflow: hidden;
-    }
-
-    div {
-      transition: .25s;
-    }
-
-    .info {
-      float: left;
-      height: 60px;
-      width: 115px;
-      font-weight: bold;
-
-      .name {
-        float: left;
-        width: 95px;
-        height: 26px;
-        margin-top: 4px;
-        padding-left: 2px;
-        line-height: 25px;
-        color: #222;
-        font-size: 12px;
-        /* text-shadow: 0 0 3px rgba(255,255,255, .5); */
-        text-align: left;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        /* transition: .25s; */
-      }
-
-      .jersey {
-        float: right;
-        width: 15px;
-        height: 26px;
-        margin-top: 4px;
-        margin-right: 5px;
-        /* color: #818181; */
-        color: #676767;
-        font-size: 12px;
-        line-height: 25px;
-        text-align: center;
-        /* text-shadow: 0 0 3px rgba(255,255,255, .5); */
-        /* transition: .25s; */
-      }
-
-      .shot {
-        float: right;
-        width: 15px;
-        color: #686868;
-        font-size: 10px;
-        text-align: center;
-      }
-
-      .salary, .status {
-        float: left;
-        width: 46px;
-        padding-left: 2px;
-        padding-top: 5px;
-        color: #5D5E5E;
-        font-size: 10px;
-        text-align: left;
-        text-shadow: 0 0 3px rgba(255,255,255, .2);
-        border-top: 1px solid rgba(0,0,0, .05);
-        /* transition: .25s; */
-      }
-
-      .status {
-        float: left;
-        height: 20px;
-        width: 66px;
-        padding-left: 0;
-        padding-right: 2px;
-        text-align: right;
-        /* transition: .25s; */
-
-        > div {
-          float: right;
-          height: 13px;
-          width: 13px;
-          margin-left: 5px;
-          color: #CCC;
-          font-size: 7px;
-          font-weight: 600;
-          line-height: 13px;
-          text-indent: 1px;
-          text-align: center;
-          background: #117C1B;
-          border-radius: 50%;
-          opacity: .65;
-          /* transition: .25s; */
-        }
-
-        .acquired {
-          color: #BBB;
-          background: #1E44A2;
-        }
-
-        .injured {
-          color: #E09191;
-          background: #A01313;
-        }
-
-        .benched {
-          color: #999;
-          background: #323232;
-        }
-      }
-    }
-
-    .handle {
-      float: right;
-      width: 16px;
-      height: inherit;
-      background: url($img-url + 'app/drag-handle-player-tile.svg');
-      background-position:  4px center;
-      background-repeat: no-repeat;
-      background-size: 40% 70%;
-      opacity: .18;
-    }
-
-    .cover {
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      height: 60px;
-      width: 192px;
+    .ir &, .bench & {
+      height: 30px;
+      opacity: .75;
+      -webkit-box-shadow: none;
     }
 
     .inner {
-      height: inherit;
-      width: inherit;
+      opacity: 1;
+    }
+  }
 
-      &:before {
-        position: absolute;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        content: ' ';
-        display: block;
-        width: 100%;
-        height: 100%;
-        background-position: 105% 25%;
-        background-repeat: no-repeat;
-        opacity: .04;
+  &.hover, &.clicked {
+
+    .name {
+      color: #333;
+      text-shadow: 0 0 3px rgba(255,255,255, .3);
+    }
+
+    .jersey {
+      color: #555;
+      text-shadow: 0 0 3px rgba(255,255,255, .3);
+    }
+
+    /* .tag {
+      opacity: .5;
+    }
+
+    .handle {
+      opacity: .22;
+    }
+
+    .bg {
+      opacity: .85;
+    } */
+  }
+
+  /* &.clicked {
+    opacity: .75;
+    transition-duration: .15s;
+
+    .name, .jersey {
+      text-shadow: 0 0 3px rgba(255,255,255, .15);
+    }
+  } */
+
+  img {
+    float: left;
+    height: 48px;
+    width: 48px;
+    margin: 6px 7px 6px 6px;
+    background: linear-gradient(to bottom, rgba(206,206,206, .8) 0%, rgba(136,136,136, .8) 100%);
+    border-radius: $border-radius;
+    overflow: hidden;
+  }
+
+  div {
+    pointer-events: none;
+    transition: .25s;
+  }
+
+  .inner {
+    height: 60px;
+    width: 192px;
+    opacity: 0;
+    -webkit-box-shadow: 0 0 7px rgba(255,255,255, .25) inset;
+    transition: opacity .35s;
+  }
+
+  .info {
+    float: left;
+    height: 60px;
+    width: 115px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+    line-height: 25px;
+
+    .ir &, .bench & {
+      height: 30px;
+      width: 174px;
+    }
+  }
+
+  .name {
+    float: left;
+    width: 95px;
+    height: 26px;
+    margin-top: 4px;
+    padding-left: 2px;
+    color: #222;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    .ir &, .bench & {
+      height: 30px;
+      width: 80px;
+      margin-top: 0;
+      margin-left: 24px;
+      font-size: 11px;
+      line-height: 30px;
+    }
+  }
+
+  .jersey {
+    float: right;
+    width: 15px;
+    height: 26px;
+    margin-top: 4px;
+    margin-right: 5px;
+    color: #676767;
+    text-align: center;
+
+    .ir &, .bench & {
+      position: absolute;
+      left: 6px;
+      height: 30px;
+      margin: 0;
+      font-size: 11px;
+      line-height: 30px;
+    }
+  }
+
+  .salary, .status {
+    float: left;
+    width: 46px;
+    padding-left: 2px;
+    /* color: #484848; */
+    color: #676767;
+    font-size: 10px;
+    text-align: left;
+    /* text-shadow: 0 0 3px rgba(255,255,255, .2); */
+    border-top: 1px solid rgba(0,0,0, .05);
+
+    .ir &, .bench & {
+      float: right;
+      width: auto;
+      height: 30px;
+      line-height: 30px;
+      padding-top: 0;
+      padding-left: 0;
+      border: 0;
+    }
+  }
+
+  .status {
+    float: left;
+    height: 20px;
+    width: 66px;
+    padding-left: 0;
+    padding-right: 2px;
+    text-align: right;
+
+    .ir &, .bench & {
+      padding-top: 8px;
+      padding-right: 0;
+    }
+  }
+
+  .shot {
+    float: right;
+    width: 15px;
+    color: #676767;
+    font-size: 10px;
+    text-align: center;
+
+    .ir &, .bench & {
+      display: none;
+    }
+  }
+
+  .tag {
+    float: right;
+    height: 13px;
+    width: 13px;
+    margin: 6px 3px 0 2px;
+    color: #CCC;
+    font-size: 7px;
+    font-weight: 600;
+    line-height: 13px;
+    text-indent: 1px;
+    text-align: center;
+    background: #117C1B;
+    border-radius: 50%;
+    opacity: .65;
+
+    .ir &, .bench & {
+      margin: 1px 0 0 5px;
+    }
+
+    &.acquired {
+      color: #BBB;
+      background: #1E44A2;
+    }
+
+    &.injured {
+      color: #E09191;
+      background: #A01313;
+    }
+
+    &.benched {
+      color: #999;
+      background: #323232;
+    }
+  }
+
+  .handle {
+    float: right;
+    height: 60px;
+    width: 16px;
+    background: url($img-url + 'app/drag-handle-player-tile.svg');
+    background-position:  4px center;
+    background-repeat: no-repeat;
+    background-size: 40% 70%;
+    opacity: .18;
+
+    .ir &, .bench & {
+      height: 20px;
+      width: 18px;
+      margin-top: 6px;
+      background-size: 35%;
+      background-position: top center;
+
+      .moz & {
+        width: 17px;
+        background-size: 25%;
       }
 
-      &.ANA:before {
-        background-image: url($img-url + 'teams/ANA.png');
-        background-position: 105% 45%;
-        background-size: 75%;
+      .saf & {
+        height: 19px;
+        width: 17px;
+        background-size: 26%;
       }
+    }
+  }
 
-      &.ARI:before {
-        background-image: url($img-url + 'teams/ARI.png');
-        background-position: 110% 35%;
-        background-size: 65%;
-      }
+  .bg {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    height: 60px;
+    width: 192px;
+    /* background: linear-gradient(to top, rgba(165,165,165, .25) 0%, rgba(255,255,255, .85) 100%); */
+    background: linear-gradient(to top, rgba(255,255,255, .3) 0%, rgba(255,255,255, .7) 100%);
+    opacity: 1;
+  }
 
-      &.BOS:before {
-        background-image: url($img-url + 'teams/BOS.png');
-      }
+  .logo {
+    height: 60px;
+    width: 192px;
+    background-repeat: no-repeat;
+    background-position: 105% 25%;
+    opacity: .04;
 
-      &.BUF:before {
-        background-image: url($img-url + 'teams/BUF.png');
-      }
+    &.ANA {
+      background-image: url($img-url + 'teams/ANA.png');
+      background-position: 105% 45%;
+      background-size: 75%;
+    }
+    &.ARI {
+      background-image: url($img-url + 'teams/ARI.png');
+      background-position: 110% 35%;
+      background-size: 65%;
+    }
+    &.BOS {
+      background-image: url($img-url + 'teams/BOS.png');
+    }
+    &.BUF {
+      background-image: url($img-url + 'teams/BUF.png');
+    }
+    &.CGY {
+      background-image: url($img-url + 'teams/CGY.png');
+    }
+    &.CAR {
+      background-image: url($img-url + 'teams/CAR.png');
+      background-position: 120% 45%;
+      background-size: 65%;
+    }
+    &.CHI {
+      background-image: url($img-url + 'teams/CHI.png');
+      background-position: 115% 50%;
+      background-size: 63%;
+    }
+    &.COL {
+      background-image: url($img-url + 'teams/COL.png');
+      background-position: 105% 65%;
+    }
+    &.CLB {
+      background-image: url($img-url + 'teams/CLB.png');
+      background-position: 105% 45%;
+    }
+    &.DAL {
+      background-image: url($img-url + 'teams/DAL.png');
+      background-position: 200% 65%;
+      background-size: 80%;
+    }
+    &.DET {
+      background-image: url($img-url + 'teams/DET.png');
+      background-position: 130% 60%;
+      background-size: 65%;
+    }
+    &.EDM {
+      background-image: url($img-url + 'teams/EDM.png');
+    }
+    &.FLA {
+      background-image: url($img-url + 'teams/FLA.png');
+    }
+    &.LAK {
+      background-image: url($img-url + 'teams/LAK.png');
+      background-position: 150% 25%;
+      background-size: 73%;
+    }
+    &.MIN {
+      background-image: url($img-url + 'teams/MIN.png');
+      background-position: 175% 55%;
+      background-size: 75%;
+    }
+    &.MTL {
+      background-image: url($img-url + 'teams/MTL.png');
+      background-position: 145% 50%;
+      background-size: 70%;
+    }
+    &.NAS {
+      background-image: url($img-url + 'teams/NAS.png');
+      background-position: 115% 45%;
+      background-size: 70%;
+    }
+    &.NJD {
+      background-image: url($img-url + 'teams/NJD.png');
+      background-position: 105% 45%;
+      background-size: 60%;
+    }
+    &.NYI {
+      background-image: url($img-url + 'teams/NYI.png');
+      background-position: 110% 25%;
+      background-size: 60%;
+    }
+    &.NYR {
+      background-image: url($img-url + 'teams/NYR.png');
+      background-position: 118% 25%;
+      background-size: 66%;
+    }
+    &.OTT {
+      background-image: url($img-url + 'teams/OTT.png');
+      background-position: 115% 75%;
+      background-size: 65%;
+    }
+    &.PHI {
+      background-image: url($img-url + 'teams/PHI.png');
+      background-position: 120% 35%;
+      background-size: 65%;
+    }
+    &.PIT {
+      background-image: url($img-url + 'teams/PIT.png');
+      background-position: 110% 17%;
+      background-size: 60%;
+    }
+    &.SJS {
+      background-image: url($img-url + 'teams/SJS.png');
+      background-position: 120% 60%;
+      background-size: 65%;
+    }
+    &.STL {
+      background-image: url($img-url + 'teams/STL.png');
+      background-position: 120% 30%;
+      background-size: 65%;
+    }
+    &.TBL {
+      background-image: url($img-url + 'teams/TBL.png');
+    }
+    &.TOR {
+      background-image: url($img-url + 'teams/TOR.png');
+      background-position: 110% 60%;
+      background-size: 60%;
+    }
+    &.VAN {
+      background-image: url($img-url + 'teams/VAN.png');
+      background-position: 110% 45%;
+      background-size: 60%;
+    }
+    &.WAS {
+      background-image: url($img-url + 'teams/WAS.png');
+      background-position: 180% 55%;
+      background-size: 75%;
+    }
+    &.WPG {
+      background-image: url($img-url + 'teams/WPG.png');
+    }
+  }
+}
 
-      &.CGY:before {
-        background-image: url($img-url + 'teams/CGY.png');
-      }
+.grid-nav {
+  float: left;
+  height: 24px;
+  width: 590px;
+  margin-left: 11px;
 
-      &.CAR:before {
-        background-image: url($img-url + 'teams/CAR.png');
-        background-position: 120% 45%;
-        background-size: 65%;
-      }
+  li {
+    float: right;
+    height: 24px;
+    width: 46px;
+    margin-left: 10px;
+    color: #555;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 24px;
+    text-align: center;
+    background: rgba(0,0,0, .15);
+    border-radius: $border-radius;
+    opacity: 1;
+    cursor: default;
+    transform: translateZ(0);
+    transition: opacity .25s .75s, margin .25s .5s, height .25s .5s, width .25s .5s, font-size 0s .5s;
 
-      &.CHI:before {
-        background-image: url($img-url + 'teams/CHI.png');
-        background-position: 115% 50%;
-        background-size: 63%;
-      }
-
-      &.COL:before {
-        background-image: url($img-url + 'teams/COL.png');
-        background-position: 105% 65%;
-      }
-
-      &.CLB:before {
-        background-image: url($img-url + 'teams/CLB.png');
-        background-position: 105% 45%;
-      }
-
-      &.DAL:before {
-        background-image: url($img-url + 'teams/DAL.png');
-        background-position: 200% 65%;
-        background-size: 80%;
-      }
-
-      &.DET:before {
-        background-image: url($img-url + 'teams/DET.png');
-        background-position: 130% 60%;
-        background-size: 65%;
-      }
-
-      &.EDM:before {
-        background-image: url($img-url + 'teams/EDM.png');
-      }
-
-      &.FLA:before {
-        background-image: url($img-url + 'teams/FLA.png');
-      }
-
-      &.LAK:before {
-        background-image: url($img-url + 'teams/LAK.png');
-        background-position: 150% 25%;
-        background-size: 73%;
-      }
-
-      &.MIN:before {
-        background-image: url($img-url + 'teams/MIN.png');
-        background-position: 175% 55%;
-        background-size: 75%;
-      }
-
-      &.MTL:before {
-        background-image: url($img-url + 'teams/MTL.png');
-        background-position: 145% 50%;
-        background-size: 70%;
-      }
-
-      &.NAS:before {
-        background-image: url($img-url + 'teams/NAS.png');
-        background-position: 115% 45%;
-        background-size: 70%;
-      }
-
-      &.NJD:before {
-        background-image: url($img-url + 'teams/NJD.png');
-        background-position: 105% 45%;
-        background-size: 60%;
-      }
-
-      &.NYI:before {
-        background-image: url($img-url + 'teams/NYI.png');
-        background-position: 110% 25%;
-        background-size: 60%;
-      }
-
-      &.NYR:before {
-        background-image: url($img-url + 'teams/NYR.png');
-        background-position: 118% 25%;
-        background-size: 66%;
-      }
-
-      &.OTT:before {
-        background-image: url($img-url + 'teams/OTT.png');
-        background-position: 115% 75%;
-        background-size: 65%;
-      }
-
-      &.PHI:before {
-        background-image: url($img-url + 'teams/PHI.png');
-        background-position: 120% 35%;
-        background-size: 65%;
-      }
-
-      &.PIT:before {
-        background-image: url($img-url + 'teams/PIT.png');
-        background-position: 110% 17%;
-        background-size: 60%;
-      }
-
-      &.SJS:before {
-        background-image: url($img-url + 'teams/SJS.png');
-        background-position: 120% 60%;
-        background-size: 65%;
-      }
-
-      &.STL:before {
-        background-image: url($img-url + 'teams/STL.png');
-        background-position: 120% 30%;
-        background-size: 65%;
-      }
-
-      &.TBL:before {
-        background-image: url($img-url + 'teams/TBL.png');
-      }
-
-      &.TOR:before {
-        background-image: url($img-url + 'teams/TOR.png');
-        background-position: 110% 60%;
-        background-size: 60%;
-      }
-
-      &.VAN:before {
-        background-image: url($img-url + 'teams/VAN.png');
-        background-position: 110% 45%;
-        background-size: 60%;
-      }
-
-      &.WAS:before {
-        background-image: url($img-url + 'teams/WAS.png');
-        background-position: 180% 55%;
-        background-size: 75%;
-      }
-
-      &.WPG:before {
-        background-image: url($img-url + 'teams/WPG.png');
-      }
+    &.disabled {
+      height: 0;
+      width: 0;
+      margin-left: 0;
+      font-size: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity .5s, height 0s 1s, width .5s .5s, margin .5s .5s, font-size 0s .5s;
+      pointer-events: none;
     }
   }
 }

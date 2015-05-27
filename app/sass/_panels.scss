@@ -5,10 +5,11 @@
   position: relative;
   width: 300px;
   margin-right: $page-spacing;
+  text-align: center;
 }
 
 .panel {
-  position: relative;
+  position: inherit;
   float: left;
   width: inherit;
   margin-bottom: $page-spacing;
@@ -19,20 +20,12 @@
   transition: .3s;
   transform: translateZ(0);
 
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-
-  &.collapsed, &.short.collapsed {
-    height: 33px;
+  &.collapsed {
+    height: 33px !important;
 
     .title {
       color: #585858;
     }
-  }
-
-  &.inactive .inner {
-    height: 0;
   }
 
   .inner {
@@ -40,11 +33,9 @@
     color: #777;
     font-size: 12px;
     font-weight: bold;
-    text-align: center;
-    overflow: hidden;
+    overflow: inherit;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-    transform: translateZ(0);
   }
 
   .title {
@@ -54,11 +45,9 @@
     color: #838383;
     font-size: 14px;
     font-weight: bold;
-    text-align: center;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     background: linear-gradient(to top, #151515 0%, #232323);
-    transform: translateZ(0);
     transition: .3s;
 
     a {
@@ -69,17 +58,16 @@
       color: #3F3F3F;
       font-weight: bold;
       line-height: 28px;
-      transform: translateZ(0);
+      cursor: pointer;
       transition: color .4s;
 
       &:hover {
         color: #666;
         text-shadow: 0 0 3px rgba(0,0,0, .75);
-        cursor: pointer;
       }
 
       &.active i {
-        transform: rotate(180deg);
+        transform: translateX(-2px) translateY(2px) rotate(180deg);
       }
 
       i {
@@ -95,35 +83,30 @@
     position: absolute;
     top: 0;
     height: 100%;
-    width: 100%;
-    background: transparent;
+    width: inherit;
 
     .list-engaged & {
+      z-index: 3;
       display: block;
     }
   }
 }
 
-
-// Alt Views
-// --------------------------------------------------
-
 .loading-list, .remove-player {
   position: absolute;
   top: 0;
   height: 0;
-  width: 300px;
+  width: inherit;
   color: rgba(255,255,255, .2);
   font-size: 18px;
   font-weight: 500;
-  text-shadow: 0 5px 35px rgba(0,0,0, .6);
-  text-align: center;
   line-height: 200px;
   background: rgba(23,24,25, .8);
   border-radius: $border-radius;
   box-shadow: 0 0 100px 0 rgba(0,0,0, .5) inset;
   opacity: 0;
-  overflow: hidden;
+  overflow: inherit;
+  transform: translateZ(0);
   transition: opacity .3s, height 0s .3s;
 
   .short & {
@@ -141,29 +124,23 @@
     z-index: 4;
     top: 0;
     height: 100%;
-    width: 100%;
+    width: inherit;
   }
 }
 
 .show-loading .loading-list,
 .show-remove-player .remove-player {
   z-index: 3;
-  height: 200px;
+  height: 100%;
   opacity: 1;
   transition: opacity .4s, height 0s, color .4s, box-shadow .4s;
 
   &.hover {
     color: rgba(255,255,255, .4);
-    text-shadow: 0 0 40px rgba(0,0,0, 1);
     background: rgba(23,24,25, .9);
     box-shadow: 0 0 120px 0 rgba(0,0,0, .8) inset;
-    transition: 1s ease-out;
+    transition: .5s ease-out;
   }
-}
-
-.short.show-loading .loading-list,
-.short.show-remove-player .remove-player {
-  height: 134px;
 }
 
 .loading-list {

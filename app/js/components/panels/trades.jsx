@@ -72,7 +72,7 @@ var Trades = React.createClass({
         <li key={player.id} id={player.id + '-trade-item'}>
           <span>{ player.firstname.charAt(0) + '.' } </span><span className="lastname">{player.lastname}</span>
           <a id={player.id} className="remove-button" onClick={ type === 'user' ? this.removeUserPlayer : this.removeLeaguePlayer }>
-            <i className="fa fa-remove"></i>
+            <i className="fa fa-close"></i>
           </a>
         </li>
       );
@@ -90,9 +90,17 @@ var Trades = React.createClass({
     }
     list = players.map(function(player, j) {
       if (acquired.indexOf(player.id) !== -1 || league.indexOf(player.id) !== -1) {
-        return <option key={player.id} value={player.id} data-group={group} disabled="disabled">{x} {player.firstname} {player.lastname}</option>;
+        return (
+          <option key={player.id} value={player.id} data-group={group} disabled="disabled">
+            {x} {player.firstname} {player.lastname} ({player.contract[0]})
+          </option>
+        );
       } else {
-        return <option key={player.id} value={player.id} data-group={group} data-index={j}>{player.firstname} {player.lastname}</option>;
+        return (
+          <option key={player.id} value={player.id} data-group={group} data-index={j}>
+            {player.firstname} {player.lastname} ({player.contract[0]})
+          </option>
+        );
       }
     });
     return list;
@@ -100,7 +108,7 @@ var Trades = React.createClass({
 
   changeTradePlayer: function(e) {
     e.target.className = '';
-    $('#add-trade-player').attr('class', 'add-button active');
+    document.getElementById('add-trade-player').className = 'add-button active';
     UI.resetActionMessage();
   },
 
@@ -142,21 +150,21 @@ var Trades = React.createClass({
           <div id="trade-player-breakdown">
         { this.props.tradeData.user.length
           ? <ul className="active">{this.buildPlayerGroup(this.props.tradeData.players.user, 'user')}</ul>
-          : <ul className="trade-player-list-placeholder">
-              <li>{this.props.teamData.id}</li>
+          : <ul className="list-placeholder">
+              <li><div>{this.props.teamData.id}</div></li>
             </ul> }
             <div className={ this.props.tradeData.user.length && this.props.tradeData.league.length ? 'trade-marker active' : 'trade-marker' }>
               <i className="fa fa-refresh"></i>
             </div>
         { this.props.tradeData.league.length
           ? <ul className="active">{this.buildPlayerGroup(this.props.tradeData.players.league, 'league')}</ul>
-          : <ul className="trade-player-list-placeholder">
-              <li>{ this.props.tradeTeam.id ? this.props.tradeTeam.id : '- - -' }</li>
+          : <ul className="list-placeholder">
+              <li><div>{ this.props.tradeTeam.id ? this.props.tradeTeam.id : '- - -' }</div></li>
             </ul> }
           </div>
           <button id="trade-player-button" onClick={this.executeTrade}>Execute Trade</button>
           <div id="trade-player-confirm" className="transaction-confirm">
-            Traded Executed <i className="fa fa-magic"></i>
+            <span>Traded Executed <i className="fa fa-magic"></i></span>
           </div>
         </div>
       </div>

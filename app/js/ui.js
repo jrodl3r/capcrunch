@@ -5,6 +5,7 @@ var Timers   = require('./static/timers.js'),
 
 var UI = {
 
+  team_loaded : false,
   msg_timeout : null,
 
   init: function() {
@@ -12,23 +13,23 @@ var UI = {
     UI.events();
   },
 
-  // load: function() {
-  //   $('header .inner, footer .inner, #teams .inner').removeClass('unload');
-  // },
+  load: function () {
+    $('#grid-reminder, #grid-svg, header .inner, footer').addClass('active');
+  },
 
   detect: function() {
-    if ($.os.phone || $.os.tablet && !$.browser.ie) {
-      UI.showMobileSplash();
-    }
+    if ($.os.phone || $.os.tablet && !$.browser.ie) { UI.showMobileSplash(); }
+    if ($.browser.firefox) { $('html').addClass('moz'); }
+    if ($.browser.safari) { $('html').addClass('saf'); }
   },
 
   events: function() {
     $('body').on('contextmenu', UI.blockAction);
-    $('#teams').on('mouseenter', '.grid div', function() {
+    $('#team-grid').on('mouseenter', 'div', function() {
       var team = $(this).attr('class');
       $('#grid-svg').contents().find('g.' + team).css('opacity', '1');
     });
-    $('#teams').on('mouseleave', '.grid div', function() {
+    $('#team-grid').on('mouseleave', 'div', function() {
       var team = $(this).attr('class');
       $('#grid-svg').contents().find('g.' + team).css('opacity', '.4');
     });
@@ -49,6 +50,10 @@ var UI = {
     var el = $.browser.firefox ? 'html' : 'body';
     if ($(el).scrollTop()) {
       $(el).scrollTo({ endY: 0, duration: 750 });
+    }
+    if (!UI.team_loaded) {
+      $('#grid-reminder').addClass('disabled');
+      UI.team_loaded = true;
     }
   },
 
@@ -151,6 +156,6 @@ var UI = {
 };
 
 $(document).ready(UI.init);
-// $(window).on('load', UI.load);
+$(window).on('load', UI.load);
 
 module.exports = UI;

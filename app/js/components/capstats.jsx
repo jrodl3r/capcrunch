@@ -23,7 +23,7 @@ var CapStats = React.createClass({
     //   <a id={ view + '-stats-button' } onClick={UI.blockAction}
     //     className={ view === 'roster' && count || view === 'payroll' ? 'cap-stats-menu-button' : 'cap-stats-menu-button disabled' }
     //     onMouseEnter={ view === 'roster' && count || view === 'payroll' ? this.toggleMenu : null }>
-    //     <i className="fa fa-gear"></i>
+    //     <i className="fa fa-cog"></i>
     //   </a>
     //   <div id={ view + '-stats-menu' } className="cap-stats-menu" onMouseLeave={this.toggleMenu}>
     // { view === 'roster'

@@ -39,8 +39,7 @@ var App = React.createClass({
         name     : '',
         cap      : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
         players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] }},
-      activeTeam : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] },
-      playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], created : [] },
+      playerData : { teams : [], inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], created : [] },
       altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },
       tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
       tradeData  : { user : [], league : [], players : { user : [], league : [] }},
@@ -126,13 +125,14 @@ var App = React.createClass({
   },
 
   clearDrag: function() {
-    var updateData = update(this.state, {
+    var lineData, updateData;
+    lineData = this.updateAltLines();
+    updateData = update(this.state, {
       dragData  : { $set: { type : '', group : '', index : '' }},
-      panelData : { engaged : { $set: false }}
+      panelData : { engaged : { $set: false }},
+      lineData  : { $set: lineData }
     });
-    this.setState(updateData, function() {
-      this.updateAltLines();
-    });
+    this.setState(updateData);
   },
 
   clearDrop: function() {
@@ -144,6 +144,10 @@ var App = React.createClass({
 // Team + Player Data
 // --------------------------------------------------
 
+
+  // NOTE: On Team/Roster Load: Update TeamData Players w/ PlayerData
+
+
   changeTeam: function(id) {
     this.changeView('loading');
     Socket.emit('get team', id);
@@ -152,17 +156,26 @@ var App = React.createClass({
 
   loadTeam: function(data) {
     if (data && data !== 'error') {
-      var teamData = this.loadTradeData('roster', data);
-      if (!teamData) {
-        teamData = data; // TODO: Trade Team Conflict / No Trade Data
-      }
+      var teamData = this.loadTradeData('team', data);
+      if (!teamData) { teamData = data; }
       this.setState({ teamData: teamData }, function() {
+        // TODO: this.loadPlayers();
         this.changeView('roster');
       });
     } else {
       this.changeView('teams');
       this.notifyUser('error', Messages.error.loading_team);
     }
+  },
+
+  loadPlayers: function() { // TODO
+
+    // Loop through each teamData.players group
+
+    // Cache image for each player object
+
+    // OnFinished ...this.changeView('roster');
+
   },
 
   changeTradeTeam: function(id) {
@@ -192,16 +205,6 @@ var App = React.createClass({
       }
     }
   },
-
-  // clonePlayer: function(player) {
-  //   var target = {}, p;
-  //   for (p in player) {
-  //     if (player.hasOwnProperty(p)) {
-  //       target[p] = player[p];
-  //     }
-  //   }
-  //   return target;
-  // },
 
 
 // Roster + Share Data
@@ -308,30 +311,25 @@ var App = React.createClass({
 // --------------------------------------------------
 
   loadTradeData: function(type, team) {
-    var traded = type === 'roster' ? this.state.playerData.traded : this.state.tradeData.players.user,
-        acquired = type === 'roster' ? this.state.playerData.acquired : this.state.tradeData.players.league,
+    var traded = type === 'team' ? this.state.playerData.traded : this.state.tradeData.players.user,
+        acquired = type === 'team' ? this.state.playerData.acquired : this.state.tradeData.players.league,
         traded_len = traded.length, acquired_len = acquired.length, player, index, x, y;
     if (traded_len) {
       for (x = 0; x < traded_len; x++) {
         // Verify Trade Team Data
-        if (!x && type === 'roster' && traded[x].team !== team.id) {
-
-          // TODO: Notify User - Trade Team Conflict + Disable Trading
-          console.log('trade team conflict!');
-
+        if (!x && type === 'team' && traded[x].team !== team.id) {
+          // TODO: Notify Team Conflict [Trading Disable]
           return false;
         } else {
           player = traded[x];
-          team.players[player.group][player.index].status = 'traded'; // TODO: Action + Can Index Change??? That would be bad... see below
-          // team.players[player.group][player.index].action = 'traded';
+          team.players[player.group][player.index].action = 'traded';
         }
       }
       for (y = 0; y < acquired_len; y++) {
         player = acquired[y];
-        player.status = 'acquired'; // TODO: Action » This is problematic... (if acquired player is injured + if player added to IR/BN)
-        // player.action = 'acquired';
+        player.action = 'acquired';
         index = this.getPlayerSortIndex(player.contract, team.players[player.group]);
-        team.players[player.group].splice(index, 0, player); // NOTE: Much safer to not mutate the array here + include on render? ^^^
+        team.players[player.group].splice(index, 0, player); // NOTE: Is it safe to mutate the array here? Do the other indexes update?
       }
       return team;
     }
@@ -377,10 +375,11 @@ var App = React.createClass({
   },
 
   addTradePlayer: function(type, player, index, group) {
-    var capData, updateData;
+    var playerData, capData, updateData, altStatus, statusIndex, removeCleared;
     switch (type) {
       case 'item':
         updateData = update(this.state, {
+          teamData  : { players : { [player.group] : { [player.index] : { action : { $set: 'queued' }}}}},
           tradeData : {
             user    : { $push: [player.id] },
             players : { user : { $push: [player] }}},
@@ -389,14 +388,33 @@ var App = React.createClass({
         });
         break;
       case 'tile':
-        index = this.state.playerData.inplay.indexOf(player.id);
+        playerData = this.state.playerData;
+        altStatus = this.isAltLine(dropData.origin);
+        if (altStatus) {
+          statusIndex = playerData[altStatus].indexOf(player.id);
+          playerData[altStatus].splice(statusIndex, 1);
+        } else {
+          activeIndex = playerData.inplay.indexOf(player.id);
+          playerData.inplay.splice(activeIndex, 1);
+        }
+        altStatus = 'active';
+        if (playerData.cleared.length) {
+          removeCleared = playerData.cleared.indexOf(player.id);
+          if (removeCleared !== -1) {
+            playerData.cleared.splice(removeCleared, 1);
+            altStatus = 'injured';
+          }
+        }
         capData = this.updateCapStats('remove', player.contract[0]);
         updateData = update(this.state, {
+          teamData   : { players : { [player.group] : { [player.index] : {
+            action   : { $set: 'queued' },
+            status   : { $set: altStatus }}}}},
+          playerData : { $set: playerData },
           capData    : { $set: capData },
           tradeData  : {
             user     : { $push: [player.id] },
             players  : { user : { $push: [player] }}},
-          playerData : { inplay : { $splice: [[index, 1]] }},
           rosterData : { [dropData.origin] : { $set: { status : 'empty' }}},
           dragData   : { $set: { type : '', group : '', index : '' }}
         });
@@ -414,21 +432,27 @@ var App = React.createClass({
         break;
       default: UI.showActionMessage('trade', Messages.error.trade_player);
     }
-    this.setState(updateData);
+    this.setState(updateData, function() {
+      this.updateAltLines();
+    });
     setTimeout(function() {
-      $('#' + player.id + '-trade-item').addClass('active');
+      document.getElementById(player.id + '-trade-item').className = 'active';
     }, Timers.clear);
-    $('#trade-drop-area').removeClass('hover');
+    document.getElementById('trade-drop-area').className = '';
   },
 
   removeTradePlayer: function(type, id) {
-    var updateData, index;
+    var player, index, updateData;
     setTimeout(function() {
       if (type === 'user') {
         index = this.state.tradeData.user.indexOf(id);
-        updateData = update(this.state.tradeData, {
-          user    : { $splice: [[index, 1]] },
-          players : { user : { $splice: [[index, 1]] }}
+        player = this.state.tradeData.players.user[index];
+        updateData = update(this.state, {
+          teamData  : { players : { [player.group] : { [player.index] : {
+            action  : { $set: '' }}}}},
+          tradeData : {
+            user    : { $splice: [[index, 1]] },
+            players : { user : { $splice: [[index, 1]] }}}
         });
       } else {
         index = this.state.tradeData.league.indexOf(id);
@@ -437,9 +461,10 @@ var App = React.createClass({
           players : { league : { $splice: [[index, 1]] }}
         });
       }
-      this.setState({ tradeData : updateData });
+      this.setState(updateData);
     }.bind(this), Timers.item);
-    $('#' + id + '-trade-item').attr('class', '');
+    document.getElementById(id + '-row').className = 'row';
+    document.getElementById(id + '-trade-item').className = '';
   },
 
   verifyTradePlayer: function(action) {
@@ -458,6 +483,7 @@ var App = React.createClass({
     player.image = '';
     player.team = this.state.teamData.id;
     player.action = 'created';
+    player.status = 'active';
     player.id = (9900 + this.state.playerData.created.length).toString();
     this.changePanelView('loading');
     setTimeout(function() {
@@ -475,8 +501,20 @@ var App = React.createClass({
 // Panels
 // --------------------------------------------------
 
+  handleItemMouseEnter: function(e) {
+    if (!this.state.dragData.type && !this.state.panelData.engaged) {
+      e.currentTarget.className = 'item hover';
+    }
+  },
+
+  handleItemMouseLeave: function(e) {
+    if (e.currentTarget.className !== 'item clicked') {
+      e.currentTarget.className = 'item';
+    }
+  },
+
   handleItemMouseDown: function(e) {
-    e.target.parentNode.className = 'item clicked';
+    e.currentTarget.className = 'item clicked';
     this.setState({ dragData : { type : 'item', group : e.currentTarget.getAttribute('data-group'), index : e.currentTarget.getAttribute('data-index') }});
   },
 
@@ -488,13 +526,13 @@ var App = React.createClass({
   },
 
   handleItemDragStart: function(e) {
-    e.target.parentNode.className = 'row engaged';
     e.dataTransfer.effectAllowed = 'copy';
     e.dataTransfer.setData('text', '');
+    e.target.parentNode.className = 'row engaged';
     setTimeout(function() {
       var panelData = update(this.state.panelData, { engaged : { $set: true }});
       this.setState({ panelData : panelData });
-    }.bind(this), 10);
+    }.bind(this), 1);
   },
 
   handleItemDragEnd: function(e) {
@@ -508,7 +546,7 @@ var App = React.createClass({
     if (dropData.cur && dropData.cur === dropData.last) {
       this.addPlayer(player);
     // Trade
-    } else if (dropData.action === 'trade' && this.verifyTradePlayer(player.status)) { // TODO: Action
+    } else if (dropData.action === 'trade' && this.verifyTradePlayer(player.action)) {
       this.addTradePlayer('item', player);
     // Undo
     } else {
@@ -526,12 +564,12 @@ var App = React.createClass({
   handleRemoveDragEnter: function(e) {
     dropData.last = null;
     dropData.action = 'remove';
-    $(e.currentTarget).parent().addClass('hover');
+    e.currentTarget.parentNode.className = 'remove-player hover';
   },
 
   handleRemoveDragLeave: function(e) {
     dropData.action = '';
-    $(e.currentTarget).parent().removeClass('hover');
+    e.currentTarget.parentNode.className = 'remove-player';
   },
 
   handleTradeDragEnter: function() {
@@ -541,12 +579,12 @@ var App = React.createClass({
       var panelData = update(this.state.panelData, { active : { $set: 'trades' }});
       this.setState({ panelData : panelData });
     }
-    $('#trade-drop-area').addClass('hover');
+    document.getElementById('trade-drop-area').className = 'hover';
   },
 
   handleTradeDragLeave: function() {
     dropData.action = '';
-    $('#trade-drop-area').removeClass('hover');
+    document.getElementById('trade-drop-area').className = '';
   },
 
 
@@ -574,6 +612,18 @@ var App = React.createClass({
     }
   },
 
+  handlePlayerMouseEnter: function(e) {
+    if (!this.state.dragData.type) {
+      e.currentTarget.className = 'player active hover';
+    }
+  },
+
+  handlePlayerMouseLeave: function(e) {
+    if (!this.state.dragData.type) {
+      e.currentTarget.className = 'player active';
+    }
+  },
+
   handlePlayerMouseDown: function(e) {
     e.currentTarget.className = 'player active clicked';
     dropData.origin = e.currentTarget.parentNode.id;
@@ -581,7 +631,7 @@ var App = React.createClass({
   },
 
   handlePlayerMouseUp: function(e) {
-    e.currentTarget.className = 'player active';
+    e.currentTarget.className = 'player active hover';
     this.setState({ dragData : { type : '', group : '', index : '' }});
   },
 
@@ -600,12 +650,11 @@ var App = React.createClass({
       if (dropData.action === 'remove') {
         this.removePlayer(player);
       // Trade
-      } else if (dropData.action === 'trade' && this.verifyTradePlayer(player.status)) { // TODO: Action
+      } else if (dropData.action === 'trade' && this.verifyTradePlayer(player.action)) {
         this.addTradePlayer('tile', player);
       } else { this.clearDrag(); }
     // Undo
     } else { this.clearDrag(); }
-    e.currentTarget.className = 'player active';
     this.clearDrop();
   },
 
@@ -621,55 +670,45 @@ var App = React.createClass({
     updateData = update(this.state, {
       capData    : { $set: capData },
       playerData : { $set: playerData },
-      rosterData : { [dropData.cur] : { $set: player }},
-      dragData   : { $set: { type : '', group : '', index : '' }},
-      panelData  : { engaged : { $set: false }}
+      rosterData : { [dropData.cur] : { $set: player }}
     });
-    this.setState(updateData, function() {
-      this.updateAltLines();
-    });
+    this.setState(updateData, function() { this.clearDrag(); });
   },
 
   removePlayer: function(player) {
     var playerData = this.state.playerData,
         altStatus = this.isAltLine(dropData.origin),
-        statusIndex, activeIndex, removeCleared, capData, updateData;
+        statusIndex, wasCleared, capData, updateData;
     if (altStatus) {
       statusIndex = playerData[altStatus].indexOf(player.id);
       playerData[altStatus].splice(statusIndex, 1);
-      player.status = 'inplay';
     } else {
-      activeIndex = playerData.inplay.indexOf(player.id);
-      playerData.inplay.splice(activeIndex, 1);
+      statusIndex = playerData.inplay.indexOf(player.id);
+      playerData.inplay.splice(statusIndex, 1);
     }
-    if (playerData.cleared.length) {
-      removeCleared = playerData.cleared.indexOf(player.id);
-      if (removeCleared !== -1) {
-        playerData.cleared.splice(removeCleared, 1);
-        player.status = 'injured';
-      }
-    }
+    wasCleared = playerData.cleared.length ? playerData.cleared.indexOf(player.id) : -1;
+    if (wasCleared !== -1) {
+      playerData.cleared.splice(wasCleared, 1);
+      player.status = 'injured';
+    } else { player.status = 'active'; }
     capData = this.updateCapStats('remove', player.contract[0]);
     updateData = update(this.state, {
       capData    : { $set: capData },
       playerData : { $set: playerData },
-      rosterData : { [dropData.origin] : { $set: { status : 'empty' }}},
-      dragData   : { $set: { type : '', group : '', index : '' }}
+      rosterData : { [dropData.origin] : { $set: { status : 'empty' }}}
     });
-    this.setState(updateData, function() {
-      this.updateAltLines();
-    });
+    this.setState(updateData, function() { this.clearDrag(); });
   },
 
   movePlayer: function(player) {
     var playerData = this.state.playerData,
         rosterData = this.state.rosterData,
         altStatus = this.isAltLine(dropData.cur),
-        activeIndex, statusIndex, updateData;
+        statusIndex, updateData;
     if (altStatus) {
       if (altStatus !== player.status) {
-        activeIndex = playerData[player.status].indexOf(player.id);
-        playerData[player.status].splice(activeIndex, 1);
+        statusIndex = playerData[player.status].indexOf(player.id);
+        playerData[player.status].splice(statusIndex, 1);
         playerData[altStatus].push(player.id);
         player.status = altStatus;
       }
@@ -682,12 +721,10 @@ var App = React.createClass({
     rosterData[dropData.cur] = player;
     rosterData[dropData.origin] = { status : 'empty' };
     updateData = update(this.state, {
-      rosterData : { $set: rosterData },
-      dragData   : { $set: { type : '', group : '', index : '' }}
+      playerData : { $set: playerData },
+      rosterData : { $set: rosterData }
     });
-    this.setState(updateData, function() {
-      this.updateAltLines();
-    });
+    this.setState(updateData, function() { this.clearDrag(); });
   },
 
 
@@ -731,8 +768,7 @@ var App = React.createClass({
   },
 
   updateAltLines: function() {
-    var lineData = this.state.altLines,
-        changed = false, line, pos, tile, x, y;
+    var lineData = this.state.altLines, line, pos, tile, x, y;
     for (x = 0; x < 6; x++) {
       line = this.props.altLines[x];
       if (lineData[line]) {
@@ -745,11 +781,11 @@ var App = React.createClass({
           else if (y < 2) {
             this.hideAltLine(line);
             lineData[line] = false;
-            changed = true;
           }
         }
       }
-    } if (changed) { this.setState({ altLines : lineData }); }
+    }
+    return lineData;
   },
 
 
@@ -789,6 +825,8 @@ var App = React.createClass({
               changeTradeTeam={this.changeTradeTeam}
               addTradePlayer={this.addTradePlayer}
               removeTradePlayer={this.removeTradePlayer}
+              onItemMouseEnter={this.handleItemMouseEnter}
+              onItemMouseLeave={this.handleItemMouseLeave}
               onItemMouseDown={this.handleItemMouseDown}
               onItemMouseUp={this.handleItemMouseUp}
               onItemDragStart={this.handleItemDragStart}
@@ -810,6 +848,8 @@ var App = React.createClass({
               onGridDragEnter={this.handleGridDragEnter}
               onTileDragEnter={this.handleTileDragEnter}
               onTileDragLeave={this.handleTileDragLeave}
+              onPlayerMouseEnter={this.handlePlayerMouseEnter}
+              onPlayerMouseLeave={this.handlePlayerMouseLeave}
               onPlayerMouseDown={this.handlePlayerMouseDown}
               onPlayerMouseUp={this.handlePlayerMouseUp}
               onPlayerDragStart={this.handlePlayerDragStart}

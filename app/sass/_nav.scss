@@ -11,13 +11,18 @@ header {
   width: 100%;
   min-width: $page-width;
   margin: 0 auto;
-  transform: translateZ(0);
 
   .inner {
     position: relative;
     height: 30px;
     width: $content-width;
     margin: 25px auto 0;
+    opacity: 0;
+    transition: .35s;
+
+    &.active {
+      opacity: 1;
+    }
   }
 
   img {
@@ -41,136 +46,127 @@ header {
       color: rgba(255,255,255, .25);
     }
   }
+}
 
-  #notify {
-    float: left;
+#notify {
+  float: left;
+  height: 30px;
+  width: 370px;
+  margin-top: 0;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 0;
+  cursor: default;
+  opacity: 0;
+  transition: 1s;
+  transition-timing-function: ease-out;
+
+  &.active {
+    opacity: 1;
+  }
+
+  &.error {
+    color: #CF6C6C;
+    text-shadow: 0 0 10px rgba(255,0,0, 1);
+  }
+
+  &.tip {
+    color: #75A0FF;
+    text-shadow: 0 0 10px rgba(93,163,244, 1);
+  }
+
+  &.success {
+    color: #6CCF6C;
+    text-shadow: 0 0 10px rgba(0,255,0, 1);
+  }
+}
+
+nav {
+  position: relative;
+  float: right;
+  height: 0;
+  width: 360px;
+  padding-right: 0;
+  line-height: 30px;
+  text-align: right;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity $view-shift, height $view-hide;
+
+  &.active {
     height: 30px;
-    width: 370px;
-    margin-top: 0;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 0;
-    cursor: default;
-    opacity: 0;
-    transform: translateZ(0);
-    transition: 1s;
-    transition-timing-function: ease-out;
+    opacity: 1;
+    transition: opacity $view-delay, height $view-hide;
+  }
 
-    &.active {
-      opacity: 1;
-    }
+  ul {
+    float: right;
+  }
 
-    &.error {
-      color: #CF6C6C;
-      text-shadow: 0 0 10px rgba(255,0,0, 1);
-    }
+  li {
+    position: relative;
+    float: right;
+    height: inherit;
 
-    &.tip {
-      color: #75A0FF;
-      text-shadow: 0 0 10px rgba(93,163,244, 1);
-    }
-
-    &.success {
-      color: #6CCF6C;
-      text-shadow: 0 0 10px rgba(0,255,0, 1);
+    &:last-of-type a {
+      padding-left: 10px;
     }
   }
 
-  nav {
-    position: relative;
-    float: right;
-    height: 0;
-    width: 360px;
-    padding-right: 0;
-    line-height: 30px;
-    text-align: right;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateZ(0);
-    transition: opacity $view-shift, height $view-hide;
+  a {
+    display: block;
+    height: inherit;
+    margin-top: -1px;
+    padding: 0 17px;
+    line-height: inherit;
+    color: #888;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      color: #CCC;
+    }
 
     &.active {
-      height: 30px;
-      opacity: 1;
-      transition: opacity $view-delay, height $view-hide;
-
-      #team-select {
-        cursor: pointer;
-      }
-    }
-
-    ul {
-      float: right;
-    }
-
-    li {
-      position: relative;
-      float: right;
-      height: inherit;
-
-      &:last-of-type a {
-        padding-left: 10px;
-      }
-    }
-
-    a {
-      display: block;
-      height: inherit;
-      margin-top: -1px;
-      padding: 0 17px;
-      line-height: inherit;
-      color: #888;
-      font-size: 15px;
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
-      transform: translateZ(0);
-
-      &:hover {
-        color: #CCC;
-      }
-
-      &.active {
-        color: #FFF;
-        cursor: default;
-      }
-    }
-
-    #team-select {
-      position: relative;
-      float: right;
-      height: 24px;
-      width: 180px;
-      margin-top: 3px;
-      margin-left: 20px;
-      padding-left: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      text-align: left;
-      line-height: 24px;
-      background: #D6D6D6;
-      border-radius: 5px;
-      opacity: .5;
+      color: #FFF;
       cursor: default;
-      transform: translateZ(0);
-      transition: .3s;
-
-      &:hover {
-        opacity: .9;
-      }
-
-      i {
-        position: absolute;
-        top: 6px;
-        right: 8px;
-      	width: 12px;
-        color: rgba(0,0,0, .35);
-        font-size: 13px;
-        text-align: center;
-      }
     }
+  }
+}
+
+#team-select {
+  position: relative;
+  float: right;
+  height: 24px;
+  width: 180px;
+  margin-top: 3px;
+  margin-left: 20px;
+  padding-left: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  line-height: 24px;
+  background: #D6D6D6;
+  border-radius: 5px;
+  opacity: .5;
+  transition: .3s;
+
+  &:hover {
+    cursor: pointer;
+    opacity: .9;
+  }
+
+  i {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+  	width: 12px;
+    color: rgba(0,0,0, .35);
+    font-size: 13px;
+    text-align: center;
   }
 }
 
@@ -184,9 +180,12 @@ footer {
   color: rgba(140,140,140, .75);
   font-size: 10px;
   font-weight: bold;
-  text-shadow: 0 0 3px rgba(0,0,0, .75);
-  cursor: default;
-  transform: translateZ(0);
+  opacity: 0;
+  transition: .35s .5s;
+
+  &.active {
+    opacity: 1;
+  }
 
   span.cap {
     color: rgba(190,190,190, .4);

@@ -6,44 +6,39 @@ var CapStats = require('./capstats.jsx'),
 var Roster = React.createClass({
 
   playerTile: function(id) {
-    var player = this.props.rosterData[id];
+    var player = this.props.rosterData[id], altLine;
     if (player.status !== 'empty') {
+      altLine = /(ir|benched)/.test(player.status);
       return (
         <div id={id} className="tile active"
           onDragEnter={this.props.onTileDragEnter}
           onDragLeave={this.props.onTileDragLeave}>
-          <div id={player.id} className="player active" draggable="true" data-group={player.group} data-index={player.index}
+          <div id={player.id} data-group={player.group} data-index={player.index} className="player active hover" draggable="true"
+            onMouseEnter={this.props.onPlayerMouseEnter}
+            onMouseLeave={this.props.onPlayerMouseLeave}
             onMouseDown={this.props.onPlayerMouseDown}
             onMouseUp={this.props.onPlayerMouseUp}
             onDragStart={this.props.onPlayerDragStart}
             onDragEnd={this.props.onPlayerDragEnd}>
-            <div className={ player.team + ' inner' }>
-          { !/(ir|benched)/.test(player.status)
-            ? <span>
-                <img src={ player.image || 'img/default.png' }/>
-                <div className="info">
-                  <div className="name">{player.firstname.charAt(0)}. {player.lastname}</div>
-                  <div className="jersey">{player.jersey}</div>
-                  <div className="salary">{player.contract[0]}</div>
-                  <div className="status">
-                  { player.action === 'created' ? <div className="created">C</div> : null }
-                  { player.action === 'acquired' ? <div className="acquired">A</div> : null }
-                  { player.position !== 'G' ? <span className="shot">{player.shot}</span> : null }
-                  </div>
-                </div>
-              </span>
-            : <div className="info">
+            <div className="inner">
+              { !altLine ? <img src={ player.image || 'img/default.png' }/> : null }
+              <div className="info">
                 <div className="jersey">{player.jersey}</div>
                 <div className="name">{player.firstname.charAt(0)}. {player.lastname}</div>
+                { !altLine ? <div className="salary">{player.contract[0]}</div> : null }
                 <div className="status">
-                { player.status === 'ir' ? <div className="injured">IR</div> : <div className="benched">B</div> }
-                { player.action === 'created' ? <div className="created">C</div> : null }
-                { player.action === 'acquired' ? <div className="acquired">A</div> : null }
+                  { player.status === 'ir' ? <div className="tag injured">IR</div> : null }
+                  { player.status === 'benched' ? <div className="tag benched">B</div> : null }
+                  { player.action === 'created' ? <div className="tag created">C</div> : null }
+                  { player.action === 'acquired' ? <div className="tag acquired">A</div> : null }
+                  { player.position !== 'G' ? <span className="shot">{player.shot}</span> : null }
                 </div>
-                <div className="salary">{player.contract[0]}</div>
-              </div> }
+                { altLine ? <div className="salary">{player.contract[0]}</div> : null }
+              </div>
               <div className="handle"></div>
-              <div className="cover"></div>
+              <div className="bg">
+                <div className={ player.team + ' logo' }></div>
+              </div>
             </div>
           </div>
         </div>
@@ -86,13 +81,13 @@ var Roster = React.createClass({
           playerCount={this.props.playerData.inplay.length}
           capData={this.props.capData}
           resetRoster={this.props.resetRoster} />
-        <div id="forwards" className={ dragGroup === 'forwards' ? 'grid dragging' : 'grid' }>
-          <div className="title">
+        <div id="forwards" className="grid">
+          <div className="header">
             <div className="left">LW</div>
             <div className="center">C</div>
             <div className="right">RW</div>
           </div>
-          <div className="inner">
+          <div className={ dragGroup === 'forwards' ? 'inner dragging' : 'inner' }>
             <div id="F1" className="line">
               <div className="left">{this.playerTile('F1L')}</div>
               <div className="center">{this.playerTile('F1C')}</div>
@@ -135,12 +130,12 @@ var Roster = React.createClass({
             </ul>
           </div>
         </div>
-        <div id="defense" className={ dragGroup === 'defensemen' ? 'grid defense dragging' : 'grid defense' }>
-          <div className="title">
+        <div id="defense" className="grid">
+          <div className="header">
             <div className="left">LD</div>
             <div className="right">RD</div>
           </div>
-          <div className="inner">
+          <div className={ dragGroup === 'defensemen' ? 'inner dragging' : 'inner' }>
             <div id="D1" className="line">
               <div className="left">{this.playerTile('D1L')}</div>
               <div className="right">{this.playerTile('D1R')}</div>
@@ -172,9 +167,9 @@ var Roster = React.createClass({
             </ul>
           </div>
         </div>
-        <div id="goalies" className={ dragGroup === 'goaltenders' ? 'grid defense dragging' : 'grid defense' }>
-          <div className="title">G</div>
-          <div className="inner">
+        <div id="goalies" className="grid">
+          <div className="header">G</div>
+          <div className={ dragGroup === 'goaltenders' ? 'inner dragging' : 'inner' }>
             <div id="G1" className="line">
               <div className="left">{this.playerTile('G1L')}</div>
               <div className="right">{this.playerTile('G1R')}</div>

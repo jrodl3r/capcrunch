@@ -1,10 +1,6 @@
 // Core Styles
 // ==================================================
 
-* {
-  box-sizing: border-box;
-}
-
 html {
   height: 100%;
   background-color: #15161A;
@@ -24,6 +20,7 @@ html {
 body {
   height: 100%;
   min-width: $page-width;
+  margin: 0;
   font-family: $font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -43,19 +40,33 @@ body {
   background: rgba(0,0,0, 0);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+a, button, input, select {
+  outline: none;
+}
+
 a, button {
+  cursor: pointer;
   transition: .3s ease-out;
   -webkit-tap-highlight-color: rgba(0,0,0, 0);
 }
 
-a, button, input, select {
-  outline: none;
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
 }
 
 #main {
@@ -64,8 +75,6 @@ a, button, input, select {
   max-width: $page-width;
   margin: 0 auto;
   user-select: none;
-  transition: .5s ease-out;
-  transform: translateZ(0);
 }
 
 #app {
@@ -75,7 +84,6 @@ a, button, input, select {
   width: 100%;
   margin-bottom: -$footer-height;
   overflow: hidden;
-  transform: translateZ(0);
 
   &:after {
     content: "";
@@ -109,10 +117,6 @@ a, button, input, select {
   }
 }
 
-.nohover {
-  pointer-events: none;
-}
-
 
 // Splash Views
 // --------------------------------------------------
@@ -133,7 +137,6 @@ a, button, input, select {
   line-height: 100px;
   opacity: 0;
   overflow: hidden;
-  cursor: default;
   transform: translateZ(0);
   transition: opacity .01s, height 0s .01s;
 
