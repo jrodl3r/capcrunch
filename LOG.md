@@ -10,10 +10,7 @@
 - 'gulp asset management + optimization (fonts, images)'
 - 'confirm image scaling not problematic (100x100/48x48)'
 - 'upgrade app data + upgrade Mongolab'
-- 'back/forward browser action management'
-- 'gulp cndizer local/prod script assets'
 - 'error pages (h5bp)'
-- 'test performance of getAttribute vs object state + action scan'
 ---------------------------------------------------------------
 
 
@@ -28,6 +25,7 @@
 - 'team-select: fix svg + static team list order (COL/CLB+NAS/NJD)'
 - 'minimum browser spec check + splash (zepto)'
 - 'static dropData to state [?]'
+- 'team logo strip on team-select hover (quicker team change)'
 ---------------------------------------------------------------
 
 
@@ -140,31 +138,33 @@
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'update data: 2015/16 + strip player image urls'
-- 'draft-picks: data + layout + logic'
+- 'payroll data: draft-picks (data + layout + logic)'
+- 'update payroll/roster/list display logic w/ new contract data'
 - 'trades: show RFA/UFA status'
 - 'share: cleanup layout / x-browser issues'
 - 'footer logic + layout'
-- 'React initial DOM SSR'
-- 'set expires headers caching'
 ---------------------------------------------------------------
+- 'onboard: drag-n-drop/trades-create/change-team/coming soon splashes'
 - 'disabled actions panel copy + layout'
 - 'disabled transaction button state (after action executes)'
 - 'increase panel collapse button click area'
 - 'team select: active team marker (blue dot)'
 - 'GM Overview basic functionality (view + undo actions)'
 - 'cap stats menu (¿header/panels/capStats?)'
----------------------------------------------------------------
-- 'update coming soon splash'
 - 'pre-cache team + player images on team select'
-- 'drag-n-drop/trades-create/change-team onboard splash'
 - 'cleanup + global/fixed-pos user notify (slide/fade)'
 - 'basic mobile support (view shared roster + payroll)'
+---------------------------------------------------------------
+- 'Amazon Cloudfront CDN for image + script assets'
+- 'back/forward browser action management'
+- 'set expires headers caching'
+- 'React initial DOM SSR'
 
 
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'payroll data: update w/ full player contracts'
 - 'team load playerData diff'
   * playerData (inplay/benched/ir/cleared/traded/acquired/created)
 - 'normalize player object status/action props'
@@ -318,69 +318,6 @@
 - 'setup node server (Express, Socket.io) + restructure public assets [v0.2.0]'
 - 'update docs, favicon, dependencies [v0.1.1]'
 - 'initial build'
----------------------------------------------------------------
-
-
-
----------------------------------------------------------------
-#### NOTES »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
----------------------------------------------------------------
-
-
-## Local DB Backup
----------------------------------------------------------------
-$ mongoexport -d cc -c teams -o backup.json (-v --pretty)
-
-
-## Local DB Rebuild + Import
----------------------------------------------------------------
-$ mongo --shell
-$ use cc
-$ db.teams.drop()
-$ db.createCollection('teams')
-$ exit
-$ mongoimport --db cc --collection teams --type json --file TEAM_ID.json --jsonArray
-
-
-## Prod DB Backup
----------------------------------------------------------------
-$ mongoexport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p nmqh43ko5r8p3qkgjull6p0v1a -o backup.json
-
-
-## Prod DB Import
----------------------------------------------------------------
-$ mongoimport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p nmqh43ko5r8p3qkgjull6p0v1a --file teams.json
-
-
-
----------------------------------------------------------------
-#### RELEASE »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
----------------------------------------------------------------
-- 'Round #1 » private sharing/testing (gchat, dm, nhl#s, JSmeetup)'
-  - whitey@wgr550.com, ckanal, kris baker (SabresProspects.com)
-- 'Round #2 » public release (HF, HN, #reactjs)
-  - http://goo.gl/06SsOZ
-  - http://goo.gl/VYF5sg
-  - https://twitter.com/TGfireandice/status/578747221308370944
-  - http://fireandice.northjersey.com
-  - http://war-on-ice.com
-  - http://diebytheblade.com
-  - http://mirtle.blogspot.ca/2015/03/matthew-wuest-1979-2015.html
-  - http://www.inlouwetrust.com/2015/3/23/8272707/who-else-other-than-the-nhl-can-try-to-make-a-new-capgeek
-  - http://thehockeywriters.com/the-dream-team-an-nhl-11-case-study
-  - https://twitter.com/bruce_arthur/status/578716668484005888
-  - https://twitter.com/chrismpeters/status/578977478875553792
-
-
-
----------------------------------------------------------------
-#### FEEDBACK (User Testing) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
----------------------------------------------------------------
-- Add multiple years for the roster (ex: this is 2015 but if I wanted to build the 2015-16 team, then the partial salaries need to reflect a full year, not the partial year)
-- Add spots on the roster for the players in the press box (scratches) – to get accurate cap and cap space, so including roster players that are not part of the 12 forwards, six defenseman, and two goalies.
-- Add spots on the roster for the players who have salary retained
-- The page should refresh when the team is changed (A refresh button would be nice.)
-- There should be a way to undo a trade
 
 
 

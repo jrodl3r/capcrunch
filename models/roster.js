@@ -1,5 +1,3 @@
-// CapCrunch Custom Roster Schema
-// ==================================================
 'use strict';
 
 var mongoose = require('mongoose');

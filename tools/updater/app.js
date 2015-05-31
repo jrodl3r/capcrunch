@@ -5,9 +5,12 @@
 //          » TYPE=get node app.js     | (Get HMTL)
 //          » TYPE=save node app.js    | (Save JSON)
 //          » TYPE=info node app.js    | (Player Info)
+//          » TYPE=info-i node app.js  | (Inactive Player Info)
 //          » TYPE=images node app.js  | (Player Images)
 //          » TYPE=merge node app.js   | (Merge JSON)
-//          » TYPE=c_merge node app.js | (Custom Merge)
+//          » TYPE=merge-c node app.js | (Merge Shot+Image)
+//          » TYPE=log node app.js     | (Log Missing Info)
+//          » TYPE=build node app.js   | (Build Teams DB)
 // ------------------------------------------------------
 'use strict';
 
@@ -19,7 +22,8 @@ var request     = require('request'),
     names       = ['Anaheim Ducks', 'Arizona Coyotes', 'Boston Bruins', 'Buffalo Sabres', 'Calgary Flames', 'Carolina Hurricanes', 'Chicago Blackhawks', 'Colorado Avalanche', 'Columbus Blue Jackets', 'Dallas Stars', 'Detroit Red Wings', 'Edmonton Oilers', 'Florida Panthers', 'Los Angeles Kings', 'Minnesota Wild', 'Montreal Canadiens', 'Nashville Predators', 'New Jersey Devils', 'New York Islanders', 'New York Rangers', 'Ottawa Senators', 'Philadelphia Flyers', 'Pittsburgh Penguins', 'San Jose Sharks', 'St. Louis Blues', 'Tampa Bay Lightning', 'Toronto Maple Leafs', 'Vancouver Canucks', 'Washington Capitals', 'Winnipeg Jets'],
     league_obj  = {},
     team_obj    = {},
-    new_obj     = {},
+    new_team    = {},
+    old_team    = {},
     cur_team    = 0,
     players_obj = {},
     player      = {},
@@ -35,21 +39,16 @@ var request     = require('request'),
     scan_goalie = false,
     group_count = 0,
     groups      = ['forwards', 'defensemen', 'goaltenders', 'other', 'inactive'],
+    group       = '',
     righty      = /Shoots: R/,
     lefty       = /Shoots: L/,
     age         = /(Age\: )(\d+)/,
     nation      = /(nat_)([a-z]+)(\.gif)/,
     jersey      = /(Jersey Number\: )(\d+)/,
+    jersey_alt  = /(\#)(\d+)/,
     player_id   = /(\/player_stats\/)(\d+)(-)/,
     position    = /(Position: )(Left|Center|Right|Defence|Goaltender)/,
-    interval,
-    stream,
-    image,
-    title,
-    href,
-    url,
-    key,
-    $;
+    interval, stream, image, title, href, url, key, i, j, k, $, db = [];
 
 // Download Payroll Data (HTML)
 function getPayrolls() {
@@ -57,7 +56,7 @@ function getPayrolls() {
   if (!cur_team) { console.log('Getting Team Payrolls...'); }
 
   if (cur_team < teams.length) {
-    request('http://stats.nhlnumbers.com/teams/' + teams[cur_team] + '?expand=true&year=2015', function(req_err, res, html) {
+    request('http://stats.nhlnumbers.com/teams/' + teams[cur_team] + '?expand=true&year=2016', function(req_err, res, html) {
       if (!req_err && res.statusCode === 200) {
         fs.writeFile('data/pages/' + teams[cur_team] + '.html', html, function(fs_err) {
           if (!fs_err) {
@@ -81,8 +80,8 @@ function savePayrolls() {
 
   if (cur_team < teams.length) {
     $ = cheerio.load(fs.readFileSync('data/pages/' + teams[cur_team] + '.html'));
-    team_obj    = {};
-    team_obj[teams[cur_team]] = { 'cap': {}, 'players': {}};
+    team_obj = {};
+    team_obj[teams[cur_team]] = { 'cap': {}, 'players': {} };
     scan_player = false;
     group_count = 0;
     player_name = [];
@@ -111,14 +110,29 @@ function savePayrolls() {
         team_obj[teams[cur_team]].players[key].push({'lastname': player_name[0], 'firstname': player_name[1]});
         // contract
         cur_player = team_obj[teams[cur_team]].players[key][group_count - 1];
-        // caphit
-        cur_player.contract = [$(this).children('.caphit').text()];
-        // salary (current year)
-        cur_player.contract.push($(this).children('.current-year').text().trim());
-        // salary (future years)
-        $(this).children('.future-year').each(function() {
-          cur_player.contract.push($(this).text().trim());
-        });
+        // cap number
+        cur_player.capnum = $(this).children('.capnumber').text();
+        // cap hit
+        cur_player.caphit = $(this).children('.caphit').text();
+        // bonus
+        if ($(this).children('.bonus').text().trim() !== '&nbsp;') {
+          cur_player.bonus = $(this).children('.bonus').text().trim();
+        }
+        // contract
+        // years: '.past-year', '.current-year', '.future-year'
+        // types: '.salary', '.salaryregular', '.salarytwoway', '.salaryrookie', '.salaryextension', '.salaryexttba',
+        //        '.salaryextwoway', '.salaryoption', '.salaryrfa', '.salaryufa', '.salaryufasix', '.salaryto'
+        // other: '.salarybuyout', '.salarytba'
+        // est's: '.salaryestreg', '.salaryestext', '.salaryestbonus'
+        cur_player.contract = [];
+        for (i = 0; i < 15; i++) {
+          if ($(this).children().eq(i+4).hasClass('salary')) {
+            cur_player.contract[i] = 'none';
+          }
+          else if ($(this).children().eq(i+4).hasClass('past-year') || $(this).children().eq(i+4).hasClass('current-year') || $(this).children().eq(i+4).hasClass('future-year')) {
+            cur_player.contract[i] = $(this).children().eq(i+4).text().trim();
+          }
+        }
         // team
         cur_player.team = teams[cur_team];
         // id
@@ -168,7 +182,7 @@ function savePayrolls() {
     // write json data
     fs.writeFile('data/teams/' + teams[cur_team] + '.json', JSON.stringify(team_obj, null, '\t'), function(fs_err) {
       if (!fs_err) {
-        console.log(teams[cur_team] + ' > ' + teams[cur_team] + '.json');
+        console.log(teams[cur_team] + ' > ' + teams[cur_team] + '.json (' + (cur_team + 1) + ')');
         cur_team++;
       } else { return console.error(fs_err); }
     });
@@ -180,71 +194,127 @@ function savePayrolls() {
 }
 
 // Update Player Info (JSON)
-function updatePlayerInfo() {
+function updatePlayerInfo(group) {
 
-  if (!cur_player && !scan_player && cur_team < teams.length) {
-    console.log('Updating (' + teams[cur_team] + ') Player Info...');
-    fs.readFile('data/teams/' + teams[cur_team] + '.json', function(err, data) {
-      if (!err) {
-        team_obj    = JSON.parse(data);
-        players_obj = team_obj[teams[cur_team]].players;
-        num_forward = players_obj.forwards.length;
-        num_defense = players_obj.defensemen.length;
-        num_goalie  = players_obj.goaltenders.length;
-        num_players = num_forward + num_defense + num_goalie;
-        scan_player = true;
-        setTimeout(updatePlayerInfo, 500);
-      } else { console.error(err); }
-    });
-  } else if (cur_team === teams.length) {
-    console.log('Finished Getting Player Info!');
-    return true;
-  }
-  // get player info (jersey number + shot)
-  if (scan_player && cur_player < num_players) {
-    // forwards / defensemen / goalies
-    if (cur_player < num_forward) {
-      player = players_obj.forwards[cur_player];
-    } else if (cur_player < num_forward + num_defense) {
-      player = players_obj.defensemen[cur_player - num_forward];
-    } else if (cur_player < num_forward + num_defense + num_goalie) {
-      player = players_obj.goaltenders[cur_player - (num_forward + num_defense)];
-      scan_goalie = true;
+  if (group) {
+    if (!cur_player && !scan_player && cur_team < teams.length) {
+      console.log('Updating (' + teams[cur_team] + ') Inactive Player Info...');
+      fs.readFile('data/teams-merged/' + teams[cur_team] + '-merged.json', function(err, data) {
+        if (!err) {
+          team_obj = JSON.parse(data);
+          players_obj = team_obj[teams[cur_team]].players[group];
+          scan_player = true;
+          setTimeout(function(){ updatePlayerInfo(group); }, 500);
+        } else { console.error(err); }
+      });
     }
-    // player info request
-    url = 'http://www.tsn.ca/mobile/bbcard.aspx?hub=NHL&name=' + player.firstname + '+' + player.lastname;
-    console.log(player.lastname + ', ' + player.firstname);
-    request(url, function(req_err, res, html) {
-      if (!req_err && res.statusCode === 200) {
-        // shot
-        if (lefty.test(html)) {
-          player.shot = 'L';
-        } else if (righty.test(html)) {
-          player.shot = 'R';
+    // get player info
+    if (scan_player && cur_player < players_obj.length) {
+      player = players_obj[cur_player];
+      url = 'http://www.tsn.ca/mobile/bbcard.aspx?hub=NHL&name=' + player.firstname + '+' + player.lastname;
+      console.log(player.lastname + ', ' + player.firstname);
+      request(url, function(req_err, res, html) {
+        if (!req_err && res.statusCode === 200) {
+          // shot
+          if (lefty.test(html)) { player.shot = 'L'; }
+          else if (righty.test(html)) { player.shot = 'R'; }
+          else { player.shot = ''; }
+          // jersey
+          if (jersey_alt.test(html) && jersey_alt.exec(html)[2] !== '0') {
+            player.jersey = jersey_alt.exec(html)[2];
+          } else {
+            player.jersey = '';
+          }
+          cur_player++;
+          setTimeout(function(){ updatePlayerInfo(group); }, 500);
         } else {
-          player.shot = '';
+          console.error(req_err);
+          cur_player++;
+          setTimeout(function(){ updatePlayerInfo(group); }, 500);
         }
-        // next player
-        cur_player++;
-        setTimeout(updatePlayerInfo, 500);
-      } else {
-        console.error(req_err);
-        cur_player++;
-        setTimeout(updatePlayerInfo, 500);
+      });
+    // save
+    } else if (scan_player && cur_player === players_obj.length) {
+      team_obj[teams[cur_team]].players[group] = players_obj;
+      fs.writeFile('data/teams-info/' + teams[cur_team] + '.json', JSON.stringify(team_obj, null, '\t'), function(fs_err) {
+        if (!fs_err) {
+          console.log(teams[cur_team] + ' > ' + teams[cur_team] + '.json (' + (cur_team + 1) + ')');
+          cur_team++;
+          cur_player = 0;
+          scan_player = false;
+          setTimeout(function(){ updatePlayerInfo(group); }, 1000);
+        } else { return console.error(fs_err); }
+      });
+    } else if (cur_team === teams.length) {
+      console.log('Finished Getting Player Info!');
+      return true;
+    }
+
+  } else {
+    if (!cur_player && !scan_player && cur_team < teams.length) {
+      console.log('Updating (' + teams[cur_team] + ') Player Info...');
+      fs.readFile('data/teams/' + teams[cur_team] + '.json', function(err, data) {
+        if (!err) {
+          team_obj    = JSON.parse(data);
+          players_obj = team_obj[teams[cur_team]].players;
+          num_forward = players_obj.forwards.length;
+          num_defense = players_obj.defensemen.length;
+          num_goalie  = players_obj.goaltenders.length;
+          num_players = num_forward + num_defense + num_goalie;
+          scan_player = true;
+          setTimeout(updatePlayerInfo, 500);
+        } else { console.error(err); }
+      });
+    } else if (cur_team === teams.length) {
+      console.log('Finished Getting Player Info!');
+      return true;
+    }
+    // get player info (jersey number + shot)
+    if (scan_player && cur_player < num_players) {
+      // forwards / defensemen / goalies
+      if (cur_player < num_forward) {
+        player = players_obj.forwards[cur_player];
+      } else if (cur_player < num_forward + num_defense) {
+        player = players_obj.defensemen[cur_player - num_forward];
+      } else if (cur_player < num_forward + num_defense + num_goalie) {
+        player = players_obj.goaltenders[cur_player - (num_forward + num_defense)];
+        scan_goalie = true;
       }
-    });
-  // save updated json + start next team
-  } else if (scan_player && cur_player === num_players) {
-    team_obj[teams[cur_team]].players = players_obj;
-    fs.writeFile('data/teams/' + teams[cur_team] + '-info.json', JSON.stringify(team_obj, null, '\t'), function(fs_err) {
-      if (!fs_err) {
-        console.log(teams[cur_team] + ' > ' + teams[cur_team] + '-info.json');
-        cur_team++;
-        cur_player = 0;
-        scan_player = false;
-        setTimeout(updatePlayerInfo, 1000);
-      } else { return console.error(fs_err); }
-    });
+      // player info request
+      url = 'http://www.tsn.ca/mobile/bbcard.aspx?hub=NHL&name=' + player.firstname + '+' + player.lastname;
+      console.log(player.lastname + ', ' + player.firstname);
+      request(url, function(req_err, res, html) {
+        if (!req_err && res.statusCode === 200) {
+          // shot
+          if (lefty.test(html)) {
+            player.shot = 'L';
+          } else if (righty.test(html)) {
+            player.shot = 'R';
+          } else {
+            player.shot = '';
+          }
+          // next player
+          cur_player++;
+          setTimeout(updatePlayerInfo, 500);
+        } else {
+          console.error(req_err);
+          cur_player++;
+          setTimeout(updatePlayerInfo, 500);
+        }
+      });
+    // save updated json + start next team
+    } else if (scan_player && cur_player === num_players) {
+      team_obj[teams[cur_team]].players = players_obj;
+      fs.writeFile('data/teams-info/' + teams[cur_team] + '.json', JSON.stringify(team_obj, null, '\t'), function(fs_err) {
+        if (!fs_err) {
+          console.log(teams[cur_team] + ' > ' + teams[cur_team] + '.json (' + (cur_team + 1) + ')');
+          cur_team++;
+          cur_player = 0;
+          scan_player = false;
+          setTimeout(updatePlayerInfo, 1000);
+        } else { return console.error(fs_err); }
+      });
+    }
   }
 }
 
@@ -325,40 +395,38 @@ function mergeData(flag) {
 
   if (!cur_team) { console.log('Starting Merge... (Hold on to your butts)'); }
 
-  // Custom Merge/Update
+  // Images + Shot
   if (flag === 'custom') {
     if (cur_team < teams.length) {
       fs.readFile('data/teams/' + teams[cur_team] + '.json', function(new_err, new_data) {
         if (!new_err) {
-          new_obj = JSON.parse(new_data);
-          fs.readFile('data/teams/' + teams[cur_team] + '-img.json', function(err, data) {
+          new_team = JSON.parse(new_data);
+          fs.readFile('data/teams-img/' + teams[cur_team] + '-img.json', function(err, data) {
             if (!err) {
-              var i, j;
-              team_obj = JSON.parse(data);
+              old_team = JSON.parse(data);
               for (i = 0; i < groups.length; i++) {
-                for (j = 0; j < new_obj[teams[cur_team]].players[groups[i]].length; j++) {
-                  // shot
-                  if (team_obj[teams[cur_team]].players[groups[i]][j].shot) {
-                    new_obj[teams[cur_team]].players[groups[i]][j].shot = team_obj[teams[cur_team]].players[groups[i]][j].shot;
-                  } else {
-                    new_obj[teams[cur_team]].players[groups[i]][j].shot = '';
-                  }
-                  // image
-                  if (team_obj[teams[cur_team]].players[groups[i]][j].image) {
-                    new_obj[teams[cur_team]].players[groups[i]][j].image = team_obj[teams[cur_team]].players[groups[i]][j].image;
-                  } else {
-                    new_obj[teams[cur_team]].players[groups[i]][j].image = '';
-                  }
-                  // jersey
-                  if (!new_obj[teams[cur_team]].players[groups[i]][j].jersey && team_obj[teams[cur_team]].players[groups[i]][j].jersey) {
-                    new_obj[teams[cur_team]].players[groups[i]][j].jersey = team_obj[teams[cur_team]].players[groups[i]][j].jersey;
-                  }
-                }
-              }
-              new_obj = new_obj[teams[cur_team]];
-              new_obj.id = teams[cur_team];
-              fs.writeFile('data/prod/' + teams[cur_team] + '.json', JSON.stringify(new_obj, null, '\t'), function(fs_err) {
+                if (groups[i] !== 'other' && groups[i] !== 'inactive') {
+                  for (j = 0; j < new_team[teams[cur_team]].players[groups[i]].length; j++) {
+                    for (k = 0; k < old_team[teams[cur_team]].players[groups[i]].length; k++) {
+                      if (new_team[teams[cur_team]].players[groups[i]][j].firstname === old_team[teams[cur_team]].players[groups[i]][k].firstname &&
+                          new_team[teams[cur_team]].players[groups[i]][j].lastname === old_team[teams[cur_team]].players[groups[i]][k].lastname) {
+                        // shot
+                        if (old_team[teams[cur_team]].players[groups[i]][k].shot) {
+                          new_team[teams[cur_team]].players[groups[i]][j].shot = old_team[teams[cur_team]].players[groups[i]][k].shot;
+                        } else {
+                          new_team[teams[cur_team]].players[groups[i]][j].shot = '';
+                        }
+                        // image
+                        if (old_team[teams[cur_team]].players[groups[i]][k].image) {
+                          new_team[teams[cur_team]].players[groups[i]][j].image = old_team[teams[cur_team]].players[groups[i]][k].image.substr(32);
+                        } else {
+                          new_team[teams[cur_team]].players[groups[i]][j].image = '';
+                        }
+                      break;
+              }}}}}
+              fs.writeFile('data/teams-info/' + teams[cur_team] + '-merged.json', JSON.stringify(new_team, null, '\t'), function(fs_err) {
                 if (!fs_err) {
+                  console.log(teams[cur_team] + ' > ' + teams[cur_team] + '-merged.json (' + (cur_team + 1) + ')');
                   cur_team++;
                   mergeData('custom');
                 } else { return console.error(fs_err); }
@@ -369,7 +437,7 @@ function mergeData(flag) {
       });
     } else if (cur_team === teams.length) { console.log('DONE!'); }
 
-  // Default Merge
+  // Default
   } else {
     if (cur_team < teams.length) {
       fs.readFile('data/teams/' + teams[cur_team] + '-img.json', function(err, data) {
@@ -391,6 +459,56 @@ function mergeData(flag) {
   }
 }
 
+// Log Missing Data
+function logData() {
+  if (cur_team < teams.length) {
+    fs.readFile('data/teams-merged/' + teams[cur_team] + '-merged.json', function(err, data) {
+      if (!err) {
+        console.log(teams[cur_team] + '(' + (cur_team + 1) + ')');
+        team_obj = JSON.parse(data);
+        for (i = 0; i < groups.length; i++) {
+          if (groups[i] !== 'other' && groups[i] !== 'inactive') {
+            for (j = 0; j < team_obj[teams[cur_team]].players[groups[i]].length; j++) {
+              if (!team_obj[teams[cur_team]].players[groups[i]][j].shot && !team_obj[teams[cur_team]].players[groups[i]][j].image) {
+                console.log('both: ' + team_obj[teams[cur_team]].players[groups[i]][j].firstname + ' ' + team_obj[teams[cur_team]].players[groups[i]][j].lastname);
+              }
+              else if (!team_obj[teams[cur_team]].players[groups[i]][j].shot) {
+                console.log('shot: ' + team_obj[teams[cur_team]].players[groups[i]][j].firstname + ' ' + team_obj[teams[cur_team]].players[groups[i]][j].lastname);
+              }
+              else if (!team_obj[teams[cur_team]].players[groups[i]][j].image) {
+                console.log('img: ' + team_obj[teams[cur_team]].players[groups[i]][j].firstname + ' ' + team_obj[teams[cur_team]].players[groups[i]][j].lastname);
+        }}}}
+        cur_team++;
+        logData();
+      } else { console.error(err); }
+    });
+  } else if (cur_team === teams.length) { console.log('DONE!'); }
+}
+
+// Build Teams DB
+function build() {
+  if (cur_team < teams.length) {
+    fs.readFile('data/teams-info/' + teams[cur_team] + '.json', function(err, data) {
+      if (!err) {
+        console.log(teams[cur_team] + '(' + (cur_team + 1) + ')');
+        team_obj = JSON.parse(data);
+        team_obj = team_obj[teams[cur_team]];
+        team_obj.id = teams[cur_team];
+        db[cur_team] = team_obj;
+        cur_team++;
+        build();
+      } else { console.error(err); }
+    });
+  } else if (cur_team === teams.length) {
+    // fs.writeFile('data/db.json', JSON.stringify(db, null, '\t'), function(fs_err) {
+    fs.writeFile('data/db.json', JSON.stringify(db), function(fs_err) {
+      if (!fs_err) {
+        console.log('Teams DB Build Completed');
+      } else { return console.error(fs_err); }
+    });
+  }
+}
+
 // Process Types
 if (TYPE === 'get') {
   getPayrolls();
@@ -398,12 +516,18 @@ if (TYPE === 'get') {
   interval = setInterval(savePayrolls, 1000);
 } else if (TYPE === 'info') {
   updatePlayerInfo();
+} else if (TYPE === 'info-i') {
+  updatePlayerInfo('inactive');
 } else if (TYPE === 'images') {
   getPlayerImages();
 } else if (TYPE === 'merge') {
   mergeData('default');
-} else if (TYPE === 'c_merge') {
+} else if (TYPE === 'merge-c') {
   mergeData('custom');
+} else if (TYPE === 'log') {
+  logData();
+} else if (TYPE === 'build') {
+  build();
 } else {
   console.log(TYPE);
 }
