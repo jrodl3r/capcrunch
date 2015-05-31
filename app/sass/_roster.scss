@@ -89,6 +89,11 @@
 #goalies {
   margin-bottom: 0;
   padding-bottom: 60px !important;
+
+  .header {
+    width: 390px;
+    margin-left: 120px;
+  }
 }
 
 .line {
@@ -171,6 +176,46 @@
   }
 }
 
+.grid-nav {
+  float: left;
+  height: 24px;
+  width: 590px;
+  margin-left: 11px;
+
+  li {
+    float: right;
+    height: 24px;
+    width: 46px;
+    margin-left: 10px;
+    color: #666;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 24px;
+    text-align: center;
+    background: rgba(0,0,0, .15);
+    border-radius: $border-radius;
+    opacity: 1;
+    cursor: default;
+    transform: translateZ(0);
+    transition: opacity .25s .75s, margin .25s .5s, height .25s .5s, width .25s .5s, font-size 0s .5s;
+
+    &.disabled {
+      height: 0;
+      width: 0;
+      margin-left: 0;
+      font-size: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity .5s, height 0s 1s, width .5s .5s, margin .5s .5s, font-size 0s .5s;
+      pointer-events: none;
+    }
+  }
+}
+
+
+// Player Tiles
+// --------------------------------------------------
+
 .tile {
   position: relative;
   height: 60px;
@@ -219,38 +264,15 @@
   }
 
   &.hover, &.clicked {
-
-    .name {
-      color: #333;
-      text-shadow: 0 0 3px rgba(255,255,255, .3);
-    }
-
-    .jersey {
-      color: #555;
-      text-shadow: 0 0 3px rgba(255,255,255, .3);
-    }
-
-    /* .tag {
-      opacity: .5;
-    }
-
-    .handle {
-      opacity: .22;
-    }
-
-    .bg {
-      opacity: .85;
-    } */
+    cursor: grab;
+    .handle { opacity: .25; }
+    .bg { opacity: .9; }
   }
 
-  /* &.clicked {
-    opacity: .75;
-    transition-duration: .15s;
-
-    .name, .jersey {
-      text-shadow: 0 0 3px rgba(255,255,255, .15);
-    }
-  } */
+  &.clicked {
+    opacity: .85;
+    cursor: grabbing;
+  }
 
   img {
     float: left;
@@ -279,6 +301,7 @@
     float: left;
     height: 60px;
     width: 115px;
+    color: #484848;
     font-size: 12px;
     font-weight: bold;
     text-align: left;
@@ -334,11 +357,9 @@
     float: left;
     width: 46px;
     padding-left: 2px;
-    /* color: #484848; */
-    color: #676767;
     font-size: 10px;
     text-align: left;
-    /* text-shadow: 0 0 3px rgba(255,255,255, .2); */
+    text-shadow: 0 0 3px rgba(255,255,255, .2);
     border-top: 1px solid rgba(0,0,0, .05);
 
     .ir &, .bench & {
@@ -383,13 +404,10 @@
     height: 13px;
     width: 13px;
     margin: 6px 3px 0 2px;
-    color: #CCC;
     font-size: 7px;
-    font-weight: 600;
+    font-weight: bold;
     line-height: 13px;
-    text-indent: 1px;
     text-align: center;
-    background: #117C1B;
     border-radius: 50%;
     opacity: .65;
 
@@ -410,6 +428,11 @@
     &.benched {
       color: #999;
       background: #323232;
+    }
+
+    &.created {
+      color: #CCC;
+      background: #117C1B;
     }
   }
 
@@ -450,9 +473,18 @@
     left: 0;
     height: 60px;
     width: 192px;
+    background: linear-gradient(to top, rgba(165,165,165, .5) 0%, rgba(255,255,255, .85) 100%);
     /* background: linear-gradient(to top, rgba(165,165,165, .25) 0%, rgba(255,255,255, .85) 100%); */
-    background: linear-gradient(to top, rgba(255,255,255, .3) 0%, rgba(255,255,255, .7) 100%);
+    /* background: linear-gradient(to top, rgba(255,255,255, .3) 0%, rgba(255,255,255, .7) 100%); */
+    border-radius: $border-radius;
     opacity: 1;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+
+    .ir &, .bench & {
+      height: 30px;
+    }
   }
 
   .logo {
@@ -595,42 +627,6 @@
     }
     &.WPG {
       background-image: url($img-url + 'teams/WPG.png');
-    }
-  }
-}
-
-.grid-nav {
-  float: left;
-  height: 24px;
-  width: 590px;
-  margin-left: 11px;
-
-  li {
-    float: right;
-    height: 24px;
-    width: 46px;
-    margin-left: 10px;
-    color: #555;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 24px;
-    text-align: center;
-    background: rgba(0,0,0, .15);
-    border-radius: $border-radius;
-    opacity: 1;
-    cursor: default;
-    transform: translateZ(0);
-    transition: opacity .25s .75s, margin .25s .5s, height .25s .5s, width .25s .5s, font-size 0s .5s;
-
-    &.disabled {
-      height: 0;
-      width: 0;
-      margin-left: 0;
-      font-size: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: opacity .5s, height 0s 1s, width .5s .5s, margin .5s .5s, font-size 0s .5s;
-      pointer-events: none;
     }
   }
 }

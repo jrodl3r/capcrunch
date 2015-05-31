@@ -8,13 +8,8 @@ var RosterMenu = React.createClass({
 
   render: function() {
 
-    var showRemove  = this.props.dragData.type === 'tile' ? ' show-remove-player' : '',
-        showLoading = this.props.panelData.loading ? ' show-loading' : '',
-        listEngaged = this.props.panelData.engaged ? ' list-engaged' : '',
-        activeView  = this.props.viewData.active === 'roster' ? 'section active' + showRemove + showLoading + listEngaged : 'section';
-
     return (
-      <div id="menu" className={activeView}>
+      <div id="menu" className={ this.props.viewData.active === 'roster' ? 'section active' : 'section' }>
         <SharePanel
           teamName={this.props.teamData.name}
           shareData={this.props.shareData}
@@ -22,8 +17,8 @@ var RosterMenu = React.createClass({
           saveRoster={this.props.saveRoster} />
         <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
           dragType={this.props.dragData.type}
+          panelData={this.props.panelData}
           tradeData={this.props.tradeData}
-          playerData={this.props.playerData}
           playerGroup={this.props.teamData.players.forwards}
           onItemMouseEnter={this.props.onItemMouseEnter}
           onItemMouseLeave={this.props.onItemMouseLeave}
@@ -36,8 +31,8 @@ var RosterMenu = React.createClass({
           onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <PlayersPanel playerType="defensemen" panelTitle="Defense" panelId="defense-list"
           dragType={this.props.dragData.type}
+          panelData={this.props.panelData}
           tradeData={this.props.tradeData}
-          playerData={this.props.playerData}
           playerGroup={this.props.teamData.players.defensemen}
           onItemMouseEnter={this.props.onItemMouseEnter}
           onItemMouseLeave={this.props.onItemMouseLeave}
@@ -50,8 +45,8 @@ var RosterMenu = React.createClass({
           onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <PlayersPanel playerType="goaltenders" panelTitle="Goalies" panelId="goalies-list"
           dragType={this.props.dragData.type}
+          panelData={this.props.panelData}
           tradeData={this.props.tradeData}
-          playerData={this.props.playerData}
           playerGroup={this.props.teamData.players.goaltenders}
           onItemMouseEnter={this.props.onItemMouseEnter}
           onItemMouseLeave={this.props.onItemMouseLeave}
@@ -64,8 +59,9 @@ var RosterMenu = React.createClass({
           onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
           dragType={this.props.dragData.type}
+          panelData={this.props.panelData}
           tradeData={this.props.tradeData}
-          playerData={this.props.playerData}
+          createdData={this.props.playerData.created}
           playerGroup={this.props.teamData.players.inactive}
           onItemMouseEnter={this.props.onItemMouseEnter}
           onItemMouseLeave={this.props.onItemMouseLeave}
@@ -77,8 +73,8 @@ var RosterMenu = React.createClass({
           onRemoveDragEnter={this.props.onRemoveDragEnter}
           onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <ActionsPanel
-          activeTab={this.props.panelData.active}
           dragType={this.props.dragData.type}
+          panelData={this.props.panelData}
           teamData={this.props.teamData}
           tradeTeam={this.props.tradeTeam}
           tradeData={this.props.tradeData}

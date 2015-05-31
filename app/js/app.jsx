@@ -34,16 +34,16 @@ var App = React.createClass({
         G1L : { status : 'empty' }, G1R : { status : 'empty' },
         GB1 : { status : 'empty' }, GB2 : { status : 'empty' },
         GR1 : { status : 'empty' }, GR2 : { status : 'empty' }},
-      teamData : {
+      teamData   : {
         id       : '',
         name     : '',
         cap      : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
         players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] }},
-      playerData : { teams : [], inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], created : [] },
+      playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], created : [] },
       altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },
       tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
-      tradeData  : { user : [], league : [], players : { user : [], league : [] }},
-      panelData  : { active : 'trades', loading : false, engaged : false },
+      tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }},
+      panelData  : { active : 'trades', loading : false, engaged : false, enabled : true },
       capData    : { year : '2015', hit : '0.000', space : '69.000' },
       viewData   : { active : 'loading', last : '', next : '' },
       shareData  : { name : '', link : '', view : 'input' },
@@ -125,12 +125,23 @@ var App = React.createClass({
   },
 
   clearDrag: function() {
-    var lineData, updateData;
-    lineData = this.updateAltLines();
+    var panelData = this.state.panelData,
+        playerData = this.state.playerData,
+        lineData = this.updateAltLines(),
+        teamSize = this.getTeamSize(),
+        team = this.state.teamData.id, updateData;
+    if (teamSize) {
+      panelData.enabled = this.isCleanTeam(team);
+      if (panelData.enabled) { playerData.team = team; }
+    } else {
+      playerData.team = '';
+      panelData.enabled = true;
+    }
+    panelData.engaged = false;
     updateData = update(this.state, {
-      dragData  : { $set: { type : '', group : '', index : '' }},
-      panelData : { engaged : { $set: false }},
-      lineData  : { $set: lineData }
+      lineData  : { $set: lineData },
+      panelData : { $set: panelData },
+      dragData  : { $set: { type : '', group : '', index : '' }}
     });
     this.setState(updateData);
   },
@@ -144,10 +155,6 @@ var App = React.createClass({
 // Team + Player Data
 // --------------------------------------------------
 
-
-  // NOTE: On Team/Roster Load: Update TeamData Players w/ PlayerData
-
-
   changeTeam: function(id) {
     this.changeView('loading');
     Socket.emit('get team', id);
@@ -155,47 +162,62 @@ var App = React.createClass({
   },
 
   loadTeam: function(data) {
+    var teamData, tradeData, playerData, panelData;
     if (data && data !== 'error') {
-      var teamData = this.loadTradeData('team', data);
-      if (!teamData) { teamData = data; }
-      this.setState({ teamData: teamData }, function() {
-        // TODO: this.loadPlayers();
-        this.changeView('roster');
-      });
+      teamData = data;
+      playerData = this.state.playerData;
+      tradeData = this.state.tradeData;
+      panelData = this.state.panelData;
+      if (playerData.team) {
+        teamData = this.loadStatusData(teamData); // Status Data (inplay/benched/ir)
+        if (playerData.team === teamData.id) {
+          if (tradeData.trades.length) { teamData = this.loadTradeData(teamData, 'loading'); } // Action Data (traded/acquired)
+          panelData.enabled = this.isCleanTeam(teamData.id);
+        } else { // Passive Action Data (hide players acquired by active team)
+          if (tradeData.trades.length) { teamData = this.loadTradeData(teamData, 'loading', 'passive'); }
+          if (panelData.enabled) { panelData.enabled = false; } // NOTE: Notify/Prompt User - Undo / Switch Team? (Changed Teams w/ Active Roster)
+          this.resetTradeData('active');
+        }
+      } else if (tradeData.user.length || tradeData.league.length) { this.resetTradeData('active'); } // NOTE: Notify/Prompt User Clearing Trade?
+      this.setState({ teamData: teamData }, function() { this.loadPlayerData(); });
     } else {
       this.changeView('teams');
       this.notifyUser('error', Messages.error.loading_team);
     }
   },
 
-  loadPlayers: function() { // TODO
-
-    // Loop through each teamData.players group
-
-    // Cache image for each player object
-
-    // OnFinished ...this.changeView('roster');
-
+  getTeamSize: function () {
+    var playerData = this.state.playerData;
+    return playerData.inplay.length + playerData.benched.length + playerData.created.length + playerData.ir.length;
   },
 
-  changeTradeTeam: function(id) {
-    Socket.emit('get trade team', id);
+  isCleanTeam: function (team) {
+    var status = ['inplay', 'benched', 'ir', 'created'], x, y;
+    for (x = 0; x < status.length; x++) {
+      for (y = 0; y < this.state.playerData[status[x]].length; y++) {
+        if (this.state.playerData[status[x]][y].team !== team) { return false; }
+    }} return true;
   },
 
-  loadTradeTeam: function(id, data) {
-    if (data && data !== 'error') {
-      var updateData = update(this.state.tradeTeam, {
-        id          : { $set: id },
-        forwards    : { $set: data.forwards },
-        defensemen  : { $set: data.defensemen },
-        goaltenders : { $set: data.goaltenders },
-        inactive    : { $set: data.inactive }
-      });
-      this.setState({ tradeTeam : updateData });
-    } else { this.notifyUser('error', Messages.error.loading_team); }
+  loadStatusData: function (team) {
+    var players = this.state.playerData,
+        status = ['inplay', 'benched', 'ir'], x, y, z;
+    for (x = 0; x < status.length; x++) {
+      if (players[status[x]].length) { // load group
+        for (y = 0; y < players[status[x]].length; y++) {
+          if (players[status[x]][y].team === team.id && players[status[x]][y].group !== 'created') { // same team + not created?
+            for (z = 0; z < team.players[players[status[x]][y].group].length; z++) { // teamData player group
+              if (team.players[players[status[x]][y].group][z].id === players[status[x]][y].id) { // id match » update status
+                team.players[players[status[x]][y].group][z].status = status[x];
+                break;
+    }}}}}} return team;
   },
 
-  getPlayerSortIndex: function(contract, group) {
+  loadPlayerData: function() { // TODO: Pre-Cache player images
+    this.changeView('roster');
+  },
+
+  getPlayerSortIndex: function(contract, group) { // TODO: Fails on 0.000 / null data
     var len = group.length, z;
     for (z = 0; z < len; z++) {
       if (contract[0] > group[z].contract[0]) {
@@ -218,7 +240,8 @@ var App = React.createClass({
         playerData : { $set: data.playerData },
         shareData  : { name : { $set: data.name }},
         altLines   : { $set: data.altLines },
-        capData    : { $set: data.capData }
+        capData    : { $set: data.capData },
+        tradeData  : { trades : { $set: data.tradeData }}
       });
       this.setState(updateData, function() {
         this.changeTeam(data.activeTeam);
@@ -230,15 +253,16 @@ var App = React.createClass({
     }
   },
 
-  saveRoster: function(name) {
+  saveRoster: function(name) { // TODO: if (!this.isCleanTeam()) » Verify Active Team
     if (this.state.playerData.inplay.length >= this.props.minPlayers) {
       var data = {
         name       : name,
-        activeTeam : this.state.teamData.id, // TODO: this.state.playerData.team
+        activeTeam : this.state.playerData.team,
         playerData : this.state.playerData,
         rosterData : this.state.rosterData,
         altLines   : this.state.altLines,
-        capData    : this.state.capData
+        capData    : this.state.capData,
+        tradeData  : this.state.tradeData.trades
       };
       var shareData = this.state.shareData;
       shareData.name = name || this.state.teamData.name;
@@ -254,14 +278,13 @@ var App = React.createClass({
     var playerData = this.state.playerData, updateData,
         roster = this.state.rosterData, pos;
     for (pos in roster) {
-      if (roster.hasOwnProperty(pos)) {
-        roster[pos] = { status : 'empty' };
-      }
+      if (roster.hasOwnProperty(pos)) { roster[pos] = { status : 'empty' }; }
     }
+    playerData.team = '';
     playerData.inplay = [];
     playerData.ir = [];
     playerData.benched = [];
-    playerData.cleared = []; // TODO: playerData.cleared.forEach( player.status = 'injured' )
+    playerData.cleared = []; // TODO: « forEach » if ( player.team === this.state.teamData.id ) player.status = 'injured'
     updateData = update(this.state, {
       rosterData : { $set: roster },
       playerData : { $set: playerData },
@@ -288,11 +311,13 @@ var App = React.createClass({
     }
   },
 
-  resetShare: function() {
+  resetShare: function() { // resetShareView()
     var shareData = this.state.shareData;
     shareData.view = 'input';
     this.setState({ shareData : shareData });
   },
+
+  buildTextRoster: function () {}, // TODO
 
   updateCapStats: function(type, salary) {
     var capUpdate = this.state.capData;
@@ -302,168 +327,124 @@ var App = React.createClass({
     } else {
       capUpdate.hit = (parseFloat(capUpdate.hit) - parseFloat(salary)).toFixed(3);
       capUpdate.space = (parseFloat(capUpdate.space) + parseFloat(salary)).toFixed(3);
-    }
-    return capUpdate;
+    } return capUpdate;
   },
 
 
-// Trade + Create
+// Trade
 // --------------------------------------------------
 
-  loadTradeData: function(type, team) {
-    var traded = type === 'team' ? this.state.playerData.traded : this.state.tradeData.players.user,
-        acquired = type === 'team' ? this.state.playerData.acquired : this.state.tradeData.players.league,
-        traded_len = traded.length, acquired_len = acquired.length, player, index, x, y;
-    if (traded_len) {
-      for (x = 0; x < traded_len; x++) {
-        // Verify Trade Team Data
-        if (!x && type === 'team' && traded[x].team !== team.id) {
-          // TODO: Notify Team Conflict [Trading Disable]
-          return false;
-        } else {
-          player = traded[x];
-          team.players[player.group][player.index].action = 'traded';
-        }
-      }
-      for (y = 0; y < acquired_len; y++) {
-        player = acquired[y];
-        player.action = 'acquired';
-        index = this.getPlayerSortIndex(player.contract, team.players[player.group]);
-        team.players[player.group].splice(index, 0, player); // NOTE: Is it safe to mutate the array here? Do the other indexes update?
-      }
-      return team;
-    }
-    return false;
+  changeTradeTeam: function(id) {
+    Socket.emit('get trade team', id);
   },
 
-  resetTradeData: function() {
-    var playerData = this.state.playerData, tradeData;
-    playerData.traded = [];
-    playerData.acquired = [];
-    tradeData = { user : [], league : [], players : { user : [], league : [] }};
-    var updateData = update(this.state, {
-      tradeData  : { $set: tradeData },
-      playerData : { $set: playerData }
-    });
-    this.setState(updateData);
-    UI.clearAction('trade');
+  loadTradeTeam: function(id, data) {
+    if (data && data !== 'error') {
+      var updateData = update(this.state.tradeTeam, {
+        id          : { $set: id },
+        forwards    : { $set: data.forwards },
+        defensemen  : { $set: data.defensemen },
+        goaltenders : { $set: data.goaltenders },
+        inactive    : { $set: data.inactive }
+      });
+      this.setState({ tradeTeam : updateData });
+    } else { this.notifyUser('error', Messages.error.loading_team); }
+  },
+
+  loadTradeData: function(team, loading, passive) {
+    var traded = loading ? this.state.playerData.traded : this.state.tradeData.players.user,
+        acquired = loading ? this.state.playerData.acquired : this.state.tradeData.players.league,
+        player, index, x, y;
+    if (passive) {
+      for (x = 0; x < acquired.length; x++) {
+        if (acquired[x].team_orig === team.id) {
+          player = acquired[x];
+          team.players[player.group][player.index].action = 'traded';
+    }}} else {
+      for (x = 0; x < traded.length; x++) {
+        player = traded[x];
+        index = team.players[player.group].map(function(p){ return p.id; }).indexOf(player.id);
+        team.players[player.group][index].action = 'traded';
+      }
+      for (y = 0; y < acquired.length; y++) {
+        player = acquired[y];
+        player.action = 'acquired';
+        if (!loading) {
+          player.team_orig = player.team;
+          player.team = this.state.teamData.id;
+        }
+        index = this.getPlayerSortIndex(player.contract, team.players[player.group]);
+        team.players[player.group].splice(index, 0, player);
+    }} return team;
   },
 
   executeTrade: function() {
+    var playerData = this.state.playerData, teamData, updateData,
+        tradeData = { trades : [], user : [], league : [], players : { user : [], league : [] }},
+        tradeTeam = { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] };
     this.changePanelView('loading');
     setTimeout(function() {
-      var teamData = this.loadTradeData('trade', this.state.teamData),
-          traded, acquired, updateData;
-      if (teamData) {
-        traded = this.state.playerData.traded.concat(this.state.tradeData.players.user);
-        acquired = this.state.playerData.acquired.concat(this.state.tradeData.players.league);
-        updateData = update(this.state, {
-          panelData  : { loading : { $set: false }},
-          teamData   : { players : { $set: teamData.players }},
-          tradeData  : { $set: { user : [], league : [], players : { user : [], league : [] }}},
-          playerData : {
-            traded   : { $set: traded },
-            acquired : { $set: acquired }}
-        });
-        this.setState(updateData);
-      } else {
-        UI.showActionMessage('trade', Messages.error.trade_execute);
-      }
-      UI.clearAction('trade');
+      teamData = this.loadTradeData(this.state.teamData);
+      if (!playerData.team) { playerData.team = teamData.id; }
+      playerData.traded = playerData.traded.concat(this.state.tradeData.players.user);
+      playerData.acquired = playerData.acquired.concat(this.state.tradeData.players.league);
+      tradeData.trades = this.state.tradeData.trades;
+      tradeData.trades.push(this.state.tradeData.players);
+      updateData = update(this.state, {
+        teamData   : { $set: teamData },
+        tradeTeam  : { $set: tradeTeam },
+        tradeData  : { $set: tradeData },
+        playerData : { $set: playerData },
+        panelData  : { loading : { $set: false }}
+      });
+      this.setState(updateData);
+      UI.clearAction('trade-executed');
       UI.resetPanelScroll();
     }.bind(this), Timers.confirm);
   },
 
   addTradePlayer: function(type, player, index, group) {
-    var playerData, capData, updateData, altStatus, statusIndex, removeCleared;
+    var tradeData = this.state.tradeData,
+        teamData = this.state.teamData;
     switch (type) {
-      case 'item':
-        updateData = update(this.state, {
-          teamData  : { players : { [player.group] : { [player.index] : { action : { $set: 'queued' }}}}},
-          tradeData : {
-            user    : { $push: [player.id] },
-            players : { user : { $push: [player] }}},
-          panelData : { engaged : { $set: false }},
-          dragData  : { $set: { type : '', group : '', index : '' }}
-        });
-        break;
-      case 'tile':
-        playerData = this.state.playerData;
-        altStatus = this.isAltLine(dropData.origin);
-        if (altStatus) {
-          statusIndex = playerData[altStatus].indexOf(player.id);
-          playerData[altStatus].splice(statusIndex, 1);
-        } else {
-          activeIndex = playerData.inplay.indexOf(player.id);
-          playerData.inplay.splice(activeIndex, 1);
-        }
-        altStatus = 'active';
-        if (playerData.cleared.length) {
-          removeCleared = playerData.cleared.indexOf(player.id);
-          if (removeCleared !== -1) {
-            playerData.cleared.splice(removeCleared, 1);
-            altStatus = 'injured';
-          }
-        }
-        capData = this.updateCapStats('remove', player.contract[0]);
-        updateData = update(this.state, {
-          teamData   : { players : { [player.group] : { [player.index] : {
-            action   : { $set: 'queued' },
-            status   : { $set: altStatus }}}}},
-          playerData : { $set: playerData },
-          capData    : { $set: capData },
-          tradeData  : {
-            user     : { $push: [player.id] },
-            players  : { user : { $push: [player] }}},
-          rosterData : { [dropData.origin] : { $set: { status : 'empty' }}},
-          dragData   : { $set: { type : '', group : '', index : '' }}
-        });
+      case 'user':
+        player.action = 'queued';
+        tradeData.user.push(player.id);
+        tradeData.players.user.push(player);
         break;
       case 'league':
         player = this.state.tradeTeam[group][index];
         player.group = group;
-        player.team = this.state.teamData.id;
-        updateData = update(this.state, {
-          tradeTeam : { [group] : { $splice: [[index, 1, player]] }},
-          tradeData : {
-            league  : { $push: [player.id] },
-            players : { league : { $push: [player] }}}
-        });
+        player.index = index;
+        tradeData.league.push(player.id);
+        tradeData.players.league.push(player);
         break;
       default: UI.showActionMessage('trade', Messages.error.trade_player);
     }
-    this.setState(updateData, function() {
-      this.updateAltLines();
-    });
+    this.setState({ tradeData : tradeData }, function() { this.clearDrag(); });
     setTimeout(function() {
       document.getElementById(player.id + '-trade-item').className = 'active';
     }, Timers.clear);
     document.getElementById('trade-drop-area').className = '';
   },
 
-  removeTradePlayer: function(type, id) {
-    var player, index, updateData;
+  removeTradePlayer: function(type, index, id) {
+    var tradeData = this.state.tradeData,
+        teamData = this.state.teamData, tradeIndex, player;
     setTimeout(function() {
       if (type === 'user') {
-        index = this.state.tradeData.user.indexOf(id);
-        player = this.state.tradeData.players.user[index];
-        updateData = update(this.state, {
-          teamData  : { players : { [player.group] : { [player.index] : {
-            action  : { $set: '' }}}}},
-          tradeData : {
-            user    : { $splice: [[index, 1]] },
-            players : { user : { $splice: [[index, 1]] }}}
-        });
+        tradeIndex = tradeData.user.indexOf(id);
+        player = this.state.tradeData.players.user[tradeIndex];
+        teamData.players[player.group][index].action = '';
+        tradeData.user.splice(tradeIndex, 1);
+        tradeData.players.user.splice(tradeIndex, 1);
       } else {
-        index = this.state.tradeData.league.indexOf(id);
-        updateData = update(this.state.tradeData, {
-          league  : { $splice: [[index, 1]] },
-          players : { league : { $splice: [[index, 1]] }}
-        });
+        tradeIndex = tradeData.league.indexOf(id);
+        tradeData.league.splice(tradeIndex, 1);
+        tradeData.players.league.splice(tradeIndex, 1);
       }
-      this.setState(updateData);
+      this.setState({ tradeData : tradeData });
     }.bind(this), Timers.item);
-    document.getElementById(id + '-row').className = 'row';
     document.getElementById(id + '-trade-item').className = '';
   },
 
@@ -474,22 +455,45 @@ var App = React.createClass({
     } else if (/(created|acquired)/.test(action)) {
       UI.showActionMessage('trade', Messages.trade.active_only);
       return false;
-    }
-    return true;
+    } return true;
   },
 
+  resetTradeData: function(type) {
+    var tradeTeam = this.state.tradeTeam,
+        playerData = this.state.playerData, updateData,
+        tradeData = { trades : [], user : [], league : [], players : { user : [], league : [] }},
+        tradeTeam = { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] };
+    if (type === 'active') { tradeData.trades = this.state.tradeData.trades; }
+    else {
+      playerData.acquired = [];
+      playerData.traded = [];
+    }
+    updateData = update(this.state, {
+      tradeTeam  : { $set: tradeTeam },
+      tradeData  : { $set: tradeData },
+      playerData : { $set: playerData }
+    });
+    this.setState(updateData);
+    UI.clearAction('trade-executed');
+  },
+
+
+// Create
+// --------------------------------------------------
+
   createPlayer: function(data) {
-    var player = data;
-    player.image = '';
-    player.team = this.state.teamData.id;
+    var playerData = this.state.playerData, player = data, updateData;
+    this.changePanelView('loading');
+    player.team = playerData.team || this.state.teamData.id;
     player.action = 'created';
     player.status = 'active';
-    player.id = (9900 + this.state.playerData.created.length).toString();
-    this.changePanelView('loading');
+    player.id = (9901 + playerData.created.length).toString();
     setTimeout(function() {
-      var updateData = update(this.state, {
+      playerData.created.push(player);
+      if (!playerData.team) { playerData.team = player.team; }
+      updateData = update(this.state, {
         panelData  : { loading : { $set: false }},
-        playerData : { created : { $push: [player] }}
+        playerData : { $set: playerData }
       });
       this.setState(updateData);
       UI.clearAction('create');
@@ -497,20 +501,18 @@ var App = React.createClass({
     }.bind(this), Timers.confirm);
   },
 
+  resetCreateData: function () {}, // TODO
+
 
 // Panels
 // --------------------------------------------------
 
   handleItemMouseEnter: function(e) {
-    if (!this.state.dragData.type && !this.state.panelData.engaged) {
-      e.currentTarget.className = 'item hover';
-    }
+    if (!this.state.dragData.type && !this.state.panelData.engaged) { e.currentTarget.className = 'item hover'; }
   },
 
   handleItemMouseLeave: function(e) {
-    if (e.currentTarget.className !== 'item clicked') {
-      e.currentTarget.className = 'item';
-    }
+    if (e.currentTarget.className !== 'item clicked') { e.currentTarget.className = 'item'; }
   },
 
   handleItemMouseDown: function(e) {
@@ -520,7 +522,7 @@ var App = React.createClass({
 
   handleItemMouseUp: function(e) {
     if (e.target.className === 'item clicked') {
-      e.target.className = 'item';
+      e.target.className = 'item hover';
     }
     this.setState({ dragData : { type : '', group : '', index : '' }});
   },
@@ -537,19 +539,11 @@ var App = React.createClass({
 
   handleItemDragEnd: function(e) {
     var drag = this.state.dragData, player;
-    player = drag.group === 'created'
-      ? this.state.playerData.created[drag.index]
-      : this.state.teamData.players[drag.group][drag.index];
+    player = drag.group === 'created' ? this.state.playerData.created[drag.index] : this.state.teamData.players[drag.group][drag.index];
     player.group = drag.group;
-    player.index = drag.index;
-    // Add
-    if (dropData.cur && dropData.cur === dropData.last) {
-      this.addPlayer(player);
-    // Trade
-    } else if (dropData.action === 'trade' && this.verifyTradePlayer(player.action)) {
-      this.addTradePlayer('item', player);
-    // Undo
-    } else {
+    if (dropData.cur && dropData.cur === dropData.last) { this.addPlayer(player); }
+    else if (dropData.action === 'trade' && this.verifyTradePlayer(player.action)) { this.addTradePlayer('user', player); }
+    else {
       e.currentTarget.parentNode.className = 'row';
       e.currentTarget.className = 'item';
       this.clearDrag();
@@ -564,22 +558,24 @@ var App = React.createClass({
   handleRemoveDragEnter: function(e) {
     dropData.last = null;
     dropData.action = 'remove';
-    e.currentTarget.parentNode.className = 'remove-player hover';
+    e.currentTarget.parentNode.className = 'remove-player active hover';
   },
 
   handleRemoveDragLeave: function(e) {
     dropData.action = '';
-    e.currentTarget.parentNode.className = 'remove-player';
+    e.currentTarget.parentNode.className = 'remove-player active';
   },
 
   handleTradeDragEnter: function() {
     dropData.last = null;
-    dropData.action = 'trade';
-    if (this.state.panelData.active !== 'trades') {
-      var panelData = update(this.state.panelData, { active : { $set: 'trades' }});
-      this.setState({ panelData : panelData });
+    if (dropData.action !== 'trade') {
+      dropData.action = 'trade';
+      if (this.state.panelData.active !== 'trades') {
+        var panelData = update(this.state.panelData, { active : { $set: 'trades' }});
+        this.setState({ panelData : panelData });
+      }
+      document.getElementById('trade-drop-area').className = 'hover';
     }
-    document.getElementById('trade-drop-area').className = 'hover';
   },
 
   handleTradeDragLeave: function() {
@@ -607,21 +603,15 @@ var App = React.createClass({
   },
 
   handleTileDragLeave: function(e) {
-    if (this.state.rosterData[e.currentTarget.id].status === 'empty') {
-      e.currentTarget.className = 'tile';
-    }
+    if (this.state.rosterData[e.currentTarget.id].status === 'empty') { e.currentTarget.className = 'tile'; }
   },
 
   handlePlayerMouseEnter: function(e) {
-    if (!this.state.dragData.type) {
-      e.currentTarget.className = 'player active hover';
-    }
+    if (!this.state.dragData.type) { e.currentTarget.className = 'player active hover'; }
   },
 
   handlePlayerMouseLeave: function(e) {
-    if (!this.state.dragData.type) {
-      e.currentTarget.className = 'player active';
-    }
+    if (!this.state.dragData.type) { e.currentTarget.className = 'player active'; }
   },
 
   handlePlayerMouseDown: function(e) {
@@ -641,19 +631,11 @@ var App = React.createClass({
   },
 
   handlePlayerDragEnd: function(e) {
-    var player = this.state.rosterData[dropData.origin];
-    // Move
-    if (dropData.last === dropData.cur && dropData.last !== dropData.origin) {
-      this.movePlayer(player);
-    } else if (dropData.action) {
-      // Remove
-      if (dropData.action === 'remove') {
-        this.removePlayer(player);
-      // Trade
-      } else if (dropData.action === 'trade' && this.verifyTradePlayer(player.action)) {
-        this.addTradePlayer('tile', player);
-      } else { this.clearDrag(); }
-    // Undo
+    if (dropData.last === dropData.cur && dropData.last !== dropData.origin) { this.movePlayer(); }
+    else if (dropData.action) {
+      if (dropData.action === 'remove') { this.removePlayer(); }
+      else if (dropData.action === 'trade' && this.verifyTradePlayer(this.state.rosterData[dropData.origin].action)) { this.removePlayer('trading'); }
+      else { this.clearDrag(); }
     } else { this.clearDrag(); }
     this.clearDrop();
   },
@@ -661,12 +643,12 @@ var App = React.createClass({
   addPlayer: function(player) {
     var playerData = this.state.playerData,
         altStatus = this.isAltLine(dropData.cur),
-        capData, updateData;
+        capData = this.updateCapStats('add', player.contract[0]), updateData;
+    if (!playerData.team) { playerData.team = player.team; }
     if (player.status === 'injured') { playerData.cleared.push(player.id); }
-    if (altStatus) { playerData[altStatus].push(player.id); }
-    else { playerData.inplay.push(player.id); }
+    if (altStatus) { playerData[altStatus].push(player); }
+    else { playerData.inplay.push(player); }
     player.status = altStatus || 'inplay';
-    capData = this.updateCapStats('add', player.contract[0]);
     updateData = update(this.state, {
       capData    : { $set: capData },
       playerData : { $set: playerData },
@@ -675,47 +657,52 @@ var App = React.createClass({
     this.setState(updateData, function() { this.clearDrag(); });
   },
 
-  removePlayer: function(player) {
-    var playerData = this.state.playerData,
-        altStatus = this.isAltLine(dropData.origin),
-        statusIndex, wasCleared, capData, updateData;
-    if (altStatus) {
-      statusIndex = playerData[altStatus].indexOf(player.id);
-      playerData[altStatus].splice(statusIndex, 1);
-    } else {
-      statusIndex = playerData.inplay.indexOf(player.id);
-      playerData.inplay.splice(statusIndex, 1);
+  removePlayer: function(trading) {
+    var teamData = this.state.teamData,
+        playerData = this.state.playerData,
+        rosterStatus = this.isAltLine(dropData.origin),
+        player = this.state.rosterData[dropData.origin],
+        capData = this.updateCapStats('remove', player.contract[0]),
+        wasCleared = playerData.cleared.indexOf(player.id),
+        status = 'active', index, updateData;
+    if (wasCleared !== -1) { playerData.cleared.splice(wasCleared, 1); status = 'injured'; }
+    if (player.team === teamData.id && player.group !== 'created') {
+      index = teamData.players[player.group].map(function(p){ return p.id; }).indexOf(player.id);
+      teamData.players[player.group][index].status = status;
+      if (trading) { teamData.players[player.group][index].action = 'queued'; }
+    } else if (/(acquired|created)/.test(player.action)) {
+      index = playerData[player.action].map(function(p){ return p.id; }).indexOf(player.id);
+      playerData[player.action][index].status = status;
     }
-    wasCleared = playerData.cleared.length ? playerData.cleared.indexOf(player.id) : -1;
-    if (wasCleared !== -1) {
-      playerData.cleared.splice(wasCleared, 1);
-      player.status = 'injured';
-    } else { player.status = 'active'; }
-    capData = this.updateCapStats('remove', player.contract[0]);
+    rosterStatus = rosterStatus ? rosterStatus : 'inplay';
+    index = playerData[rosterStatus].map(function(p){ return p.id; }).indexOf(player.id);
+    playerData[rosterStatus].splice(index, 1);
     updateData = update(this.state, {
       capData    : { $set: capData },
       playerData : { $set: playerData },
       rosterData : { [dropData.origin] : { $set: { status : 'empty' }}}
     });
-    this.setState(updateData, function() { this.clearDrag(); });
+    this.setState(updateData, function() {
+      if (trading) { this.addTradePlayer('user', player); }
+      else { this.clearDrag(); }
+    });
   },
 
-  movePlayer: function(player) {
+  movePlayer: function() {
     var playerData = this.state.playerData,
         rosterData = this.state.rosterData,
         altStatus = this.isAltLine(dropData.cur),
-        statusIndex, updateData;
+        player = rosterData[dropData.origin], index, updateData;
     if (altStatus) {
       if (altStatus !== player.status) {
-        statusIndex = playerData[player.status].indexOf(player.id);
-        playerData[player.status].splice(statusIndex, 1);
-        playerData[altStatus].push(player.id);
+        index = playerData[player.status].map(function(p){ return p.id; }).indexOf(player.id);
+        playerData[player.status].splice(index, 1);
+        playerData[altStatus].push(player);
         player.status = altStatus;
-      }
-    } else if (/(ir|benched)/.test(player.status)) {
-      statusIndex = playerData[player.status].indexOf(player.id);
-      playerData[player.status].splice(statusIndex, 1);
-      playerData.inplay.push(player.id);
+    }} else if (/(ir|benched)/.test(player.status)) {
+      index = playerData[player.status].map(function(p){ return p.id; }).indexOf(player.id);
+      playerData[player.status].splice(index, 1);
+      playerData.inplay.push(player);
       player.status = 'inplay';
     }
     rosterData[dropData.cur] = player;
@@ -755,7 +742,7 @@ var App = React.createClass({
   },
 
   hideAltLine: function(id) {
-    $('#' + id).removeClass('active');
+    $('#' + id).removeClass('active show');
     $('#' + id + '-trigger').removeClass('disabled');
   },
 
@@ -775,17 +762,11 @@ var App = React.createClass({
         pos = x < 2 ? 3 : 2;
         for (y = pos; y > 0; y--) {
           tile = line + y;
-          // line is active
-          if (this.state.rosterData[tile].status !== 'empty') { break; }
-          // line is empty
-          else if (y < 2) {
+          if (this.state.rosterData[tile].status !== 'empty') { break; } // line is active
+          else if (y < 2) { // line is empty
             this.hideAltLine(line);
             lineData[line] = false;
-          }
-        }
-      }
-    }
-    return lineData;
+    }}}} return lineData;
   },
 
 
@@ -811,8 +792,8 @@ var App = React.createClass({
               teamData={this.state.teamData} />
             <RosterMenu
               viewData={this.state.viewData}
-              panelData={this.state.panelData}
               dragData={this.state.dragData}
+              panelData={this.state.panelData}
               teamData={this.state.teamData}
               tradeTeam={this.state.tradeTeam}
               tradeData={this.state.tradeData}

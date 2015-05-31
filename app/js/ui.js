@@ -14,7 +14,8 @@ var UI = {
   },
 
   load: function () {
-    $('#grid-reminder, #grid-svg, header .inner, footer').addClass('active');
+    $('#grid-reminder, #grid-svg, #team-grid, header .inner, footer').addClass('active');
+    UI.resetViewScroll();
   },
 
   detect: function() {
@@ -27,11 +28,19 @@ var UI = {
     $('body').on('contextmenu', UI.blockAction);
     $('#team-grid').on('mouseenter', 'div', function() {
       var team = $(this).attr('class');
-      $('#grid-svg').contents().find('g.' + team).css('opacity', '1');
+      $('#grid-svg').contents().find('g.' + team).addClass('hover');
     });
     $('#team-grid').on('mouseleave', 'div', function() {
       var team = $(this).attr('class');
-      $('#grid-svg').contents().find('g.' + team).css('opacity', '.4');
+      $('#grid-svg').contents().find('g.' + team).removeClass('hover');
+    });
+    $('#team-grid').on('click', 'div', function() {
+      UI.team_loaded = $(this).attr('class');
+      $('#grid-svg').contents().find('g.' + UI.team_loaded).removeClass('hover');
+      $(this).addClass('clicked');
+      setTimeout(function () {
+        $('#team-grid div.' + UI.team_loaded).removeClass('clicked');
+      }, Timers.loading);
     });
   },
 
@@ -40,6 +49,7 @@ var UI = {
         full_height = table_height + 92;
     $('#payroll .inner').css('height', table_height);
     $('#app .wrap').css('height', full_height);
+    $('#team-select').removeClass('clicked');
   },
 
   resetViewHeight: function() {
@@ -51,9 +61,8 @@ var UI = {
     if ($(el).scrollTop()) {
       $(el).scrollTo({ endY: 0, duration: 750 });
     }
-    if (!UI.team_loaded) {
+    if (UI.team_loaded) {
       $('#grid-reminder').addClass('disabled');
-      UI.team_loaded = true;
     }
   },
 
@@ -77,6 +86,7 @@ var UI = {
         }
       });
     }
+    $('#team-select').removeClass('clicked');
   },
 
   confirmAction: function(type) {
@@ -88,15 +98,17 @@ var UI = {
     if (type === 'create') {
       $('#create-player-fname, #create-player-lname, #create-player-jersey, #create-player-salary').attr('class', '').val('');
       $('#create-player-shot, #create-player-position, #create-player-duration').attr('class', '').val('0');
-    } else if (type === 'trade-player') {
+      $('#create-player-confirm').attr('class', 'transaction-confirm');
+      $('#create-player-button').attr('class', '');
+    } else {
       $('#trade-player-select').val('0');
       $('#add-trade-player').attr('class', 'add-button');
-    } else {
-      $('#trade-team-select, #trade-player-select').val('0');
-      $('#add-trade-player').attr('class', 'add-button');
+      if (type === 'trade-executed') {
+        $('#trade-team-select').val('0');
+      }
+      $('#trade-player-confirm').attr('class', 'transaction-confirm');
+      $('#trade-player-button').attr('class', '');
     }
-    $('#' + type + '-player-confirm').attr('class', 'transaction-confirm');
-    $('#' + type + '-player-button').attr('class', '');
   },
 
   showActionMessage: function(type, msg) {
@@ -130,11 +142,9 @@ var UI = {
   },
 
   clearDrag: function() {
-    $('#menu .item.clicked').removeClass('clicked');
-    $('#roster .player.clicked').removeClass('clicked');
-    $('#menu .remove-player.hover').removeClass('hover');
-    $('#menu.list-engaged').removeClass('list-engaged');
-    $('#menu.show-remove-player').removeClass('show-remove-player');
+    $('.clicked').removeClass('clicked');
+    $('.list-drag-cover').removeClass('active');
+    $('.remove-player').removeClass('active hover');
   },
 
   dropEffect: function(e) {

@@ -36,7 +36,10 @@
 ## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
 - 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
-- 'IE: white svg flash onload'
+- X (think this is ok now w/ fade-in?) 'IE: white svg flash onload'
+- 'Backspace key refresh/back-page-nav...Grr!'
+- 'Occasional missed remove-player tile dragend'
+- 'Occasional missed list-item dragstart'
 ---------------------------------------------------------------
 
 
@@ -61,6 +64,12 @@
 ---------------------------------------------------------------
 - 'player details (info icon click/hover?)'
 - 'sticky table headers'
+- 'sortable by year (click column header)'
+- 'collapsable player groups'
+- 'draft picks (default collapsed)'
+- 'show full player contracts (pre-current year)'
+- 'show cap number + cap hit columns'
+- 'disable other contracts group'
 ---------------------------------------------------------------
 
 
@@ -79,19 +88,19 @@
 ## CapStats
 ---------------------------------------------------------------
 - 'obfuscated slides into view (scroll-end + !dragging)'
-- 'slides-up if covering active tiles (dragging)'
+- 'slides-up if covering active tiles while dragging'
 ---------------------------------------------------------------
 
 
 ## GM Overview 🏆
 ---------------------------------------------------------------
-!! - 'actions summary panel layout + logic (above forwards)'
-!! - 'team change w/ active trades: notify trading disabled'
-    - 'Trades have been disabled because you have active trades w/ another team (XXX)'
-    - 'Would you like to reset trade? [Yes]'
-    - 'Would you like to switch back to XXX? [Yes]'
-!! - 'roster player added/team conflict: notify mode-changed + trading disabled'
-    - 'Trades have been disabled because you are in all-star mode'
+- 'actions summary panel layout + logic (above forwards)'
+- 'team change w/ active trades: notify trading disabled'
+  - 'Trades have been disabled because you have active trades w/ another team (XXX)'
+  - 'Would you like to reset trade? [Yes]'
+  - 'Would you like to switch back to XXX? [Yes]'
+- 'roster player added/team conflict: notify mode-changed + trading disabled'
+  - 'Trades have been disabled because you are in all-star mode'
 - 'visual summary:'
   - 'trade breakdowns'
   - 'contract buyouts'
@@ -115,7 +124,6 @@
 
 ##### Share
 ---------------------------------------------------------------
-- 'cleanup layout + x-browser issues'
 - 'confirm active team (team mismatch / mixed roster)'
 !! - 'twitter, facebook + text-only share buttons'
 !! - 'text roster w/ actions summary'
@@ -130,36 +138,39 @@
 
 
 ---------------------------------------------------------------
-#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.2] »
+#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'team load playerData diff'
-  - playerData (inplay/benched/ir/cleared/traded/acquired/created)
-    - teams: ['AAA', '...', '...', etc]
-
-- 'normalize player object status/action props'
-  - 'player: action (created/acquired/traded/queued/buyout)'
-  - 'player: status (active/injured || inplay/ir/benched)'
-  - 'tile: status (empty/inplay/ir/benched)'
-
----------------------------------------------------------------
-- 'cap stats menu (¿header/panels/capStats?)'
 - 'update data: 2015/16 + strip player image urls'
 - 'draft-picks: data + layout + logic'
-- 'footer'
----------------------------------------------------------------
+- 'trades: show RFA/UFA status'
+- 'share: cleanup layout / x-browser issues'
+- 'footer logic + layout'
 - 'React initial DOM SSR'
 - 'set expires headers caching'
-- 'cleanup + global/fixed-pos user notify (slide/fade)'
-- 'basic mobile support (view shared roster + payroll)'
 ---------------------------------------------------------------
+- 'disabled actions panel copy + layout'
+- 'disabled transaction button state (after action executes)'
+- 'increase panel collapse button click area'
+- 'team select: active team marker (blue dot)'
+- 'GM Overview basic functionality (view + undo actions)'
+- 'cap stats menu (¿header/panels/capStats?)'
+---------------------------------------------------------------
+- 'update coming soon splash'
 - 'pre-cache team + player images on team select'
 - 'drag-n-drop/trades-create/change-team onboard splash'
-- 'update coming soon splash'
+- 'cleanup + global/fixed-pos user notify (slide/fade)'
+- 'basic mobile support (view shared roster + payroll)'
 
 
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'team load playerData diff'
+  * playerData (inplay/benched/ir/cleared/traded/acquired/created)
+- 'normalize player object status/action props'
+  * 'player: action (created/acquired/traded/queued/buyout)'
+  * 'player: status (active/injured || inplay/ir/benched)'
+  * 'tile: status (empty/inplay/ir/benched)'
 - 'cleanup payroll'
 - 'scrub css selectors + tune visual performance'
 - 'bugfix - CHROME: dragover sticking-hover issue'

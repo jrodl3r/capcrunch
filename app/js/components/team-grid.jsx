@@ -9,7 +9,7 @@ TeamGrid = React.createClass({
   },
 
   changeTeam: function(e) {
-    this.props.changeTeam(e.currentTarget.className);
+    this.props.changeTeam(e.currentTarget.getAttribute('data-team'));
   },
 
   render: function() {
@@ -17,11 +17,11 @@ TeamGrid = React.createClass({
     return (
       <div id="teams" className={ this.props.activeView === 'teams' ? 'active' : '' }>
         <div className="inner">
-          <div id="grid-reminder" className=""></div>
+          <div id="grid-reminder"></div>
           <object id="grid-svg" data="img/team-select-grid.svg" type="image/svg+xml"></object>
           <div id="team-grid">
             {this.props.teams.map(function(team) {
-              return <div key={team.id} className={team.id} onClick={this.changeTeam}></div>;
+              return <div key={team.id} className={team.id} data-team={team.id} onClick={this.changeTeam}></div>;
             }.bind(this))}
           </div>
         </div>

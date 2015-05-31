@@ -27,7 +27,8 @@ var rosterSchema = new mongoose.Schema({
         GR1: {}, GR2: {}
       },
       altLines: { FR : Boolean, FB : Boolean, DR : Boolean, DB : Boolean, GR : Boolean, GB : Boolean },
-      capData: { year : String, hit : String, space : String }
+      capData: { year : String, hit : String, space : String },
+      tradeData: []
     });
 
 module.exports = mongoose.model('Roster', rosterSchema);

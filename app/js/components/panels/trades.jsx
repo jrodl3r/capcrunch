@@ -6,6 +6,10 @@ var TeamList = require('../../static/teams.js'),
 
 var Trades = React.createClass({
 
+  getInitialState: function() {
+    return { selectedPlayer : '' };
+  },
+
   getDefaultProps: function() {
     return { teams : TeamList, maxPlayers : 5 };
   },
@@ -25,7 +29,7 @@ var Trades = React.createClass({
   changeTradeTeam: function(e) {
     this.props.changeTradeTeam(e.target.value);
     e.target.className = '';
-    UI.clearAction('trade-player');
+    UI.clearAction('trade');
     UI.resetActionMessage();
   },
 
@@ -38,8 +42,9 @@ var Trades = React.createClass({
       group = players.options[players.selectedIndex].getAttribute('data-group');
       index = players.options[players.selectedIndex].getAttribute('data-index');
       this.props.addTradePlayer('league', null, index, group);
-      UI.clearAction('trade-player');
+      UI.clearAction('trade');
       UI.resetActionMessage();
+      this.setState({ selectedPlayer : '' });
     } else {
       if (!this.props.tradeData.user.length) {
         UI.missingTradeInput();
@@ -48,30 +53,25 @@ var Trades = React.createClass({
     }
   },
 
-  removeLeaguePlayer: function(e) {
-    var players = document.getElementById('trade-player-select'),
-        count = players.options.length;
+  removePlayer: function(e) {
+    var type = e.currentTarget.getAttribute('data-type'),
+        index = e.currentTarget.getAttribute('data-index'),
+        id = e.currentTarget.getAttribute('data-id');
     e.preventDefault();
-    this.props.removeTradePlayer('league', e.currentTarget.id);
-    for (var i = 0; i < count; i++) {
-      if (players.options[i].value === e.currentTarget.id) {
-        players.options[i].disabled = false;
+    this.props.removeTradePlayer(type, index, id);
+  },
+
+  buildPlayerGroup: function(type, players) {
+    var list, index = null;
+    list = players.map(function(player) {
+      if (type === 'user') {
+        index = this.props.teamData.players[player.group].map(function(p){ return p.id; }).indexOf(player.id);
+        player = this.props.teamData.players[player.group][index];
       }
-    }
-  },
-
-  removeUserPlayer: function(e) {
-    e.preventDefault();
-    this.props.removeTradePlayer('user', e.currentTarget.id);
-  },
-
-  buildPlayerGroup: function(players, type) {
-    var list = players.map(function(player) {
-      player = type === 'user' ? this.props.teamData.players[player.group][player.index] : player;
       return (
         <li key={player.id} id={player.id + '-trade-item'}>
           <span>{ player.firstname.charAt(0) + '.' } </span><span className="lastname">{player.lastname}</span>
-          <a id={player.id} className="remove-button" onClick={ type === 'user' ? this.removeUserPlayer : this.removeLeaguePlayer }>
+          <a data-type={type} data-index={index} data-id={player.id} className="remove-button" onClick={this.removePlayer}>
             <i className="fa fa-close"></i>
           </a>
         </li>
@@ -80,19 +80,19 @@ var Trades = React.createClass({
     return list;
   },
 
-  buildTeamList: function(players, group) {
-    var league = this.props.tradeData.league,
-        count = this.props.playerData.acquired.length,
-        x = String.fromCharCode(10004),
-        acquired = [], list, i;
-    for (i = 0; i < count; i++) {
-      acquired.push(this.props.playerData.acquired[i].id);
-    }
+  buildTeamList: function(group, players, queued, acquired) {
+    var list, x = String.fromCharCode(10004);
     list = players.map(function(player, j) {
-      if (acquired.indexOf(player.id) !== -1 || league.indexOf(player.id) !== -1) {
+      if (acquired.map(function(p){ return p.id; }).indexOf(player.id) !== -1 || queued.indexOf(player.id) !== -1) {
         return (
           <option key={player.id} value={player.id} data-group={group} disabled="disabled">
             {x} {player.firstname} {player.lastname} ({player.contract[0]})
+          </option>
+        );
+      } else if (this.state.selectedPlayer === player.id) {
+        return (
+          <option key={player.id} value={player.id} data-group={group} data-index={j} disabled="disabled">
+            {player.firstname} {player.lastname}
           </option>
         );
       } else {
@@ -102,12 +102,13 @@ var Trades = React.createClass({
           </option>
         );
       }
-    });
+    }.bind(this));
     return list;
   },
 
   changeTradePlayer: function(e) {
     e.target.className = '';
+    this.setState({ selectedPlayer : e.target.value });
     document.getElementById('add-trade-player').className = 'add-button active';
     UI.resetActionMessage();
   },
@@ -125,9 +126,7 @@ var Trades = React.createClass({
             onChange={this.changeTradeTeam}>
             <option value="0" disabled>Team</option>
             {this.props.teams.map(function(team) {
-              if (team.id !== this.props.teamData.id) {
-                return <option key={team.id} value={team.id}>{team.id}</option>;
-              }
+              if (team.id !== this.props.teamData.id) { return <option key={team.id} value={team.id}>{team.id}</option>; }
             }.bind(this))}
           </select>
           <select id="trade-player-select" defaultValue="0"
@@ -136,20 +135,20 @@ var Trades = React.createClass({
             onChange={this.changeTradePlayer}>
             <option value="0" disabled="disabled">Players</option>
             <option disabled="disabled">─ Forwards ────────</option>
-            {this.buildTeamList(this.props.tradeTeam.forwards, 'forwards')}
+            {this.buildTeamList('forwards', this.props.tradeTeam.forwards, this.props.tradeData.league, this.props.playerData.acquired)}
             <option disabled="disabled">─ Defense ────────</option>
-            {this.buildTeamList(this.props.tradeTeam.defensemen, 'defensemen')}
+            {this.buildTeamList('defensemen', this.props.tradeTeam.defensemen, this.props.tradeData.league, this.props.playerData.acquired)}
             <option disabled="disabled">─ Goalies ────────</option>
-            {this.buildTeamList(this.props.tradeTeam.goaltenders, 'goaltenders')}
+            {this.buildTeamList('goaltenders', this.props.tradeTeam.goaltenders, this.props.tradeData.league, this.props.playerData.acquired)}
             <option disabled="disabled">─ Inactive ────────</option>
-            {this.buildTeamList(this.props.tradeTeam.inactive, 'inactive')}
+            {this.buildTeamList('inactive', this.props.tradeTeam.inactive, this.props.tradeData.league, this.props.playerData.acquired)}
           </select>
           <a id="add-trade-player" className="add-button" onClick={this.addTradePlayer}>
             <i className="fa fa-plus"></i>
           </a>
           <div id="trade-player-breakdown">
         { this.props.tradeData.user.length
-          ? <ul className="active">{this.buildPlayerGroup(this.props.tradeData.players.user, 'user')}</ul>
+          ? <ul className="active">{this.buildPlayerGroup('user', this.props.tradeData.players.user)}</ul>
           : <ul className="list-placeholder">
               <li><div>{this.props.teamData.id}</div></li>
             </ul> }
@@ -157,7 +156,7 @@ var Trades = React.createClass({
               <i className="fa fa-refresh"></i>
             </div>
         { this.props.tradeData.league.length
-          ? <ul className="active">{this.buildPlayerGroup(this.props.tradeData.players.league, 'league')}</ul>
+          ? <ul className="active">{this.buildPlayerGroup('league', this.props.tradeData.players.league)}</ul>
           : <ul className="list-placeholder">
               <li><div>{ this.props.tradeTeam.id ? this.props.tradeTeam.id : '- - -' }</div></li>
             </ul> }

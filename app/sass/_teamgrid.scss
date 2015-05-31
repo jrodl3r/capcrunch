@@ -17,7 +17,7 @@
   &.active {
     height: auto;
     opacity: 1;
-    transition: opacity .5s, height 0s;
+    transition: opacity .25s, height 0s;
 
     .inner {
       transform: translateY(0);
@@ -60,14 +60,18 @@
     float: left;
     height: 20%;
     width: 16.66%;
-    background: radial-gradient(rgba(255,255,255, .175) 0%, rgba(255,255,255, 0) 65%);
+    background: radial-gradient(rgba(255,255,255, .2) 0%, rgba(255,255,255, 0) 65%);
     opacity: 0;
     transform: translateZ(0);
-    transition: .25s ease-out;
+    transition: .3s ease-out;
 
     &:hover {
       opacity: 1;
       cursor: pointer;
+    }
+
+    &.clicked {
+      cursor: default;
     }
   }
 }

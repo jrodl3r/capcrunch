@@ -4,7 +4,7 @@
 .player-list {
   height: 200px;
 
-  .inner {
+  > .inner {
     height: 166px;
     background: rgba(255,255,255, .025);
   }
@@ -12,13 +12,8 @@
   &.short {
     height: 134px;
 
-    .inner {
-      height: 100px;
-    }
-
-    ul {
-      height: 99px;
-    }
+    > .inner { height: 100px; }
+    ul { height: 99px; }
   }
 
   ul {
@@ -39,46 +34,30 @@
   }
 }
 
+@keyframes add_row {
+  0% { height: 0; opacity: 0; }
+  100% { height: $panel-list-item-height; opacity: 1; }
+}
+@keyframes hide_row {
+  0% { height: $panel-list-item-height; opacity: .3; }
+  100% { height: 0; opacity: 0; }
+}
+
 .row {
   float: left;
-  height: 33px;
   width: 298px;
-  line-height: 33px;
-  opacity: 1;
-  transition: .25s;
+  line-height: $panel-list-item-height;
+  overflow: hidden;
+  -webkit-transform: translateZ(0);
+  animation: add_row .3s ease-out;
 
-  &.engaged {
-    opacity: .3;
-  }
-
-  &.inplay {
-    height: 0;
-    overflow: hidden;
-  }
-
+  &.engaged { opacity: .3; }
+  &.inplay { animation: hide_row .3s ease-out; }
   &.traded {
-
-    .item {
-      background: none;
-      border-radius: initial;
-    }
-
-    .jersey {
-      color: #444;
-    }
-
-    .name, .shot, .position, .salary {
-      color: #555;
-    }
-
-    .status {
-      opacity: .6;
-    }
-
-    .handle {
-      visibility: hidden;
-      cursor: default;
-    }
+    .item { background: none; cursor: default; }
+    .name { color: #555; }
+    .jersey, .shot, .position, .salary { color: #444; }
+    .handle { visibility: hidden; cursor: default; }
   }
 }
 
@@ -94,85 +73,50 @@
 .item {
   position: relative;
   float: right;
-  height: 33px;
+  height: $panel-list-item-height;
   width: 298px;
-  line-height: 33px;
+  line-height: $panel-list-item-height;
   background: linear-gradient(to right, rgba(0,0,0, .2) 0%, rgba(255,255,255, .04) 75%, transparent);
   opacity: 1;
   overflow: hidden;
-  -webkit-transform: translateZ(0);
-  transition: .15s;
+  cursor: grab;
+  transform: translateZ(0);
 
   &.hover {
     background: linear-gradient(to right, rgba(0,0,0, .35) 0%, rgba(255,255,255, .05) 75%, rgba(255,255,255, .05));
     border-bottom-right-radius: 1px;
     border-top-right-radius: 1px;
 
-    .jersey {
-      color: #666;
-    }
-
-    .name {
-      color: #AAA;
-    }
-
-    .status {
-      opacity: .5;
-    }
-
-    .handle {
-      opacity: .7;
-    }
+    .jersey { color: #666; }
+    .name { color: #AAA; }
+    .salary, .status { transition: .1s; }
+    .handle { opacity: .7; }
   }
 
   &.clicked {
     background: linear-gradient(to right, rgba(0,0,0, 0) 0%, rgba(255,255,255, .05) 75%, rgba(255,255,255, .15));
     border-bottom-right-radius: 2px;
     border-top-right-radius: 2px;
+    cursor: grabbing;
 
-    .inner {
-      padding-left: 50px;
-    }
+    .jersey { color: #666; }
+    .name { color: #BBB; }
+    .info { width: 10px; }
+    .jersey, .name, .info { transform: translateX(50px); }
+    .position, .status, .salary { opacity: 0; }
+    .salary, .status { transition: 0s; }
+    .handle { opacity: .9; }
+  }
 
-    .jersey {
-      color: #666;
-    }
-
-    .name {
-      color: #BBB;
-    }
-
-    .info {
-      width: 10px;
-    }
-
-    .position, .status, .salary {
-      opacity: 0;
-    }
-
-    .handle {
-      opacity: .3;
-    }
+  .inner, .jersey, .name, .salary, .status {
+    float: left;
+    height: $panel-list-item-height;
   }
 
   .inner {
-    height: inherit;
-    width: inherit;
-    padding-left: 0;
+    width: 298px;
     pointer-events: none;
     user-select: none;
-    transition: .15s;
-
-    * {
-      pointer-events: none;
-      user-select: none;
-    }
-  }
-
-  div {
-    float: left;
-    height: 33px;
-    line-height: 33px;
   }
 
   .jersey {
@@ -181,76 +125,76 @@
     color: #525252;
     font-size: 12px;
     text-align: center;
+    transition: .15s;
   }
 
   .name {
     width: auto;
-    max-width: 150px;
+    max-width: 130px;
     color: #989898;
     text-indent: 6px;
     text-align: left;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    transition: .15s;
   }
 
   .info {
-    width: 30px;
-    margin-left: 10px;
+    float: left;
+    width: 28px;
+    margin-left: 7px;
     text-align: left;
+    transition: .15s;
   }
 
   .shot, .position {
-    float: none;
-    height: auto;
-    width: auto;
     color: #585858;
     font-size: 10px;
     font-weight: bold;
-    line-height: inherit;
   }
 
   .salary {
     float: right;
     width: 35px;
-    margin-right: 0;
+    margin-right: 18px;
     color: #686868;
     font-size: 12px;
+    transition: .2s .15s;
   }
 
   .status {
     float: right;
-    width: 15px;
-    margin-right: 10px;
+    width: 35px;
+    margin-right: 7px;
+    transition: .2s .15s;
   }
 
   .tag {
+    float: right;
     height: 15px;
-    width: inherit;
+    width: 15px;
     margin-top: 9px;
-    color: #888;
-    font-size: 8px;
-    font-weight: 600;
-    line-height: 16px;
-    text-indent: 1px;
+    margin-left: 5px;
+    font-size: 7px;
+    font-weight: bold;
+    line-height: 15px;
     text-align: center;
-    background: #444;
     border-radius: 50%;
+    box-shadow: 0 0 2px rgba(0,0,0, .15);
 
-    &.created, &.acquired {
-      color: #CCC;
-      background: #117C1B;
-    }
-
-    &.acquired {
-      color: #BBB;
-      line-height: 15px;
-      background: #1E44A2;
-    }
+    &:nth-child(2) { margin-left: 0; }
+    &.traded { color: #666; background: #333; box-shadow: none; }
+    &.acquired { color: #BBB; background: #1E44A2; }
+    &.created { color: #CCC; background: #117C1B; }
+    &.injured { color: #888; background: #444; }
   }
 
   .handle {
-    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: $panel-list-item-height;
     width: 15px;
     background: url($img-url + 'app/drag-handle-list-item.svg') center center no-repeat;
     background-size: 5px;

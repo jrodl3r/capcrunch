@@ -5,9 +5,7 @@
   margin-bottom: 0;
   transform: translateZ(0);
 
-  .show-loading & {
-    background: #000;
-  }
+  &.loading { background: #000; }
 
   > .inner {
     height: auto;
@@ -19,27 +17,13 @@
 
     &.trades-active {
       height: $trades-height + $actions-menu-height;
-
-      &.trade-size-3 {
-        height: $trades-height-3-player + $actions-menu-height;
-      }
-
-      &.trade-size-4 {
-        height: $trades-height-4-player + $actions-menu-height;
-      }
-
-      &.trade-size-5 {
-        height: $trades-height-5-player + $actions-menu-height;
-      }
+      &.trade-size-3 { height: $trades-height-3-player + $actions-menu-height; }
+      &.trade-size-4 { height: $trades-height-4-player + $actions-menu-height; }
+      &.trade-size-5 { height: $trades-height-5-player + $actions-menu-height; }
     }
 
-    &.freeagents-active {
-      height: $actions-height;
-    }
-
-    &.createplayer-active {
-      height: $actions-height;
-    }
+    &.freeagents-active { height: $actions-height; }
+    &.createplayer-active { height: $actions-height; }
   }
 
   input, select {
@@ -57,17 +41,11 @@
     box-shadow: none;
     transition: .35s;
 
-    &::placeholder {
-      color: #616161;
-    }
-
+    &::placeholder { color: #616161; }
+    &:focus { background: #AAA; }
     &:hover {
       color: #111;
       background: #999;
-    }
-
-    &:focus {
-      background: #AAA;
     }
 
     &.active {
@@ -118,9 +96,7 @@
       transition: .1s;
     }
 
-    &.clicked {
-      cursor: default;
-    }
+    &.clicked { cursor: default; }
   }
 
   .add-button {
@@ -143,37 +119,6 @@
         text-shadow: 0 0 4px rgba(0,0,0, .95);
         opacity: 1;
       }
-    }
-  }
-}
-
-.tab-area {
-  height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: opacity .4s, height 0s .4s;
-
-  &.active {
-    height: $actions-panel-height;
-    opacity: 1;
-    transition: opacity .4s .4s, height 0s .4s;
-  }
-
-  .inner {
-    position: relative;
-    height: 100%;
-    max-height: none;
-  }
-
-  p {
-    margin: 15px 0;
-    color: #717171;
-    font-size: 11px;
-    transition: 0s;
-
-    &.warning {
-      transition: .3s;
-      color: #999;
     }
   }
 }
@@ -223,8 +168,41 @@
     }
   }
 
-  .show-loading & {
-    opacity: .25;
+  .loading & { opacity: .25; }
+}
+
+
+// Content
+// --------------------------------------------------
+
+.tab-area {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity .4s, height 0s .4s;
+
+  &.active {
+    height: $actions-panel-height;
+    opacity: 1;
+    transition: opacity .4s .4s, height 0s .4s;
+  }
+
+  .inner {
+    position: relative;
+    height: 100%;
+    max-height: none;
+  }
+
+  p {
+    margin: 15px 0;
+    color: #717171;
+    font-size: 11px;
+    transition: 0s;
+
+    &.warning {
+      transition: .3s;
+      color: #999;
+    }
   }
 }
 
@@ -234,13 +212,8 @@
 
 #trades {
 
-  &.tab-area.active {
-    height: 100%;
-  }
-
-  button {
-    width: 125px;
-  }
+  &.tab-area.active { height: 100%; }
+  button { width: 125px; }
 
   ul {
     float: left;
@@ -255,9 +228,7 @@
     overflow: hidden;
     transition: .4s;
 
-    &:first-of-type {
-      margin-right: 30px;
-    }
+    &:first-of-type { margin-right: 30px; }
 
     &.active {
       background: rgba(255,255,255, .07);
@@ -300,9 +271,7 @@
       }
     }
 
-    &:last-of-type {
-      margin-bottom: 0;
-    }
+    &:last-of-type { margin-bottom: 0; }
 
     > span {
       float: left;
@@ -310,11 +279,11 @@
       line-height: 14px;
 
       &.lastname {
-      width: 70px;
-      padding-left: 2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+        width: 70px;
+        padding-left: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
@@ -360,9 +329,7 @@
     }
   }
 
-  .transaction-confirm {
-    line-height: 240px;
-  }
+  .transaction-confirm { line-height: 240px; }
 }
 
 #trade-drop-area {
@@ -430,19 +397,19 @@
   height: 30px;
   width: 30px;
   margin: auto;
-  color: #444;
+  color: #616161;
   font-size: 16px;
   line-height: 30px;
   transition: .3s;
 
   &.active {
-    color: #666;
+    color: #919191;
     text-shadow: 0 0 5px rgba(0,0,0, .25);
   }
 }
 
-#actions-drag-cover {
-  display: none;
+#actions-drag-cover,
+#actions-disabled-cover {
   position: absolute;
   z-index: 4;
   top: 0;
@@ -451,9 +418,33 @@
   left: 0;
   height: 100%;
   width: 100%;
+}
+
+#actions-drag-cover {
+  display: none;
+  &.active { display: block; }
+}
+
+#actions-disabled-cover {
+  height: 0;
+  padding: 0;
+  color: #777;
+  font-weight: bold;
+  text-align: center;
+  background: rgba(0,0,0, .65);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .25s, height 0s .25s;
 
   &.active {
-    display: block;
+    height: $trades-height + $actions-menu-height + $panel-titlebar-height + 1;
+    opacity: 1;
+    transition: opacity .25s, height 0s;
+  }
+
+  p {
+    padding: 0 30px;
+    &:first-of-type { padding-top: 100px; }
   }
 }
 
@@ -478,13 +469,12 @@
   margin-left: 15px;
 }
 
-#create-player-lname {
+#create-player-lname, #create-player-jersey, #create-player-position, #create-player-duration {
   margin-left: 10px;
 }
 
 #create-player-jersey {
   width: 70px;
-  margin-left: 10px;
 }
 
 #create-player-shot {
@@ -494,7 +484,6 @@
 
 #create-player-position {
   width: 90px;
-  margin-left: 10px;
 }
 
 #create-player-salary {
@@ -506,7 +495,6 @@
 #create-player-duration {
   width: 95px;
   margin-bottom: 0 !important;
-  margin-left: 10px;
 }
 
 .transaction-confirm {

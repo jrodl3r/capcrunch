@@ -159,6 +159,10 @@ nav {
     opacity: .9;
   }
 
+  &.clicked {
+    cursor: default;
+  }
+
   i {
     position: absolute;
     top: 6px;

@@ -105,7 +105,6 @@ a, button {
   flex-direction: column;
   height: 0;
   opacity: 0;
-  cursor: default;
   transition: opacity $view-shift, height $view-hide;
   transition-timing-function: ease-out;
   transform: translateZ(0);

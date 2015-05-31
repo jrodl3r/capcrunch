@@ -9,9 +9,9 @@
 }
 
 .panel {
-  position: inherit;
+  position: relative;
   float: left;
-  width: inherit;
+  width: 300px;
   margin-bottom: $page-spacing;
   background: rgba(23,24,25, .7);
   border-radius: $border-radius;
@@ -21,15 +21,13 @@
   transform: translateZ(0);
 
   &.collapsed {
-    height: 33px !important;
+    height: $panel-titlebar-height !important;
 
-    .title {
-      color: #585858;
-    }
+    .title { color: #585858; }
   }
 
   .inner {
-    width: inherit;
+    width: 300px;
     color: #777;
     font-size: 12px;
     font-weight: bold;
@@ -39,11 +37,11 @@
   }
 
   .title {
-    height: 33px;
+    height: $panel-titlebar-height;
     margin-bottom: 1px;
-    line-height: 32px;
+    line-height: $panel-titlebar-height;
     color: #838383;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
@@ -66,9 +64,7 @@
         text-shadow: 0 0 3px rgba(0,0,0, .75);
       }
 
-      &.active i {
-        transform: translateX(-2px) translateY(2px) rotate(180deg);
-      }
+      &.active i { transform: translateX(-2px) translateY(2px) rotate(180deg); }
 
       i {
         font-size: 11px;
@@ -83,9 +79,9 @@
     position: absolute;
     top: 0;
     height: 100%;
-    width: inherit;
+    width: 300px;
 
-    .list-engaged & {
+    &.active {
       z-index: 3;
       display: block;
     }
@@ -96,7 +92,7 @@
   position: absolute;
   top: 0;
   height: 0;
-  width: inherit;
+  width: 300px;
   color: rgba(255,255,255, .2);
   font-size: 18px;
   font-weight: 500;
@@ -109,9 +105,7 @@
   transform: translateZ(0);
   transition: opacity .3s, height 0s .3s;
 
-  .short & {
-    line-height: 134px;
-  }
+  .short & { line-height: 134px; }
 
   i {
     position: relative;
@@ -128,8 +122,8 @@
   }
 }
 
-.show-loading .loading-list,
-.show-remove-player .remove-player {
+.loading-list.active,
+.remove-player.active {
   z-index: 3;
   height: 100%;
   opacity: 1;
@@ -144,7 +138,7 @@
 }
 
 .loading-list {
-  background: rgba(23,24,25, .92);
+  background: rgba(23,24,25, .95);
   transition: opacity .3s .2s, height 0s .5s;
 
   i {
