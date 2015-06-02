@@ -134,11 +134,6 @@
 
 ## Refactor
 ---------------------------------------------------------------
-- 'DATA/DB UPDATE...'
-- 'simplify player contract arrays ['none'] = [0]'
-- 'add cap.playerCount to team objects'
-- 'update sort order of inactive players'
----------------------------------------------------------------
 - 'change view logic does not need to be that complex...'
 - 'convert array push + splice to direct/fixed size array ops'
 - 'convert alt-lines reverse loop to forward [0,1,2..]'
@@ -183,6 +178,10 @@
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'payroll: update layout + data update tweaks'
+- 'payroll data: simplify player contract arrays'
+- 'payroll data: add cap.playerCount to team objects'
+- 'payroll data: update sort order of inactive players'
 - 'payroll: update display logic w/ new contract data'
 - 'payroll: show full player contracts (pre-current year)'
 - 'payroll: show cap number + cap hit columns'

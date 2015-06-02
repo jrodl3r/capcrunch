@@ -56,10 +56,9 @@
       font-weight: 400;
       background: linear-gradient(to top, #151515 0%, #232323 100%);
 
-      .num, .hit { font-size: 9px; font-weight: bold; }
       .num { background: linear-gradient(to top, rgba(45,46,46, .5) 0%, transparent 75%); }
-      .hit { color: #999; background: linear-gradient(to top, rgba(0,0,0, .5) 0%, transparent 75%); }
-      .cur { background: linear-gradient(to bottom, rgba(255,255,255, .05) 0%, transparent 75%); }
+      .hit { color: #AAA; background: linear-gradient(to top, rgba(0,0,0, .5) 0%, transparent 75%); }
+      .cur { color: #AAA; background: linear-gradient(to bottom, rgba(255,255,255, .05) 0%, transparent 75%); }
     }
 
     &.title {
@@ -67,9 +66,9 @@
       color: #191919;
       font-weight: bold;
       line-height: 28px;
-      background: linear-gradient(to top, rgba(100,100,100, .5) 0%, rgba(100,100,100, .7) 100%);
+      background: linear-gradient(to bottom, rgba(155,155,155, .6) 0%, rgba(155,155,155, .3) 100%);
 
-      .first { font-size: 12px; }
+      .first { color: #CCC; font-size: 12px; text-shadow: 0 1px 0 rgba(0,0,0, .5); }
       .num, .cur { background: none; }
       .year { color: transparent; font-size: 0; }
 

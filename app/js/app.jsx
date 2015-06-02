@@ -37,7 +37,7 @@ var App = React.createClass({
       teamData   : {
         id       : '',
         name     : '',
-        cap      : { hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
+        cap      : { players: '', hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
         players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] }},
       playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], created : [] },
       altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },

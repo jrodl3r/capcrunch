@@ -11,6 +11,7 @@
 //          » TYPE=merge-c node app.js | (Merge Shot+Image)
 //          » TYPE=log node app.js     | (Log Missing Info)
 //          » TYPE=build node app.js   | (Build Teams DB)
+//          » TYPE=c node app.js       | (Custom/Misc Update)
 // ------------------------------------------------------
 'use strict';
 
@@ -48,7 +49,7 @@ var request     = require('request'),
     jersey_alt  = /(\#)(\d+)/,
     player_id   = /(\/player_stats\/)(\d+)(-)/,
     position    = /(Position: )(Left|Center|Right|Defence|Goaltender)/,
-    interval, stream, image, title, href, url, key, i, j, k, $, db = [];
+    interval, stream, image, title, href, url, key, i, j, k, l, $, db = [];
 
 // Download Payroll Data (HTML)
 function getPayrolls() {
@@ -462,22 +463,30 @@ function mergeData(flag) {
 // Log Missing Data
 function logData() {
   if (cur_team < teams.length) {
-    fs.readFile('data/teams-merged/' + teams[cur_team] + '-merged.json', function(err, data) {
+    fs.readFile('data/db-img.json', function(err, data) {
       if (!err) {
         console.log(teams[cur_team] + '(' + (cur_team + 1) + ')');
-        team_obj = JSON.parse(data);
+        db = JSON.parse(data);
         for (i = 0; i < groups.length; i++) {
-          if (groups[i] !== 'other' && groups[i] !== 'inactive') {
-            for (j = 0; j < team_obj[teams[cur_team]].players[groups[i]].length; j++) {
-              if (!team_obj[teams[cur_team]].players[groups[i]][j].shot && !team_obj[teams[cur_team]].players[groups[i]][j].image) {
-                console.log('both: ' + team_obj[teams[cur_team]].players[groups[i]][j].firstname + ' ' + team_obj[teams[cur_team]].players[groups[i]][j].lastname);
-              }
-              else if (!team_obj[teams[cur_team]].players[groups[i]][j].shot) {
-                console.log('shot: ' + team_obj[teams[cur_team]].players[groups[i]][j].firstname + ' ' + team_obj[teams[cur_team]].players[groups[i]][j].lastname);
-              }
-              else if (!team_obj[teams[cur_team]].players[groups[i]][j].image) {
-                console.log('img: ' + team_obj[teams[cur_team]].players[groups[i]][j].firstname + ' ' + team_obj[teams[cur_team]].players[groups[i]][j].lastname);
-        }}}}
+          for (j = 0; j < db[cur_team].players[groups[i]].length; j++) {
+            if (typeof db[cur_team].players[groups[i]][j].image === undefined) {
+              console.log(db[cur_team].players[groups[i]][j].lastname);
+            }
+          }
+          // if (groups[i] !== 'other' && groups[i] !== 'inactive') {
+          //   for (j = 0; j < team_obj[teams[cur_team]].players[groups[i]].length; j++) {
+          //     if (!team_obj[teams[cur_team]].players[groups[i]][j].shot && !team_obj[teams[cur_team]].players[groups[i]][j].image) {
+          //       console.log('both: ' + team_obj[teams[cur_team]].players[groups[i]][j].firstname + ' ' + team_obj[teams[cur_team]].players[groups[i]][j].lastname);
+          //     }
+          //     else if (!team_obj[teams[cur_team]].players[groups[i]][j].shot) {
+          //       console.log('shot: ' + team_obj[teams[cur_team]].players[groups[i]][j].firstname + ' ' + team_obj[teams[cur_team]].players[groups[i]][j].lastname);
+          //     }
+          //     else if (!team_obj[teams[cur_team]].players[groups[i]][j].image) {
+          //       console.log('img: ' + team_obj[teams[cur_team]].players[groups[i]][j].firstname + ' ' + team_obj[teams[cur_team]].players[groups[i]][j].lastname);
+          //     }
+          //   }
+          // }
+        }
         cur_team++;
         logData();
       } else { console.error(err); }
@@ -509,7 +518,126 @@ function build() {
   }
 }
 
-// Process Types
+// Update Player Conrtacts
+function updateContracts() {
+  fs.readFile('data/db.json', function(err, data) {
+    if (!err) {
+      db = JSON.parse(data);
+      for (i = 0; i < teams.length; i++) {
+        console.log('processing ' + teams[i] + '(' + (i + 1) + ')');
+        for (j = 0; j < groups.length; j++) {
+          for (k = 0; k < db[i].players[groups[j]].length; k++) {
+            for (l = 0; l < db[i].players[groups[j]][k].contract.length; l++) {
+              if (db[i].players[groups[j]][k].contract[l] === 'none') {
+                db[i].players[groups[j]][k].contract[l] = '';
+              }}}}}
+      fs.writeFile('data/db-new.json', JSON.stringify(db, null, '\t'), function(fs_err) {
+        if (!fs_err) {
+          console.log('Contracts Update Finished');
+        } else { return console.error(fs_err); }
+      });
+    } else { console.error(err); }
+  });
+}
+
+// Properly Order Inactive Groups
+function reorderInactive() {
+  fs.readFile('data/db-counts.json', function(err, data) {
+    if (!err) {
+      db = JSON.parse(data);
+      for (i = 0; i < teams.length; i++) {
+        console.log('processing ' + teams[i] + '(' + (i + 1) + ')');
+        group = db[i].players.inactive;
+        group.sort(function (a, b) {
+          if (a.capnum > b.capnum) { return -1; }
+          if (a.capnum < b.capnum) { return 1; }
+          return 0;
+        });
+        db[i].players.inactive = group;
+      }
+      // for (j = 0; j < group.length; j++) {
+      //   console.log(group[j].lastname + '(' + group[j].capnum + ')');
+      // }
+      fs.writeFile('data/db-sorted.json', JSON.stringify(db, null, '\t'), function(fs_err) {
+        if (!fs_err) {
+          console.log('Contracts Update Finished');
+        } else { return console.error(fs_err); }
+      });
+    } else { console.error(err); }
+  });
+}
+
+// Add Active Player Counts
+function addRosterCount() {
+  fs.readFile('data/db-img.json', function(err, data) {
+    if (!err) {
+      db = JSON.parse(data);
+      for (i = 0; i < teams.length; i++) {
+        console.log('processing ' + teams[i] + '(' + (i + 1) + ')');
+        db[i].cap.players = (db[i].players.forwards.length + db[i].players.defensemen.length + db[i].players.goaltenders.length).toString();
+      }
+      fs.writeFile('data/db-counts.json', JSON.stringify(db, null, '\t'), function(fs_err) {
+        if (!fs_err) {
+          console.log('Roster Counts Added');
+        } else { return console.error(fs_err); }
+      });
+    } else { console.error(err); }
+  });
+}
+
+// Add Missing Fields
+function addMissingFields() {
+  fs.readFile('data/db-new.json', function(err, data) {
+    if (!err) {
+      db = JSON.parse(data);
+      for (i = 0; i < teams.length; i++) {
+        for (j = 0; j < groups.length; j++) {
+          for (k = 0; k < db[i].players[groups[j]].length; k++) {
+            if (!db[i].players[groups[j]][k].hasOwnProperty('image')) {
+              Object.defineProperty(db[i].players[groups[j]][k], 'image', { value : '', writable : true, enumerable : true, configurable : true });
+      }}}}
+      fs.writeFile('data/db-img.json', JSON.stringify(db, null, '\t'), function(fs_err) {
+        if (!fs_err) {
+          console.log('Roster Fields Updated');
+        } else { return console.error(fs_err); }
+      });
+    } else { console.error(err); }
+  });
+}
+
+// Convert Player ID/Shot to Numbers
+function convertNumbers() {
+  fs.readFile('data/db-counts.json', function(err, data) {
+    if (!err) {
+      db = JSON.parse(data);
+      for (i = 0; i < teams.length; i++) {
+        console.log('processing ' + teams[i] + '(' + (i + 1) + ')');
+        for (j = 0; j < groups.length; j++) {
+          for (k = 0; k < db[i].players[groups[j]].length; k++) {
+            if (db[i].players[groups[j]][k].jersey !== '') {
+              db[i].players[groups[j]][k].jersey = parseInt(db[i].players[groups[j]][k].jersey);
+            } else {
+              db[i].players[groups[j]][k].jersey = 0;
+            }
+            if (db[i].players[groups[j]][k].age !== '') {
+              db[i].players[groups[j]][k].age = parseInt(db[i].players[groups[j]][k].age);
+            } else {
+              db[i].players[groups[j]][k].age = 0;
+            }
+            db[i].players[groups[j]][k].id = parseInt(db[i].players[groups[j]][k].id);
+      }}}
+      //fs.writeFile('data/db.json', JSON.stringify(db), function(fs_err) {
+      fs.writeFile('data/db-numbers.json', JSON.stringify(db, null, '\t'), function(fs_err) {
+        if (!fs_err) {
+          console.log('Contracts Update Finished');
+        } else { return console.error(fs_err); }
+      });
+    } else { console.error(err); }
+  });
+}
+
+
+// Tasks
 if (TYPE === 'get') {
   getPayrolls();
 } else if (TYPE === 'save') {
@@ -528,6 +656,8 @@ if (TYPE === 'get') {
   logData();
 } else if (TYPE === 'build') {
   build();
+} else if (TYPE === 'c') {
+  reorderInactive();
 } else {
   console.log(TYPE);
 }

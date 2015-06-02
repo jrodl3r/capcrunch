@@ -12,13 +12,17 @@ var teamSchema = new mongoose.Schema({
         defensemen: String,
         goaltenders: String,
         other: String,
-        inactive: String
+        inactive: String,
+        players: String
       },
       players: {
         forwards: [{
           lastname: String,
           firstname: String,
-          contract: [],
+          capnum: String,
+					caphit: String,
+					bonus: String,
+          contract: [String],
           shot: String,
           jersey: String,
           image: String,
@@ -32,7 +36,10 @@ var teamSchema = new mongoose.Schema({
         defensemen: [{
           lastname: String,
           firstname: String,
-          contract: [],
+          capnum: String,
+					caphit: String,
+					bonus: String,
+          contract: [String],
           shot: String,
           jersey: String,
           image: String,
@@ -46,7 +53,10 @@ var teamSchema = new mongoose.Schema({
         goaltenders: [{
           lastname: String,
           firstname: String,
-          contract: [],
+          capnum: String,
+					caphit: String,
+					bonus: String,
+          contract: [String],
           shot: String,
           jersey: String,
           image: String,
@@ -60,7 +70,10 @@ var teamSchema = new mongoose.Schema({
         other: [{
           lastname: String,
           firstname: String,
-          contract: [],
+          capnum: String,
+					caphit: String,
+					bonus: String,
+          contract: [String],
           shot: String,
           jersey: String,
           image: String,
@@ -74,7 +87,10 @@ var teamSchema = new mongoose.Schema({
         inactive: [{
           lastname: String,
           firstname: String,
-          contract: [],
+          capnum: String,
+					caphit: String,
+					bonus: String,
+          contract: [String],
           shot: String,
           jersey: String,
           image: String,
