@@ -440,7 +440,7 @@
     float: right;
     height: 60px;
     width: 16px;
-    background: url($img-url + 'app/drag-handle-player-tile.svg');
+    background: url($img-url + 'drag-handle-player-tile.svg');
     background-position:  4px center;
     background-repeat: no-repeat;
     background-size: 40% 70%;
@@ -474,8 +474,8 @@
     height: 60px;
     width: 192px;
     background: linear-gradient(to top, rgba(165,165,165, .5) 0%, rgba(255,255,255, .85) 100%);
-    /* background: linear-gradient(to top, rgba(165,165,165, .25) 0%, rgba(255,255,255, .85) 100%); */
-    /* background: linear-gradient(to top, rgba(255,255,255, .3) 0%, rgba(255,255,255, .7) 100%); */
+    //background: linear-gradient(to top, rgba(165,165,165, .25) 0%, rgba(255,255,255, .85) 100%);
+    //background: linear-gradient(to top, rgba(255,255,255, .3) 0%, rgba(255,255,255, .7) 100%);
     border-radius: $border-radius;
     opacity: 1;
     overflow: hidden;
@@ -495,138 +495,138 @@
     opacity: .04;
 
     &.ANA {
-      background-image: url($img-url + 'teams/ANA.png');
+      background-image: url($img-url + 'logos/ANA.png');
       background-position: 105% 45%;
       background-size: 75%;
     }
     &.ARI {
-      background-image: url($img-url + 'teams/ARI.png');
+      background-image: url($img-url + 'logos/ARI.png');
       background-position: 110% 35%;
       background-size: 65%;
     }
     &.BOS {
-      background-image: url($img-url + 'teams/BOS.png');
+      background-image: url($img-url + 'logos/BOS.png');
     }
     &.BUF {
-      background-image: url($img-url + 'teams/BUF.png');
+      background-image: url($img-url + 'logos/BUF.png');
     }
     &.CGY {
-      background-image: url($img-url + 'teams/CGY.png');
+      background-image: url($img-url + 'logos/CGY.png');
     }
     &.CAR {
-      background-image: url($img-url + 'teams/CAR.png');
+      background-image: url($img-url + 'logos/CAR.png');
       background-position: 120% 45%;
       background-size: 65%;
     }
     &.CHI {
-      background-image: url($img-url + 'teams/CHI.png');
+      background-image: url($img-url + 'logos/CHI.png');
       background-position: 115% 50%;
       background-size: 63%;
     }
     &.COL {
-      background-image: url($img-url + 'teams/COL.png');
+      background-image: url($img-url + 'logos/COL.png');
       background-position: 105% 65%;
     }
     &.CLB {
-      background-image: url($img-url + 'teams/CLB.png');
+      background-image: url($img-url + 'logos/CLB.png');
       background-position: 105% 45%;
     }
     &.DAL {
-      background-image: url($img-url + 'teams/DAL.png');
+      background-image: url($img-url + 'logos/DAL.png');
       background-position: 200% 65%;
       background-size: 80%;
     }
     &.DET {
-      background-image: url($img-url + 'teams/DET.png');
+      background-image: url($img-url + 'logos/DET.png');
       background-position: 130% 60%;
       background-size: 65%;
     }
     &.EDM {
-      background-image: url($img-url + 'teams/EDM.png');
+      background-image: url($img-url + 'logos/EDM.png');
     }
     &.FLA {
-      background-image: url($img-url + 'teams/FLA.png');
+      background-image: url($img-url + 'logos/FLA.png');
     }
     &.LAK {
-      background-image: url($img-url + 'teams/LAK.png');
+      background-image: url($img-url + 'logos/LAK.png');
       background-position: 150% 25%;
       background-size: 73%;
     }
     &.MIN {
-      background-image: url($img-url + 'teams/MIN.png');
+      background-image: url($img-url + 'logos/MIN.png');
       background-position: 175% 55%;
       background-size: 75%;
     }
     &.MTL {
-      background-image: url($img-url + 'teams/MTL.png');
+      background-image: url($img-url + 'logos/MTL.png');
       background-position: 145% 50%;
       background-size: 70%;
     }
     &.NAS {
-      background-image: url($img-url + 'teams/NAS.png');
+      background-image: url($img-url + 'logos/NAS.png');
       background-position: 115% 45%;
       background-size: 70%;
     }
     &.NJD {
-      background-image: url($img-url + 'teams/NJD.png');
+      background-image: url($img-url + 'logos/NJD.png');
       background-position: 105% 45%;
       background-size: 60%;
     }
     &.NYI {
-      background-image: url($img-url + 'teams/NYI.png');
+      background-image: url($img-url + 'logos/NYI.png');
       background-position: 110% 25%;
       background-size: 60%;
     }
     &.NYR {
-      background-image: url($img-url + 'teams/NYR.png');
+      background-image: url($img-url + 'logos/NYR.png');
       background-position: 118% 25%;
       background-size: 66%;
     }
     &.OTT {
-      background-image: url($img-url + 'teams/OTT.png');
+      background-image: url($img-url + 'logos/OTT.png');
       background-position: 115% 75%;
       background-size: 65%;
     }
     &.PHI {
-      background-image: url($img-url + 'teams/PHI.png');
+      background-image: url($img-url + 'logos/PHI.png');
       background-position: 120% 35%;
       background-size: 65%;
     }
     &.PIT {
-      background-image: url($img-url + 'teams/PIT.png');
+      background-image: url($img-url + 'logos/PIT.png');
       background-position: 110% 17%;
       background-size: 60%;
     }
     &.SJS {
-      background-image: url($img-url + 'teams/SJS.png');
+      background-image: url($img-url + 'logos/SJS.png');
       background-position: 120% 60%;
       background-size: 65%;
     }
     &.STL {
-      background-image: url($img-url + 'teams/STL.png');
+      background-image: url($img-url + 'logos/STL.png');
       background-position: 120% 30%;
       background-size: 65%;
     }
     &.TBL {
-      background-image: url($img-url + 'teams/TBL.png');
+      background-image: url($img-url + 'logos/TBL.png');
     }
     &.TOR {
-      background-image: url($img-url + 'teams/TOR.png');
+      background-image: url($img-url + 'logos/TOR.png');
       background-position: 110% 60%;
       background-size: 60%;
     }
     &.VAN {
-      background-image: url($img-url + 'teams/VAN.png');
+      background-image: url($img-url + 'logos/VAN.png');
       background-position: 110% 45%;
       background-size: 60%;
     }
     &.WAS {
-      background-image: url($img-url + 'teams/WAS.png');
+      background-image: url($img-url + 'logos/WAS.png');
       background-position: 180% 55%;
       background-size: 75%;
     }
     &.WPG {
-      background-image: url($img-url + 'teams/WPG.png');
+      background-image: url($img-url + 'logos/WPG.png');
     }
   }
 }

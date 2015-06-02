@@ -25,4 +25,4 @@ $trades-height             :  270px;
 $trades-height-3-player    :  $trades-height + $trade-player-item;
 $trades-height-4-player    :  $trades-height + ($trade-player-item * 2);
 $trades-height-5-player    :  $trades-height + ($trade-player-item * 3);
-$img-url                   :  'http://res.cloudinary.com/capcrunch/image/upload/v1432113716/';
+$img-url                   :  'http://s3.amazonaws.com/capcrunch/img/';
