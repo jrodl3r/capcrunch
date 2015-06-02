@@ -11,13 +11,13 @@
   width: 1020px;
   margin: inherit;
   opacity: 0;
-  transition: opacity .25s, height 0s .25s;
+  transition: opacity .3s, height 0s .3s;
   transform: translateZ(0);
 
   &.active {
     height: auto;
     opacity: 1;
-    transition: opacity .25s, height 0s;
+    transition: opacity .3s, height 0s;
 
     .inner {
       transform: translateY(0);

@@ -1,29 +1,20 @@
-// Payroll
-// ==================================================
-
 #payroll {
   position: absolute;
   z-index: -1;
   width: 960px;
 
-  &.active {
-    z-index: 3;
-  }
+  &.active { z-index: 3; }
+  .cap-stats { float: right; }
 
   h2 {
     height: 32px;
     width: 100%;
-    margin: 30px 0;
-    margin-bottom: 0;
+    margin: 30px 0 0;
     padding-bottom: 30px;
     color: #666;
     font-weight: 500;
     cursor: default;
     transition: .1s;
-  }
-
-  .cap-stats {
-    float: right;
   }
 
   .inner {
@@ -32,9 +23,8 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0,0,0, .25);
     border-radius: $border-radius;
-    box-shadow: 0 0 10px 0 rgba(0,0,0, .05) inset;
+    box-shadow: 0 0 5px 0 rgba(0,0,0, .4) inset;
     overflow: hidden;
   }
 }
@@ -42,136 +32,155 @@
 #payroll-table {
   float: left;
   min-width: 100%;
+  padding: 0;
   border-radius: $border-radius;
-  overflow: scroll;
   border-collapse: collapse;
   border-spacing: 0;
+  overflow: scroll;
 
   tr {
-    height: 35px;
+    height: 34px;
     color: #999;
     font-size: 11px;
     text-align: center;
-    background: rgba(0,0,0, .4);
+    line-height: 34px;
+    cursor: default;
+    background: rgba(0,0,0, .55) linear-gradient(to bottom, rgba(125,125,125, .25) 0%, transparent 3%);
+    // &.overage { font-style: italic; }
+    &.even { background: rgba(0,0,0, .65) linear-gradient(to bottom, rgba(0,0,0, .3) 0%, transparent 3%); }
+
+    &.header {
+      height: 38px;
+      color: #666;
+      font-size: 10px;
+      font-weight: 400;
+      background: linear-gradient(to top, #151515 0%, #232323 100%);
+
+      .num, .hit { font-size: 9px; font-weight: bold; }
+      .num { background: linear-gradient(to top, rgba(45,46,46, .5) 0%, transparent 75%); }
+      .hit { color: #999; background: linear-gradient(to top, rgba(0,0,0, .5) 0%, transparent 75%); }
+      .cur { background: linear-gradient(to bottom, rgba(255,255,255, .05) 0%, transparent 75%); }
+    }
+
+    &.title {
+      height: 28px;
+      color: #191919;
+      font-weight: bold;
+      line-height: 28px;
+      background: linear-gradient(to top, rgba(100,100,100, .5) 0%, rgba(100,100,100, .7) 100%);
+
+      .first { font-size: 12px; }
+      .num, .cur { background: none; }
+      .year { color: transparent; font-size: 0; }
+
+      .marker {
+        height: 28px;
+        font-size: 16px;
+        line-height: 28px;
+      }
+
+      .hit {
+        color: #AAA;
+        text-shadow: 0 1px 1px rgba(0,0,0, .9);
+        background: linear-gradient(to top, rgba(0,0,0, .8) 0%, rgba(0,0,0, .3) 100%);
+      }
+    }
   }
 
-  th {
+  td, th {
+    width: 45px;
+    min-width: 45px;
     padding: 0;
-    font-size: 10px;
-    background: transparent;
-    cursor: default;
 
-    &.cap {
-      color: #838383;
+    &:last-of-type {
+      width: 50px;
+      padding-right: 5px;
+    }
+
+    &.first {
+      position: relative;
+      width: 180px;
+      min-width: 180px;
+      max-width: 180px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    &.num, &.hit {
+      width: 50px;
+      min-width: 50px;
+      max-width: 50px;
+
+      &.zero { color: #555; }
+    }
+
+    .marker {
+      float: left;
+      width: 20px;
+      margin-right: 5px;
+      margin-left: 9px;
       font-size: 11px;
+      text-align: center;
     }
   }
 
   td {
-    width: 75px;
-    padding: 6px 10px;
-    cursor: default;
-  }
 
-  i {
-    float: right;
-    width: 13px;
-    color: #777;
-    font-size: 13px;
-    text-align: center;
-    transition: .3s;
-
-    &.fa-money {
-      margin-right: 1px;
+    &.num, &.hit {
+      color: #888;
+      font-weight: bold;
+      background: rgba(0,0,0, .5); // #2D2E2E;
     }
-  }
 
-  .header {
-    height: 38px;
-    color: #838383;
-    font-size: 14px;
-    font-weight: bold;
-    background: linear-gradient(to top, #151515 0%, #232323);
-
-    .cap {
-      background: none;
+    &.num {
+      color: #666;
+      background: rgba(45,46,46, .3);
     }
-  }
 
-  .first {
-    width: 205px;
-    font-weight: bold;
-    text-align: left;
-  }
-
-  .odd {
-    background: rgba(0,0,0, .5);
-  }
-
-  .cap {
-    position: relative;
-    width: 80px;
-    background: rgba(0,0,0, .4);
-    font-weight: bold;
-    color: #999;
-
-    .odd & {
-      background: rgba(0,0,0, .3);
-    }
-  }
-
-  .title {
-    height: 28px;
-    color: #CCC;
-    font-weight: bold;
-    text-shadow: 0 1px 1px rgba(0,0,0, .35);
-    background: linear-gradient(to top, rgba(255,255,255, .15) 0%, rgba(255,255,255, .25) 100%);
-
-    i {
-      float: left;
-      position: relative;
-      top: 1px;
+    &.cur {
       color: #AAA;
+      font-weight: bold;
+      background: rgba(255,255,255, .05);
+    }
+
+    .jersey {
+      height: 34px;
+      color: #666;
+    }
+
+    .name {
+      float: left;
+      height: 34px;
+      width: 130px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .status {
+      position: absolute;
+      top: 11px;
+      right: 8px;
+      color: #777;
       font-size: 13px;
-      padding-right: 15px;
+
+      &:hover { color: #999; }
+      &.fa-money { right: 9px; }
     }
 
-    .cap {
+    .UFA, .RFA {
       position: relative;
-      color: #CCC;
-      text-shadow: 0 1px 1px rgba(0,0,0, .75);
-      background: linear-gradient(to top, rgba(0,0,0, .2) 0%, rgba(0,0,0, .6) 100%);
+      top: -1px;
+      display: inline-block;
+      height: 22px;
+      width: 36px;
+      font-size: 8px;
+      font-weight: bold;
+      line-height: 22px;
+      border-radius: $border-radius;
     }
-  }
 
-  .overage {
-    font-style: italic;
-  }
-
-  .jersey {
-    position: relative;
-    display: inline-block;
-    left: -4px;
-    width: 16px;
-    color: #797979;
-    font-size: 10px;
-    text-align: center;
-  }
-
-  .UFA span, .RFA span {
-    display: inline-block;
-    width: 100%;
-    color: #409922;
-    line-height: 23px;
-    font-size: 9px;
-    font-weight: bold;
-    background: #BBEFBB;
-    border-radius: $border-radius;
-    opacity: .6;
-  }
-
-  .RFA span {
-    color: #BD3D3D;
-    background: #F7C8C8;
+    .RFA { color: #295B19; background: #81A082; }
+    .UFA { color: #611F1F; background: #9F8081; }
   }
 }

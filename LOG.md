@@ -61,13 +61,10 @@
 ## Payroll
 ---------------------------------------------------------------
 - 'player details (info icon click/hover?)'
-- 'sticky table headers'
+- 'onScrollEnd: (if header not visible) fade-in years on title row'
 - 'sortable by year (click column header)'
 - 'collapsable player groups'
-- 'draft picks (default collapsed)'
-- 'show full player contracts (pre-current year)'
-- 'show cap number + cap hit columns'
-- 'disable other contracts group'
+- 'draft picks summary'
 ---------------------------------------------------------------
 
 
@@ -135,12 +132,33 @@
 ----------------------------------------------------------------------------
 
 
+## Refactor
+---------------------------------------------------------------
+- 'DATA/DB UPDATE...'
+- 'simplify player contract arrays ['none'] = [0]'
+- 'add cap.playerCount to team objects'
+- 'update sort order of inactive players'
+---------------------------------------------------------------
+- 'change view logic does not need to be that complex...'
+- 'convert array push + splice to direct/fixed size array ops'
+- 'convert alt-lines reverse loop to forward [0,1,2..]'
+---------------------------------------------------------------
+- 'setup roster + player objects w/ 1-to-1 pairty'
+  - 'replace { status : empty } w/ proper player objects (static/roster.js)'
+  - 're-verify db-data player objects...'
+- 'initialize arrays using literals [1,2,3.4,true]'
+- 'stop storing objects in array... just use objects {{},{{},{},{}}} not {[{},{},{}],{[{},{},{}]}}'
+- 'map max-size of all objects (ex: BN or IR can only be 8 nodes each, set them up that way instead of array manipulation!)'
+- 'distill + specify functions + homogenize argument data (monomorphic code #parody)'
+---------------------------------------------------------------
+
+
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'payroll data: draft-picks (data + layout + logic)'
-- 'update payroll/roster/list display logic w/ new contract data'
+- 'update panel + roster display logic w/ new contract data'
 - 'trades: show RFA/UFA status'
+- 'payroll data: draft-picks (data + layout + logic)'
 - 'share: cleanup layout / x-browser issues'
 - 'footer logic + layout'
 ---------------------------------------------------------------
@@ -161,9 +179,14 @@
 - 'React initial DOM SSR'
 
 
+
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'payroll: update display logic w/ new contract data'
+- 'payroll: show full player contracts (pre-current year)'
+- 'payroll: show cap number + cap hit columns'
+- 'payroll: disable other contracts group'
 - 'payroll data: update w/ full player contracts'
 - 'team load playerData diff'
   * playerData (inplay/benched/ir/cleared/traded/acquired/created)

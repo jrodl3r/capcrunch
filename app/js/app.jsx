@@ -124,7 +124,7 @@ var App = React.createClass({
     this.setState({ notify : notify });
   },
 
-  clearDrag: function() {
+  clearDrag: function() { // TODO: Make return updated data for setState (avoid multiple state updates + re-renders)
     var panelData = this.state.panelData,
         playerData = this.state.playerData,
         lineData = this.updateAltLines(),
