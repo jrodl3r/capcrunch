@@ -8,8 +8,8 @@
 #ENV
 .grunt
 node_modules
+/**/*.gz*
 /design
-/public/img/*.gz*
 /public/css/*.css*
 /public/js/*.js*
 /public/*.html

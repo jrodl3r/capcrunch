@@ -178,7 +178,7 @@
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
 - 'update list/roster/trade/capstats display logic w/ new contract data (player.capnum)'
-- 'Amazon Cloudfront CDN for image assets'
+- 'Amazon Cloudfront CDN for image + script assets'
 - 'trades: show RFA/UFA status'
 - 'payroll: update layout + data update tweaks'
 - 'payroll data: simplify player contract arrays'
