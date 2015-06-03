@@ -168,9 +168,8 @@
 - 'cleanup + global/fixed-pos user notify (slide/fade)'
 - 'basic mobile support (view shared roster + payroll)'
 ---------------------------------------------------------------
-
 - 'back/forward browser action management'
-- 'set expires headers caching'
+- 'set expires headers caching + gulp minfy etc scripts'
 - 'React initial DOM SSR'
 
 

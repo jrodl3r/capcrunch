@@ -9,7 +9,7 @@
 .grunt
 node_modules
 /design
-/public/img/*.svg.gz*
+/public/img/*.gz*
 /public/css/*.css*
 /public/js/*.js*
 /public/*.html
