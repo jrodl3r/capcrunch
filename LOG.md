@@ -134,6 +134,8 @@
 
 ## Refactor
 ---------------------------------------------------------------
+- 'immutable js + revamp object + array system'
+- 'splicing the teamData players on trades is not good. Refactor.'
 - 'change view logic does not need to be that complex...'
 - 'convert array push + splice to direct/fixed size array ops'
 - 'convert alt-lines reverse loop to forward [0,1,2..]'
@@ -151,8 +153,7 @@
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'update panel + roster display logic w/ new contract data'
-- 'trades: show RFA/UFA status'
+- 'update list/roster/trade/capstats display logic w/ new contract data (player.capnum)'
 - 'payroll data: draft-picks (data + layout + logic)'
 - 'share: cleanup layout / x-browser issues'
 - 'footer logic + layout'
@@ -168,7 +169,7 @@
 - 'cleanup + global/fixed-pos user notify (slide/fade)'
 - 'basic mobile support (view shared roster + payroll)'
 ---------------------------------------------------------------
-- 'Amazon Cloudfront CDN for image + script assets'
+
 - 'back/forward browser action management'
 - 'set expires headers caching'
 - 'React initial DOM SSR'
@@ -178,6 +179,8 @@
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'Amazon Cloudfront CDN for image assets'
+- 'trades: show RFA/UFA status'
 - 'payroll: update layout + data update tweaks'
 - 'payroll data: simplify player contract arrays'
 - 'payroll data: add cap.playerCount to team objects'

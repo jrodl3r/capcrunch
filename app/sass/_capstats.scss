@@ -25,6 +25,17 @@
       &.overage {
         color: #944444;
       }
+
+      &.unsigned {
+        font-size: 13px;
+
+        i {
+          position: relative;
+          top: 2px;
+          right: -7px;
+          font-size: 14px;
+        }
+      }
     }
   }
 

@@ -1,8 +1,12 @@
 'use strict';
 
-var UI = require('../../ui.js');
+var UI  = require('../../ui.js');
 
 var PlayersPanel = React.createClass({
+
+  // shouldComponentUpdate: function(nextProps) {
+  //   return this.props.playerGroup !== nextProps.playerGroup;
+  // },
 
   buildPlayerList: function(players, group) {
     var list = players.map(function(player, i) {
@@ -18,7 +22,9 @@ var PlayersPanel = React.createClass({
               { group !== 'defensemen' ? <span className="position">{ player.shot ? '/' + player.position : player.position }</span> : null }
               </div> : null }
               <div className="handle"></div>
-              <div className="salary">{ player.contract[0] !== '0.000' ? player.contract[0] : '-' }</div>
+          { /(UFA|RFA)/.test(player.contract[this.props.year])
+            ? <div className="salary agent">{player.contract[this.props.year]}</div>
+            : <div className="salary">{player.capnum}</div> }
               <div className="status"><div className="tag traded">T</div></div>
             </div>
           </li>
@@ -32,7 +38,8 @@ var PlayersPanel = React.createClass({
               onMouseDown={this.props.onItemMouseDown}
               onMouseUp={this.props.onItemMouseUp}
               onDragStart={this.props.onItemDragStart}
-              onDragEnd={this.props.onItemDragEnd}>
+              onDragEnd={this.props.onItemDragEnd}
+              onClick={this.blockAction}>
               <div className="inner">
                 <div className="jersey">{player.jersey}</div>
                 <div className="name">{player.lastname}<span>, </span>{player.firstname}</div>
@@ -40,7 +47,9 @@ var PlayersPanel = React.createClass({
                 { group !== 'defensemen' ? <span className="position">{ player.shot ? '/' + player.position : player.position }</span> : null }
                 </div> : null }
                 <div className="handle"></div>
-                <div className="salary">{ player.contract[0] !== '0.000' ? player.contract[0] : '-' }</div>
+            { /(UFA|RFA)/.test(player.contract[this.props.year])
+              ? <div className="salary agent">{player.contract[this.props.year]}</div>
+              : <div className="salary">{player.capnum}</div> }
                 <div className="status">
                 { player.action === 'acquired' ? <div className="tag acquired">A</div> : null }
                 { player.status === 'injured' ? <div className="tag injured">IR</div> : null }
@@ -53,6 +62,10 @@ var PlayersPanel = React.createClass({
       }
     }.bind(this));
     return list;
+  },
+
+  blockAction: function (e) {
+    e.preventDefault();
   },
 
   render: function() {

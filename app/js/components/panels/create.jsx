@@ -1,33 +1,36 @@
 'use strict';
 
 var Messages = require('../../static/messages.js'),
-    UI       = require('../../ui.js');
+    UI       = require('../../ui.js'),
+    PRM      = React.addons.PureRenderMixin;
+
+var createdPlayer = { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] };
 
 var CreatePlayer = React.createClass({
 
-  getInitialState: function() {
-    return { playerData : { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] } };
-  },
+  mixins: [PRM],
 
   createPlayer: function() {
-    var playerData = this.state.playerData;
-    var updateData = { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] };
-    if (playerData.firstname && playerData.lastname && playerData.position && playerData.salary >= 0.001 && playerData.contract.length) {
-      playerData.firstname = playerData.firstname.trim();
-      playerData.lastname = playerData.lastname.trim();
-      this.props.createPlayer(playerData);
-      this.setState({ playerData : updateData });
+    var resetPlayer;
+    if (createdPlayer.firstname && createdPlayer.lastname &&
+        createdPlayer.position && createdPlayer.salary >= 0.001 &&
+        createdPlayer.contract.length) {
+      createdPlayer.firstname = createdPlayer.firstname.trim();
+      createdPlayer.lastname = createdPlayer.lastname.trim();
+      this.props.createPlayer(createdPlayer);
+      resetPlayer = { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] };
+      createdPlayer = resetPlayer;
       UI.confirmAction('create');
     } else {
-      if (!playerData.firstname) {
+      if (!createdPlayer.firstname) {
         UI.missingCreateInput('fname', Messages.create.missing_fname);
-      } else if (!playerData.lastname) {
+      } else if (!createdPlayer.lastname) {
         UI.missingCreateInput('lname', Messages.create.missing_lname);
-      } else if (!playerData.position) {
+      } else if (!createdPlayer.position) {
         UI.missingCreateInput('position', Messages.create.missing_pos);
-      } else if (!playerData.salary || playerData.salary < 0.001) {
+      } else if (!createdPlayer.salary || createdPlayer.salary < 0.001) {
         UI.missingCreateInput('salary', Messages.create.missing_salary);
-      } else if (!playerData.contract.length) {
+      } else if (!createdPlayer.contract.length) {
         UI.missingCreateInput('duration', Messages.create.missing_dur);
       }
     }
@@ -50,12 +53,11 @@ var CreatePlayer = React.createClass({
   },
 
   formatName: function(e) {
-    var playerData = this.state.playerData,
-        value = e.target.value;
+    var value = e.target.value;
     if (value === ' ' || value === '-' || value === '.') { e.target.value = ''; }
     else { e.target.value = value.charAt(0).toUpperCase() + value.slice(1); }
-    playerData[e.target.getAttribute('data-type')] = e.target.value;
-    this.setState({ playerData : playerData });
+    createdPlayer[e.target.getAttribute('data-type')] = e.target.value;
+    // this.setState({ playerData : playerData });
   },
 
   checkPlayerJerseyInput: function(e) {
@@ -69,11 +71,11 @@ var CreatePlayer = React.createClass({
   },
 
   changePlayerSalary: function(e) {
-    var playerData = this.state.playerData;
+    // var playerData = this.state.playerData;
     if (e.target.value > 0) {
       e.target.className = 'active';
-      playerData.salary = parseFloat(e.target.value).toFixed(3);
-      this.setState({ playerData : playerData });
+      createdPlayer.salary = parseFloat(e.target.value).toFixed(3);
+      // this.setState({ playerData : playerData });
     }
   },
 
@@ -98,34 +100,28 @@ var CreatePlayer = React.createClass({
   },
 
   changePlayerSalaryDuration: function(e) {
-    var duration = parseInt(e.target.value),
-        playerData = this.state.playerData, i;
-    playerData.contract = [];
+    var duration = parseInt(e.target.value), i;
+    createdPlayer.contract = [];
     for (i = 0; i < duration; i++) {
-      playerData.contract[i] = playerData.salary;
+      createdPlayer.contract[i] = createdPlayer.salary;
     }
     e.target.className = 'active';
-    this.setState({ playerData : playerData });
   },
 
   formatSalary: function(e) {
-    var playerData = this.state.playerData;
     var str = e.target.value;
     if (str === '' || str === '0') {
       e.target.value = '0.100';
       e.target.className = 'active';
-      playerData.salary = '0.100';
+      createdPlayer.salary = '0.100';
     } else {
-      playerData.salary = e.target.value = parseFloat(str).toFixed(3);
+      createdPlayer.salary = e.target.value = parseFloat(str).toFixed(3);
     }
-    this.setState({ playerData : playerData });
   },
 
   changePlayerInput: function(e) {
-    var playerData = this.state.playerData;
     e.target.className = 'active';
-    playerData[e.currentTarget.getAttribute('data-type')] = e.target.value;
-    this.setState({ playerData : playerData });
+    createdPlayer[e.currentTarget.getAttribute('data-type')] = e.target.value;
   },
 
   render: function() {

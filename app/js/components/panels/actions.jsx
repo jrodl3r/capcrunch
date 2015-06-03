@@ -20,24 +20,13 @@ var ActionsPanel = React.createClass({
         <div className="title">Transactions</div>
         <div className={ 'inner ' + activePanel + tradeSize }>
           <ul id="actions-menu">
-            <li>
-              <a id="trades-tab" data-tab="trades"
-                className={ this.props.panelData.active === 'trades' ? 'active' : '' }
-                onClick={this.props.toggleActionsTab}>Trades</a>
-            </li>
-            <li>
-              <a id="freeagents-tab" data-tab="freeagents"
-                className={ this.props.panelData.active === 'freeagents' ? 'active' : '' }
-                onClick={this.props.toggleActionsTab}>Free Agents</a>
-            </li>
-            <li>
-              <a id="createplayer-tab" data-tab="createplayer"
-                className={ this.props.panelData.active === 'createplayer' ? 'active' : '' }
-                onClick={this.props.toggleActionsTab}>Create Player</a>
-            </li>
+            <li><a id="trades-tab" data-tab="trades" className={ this.props.panelData.active === 'trades' ? 'active' : '' } onClick={this.props.toggleActionsTab}>Trades</a></li>
+            <li><a id="freeagents-tab" data-tab="freeagents" className={ this.props.panelData.active === 'freeagents' ? 'active' : '' } onClick={this.props.toggleActionsTab}>Free Agents</a></li>
+            <li><a id="createplayer-tab" data-tab="createplayer" className={ this.props.panelData.active === 'createplayer' ? 'active' : '' } onClick={this.props.toggleActionsTab}>Create Player</a></li>
           </ul>
           <Trades
             tradeSize={tradeSize}
+            year={this.props.year}
             activeTab={this.props.panelData.active}
             teamData={this.props.teamData}
             tradeTeam={this.props.tradeTeam}
@@ -48,17 +37,15 @@ var ActionsPanel = React.createClass({
             addTradePlayer={this.props.addTradePlayer}
             removeTradePlayer={this.props.removeTradePlayer}
             onTradeDragEnter={this.props.onTradeDragEnter} />
-          <FreeAgents
-            activeTab={this.props.panelData.active} />
-          <CreatePlayer
-            activeTab={this.props.panelData.active}
-            createPlayer={this.props.createPlayer} />
+          <FreeAgents activeTab={this.props.panelData.active} />
+          <CreatePlayer activeTab={this.props.panelData.active} createPlayer={this.props.createPlayer} />
           <div id="actions-disabled-cover" className={ !this.props.panelData.enabled ? 'active' : '' }>
-            <p>» TBD «</p>
-            <p>Transactions are disabled because your roster has conflicting teams.</p>
-            <p>Switch back to your active team: {this.props.playerData.team}</p>
-            <p>Or remove non-acquired players</p>
-            <p>» TBD «</p>
+            <p>Transactions are disabled (Allstar-Mode)</p>
+            <p>To Re-enable:</p>
+            <p>#1 » Switch back to your active team ({this.props.playerData.team})</p>
+            <p>#2 » Remove players from other teams</p>
+            <p>#3 » Undo trades (Coming Soon)</p>
+            <p>»»» TBD «««</p>
           </div>
           <div id="actions-drag-cover"
             className={ this.props.dragType ? 'active' : '' }

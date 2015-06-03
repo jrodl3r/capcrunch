@@ -1,14 +1,18 @@
 'use strict';
 
 var CapStats = require('./capstats.jsx'),
-    UI       = require('../ui.js');
+    UI       = require('../ui.js'),
+    PRM      = React.addons.PureRenderMixin;
 
 var Roster = React.createClass({
 
+  mixins: [PRM],
+
   playerTile: function(id) {
-    var player = this.props.rosterData[id], altLine;
+    var player = this.props.rosterData[id], altLine, salary;
     if (player.status !== 'empty') {
       altLine = /(ir|benched)/.test(player.status);
+      salary = player.contract[this.props.capData.year];
       return (
         <div id={id} className="tile active"
           onDragEnter={this.props.onTileDragEnter}
@@ -21,11 +25,14 @@ var Roster = React.createClass({
             onDragStart={this.props.onPlayerDragStart}
             onDragEnd={this.props.onPlayerDragEnd}>
             <div className="inner">
-              { !altLine ? <img src={ player.image || 'img/default.png' }/> : null }
+              { !altLine ? <img src={ player.image ? 'http://s3.amazonaws.com/capcrunch/img/players/' + player.image : 'http://s3.amazonaws.com/capcrunch/img/players/default.png' }/> : null }
               <div className="info">
                 <div className="jersey">{player.jersey}</div>
                 <div className="name">{player.firstname.charAt(0)}. {player.lastname}</div>
-                { !altLine ? <div className="salary">{player.contract[0]}</div> : null }
+            { !altLine
+              ? <div className="salary">
+                { !/(UFA|RFA)/.test(salary) ? <span>{player.capnum}</span> : <span className={salary}>{salary}</span> }
+                </div> : null }
                 <div className="status">
                   { player.status === 'ir' ? <div className="tag injured">IR</div> : null }
                   { player.status === 'benched' ? <div className="tag benched">B</div> : null }
@@ -33,12 +40,13 @@ var Roster = React.createClass({
                   { player.action === 'acquired' ? <div className="tag acquired">A</div> : null }
                   { player.position !== 'G' ? <span className="shot">{player.shot}</span> : null }
                 </div>
-                { altLine ? <div className="salary">{player.contract[0]}</div> : null }
+            { altLine
+              ? <div className="salary">
+                { !/(UFA|RFA)/.test(salary) ? <span>{player.capnum}</span> : <span className={salary}>{salary}</span> }
+                </div> : null }
               </div>
               <div className="handle"></div>
-              <div className="bg">
-                <div className={ player.team + ' logo' }></div>
-              </div>
+              <div className="bg"><div className={ player.team + ' logo' }></div></div>
             </div>
           </div>
         </div>
@@ -76,11 +84,7 @@ var Roster = React.createClass({
       <div id="roster"
         className={ this.props.activeView === 'roster' ? 'section active' : 'section' }
         onDragEnter={this.props.onGridDragEnter}>
-        <CapStats
-          activeView="roster"
-          playerCount={this.props.playerData.inplay.length}
-          capData={this.props.capData}
-          resetRoster={this.props.resetRoster} />
+        <CapStats activeView="roster" capData={this.props.capData} />
         <div id="forwards" className="grid">
           <div className="header">
             <div className="left">LW</div>

@@ -2,52 +2,46 @@
 
 var CapStats = React.createClass({
 
-  toggleMenu: function() {
-    var view = this.props.activeView,
-        id   = view + '-stats-menu',
-        menu = document.getElementById(id);
-    if (menu.className.indexOf(' active') === -1) {
-      menu.className = menu.className + ' active';
-    } else {
-      menu.className = menu.className.replace(' active', '');
-    }
-  },
+  // toggleMenu: function() {
+  //   var view = this.props.activeView,
+  //       id   = view + '-stats-menu',
+  //       menu = document.getElementById(id);
+  //   if (menu.className.indexOf(' active') === -1) {
+  //     menu.className = menu.className + ' active';
+  //   } else {
+  //     menu.className = menu.className.replace(' active', '');
+  //   }
+  // },
+  //   <a id={ view + '-stats-button' } onClick={UI.blockAction}
+  //     className={ view === 'roster' && count || view === 'payroll' ? 'cap-stats-menu-button' : 'cap-stats-menu-button disabled' }
+  //     onMouseEnter={ view === 'roster' && count || view === 'payroll' ? this.toggleMenu : null }>
+  //     <i className="fa fa-cog"></i>
+  //   </a>
+  //   <div id={ view + '-stats-menu' } className="cap-stats-menu" onMouseLeave={this.toggleMenu}>
+  // { view === 'roster'
+  //   ? <ul>
+  //       <li><a onClick={this.props.resetRoster}><i className="fa fa-trash"></i> Remove All</a></li>
+  //     </ul>
+  //   : <ul>
+  //       <li><a><i className="fa fa-close"></i> Menu Item</a></li>
+  //     </ul> }
+  //   </div>
 
   render: function() {
+    var unsigned = typeof this.props.capData.unsigned !== undefined ? this.props.capData.unsigned : 0;
 
-    var view  = this.props.activeView,
-        info  = this.props.capData ? this.props.capData : { hit : 0, space : 0 },
-        count = this.props.playerCount ? this.props.playerCount : 0;
-
-    // TODO:
-    //   <a id={ view + '-stats-button' } onClick={UI.blockAction}
-    //     className={ view === 'roster' && count || view === 'payroll' ? 'cap-stats-menu-button' : 'cap-stats-menu-button disabled' }
-    //     onMouseEnter={ view === 'roster' && count || view === 'payroll' ? this.toggleMenu : null }>
-    //     <i className="fa fa-cog"></i>
-    //   </a>
-    //   <div id={ view + '-stats-menu' } className="cap-stats-menu" onMouseLeave={this.toggleMenu}>
-    // { view === 'roster'
-    //   ? <ul>
-    //       <li><a onClick={this.props.resetRoster}><i className="fa fa-trash"></i> Remove All</a></li>
-    //     </ul>
-    //   : <ul>
-    //       <li><a><i className="fa fa-close"></i> Menu Item</a></li>
-    //     </ul> }
-    //   </div>
     return (
-      <div id={ view + '-stats' } className={ view === 'roster' && count || view === 'payroll' ? 'cap-stats active' : 'cap-stats' }>
+      <div id={ this.props.activeView + '-stats' } className="cap-stats active">
+        <div><span>Roster Players<span className="value">{this.props.capData.players}</span></span></div>
+        <div><span>Payroll Total <span className="value">{this.props.capData.hit}</span></span></div>
         <div>
-          <span>Roster Players <span className="value">{count}</span></span>
+          <span>Cap Space
+            <span className={ this.props.capData.space > 0 ? 'value' : 'value overage' }>{this.props.capData.space}</span>
+          </span>
         </div>
-        <div>
-          <span>Payroll Total <span className="value">{info.hit}</span></span>
-        </div>
-        <div>
-          <span>Cap Space <span className={ info.space > 0 ? 'value' : 'value overage' }>{info.space}</span></span>
-        </div>
-        <div className="salary-cap">
-          <span>Salary Cap <span className="value">69.000</span></span>
-        </div>
+      { this.props.activeView === 'roster' && unsigned
+        ? <div className="unsigned value overage">Unsigned Players <i className="fa fa-info-circle" title="TBD » Coming Soon!"></i></div>
+        : <div className="salary-cap"><span>Salary Cap <span className="value">71.000</span></span></div> }
       </div>
     );
   }

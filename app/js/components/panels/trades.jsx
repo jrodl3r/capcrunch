@@ -4,15 +4,11 @@ var TeamList = require('../../static/teams.js'),
     Messages = require('../../static/messages.js'),
     UI       = require('../../ui.js');
 
+var teams = TeamList,
+    maxPlayers = 5,
+    selectedPlayer = '';
+
 var Trades = React.createClass({
-
-  getInitialState: function() {
-    return { selectedPlayer : '' };
-  },
-
-  getDefaultProps: function() {
-    return { teams : TeamList, maxPlayers : 5 };
-  },
 
   executeTrade: function() {
     if (this.props.tradeData.user.length && this.props.tradeData.league.length) {
@@ -36,7 +32,7 @@ var Trades = React.createClass({
   addTradePlayer: function(e) {
     var group, index, players = document.getElementById('trade-player-select');
     e.preventDefault();
-    if (this.props.tradeData.league.length === this.props.maxPlayers) {
+    if (this.props.tradeData.league.length === maxPlayers) {
       UI.showActionMessage('trade', Messages.trade.max_players);
     } else if (players.value !== '0') {
       group = players.options[players.selectedIndex].getAttribute('data-group');
@@ -44,7 +40,7 @@ var Trades = React.createClass({
       this.props.addTradePlayer('league', null, index, group);
       UI.clearAction('trade');
       UI.resetActionMessage();
-      this.setState({ selectedPlayer : '' });
+      selectedPlayer = '';
     } else {
       if (!this.props.tradeData.user.length) {
         UI.missingTradeInput();
@@ -81,36 +77,26 @@ var Trades = React.createClass({
   },
 
   buildTeamList: function(group, players, queued, acquired) {
-    var list, x = String.fromCharCode(10004);
+    var list, salary, x = String.fromCharCode(10004);
     list = players.map(function(player, j) {
-      if (acquired.map(function(p){ return p.id; }).indexOf(player.id) !== -1 || queued.indexOf(player.id) !== -1) {
-        return (
-          <option key={player.id} value={player.id} data-group={group} disabled="disabled">
-            {x} {player.firstname} {player.lastname} ({player.contract[0]})
-          </option>
-        );
-      } else if (this.state.selectedPlayer === player.id) {
-        return (
-          <option key={player.id} value={player.id} data-group={group} data-index={j} disabled="disabled">
-            {player.firstname} {player.lastname}
-          </option>
-        );
-      } else {
-        return (
-          <option key={player.id} value={player.id} data-group={group} data-index={j}>
-            {player.firstname} {player.lastname} ({player.contract[0]})
-          </option>
-        );
-      }
+      salary = player.contract[this.props.year];
+      if (/(RFA|UFA)/.test(salary)) {
+        return <option key={player.id} value={player.id} data-group={group} disabled="disabled">{player.firstname} {player.lastname} ({salary})</option>;
+      } else if (selectedPlayer === player.id) {
+        return <option key={player.id} value={player.id} data-group={group} data-index={j} disabled="disabled">{player.firstname} {player.lastname}</option>;
+      } else if (acquired.map(function(p){ return p.id; }).indexOf(player.id) !== -1 || queued.indexOf(player.id) !== -1) {
+        return <option key={player.id} value={player.id} data-group={group} disabled="disabled">{x} {player.firstname} {player.lastname} ({player.capnum})</option>;
+      } else { return <option key={player.id} value={player.id} data-group={group} data-index={j}>{player.firstname} {player.lastname} ({player.capnum})</option>; }
     }.bind(this));
     return list;
   },
 
   changeTradePlayer: function(e) {
     e.target.className = '';
-    this.setState({ selectedPlayer : e.target.value });
+    selectedPlayer = e.target.value;
     document.getElementById('add-trade-player').className = 'add-button active';
     UI.resetActionMessage();
+    this.forceUpdate();
   },
 
   render: function() {
@@ -125,9 +111,9 @@ var Trades = React.createClass({
             disabled={ this.props.tradeData.league.length ? 'disabled' : false }
             onChange={this.changeTradeTeam}>
             <option value="0" disabled>Team</option>
-            {this.props.teams.map(function(team) {
-              if (team.id !== this.props.teamData.id) { return <option key={team.id} value={team.id}>{team.id}</option>; }
-            }.bind(this))}
+          { teams.map(function(team) {
+            if (team.id !== this.props.teamData.id) { return <option key={team.id} value={team.id}>{team.id}</option>; }
+          }.bind(this)) }
           </select>
           <select id="trade-player-select" defaultValue="0"
             className={ this.props.tradeTeam.id ? '' : 'disabled' }

@@ -6,9 +6,8 @@ var PayrollTable = React.createClass({
     return nextProps.activeView === 'payroll';
   },
 
-  // TODO 6 to year-view control var
   playerGroup: function(players) {
-    var row, group;
+    var row, group, year = this.props.year;
     group = players.map(function(player, i) {
       if (!/(acquired|created)/.test(player.action)) {
         row = i % 2 ? '' : 'even';
@@ -26,8 +25,8 @@ var PayrollTable = React.createClass({
             { player.capnum === '0.000' ? <td className="num zero">-</td> : <td className="num">{player.capnum}</td> }
             { player.caphit === '0.000' ? <td className="hit zero">-</td> : <td className="hit">{player.caphit}</td> }
             { player.contract.map(function(salary, j) {
-            if (salary) { return <td className={ j === 6 ? 'cur' : '' }><span className={ /(UFA|RFA)/.test(salary) ? salary : '' }>{salary}</span></td>; }
-            else { return <td></td>; }
+              if (salary) { return <td className={ j === year ? 'cur' : '' }><span className={ /(UFA|RFA)/.test(salary) ? salary : '' }>{salary}</span></td>; }
+              else { return <td></td>; }
             }) }
           </tr>
         );

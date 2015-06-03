@@ -20,6 +20,7 @@
     margin-bottom: 0;
     padding-bottom: 20px;
     background: rgba(23,24,25, .5);
+    //background: rgba(0,0,0, .65);
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     transform: translateZ(0);
@@ -104,8 +105,10 @@
   margin-bottom: 10px;
   margin-left: 11px;
   background: linear-gradient(to top, rgba(136,136,136, .06) 0%, rgba(206,206,206, .06));
-  /* box-shadow: 0 0 30px rgba(255,255,255, .09) inset, 0 0 1px 0 rgba(0,0,0, .05); */
+  //background: linear-gradient(to top, rgba(135,135,135, .2) 0%, rgba(200,200,200, .15));
+  // box-shadow: 0 0 30px rgba(255,255,255, .09) inset, 0 0 1px 0 rgba(0,0,0, .05);
   -webkit-box-shadow: 0 0 30px rgba(255,255,255, .1) inset;
+  //box-shadow: 0 0 30px rgba(255,255,255, .1) inset, 0 0 1px 0 rgba(0,0,0, .1);
   border-radius: $border-radius;
 
   &.ir, &.bench {
@@ -408,6 +411,7 @@
     font-weight: bold;
     line-height: 13px;
     text-align: center;
+    text-indent: 1px;
     border-radius: 50%;
     opacity: .65;
 
@@ -435,6 +439,16 @@
       background: #117C1B;
     }
   }
+
+  .UFA, .RFA {
+    padding: 2px 5px;
+    font-size: 9px;
+    border-radius: 3px;
+    //box-shadow: 0 1px 1px rgba(0,0,0, .15);
+  }
+
+  .RFA { color: #265C15; background: #6DA06D; }
+  .UFA { color: #611F1F; background: #A9797A; }
 
   .handle {
     float: right;

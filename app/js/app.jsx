@@ -34,9 +34,7 @@ var App = React.createClass({
         G1L : { status : 'empty' }, G1R : { status : 'empty' },
         GB1 : { status : 'empty' }, GB2 : { status : 'empty' },
         GR1 : { status : 'empty' }, GR2 : { status : 'empty' }},
-      teamData   : {
-        id       : '',
-        name     : '',
+      teamData   : { id : '', name : '',
         cap      : { players: '', hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
         players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] }},
       playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], created : [] },
@@ -44,7 +42,7 @@ var App = React.createClass({
       tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
       tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }},
       panelData  : { active : 'trades', loading : false, engaged : false, enabled : true },
-      capData    : { year : '2015', hit : '0.000', space : '69.000' },
+      capData    : { year : 6, players : 0, unsigned : 0, hit : '0.000', space : '71.000' },
       viewData   : { active : 'loading', last : '', next : '' },
       shareData  : { name : '', link : '', view : 'input' },
       dragData   : { type : '', group : '', index : '' },
@@ -75,7 +73,7 @@ var App = React.createClass({
 // View + UI
 // --------------------------------------------------
 
-  changeView: function(view) {
+  changeView: function(view) { // TODO XXX
     var active = this.state.viewData.active;
     var last = this.state.viewData.last;
     var next = active === 'teams' && last === 'payroll' ? 'payroll' : null;
@@ -124,11 +122,11 @@ var App = React.createClass({
     this.setState({ notify : notify });
   },
 
-  clearDrag: function() { // TODO: Make return updated data for setState (avoid multiple state updates + re-renders)
+  clearDrag: function() { // TODO: don't setState, return data (avoid +rerender)
     var panelData = this.state.panelData,
         playerData = this.state.playerData,
         lineData = this.updateAltLines(),
-        teamSize = this.getTeamSize(),
+        teamSize = this.state.capData.players,
         team = this.state.teamData.id, updateData;
     if (teamSize) {
       panelData.enabled = this.isCleanTeam(team);
@@ -179,16 +177,11 @@ var App = React.createClass({
           this.resetTradeData('active');
         }
       } else if (tradeData.user.length || tradeData.league.length) { this.resetTradeData('active'); } // NOTE: Notify/Prompt User Clearing Trade?
-      this.setState({ teamData: teamData }, function() { this.loadPlayerData(); });
+      this.setState({ teamData : teamData }, function() { this.changeView('roster'); });
     } else {
       this.changeView('teams');
       this.notifyUser('error', Messages.error.loading_team);
     }
-  },
-
-  getTeamSize: function () {
-    var playerData = this.state.playerData;
-    return playerData.inplay.length + playerData.benched.length + playerData.created.length + playerData.ir.length;
   },
 
   isCleanTeam: function (team) {
@@ -213,18 +206,13 @@ var App = React.createClass({
     }}}}}} return team;
   },
 
-  loadPlayerData: function() { // TODO: Pre-Cache player images
-    this.changeView('roster');
-  },
-
-  getPlayerSortIndex: function(contract, group) { // TODO: Fails on 0.000 / null data
+  getPlayerSortIndex: function(salary, group) {
     var len = group.length, z;
     for (z = 0; z < len; z++) {
-      if (contract[0] > group[z].contract[0]) {
-        return z;
-      } else if (contract[0] === group[z].contract[0] && contract[0] > group[z + 1].contract[0] || z === len - 1) {
-        return z + 1;
-      }
+      if (/(UFA|RFA)/.test(group[z].contract[this.state.capData.year])) { console.log('b', salary, group[z].capnum, group[z].contract[this.state.capData.year]); return z; }
+      else if (parseFloat(salary) > parseFloat(group[z].capnum)) { console.log('a', salary, group[z].capnum); return z; }
+      else if (parseFloat(salary) === parseFloat(group[z].capnum) && parseFloat(salary) > parseFloat(group[z + 1].capnum) || z === len - 1) {
+        console.log('c', salary, group[z].capnum); return z + 1; }
     }
   },
 
@@ -288,7 +276,7 @@ var App = React.createClass({
     updateData = update(this.state, {
       rosterData : { $set: roster },
       playerData : { $set: playerData },
-      capData    : { $set: { year : '2015', hit : '0.000', space : '69.000' }}
+      capData    : { $set: { year : 6, hit : '0.000', space : '69.000' }}
     });
     this.setState(updateData);
   },
@@ -321,13 +309,20 @@ var App = React.createClass({
 
   updateCapStats: function(type, salary) {
     var capUpdate = this.state.capData;
-    if (type === 'add') {
+    if (type === 'add' && salary !== 'unsigned') {
+      capUpdate.players = capUpdate.players + 1;
       capUpdate.hit = (parseFloat(capUpdate.hit) + parseFloat(salary)).toFixed(3);
       capUpdate.space = (parseFloat(capUpdate.space) - parseFloat(salary)).toFixed(3);
-    } else {
+    } else if (type === 'remove' && salary !== 'unsigned') {
+      capUpdate.players = capUpdate.players - 1;
       capUpdate.hit = (parseFloat(capUpdate.hit) - parseFloat(salary)).toFixed(3);
       capUpdate.space = (parseFloat(capUpdate.space) + parseFloat(salary)).toFixed(3);
-    } return capUpdate;
+    }
+    if (salary === 'unsigned') {
+      if (type === 'add') { capUpdate.unsigned = capUpdate.unsigned + 1; }
+      else { capUpdate.unsigned = capUpdate.unsigned - 1; }
+    }
+    return capUpdate;
   },
 
 
@@ -373,7 +368,7 @@ var App = React.createClass({
           player.team_orig = player.team;
           player.team = this.state.teamData.id;
         }
-        index = this.getPlayerSortIndex(player.contract, team.players[player.group]);
+        index = this.getPlayerSortIndex(player.capnum, team.players[player.group]);
         team.players[player.group].splice(index, 0, player);
     }} return team;
   },
@@ -421,9 +416,10 @@ var App = React.createClass({
         break;
       default: UI.showActionMessage('trade', Messages.error.trade_player);
     }
+    var id = player.id;
     this.setState({ tradeData : tradeData }, function() { this.clearDrag(); });
     setTimeout(function() {
-      document.getElementById(player.id + '-trade-item').className = 'active';
+      document.getElementById(id + '-trade-item').className = 'active';
     }, Timers.clear);
     document.getElementById('trade-drop-area').className = '';
   },
@@ -448,11 +444,11 @@ var App = React.createClass({
     document.getElementById(id + '-trade-item').className = '';
   },
 
-  verifyTradePlayer: function(action) {
+  verifyTradePlayer: function(action, salary) {
     if (this.state.tradeData.user.length === this.props.maxPlayers) {
       UI.showActionMessage('trade', Messages.trade.max_players);
       return false;
-    } else if (/(created|acquired)/.test(action)) {
+    } else if (/(created|acquired)/.test(action) || /(UFA|RFA)/.test(salary)) {
       UI.showActionMessage('trade', Messages.trade.active_only);
       return false;
     } return true;
@@ -542,8 +538,9 @@ var App = React.createClass({
     player = drag.group === 'created' ? this.state.playerData.created[drag.index] : this.state.teamData.players[drag.group][drag.index];
     player.group = drag.group;
     if (dropData.cur && dropData.cur === dropData.last) { this.addPlayer(player); }
-    else if (dropData.action === 'trade' && this.verifyTradePlayer(player.action)) { this.addTradePlayer('user', player); }
-    else {
+    else if (dropData.action === 'trade' && this.verifyTradePlayer(player.action, player.contract[this.state.capData.year])) {
+      this.addTradePlayer('user', player);
+    } else {
       e.currentTarget.parentNode.className = 'row';
       e.currentTarget.className = 'item';
       this.clearDrag();
@@ -634,8 +631,11 @@ var App = React.createClass({
     if (dropData.last === dropData.cur && dropData.last !== dropData.origin) { this.movePlayer(); }
     else if (dropData.action) {
       if (dropData.action === 'remove') { this.removePlayer(); }
-      else if (dropData.action === 'trade' && this.verifyTradePlayer(this.state.rosterData[dropData.origin].action)) { this.removePlayer('trading'); }
-      else { this.clearDrag(); }
+      else if (dropData.action === 'trade') {
+        if (this.verifyTradePlayer(this.state.rosterData[dropData.origin].action, this.state.rosterData[dropData.origin].contract[this.state.capData.year])) {
+          this.removePlayer('trading');
+        }
+      } else { this.clearDrag(); }
     } else { this.clearDrag(); }
     this.clearDrop();
   },
@@ -643,7 +643,8 @@ var App = React.createClass({
   addPlayer: function(player) {
     var playerData = this.state.playerData,
         altStatus = this.isAltLine(dropData.cur),
-        capData = this.updateCapStats('add', player.contract[0]), updateData;
+        capData = player.capnum !== '0.000' ? this.updateCapStats('add', player.capnum) : this.updateCapStats('add', 'unsigned'),
+        updateData;
     if (!playerData.team) { playerData.team = player.team; }
     if (player.status === 'injured') { playerData.cleared.push(player.id); }
     if (altStatus) { playerData[altStatus].push(player); }
@@ -662,7 +663,7 @@ var App = React.createClass({
         playerData = this.state.playerData,
         rosterStatus = this.isAltLine(dropData.origin),
         player = this.state.rosterData[dropData.origin],
-        capData = this.updateCapStats('remove', player.contract[0]),
+        capData = player.capnum !== '0.000' ? this.updateCapStats('remove', player.capnum) : this.updateCapStats('remove', 'unsigned'),
         wasCleared = playerData.cleared.indexOf(player.id),
         status = 'active', index, updateData;
     if (wasCleared !== -1) { playerData.cleared.splice(wasCleared, 1); status = 'injured'; }
@@ -791,6 +792,7 @@ var App = React.createClass({
               capData={this.state.capData}
               teamData={this.state.teamData} />
             <RosterMenu
+              capData={this.state.capData}
               viewData={this.state.viewData}
               dragData={this.state.dragData}
               panelData={this.state.panelData}
@@ -825,7 +827,6 @@ var App = React.createClass({
               teamData={this.state.teamData}
               playerData={this.state.playerData}
               rosterData={this.state.rosterData}
-              resetRoster={this.resetRoster}
               onGridDragEnter={this.handleGridDragEnter}
               onTileDragEnter={this.handleTileDragEnter}
               onTileDragLeave={this.handleTileDragLeave}

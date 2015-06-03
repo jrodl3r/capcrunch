@@ -16,6 +16,7 @@ var RosterMenu = React.createClass({
           resetShare={this.props.resetShare}
           saveRoster={this.props.saveRoster} />
         <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
+          year={this.props.capData.year}
           dragType={this.props.dragData.type}
           panelData={this.props.panelData}
           tradeData={this.props.tradeData}
@@ -30,6 +31,7 @@ var RosterMenu = React.createClass({
           onRemoveDragEnter={this.props.onRemoveDragEnter}
           onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <PlayersPanel playerType="defensemen" panelTitle="Defense" panelId="defense-list"
+          year={this.props.capData.year}
           dragType={this.props.dragData.type}
           panelData={this.props.panelData}
           tradeData={this.props.tradeData}
@@ -44,6 +46,7 @@ var RosterMenu = React.createClass({
           onRemoveDragEnter={this.props.onRemoveDragEnter}
           onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <PlayersPanel playerType="goaltenders" panelTitle="Goalies" panelId="goalies-list"
+          year={this.props.capData.year}
           dragType={this.props.dragData.type}
           panelData={this.props.panelData}
           tradeData={this.props.tradeData}
@@ -58,6 +61,7 @@ var RosterMenu = React.createClass({
           onRemoveDragEnter={this.props.onRemoveDragEnter}
           onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <PlayersPanel playerType="inactive" panelTitle="Inactive" panelId="inactive-list"
+          year={this.props.capData.year}
           dragType={this.props.dragData.type}
           panelData={this.props.panelData}
           tradeData={this.props.tradeData}
@@ -73,6 +77,7 @@ var RosterMenu = React.createClass({
           onRemoveDragEnter={this.props.onRemoveDragEnter}
           onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <ActionsPanel
+          year={this.props.capData.year}
           dragType={this.props.dragData.type}
           panelData={this.props.panelData}
           teamData={this.props.teamData}

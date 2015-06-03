@@ -55,8 +55,7 @@
   &.inplay { animation: hide_row .3s ease-out; }
   &.traded {
     .item { background: none; cursor: default; }
-    .name { color: #555; }
-    .jersey, .shot, .position, .salary { color: #444; }
+    .name, .shot, .position, .salary { color: #575757; }
     .handle { visibility: hidden; cursor: default; }
   }
 }
@@ -180,11 +179,12 @@
     font-weight: bold;
     line-height: 15px;
     text-align: center;
+    text-indent: 1px;
     border-radius: 50%;
     box-shadow: 0 0 2px rgba(0,0,0, .15);
 
     &:nth-child(2) { margin-left: 0; }
-    &.traded { color: #666; background: #333; box-shadow: none; }
+    &.traded { color: #777; background: #212121; box-shadow: none; }
     &.acquired { color: #BBB; background: #1E44A2; }
     &.created { color: #CCC; background: #117C1B; }
     &.injured { color: #888; background: #444; }
