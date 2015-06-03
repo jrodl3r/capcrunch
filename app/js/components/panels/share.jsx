@@ -1,11 +1,8 @@
 'use strict';
 
-var UI  = require('../../ui.js'),
-    PRM = React.addons.PureRenderMixin;
+var UI  = require('../../ui.js');
 
 var SharePanel = React.createClass({
-
-  mixins: [PRM],
 
   saveRoster: function(e) {
     e.preventDefault();

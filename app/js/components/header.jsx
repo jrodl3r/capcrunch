@@ -1,8 +1,11 @@
 'use strict';
 
 var Teams = require('../static/teams.js'),
+    PRM   = React.addons.PureRenderMixin;
 
-Header = React.createClass({
+var Header = React.createClass({
+
+  mixins: [PRM],
 
   getDefaultProps: function() {
     return { teams: Teams };
