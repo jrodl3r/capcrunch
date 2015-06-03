@@ -153,7 +153,6 @@
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'update list/roster/trade/capstats display logic w/ new contract data (player.capnum)'
 - 'payroll data: draft-picks (data + layout + logic)'
 - 'share: cleanup layout / x-browser issues'
 - 'footer logic + layout'
@@ -179,6 +178,7 @@
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'update list/roster/trade/capstats display logic w/ new contract data (player.capnum)'
 - 'Amazon Cloudfront CDN for image assets'
 - 'trades: show RFA/UFA status'
 - 'payroll: update layout + data update tweaks'

@@ -483,6 +483,8 @@ var App = React.createClass({
     player.team = playerData.team || this.state.teamData.id;
     player.action = 'created';
     player.status = 'active';
+    player.capnum = data.salary;
+    player.caphit = data.salary;
     player.id = (9901 + playerData.created.length).toString();
     setTimeout(function() {
       playerData.created.push(player);

@@ -4,33 +4,31 @@ var Messages = require('../../static/messages.js'),
     UI       = require('../../ui.js'),
     PRM      = React.addons.PureRenderMixin;
 
-var createdPlayer = { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] };
+var created = { id : '', firstname : '', lastname : '', capnum: '', caphit: '', bonus: '', shot : '', position : '', jersey : '', salary : '', image : '', team : '', contract : ['','','','','','','','','','','','','','',''] };
 
 var CreatePlayer = React.createClass({
 
   mixins: [PRM],
 
   createPlayer: function() {
-    var resetPlayer;
-    if (createdPlayer.firstname && createdPlayer.lastname &&
-        createdPlayer.position && createdPlayer.salary >= 0.001 &&
-        createdPlayer.contract.length) {
-      createdPlayer.firstname = createdPlayer.firstname.trim();
-      createdPlayer.lastname = createdPlayer.lastname.trim();
-      this.props.createPlayer(createdPlayer);
-      resetPlayer = { firstname : '', lastname : '', shot : '', position : '', jersey : '', salary : '', contract : [] };
-      createdPlayer = resetPlayer;
+    var reset;
+    if (created.firstname && created.lastname && created.position && created.salary && created.contract[6]) {
+      created.firstname = created.firstname.trim();
+      created.lastname = created.lastname.trim();
+      this.props.createPlayer(created);
+      reset = { id : '', firstname : '', lastname : '', capnum: '', caphit: '', bonus: '', shot : '', position : '', jersey : '', salary : '', image : '', team : '', contract : ['','','','','','','','','','','','','','',''] };
+      created = reset;
       UI.confirmAction('create');
     } else {
-      if (!createdPlayer.firstname) {
+      if (!created.firstname) {
         UI.missingCreateInput('fname', Messages.create.missing_fname);
-      } else if (!createdPlayer.lastname) {
+      } else if (!created.lastname) {
         UI.missingCreateInput('lname', Messages.create.missing_lname);
-      } else if (!createdPlayer.position) {
+      } else if (!created.position) {
         UI.missingCreateInput('position', Messages.create.missing_pos);
-      } else if (!createdPlayer.salary || createdPlayer.salary < 0.001) {
+      } else if (!created.salary) {
         UI.missingCreateInput('salary', Messages.create.missing_salary);
-      } else if (!createdPlayer.contract.length) {
+      } else if (!created.contract[6]) {
         UI.missingCreateInput('duration', Messages.create.missing_dur);
       }
     }
@@ -56,7 +54,7 @@ var CreatePlayer = React.createClass({
     var value = e.target.value;
     if (value === ' ' || value === '-' || value === '.') { e.target.value = ''; }
     else { e.target.value = value.charAt(0).toUpperCase() + value.slice(1); }
-    createdPlayer[e.target.getAttribute('data-type')] = e.target.value;
+    created[e.target.getAttribute('data-type')] = e.target.value;
     // this.setState({ playerData : playerData });
   },
 
@@ -74,7 +72,7 @@ var CreatePlayer = React.createClass({
     // var playerData = this.state.playerData;
     if (e.target.value > 0) {
       e.target.className = 'active';
-      createdPlayer.salary = parseFloat(e.target.value).toFixed(3);
+      created.salary = parseFloat(e.target.value).toFixed(3);
       // this.setState({ playerData : playerData });
     }
   },
@@ -101,9 +99,9 @@ var CreatePlayer = React.createClass({
 
   changePlayerSalaryDuration: function(e) {
     var duration = parseInt(e.target.value), i;
-    createdPlayer.contract = [];
+    created.contract = ['','','','','','','','','','','','','','',''];
     for (i = 0; i < duration; i++) {
-      createdPlayer.contract[i] = createdPlayer.salary;
+      created.contract[i+6] = created.salary;
     }
     e.target.className = 'active';
   },
@@ -113,15 +111,15 @@ var CreatePlayer = React.createClass({
     if (str === '' || str === '0') {
       e.target.value = '0.100';
       e.target.className = 'active';
-      createdPlayer.salary = '0.100';
+      created.salary = '0.100';
     } else {
-      createdPlayer.salary = e.target.value = parseFloat(str).toFixed(3);
+      created.salary = e.target.value = parseFloat(str).toFixed(3);
     }
   },
 
   changePlayerInput: function(e) {
     e.target.className = 'active';
-    createdPlayer[e.currentTarget.getAttribute('data-type')] = e.target.value;
+    created[e.currentTarget.getAttribute('data-type')] = e.target.value;
   },
 
   render: function() {
