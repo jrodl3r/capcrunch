@@ -61,27 +61,25 @@
     float: left;
     height: 20%;
     width: 16.66%;
-    background: radial-gradient(rgba(255,255,255, .2) 0%, rgba(255,255,255, 0) 65%);
+    background: radial-gradient(rgba(255,255,255, .3) 0%, rgba(255,255,255, 0) 70%);
     opacity: 0;
     transform: translateZ(0);
     transition: .3s ease-out;
 
-    &.active { opacity: .5; }
+    &.active { opacity: .9; }
     &.clicked { cursor: default !important; }
     &.hover { opacity: 1; cursor: pointer; }
-
-    .active-team-marker {
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      height: 8px;
-      width: 8px;
-      background: rgba(0,144,255, .75);
-      border-radius: 5px;
-      opacity: 1;
-
-      &.inactive { opacity: 0; }
-    }
+    //.active-team-marker {
+    //  position: absolute;
+    //  top: 2px;
+    //  right: 2px;
+    //  height: 7px;
+    //  width: 7px;
+    //  background: rgb(100, 148, 237);//rgba(0,144,255, .75);
+    //  border-radius: 5px;
+    //  opacity: 1;
+    //  &.inactive { opacity: 0; }
+    //}
   }
 }
 

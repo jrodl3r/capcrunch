@@ -39,7 +39,7 @@ var UI = {
       $(this).addClass('clicked active');
       setTimeout(function () {
         $('#team-grid div.clicked').removeClass('clicked');
-        $('.active-team-marker').removeClass('inactive');
+        // $('.active-team-marker').removeClass('inactive');
       }, Timers.loading);
     });
   },
