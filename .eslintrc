@@ -22,6 +22,7 @@
     "no-mixed-requires": false,
     "no-multi-spaces": false,
     "no-unused-vars": false,
+    "no-loop-func": false,
     "key-spacing": false,
     "comma-spacing": false,
     "camelcase": false

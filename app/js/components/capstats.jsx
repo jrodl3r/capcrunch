@@ -41,7 +41,7 @@ var CapStats = React.createClass({
         </div>
       { this.props.activeView === 'roster' && unsigned
         ? <div className="unsigned value overage">Unsigned Players <i className="fa fa-info-circle" title="TBD » Coming Soon!"></i></div>
-        : <div className="salary-cap"><span>Salary Cap <span className="value">71.000</span></span></div> }
+        : <div className="salary-cap"><span>Salary Cap <span className="value">{this.props.capData.cap}</span></span></div> }
       </div>
     );
   }

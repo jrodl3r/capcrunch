@@ -4,7 +4,7 @@
 html {
   height: 100%;
   background-color: #1C1D21; //#15161A
-  background-image: url(../img/dark.jpg);
+  background-image: url(../img/dark.jpg); //url($img-url + 'dark.jpg');
   background-attachment: fixed;
   background-size: 100% auto;
   background-repeat: no-repeat;

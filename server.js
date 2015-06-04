@@ -50,7 +50,7 @@ app.get('/', function(req, res) {
 app.get('/:roster', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
-app.use('/', express.static(path.join(__dirname, '/public')));
+app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: 10000000 }));
 app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
 

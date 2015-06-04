@@ -2,14 +2,13 @@
 ---------------------------------------------------------------
 #### LATER (Technical) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'upgrade Mongolab'
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
-- 'on-before-unload clear + restore state (socket/cookies?)'
 ---------------------------------------------------------------
-- 'checkout CodeClimate, SpeedCurve, GTMetrix'
+- 'on-before-unload clear + restore state (socket/cookies?)'
 - 'gulp asset management + optimization (fonts, images)'
-- 'confirm image scaling not problematic (100x100/48x48)'
-- 'upgrade app data + upgrade Mongolab'
+- 'checkout CodeClimate, SpeedCurve, GTMetrix'
 - 'error pages (h5bp)'
 ---------------------------------------------------------------
 
@@ -26,6 +25,7 @@
 - 'minimum browser spec check + splash (zepto)'
 - 'static dropData to state [?]'
 - 'team logo strip on team-select hover (quicker team change)'
+- 'pre-cache team + player images on team select' [really?]
 ---------------------------------------------------------------
 
 
@@ -34,19 +34,26 @@
 ## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
 - 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
-- X (think this is ok now w/ fade-in?) 'IE: white svg flash onload'
 - 'Backspace key refresh/back-page-nav...Grr!'
 - 'Occasional missed remove-player tile dragend'
 - 'Occasional missed list-item dragstart'
+- 'Tabbing makes actions tabs disappear'
+- 'tile trade drag-end hover sticking + not queuing (BN/Hodgson)'
 ---------------------------------------------------------------
 
+
+
+## Grid
+---------------------------------------------------------------
+- 'IR players cap calculation (count, payroll)'
 
 
 ## Panels
 ---------------------------------------------------------------
-- 'player details (info icon click/hover?)'
-- |» 'obfuscated list slides into view (scroll-end)'
-- |» 'panel vertical order dragging'
+- 'obfuscated list slides into view on scroll-end' [?]
+- 'player details/info icon click/hover' [?]
+- 'drag vertical reorder/pos'
+- 'increase collapse click area'
 ---------------------------------------------------------------
 
 
@@ -60,10 +67,10 @@
 
 ## Payroll
 ---------------------------------------------------------------
-- 'player details (info icon click/hover?)'
-- 'onScrollEnd: (if header not visible) fade-in years on title row'
-- 'sortable by year (click column header)'
-- 'collapsable player groups'
+- 'fade-in group title years on scroll-end (if header not visible)'
+- 'player details/info on click/hover'
+- 'collapsable player groups' [?]
+- 'year column sorting'
 - 'draft picks summary'
 ---------------------------------------------------------------
 
@@ -120,9 +127,8 @@
 ##### Share
 ---------------------------------------------------------------
 - 'confirm active team (team mismatch / mixed roster)'
-!! - 'twitter, facebook + text-only share buttons'
-!! - 'text roster w/ actions summary'
-!! - 'increase share loading splash size'
+- 'twitter, facebook + copy text version buttons'
+- 'build text roster w/ actions summary + button logic'
 ---------------------------------------------------------------
 
 
@@ -134,7 +140,8 @@
 
 ## Refactor
 ---------------------------------------------------------------
-- 'immutable js + revamp object + array system'
+- 'immutable js + revamp object + array system (undo/redo/etc)'
+
 - 'splicing the teamData players on trades is not good. Refactor.'
 - 'change view logic does not need to be that complex...'
 - 'convert array push + splice to direct/fixed size array ops'
@@ -153,30 +160,47 @@
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'payroll data: draft-picks (data + layout + logic)'
-- 'share: cleanup layout / x-browser issues'
-- 'footer logic + layout'
----------------------------------------------------------------
-- 'onboard: drag-n-drop/trades-create/change-team/coming soon splashes'
+- 'share: cleanup layout + x-browser issues'
+- 'gm-overview: basic functionality (view + undo actions)'
 - 'disabled actions panel copy + layout'
+  - 'trades only, not create player'
 - 'disabled transaction button state (after action executes)'
-- 'increase panel collapse button click area'
-- 'team select: active team marker (blue dot)'
-- 'GM Overview basic functionality (view + undo actions)'
-- 'cap stats menu (¿header/panels/capStats?)'
-- 'pre-cache team + player images on team select'
-- 'cleanup + global/fixed-pos user notify (slide/fade)'
-- 'basic mobile support (view shared roster + payroll)'
 ---------------------------------------------------------------
+- 'free agents: list + add UFA players'
+  - 'filter by team'
+  - 'sort by previous salary'
+- 'data: draft-picks (data + layout + logic)'
+---------------------------------------------------------------
+- 'notifications: cleanup + global/fixed-pos user notify (slide/fade)'
+  - 'nav: tools link (coming soon hover)'
+  - 'better notification messages (acquired players, UFAs, etc)'
+- 'onboard: drag-n-drop/trades-create/change-team splashes'
+- 'cap stats menu (¿header/panels/capStats?)'
+---------------------------------------------------------------
+- 'footer logic + layout'
+- 'React initial DOM loading SSR'
 - 'back/forward browser action management'
-- 'set expires headers caching + gulp minfy etc scripts'
-- 'React initial DOM SSR'
+- 'basic mobile support (view shared roster + payroll)'
+- 'player image pre-loading (slow connection factor...)'
 
 
 
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'small bug fixes (see log)'
+- 'salary cap to 71.5M'
+- 'style RFA/UFA list item values'
+- 'trades: can queue RFA players'
+- 'trades: RFA player sorting'
+- 'trades: UFA list items disabled / RFA enabled'
+- 'FF/IE: tiles bg opacity bug'
+- 'set expires headers caching'
+- 'share: post-share load issues (NaN player count)'
+- '+/- FA roster players increment player count, not payroll'
+- '+/- BN players increment player count + payroll'
+- '+/- payroll alternating rows w/ trades'
+- 'cleanup team select grid + add active team marker (blue dot)'
 - 'update list/roster/trade/capstats display logic w/ new contract data (player.capnum)'
 - 'Amazon Cloudfront CDN for image + script assets'
 - 'trades: show RFA/UFA status'

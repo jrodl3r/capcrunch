@@ -7,10 +7,11 @@ var PayrollTable = React.createClass({
   },
 
   playerGroup: function(players) {
-    var row, group, year = this.props.year;
+    var row, group, year = this.props.year, x = 0;
     group = players.map(function(player, i) {
       if (!/(acquired|created)/.test(player.action)) {
-        row = i % 2 ? '' : 'even';
+        row = x % 2 ? '' : 'even';
+        x = x + 1;
         return (
           <tr className={row}>
             <td className="first">

@@ -24,8 +24,8 @@ var rosterSchema = new mongoose.Schema({
         GB1: {}, GB2: {},
         GR1: {}, GR2: {}
       },
-      altLines: { FR : Boolean, FB : Boolean, DR : Boolean, DB : Boolean, GR : Boolean, GB : Boolean },
-      capData: { year : String, hit : String, space : String },
+      altLines: { FR: Boolean, FB: Boolean, DR: Boolean, DB: Boolean, GR: Boolean, GB: Boolean },
+      capData: { year: Number, players: Number, unsigned: Number, hit: String, space: String, cap: String },
       tradeData: []
     });
 

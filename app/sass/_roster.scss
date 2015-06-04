@@ -10,7 +10,7 @@
     width: inherit;
     margin-top: 0;
     margin-bottom: 0;
-    background: rgba(225,225,225, .15); //rgba(23,24,25, .5);
+    background: rgba(225,225,225, .15);
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     transform: translateZ(0);
@@ -27,6 +27,7 @@
     height: 60px;
     width: 192px;
   }
+
   .left { margin-right: 5px; margin-left: 5px; }
   .center { margin-right: 5px; }
 
@@ -91,8 +92,6 @@
   margin-bottom: 10px;
   margin-left: 11px;
   background: linear-gradient(to top, rgba(136,136,136, .06) 0%, rgba(206,206,206, .06));
-  //background: linear-gradient(to top, rgba(135,135,135, .2) 0%, rgba(200,200,200, .15));
-  //box-shadow: 0 0 30px rgba(255,255,255, .1) inset, 0 0 1px 0 rgba(0,0,0, .1);
   -webkit-box-shadow: 0 0 30px rgba(255,255,255, .1) inset;
   border-radius: $border-radius;
 
@@ -146,7 +145,6 @@
     margin-top: 5px;
     background: rgba(255,255,255, 0.1);
     border-radius: $border-radius;
-    //-webkit-box-shadow: 0 0 70px rgba(255,255,255, .03) inset;
   }
 }
 
@@ -187,7 +185,7 @@
 }
 
 
-// Player Tiles
+// Players
 // --------------------------------------------------
 
 .tile {
@@ -247,7 +245,6 @@
   &.clicked {
     opacity: .75;
     cursor: grabbing;
-    //.bg { opacity: .75; }
   }
 
   img {
@@ -255,7 +252,7 @@
     height: 48px;
     width: 48px;
     margin: 6px 7px 6px 6px;
-    background: linear-gradient(to bottom, rgba(206,206,206, .8) 0%, rgba(136,136,136, .8) 100%);
+    background: linear-gradient(to bottom, rgba(206,206,206, .4) 0%, rgba(136,136,136, .8) 100%);
     border-radius: $border-radius;
     overflow: hidden;
   }
@@ -266,6 +263,10 @@
   }
 
   .inner {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
     height: 60px;
     width: 192px;
     opacity: 0;
@@ -395,13 +396,13 @@
 
   .UFA, .RFA {
     padding: 2px 5px;
-    font-size: 9px;
-    border-radius: 3px;
-    //box-shadow: 0 1px 1px rgba(0,0,0, .15);
+    color: #CCC;
+    font-size: 8px;
+    background: #777;
+    border-radius: $border-radius;
   }
-
-  .RFA { color: #265C15; background: #6DA06D; }
-  .UFA { color: #611F1F; background: #A9797A; }
+  //.RFA { color: #265C15; background: #6DA06D; }
+  //.UFA { color: #611F1F; background: #A9797A; }
 
   .handle {
     float: right;
@@ -435,14 +436,12 @@
 
   .bg {
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     top: 0;
     left: 0;
     height: 60px;
     width: 192px;
     background: linear-gradient(to top, rgba(165,165,165, .5) 0%, rgba(255,255,255, .85) 100%);
-    //background: linear-gradient(to top, rgba(165,165,165, .25) 0%, rgba(255,255,255, .85) 100%);
-    //background: linear-gradient(to top, rgba(255,255,255, .3) 0%, rgba(255,255,255, .7) 100%);
     border-radius: $border-radius;
     opacity: 1;
     overflow: hidden;
@@ -456,15 +455,16 @@
     height: 60px;
     width: 192px;
     background-repeat: no-repeat;
-    background-position: 105% 25%;
     opacity: .04;
 
+    &.BOS, &.BUF, &.CGY, &.EDM, &.FLA, &.TBL, &.WPG { background-position: 105% 25%; }
     &.BOS { background-image: url($img-url + 'logos/BOS.png'); }
     &.BUF { background-image: url($img-url + 'logos/BUF.png'); }
     &.CGY { background-image: url($img-url + 'logos/CGY.png'); }
     &.EDM { background-image: url($img-url + 'logos/EDM.png'); }
     &.FLA { background-image: url($img-url + 'logos/FLA.png'); }
     &.TBL { background-image: url($img-url + 'logos/TBL.png'); }
+    &.WPG { background-image: url($img-url + 'logos/WPG.png'); }
     &.ANA {
       background-image: url($img-url + 'logos/ANA.png');
       background-position: 105% 45%;
@@ -578,6 +578,5 @@
       background-position: 180% 55%;
       background-size: 75%;
     }
-    &.WPG { background-image: url($img-url + 'logos/WPG.png'); }
   }
 }

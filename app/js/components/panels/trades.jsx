@@ -80,12 +80,14 @@ var Trades = React.createClass({
     var list, salary, x = String.fromCharCode(10004);
     list = players.map(function(player, j) {
       salary = player.contract[this.props.year];
-      if (/(RFA|UFA)/.test(salary)) {
+      if (/UFA/.test(salary)) {
         return <option key={player.id} value={player.id} data-group={group} disabled="disabled">{player.firstname} {player.lastname} ({salary})</option>;
       } else if (selectedPlayer === player.id) {
         return <option key={player.id} value={player.id} data-group={group} data-index={j} disabled="disabled">{player.firstname} {player.lastname}</option>;
       } else if (acquired.map(function(p){ return p.id; }).indexOf(player.id) !== -1 || queued.indexOf(player.id) !== -1) {
-        return <option key={player.id} value={player.id} data-group={group} disabled="disabled">{x} {player.firstname} {player.lastname} ({player.capnum})</option>;
+        return <option key={player.id} value={player.id} data-group={group} disabled="disabled">{x} {player.firstname} {player.lastname} ({ /(RFA|UFA)/.test(salary) ? salary : player.capnum })</option>;
+      } else if (/RFA/.test(salary)) {
+        return <option key={player.id} value={player.id} data-group={group}>{player.firstname} {player.lastname} (RFA)</option>;
       } else { return <option key={player.id} value={player.id} data-group={group} data-index={j}>{player.firstname} {player.lastname} ({player.capnum})</option>; }
     }.bind(this));
     return list;

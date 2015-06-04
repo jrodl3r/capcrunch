@@ -25,7 +25,7 @@ var Roster = React.createClass({
             onDragStart={this.props.onPlayerDragStart}
             onDragEnd={this.props.onPlayerDragEnd}>
             <div className="inner">
-              { !altLine ? <img height="48" width="48" src={ player.image ? 'http://s3.amazonaws.com/capcrunch/img/players/' + player.image : 'http://s3.amazonaws.com/capcrunch/img/players/default.png' }/> : null }
+              { !altLine ? <img height="48" width="48" src={ player.image ? 'http://s3.amazonaws.com/capcrunch/img/players/' + player.image : 'http://s3.amazonaws.com/capcrunch/img/default.png' }/> : null }
               <div className="info">
                 <div className="jersey">{player.jersey}</div>
                 <div className="name">{player.firstname.charAt(0)}. {player.lastname}</div>
@@ -46,8 +46,8 @@ var Roster = React.createClass({
                 </div> : null }
               </div>
               <div className="handle"></div>
-              <div className="bg"><div className={ player.team + ' logo' }></div></div>
             </div>
+            <div className="bg"><div className={ player.team + ' logo' }></div></div>
           </div>
         </div>
       );
