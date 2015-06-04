@@ -24,9 +24,13 @@ TeamGrid = React.createClass({
           <div id="grid-reminder"></div>
           <object id="grid-svg" data="img/team-select-grid.svg" type="image/svg+xml"></object>
           <div id="team-grid">
-            {this.props.teams.map(function(team) {
-              return <div key={team.id} className={team.id} data-team={team.id} onClick={this.changeTeam}></div>;
-            }.bind(this))}
+            { this.props.teams.map(function(team) {
+              return (
+                <div key={team.id} data-team={team.id} className={team.id} onClick={this.changeTeam}>
+                  { this.props.activeTeam === team.id ? <div className="active-team-marker inactive"></div> : null }
+                </div>
+              );
+            }.bind(this)) }
           </div>
         </div>
       </div>

@@ -238,7 +238,7 @@
 
   &.hover, &.clicked {
     cursor: grab;
-    .inner { box-shadow: none; }
+    .inner { -webkit-box-shadow: 0 0 2px 0 transparent; }
     .handle { opacity: .25; }
     .bg { opacity: .85; }
     .logo { opacity: .05; }

@@ -27,19 +27,19 @@ var UI = {
   events: function() {
     $('body').on('contextmenu', UI.blockAction);
     $('#team-grid').on('mouseenter', 'div', function() {
-      var team = $(this).attr('class');
-      $('#grid-svg').contents().find('g.' + team).addClass('hover');
+      $(this).addClass('hover');
     });
     $('#team-grid').on('mouseleave', 'div', function() {
-      var team = $(this).attr('class');
-      $('#grid-svg').contents().find('g.' + team).removeClass('hover');
+      $(this).removeClass('hover');
     });
     $('#team-grid').on('click', 'div', function() {
+      $(this).removeClass('hover');
+      $('#team-grid div.active').removeClass('active');
       UI.team_loaded = $(this).attr('class');
-      $('#grid-svg').contents().find('g.' + UI.team_loaded).removeClass('hover');
-      $(this).addClass('clicked');
+      $(this).addClass('clicked active');
       setTimeout(function () {
-        $('#team-grid div.' + UI.team_loaded).removeClass('clicked');
+        $('#team-grid div.clicked').removeClass('clicked');
+        $('.active-team-marker').removeClass('inactive');
       }, Timers.loading);
     });
   },
