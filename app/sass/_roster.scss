@@ -1,16 +1,8 @@
-// Roster Grid
-// ==================================================
-
 #roster {
   width: 640px;
 
-  .inner {
-    float: left;
-  }
-
-  .cap-stats {
-    margin: 30px 0;
-  }
+  .inner { float: left; }
+  .cap-stats { margin: 30px 0; }
 
   .grid {
     position: relative;
@@ -18,20 +10,15 @@
     width: inherit;
     margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 20px;
-    background: rgba(23,24,25, .5);
-    //background: rgba(0,0,0, .65);
+    background: rgba(225,225,225, .15); //rgba(23,24,25, .5);
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     transform: translateZ(0);
 
-    &#defense, &#goalies {
-      border-radius: 0;
-    }
-
-    &#goalies {
-      border-bottom-left-radius: $border-radius;
-      border-bottom-right-radius: $border-radius;
+    &#forwards .header, &#forwards > .inner { background: rgba(0,0,0, .6); }
+    &#forwards .header {
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
     }
   }
 
@@ -40,21 +27,14 @@
     height: 60px;
     width: 192px;
   }
-
-  .left {
-    margin-right: 5px;
-    margin-left: 5px;
-  }
-
-  .center {
-    margin-right: 5px;
-  }
+  .left { margin-right: 5px; margin-left: 5px; }
+  .center { margin-right: 5px; }
 
   .header {
     float: left;
     width: 100%;
     height: 33px;
-    margin-left: 11px;
+    padding-left: 11px;
     color: #666;
     font-size: 11px;
     font-weight: bold;
@@ -62,18 +42,20 @@
     text-align: center;
     cursor: default;
 
-    .left, .center, .right {
-      height: inherit;
-      line-height: inherit;
-    }
+    .left, .center, .right { height: inherit; line-height: inherit; }
   }
 }
 
 #defense, #goalies {
+  background: rgba(0,0,0, .6);
+  border-radius: 0;
 
+
+  .header, & > .inner { background: rgba(0,0,0, .6); }
   .header {
-    width: 420px;
-    margin-left: 115px;
+    height: 58px;
+    width: 640px;
+    padding: 25px 0 0 115px;
   }
 
   .line {
@@ -89,12 +71,16 @@
 
 #goalies {
   margin-bottom: 0;
-  padding-bottom: 60px !important;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
 
-  .header {
-    width: 390px;
-    margin-left: 120px;
+  & > .inner {
+    padding-bottom: 60px;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
   }
+
+  .header { text-indent: -125px; }
 }
 
 .line {
@@ -106,9 +92,8 @@
   margin-left: 11px;
   background: linear-gradient(to top, rgba(136,136,136, .06) 0%, rgba(206,206,206, .06));
   //background: linear-gradient(to top, rgba(135,135,135, .2) 0%, rgba(200,200,200, .15));
-  // box-shadow: 0 0 30px rgba(255,255,255, .09) inset, 0 0 1px 0 rgba(0,0,0, .05);
-  -webkit-box-shadow: 0 0 30px rgba(255,255,255, .1) inset;
   //box-shadow: 0 0 30px rgba(255,255,255, .1) inset, 0 0 1px 0 rgba(0,0,0, .1);
+  -webkit-box-shadow: 0 0 30px rgba(255,255,255, .1) inset;
   border-radius: $border-radius;
 
   &.ir, &.bench {
@@ -127,18 +112,9 @@
       transition: opacity .35s .35s, height .35s, margin .35s;
     }
 
-    &.show {
-      transition: 0s;
-    }
-
-    .title {
-      height: 40px;
-      line-height: 40px;
-    }
-
-    .left, .center, .right, .tile {
-      height: 30px !important;
-    }
+    &.show { transition: 0s; }
+    .title { height: 40px; line-height: 40px; }
+    .left, .center, .right, .tile { height: 30px !important; }
   }
 
   &.ir {
@@ -148,15 +124,10 @@
       background: rgba(255,225,225, .1);
       -webkit-box-shadow: 0 0 70px rgba(255,0,0, .05) inset;
     }
-
-    .title {
-      color: #906A6A;
-    }
+    .title { color: #906A6A; }
   }
 
-  &.bench {
-    background: rgba(115,115,115, .15);
-  }
+  &.bench { background: rgba(115,115,115, .15); }
 
   .title {
     position: absolute;
@@ -175,7 +146,7 @@
     margin-top: 5px;
     background: rgba(255,255,255, 0.1);
     border-radius: $border-radius;
-    /* -webkit-box-shadow: 0 0 70px rgba(255,255,255, .03) inset; */
+    //-webkit-box-shadow: 0 0 70px rgba(255,255,255, .03) inset;
   }
 }
 
@@ -252,6 +223,7 @@
 
   &.active {
     height: 60px;
+    background: #6D6D6D;
     opacity: 1;
     transition: opacity .3s, height 0s, color .3s;
 
@@ -261,20 +233,21 @@
       -webkit-box-shadow: none;
     }
 
-    .inner {
-      opacity: 1;
-    }
+    .inner { opacity: 1; }
   }
 
   &.hover, &.clicked {
     cursor: grab;
+    .inner { box-shadow: none; }
     .handle { opacity: .25; }
-    .bg { opacity: .9; }
+    .bg { opacity: .85; }
+    .logo { opacity: .05; }
   }
 
   &.clicked {
-    opacity: .85;
+    opacity: .75;
     cursor: grabbing;
+    //.bg { opacity: .75; }
   }
 
   img {
@@ -397,9 +370,7 @@
     font-size: 10px;
     text-align: center;
 
-    .ir &, .bench & {
-      display: none;
-    }
+    .ir &, .bench & { display: none; }
   }
 
   .tag {
@@ -411,33 +382,15 @@
     font-weight: bold;
     line-height: 13px;
     text-align: center;
-    text-indent: 1px;
+    //text-indent: 1px;
     border-radius: 50%;
     opacity: .65;
 
-    .ir &, .bench & {
-      margin: 1px 0 0 5px;
-    }
-
-    &.acquired {
-      color: #BBB;
-      background: #1E44A2;
-    }
-
-    &.injured {
-      color: #E09191;
-      background: #A01313;
-    }
-
-    &.benched {
-      color: #999;
-      background: #323232;
-    }
-
-    &.created {
-      color: #CCC;
-      background: #117C1B;
-    }
+    .ir &, .bench & { margin: 1px 0 0 5px; }
+    &.acquired { color: #BBB; background: #1E44A2; }
+    &.injured { color: #E09191; background: #A01313; }
+    &.benched { color: #999; background: #323232; }
+    &.created { color: #CCC; background: #117C1B; }
   }
 
   .UFA, .RFA {
@@ -496,9 +449,7 @@
     backface-visibility: hidden;
     transform: translateZ(0);
 
-    .ir &, .bench & {
-      height: 30px;
-    }
+    .ir &, .bench & { height: 30px; }
   }
 
   .logo {
@@ -508,6 +459,12 @@
     background-position: 105% 25%;
     opacity: .04;
 
+    &.BOS { background-image: url($img-url + 'logos/BOS.png'); }
+    &.BUF { background-image: url($img-url + 'logos/BUF.png'); }
+    &.CGY { background-image: url($img-url + 'logos/CGY.png'); }
+    &.EDM { background-image: url($img-url + 'logos/EDM.png'); }
+    &.FLA { background-image: url($img-url + 'logos/FLA.png'); }
+    &.TBL { background-image: url($img-url + 'logos/TBL.png'); }
     &.ANA {
       background-image: url($img-url + 'logos/ANA.png');
       background-position: 105% 45%;
@@ -517,15 +474,6 @@
       background-image: url($img-url + 'logos/ARI.png');
       background-position: 110% 35%;
       background-size: 65%;
-    }
-    &.BOS {
-      background-image: url($img-url + 'logos/BOS.png');
-    }
-    &.BUF {
-      background-image: url($img-url + 'logos/BUF.png');
-    }
-    &.CGY {
-      background-image: url($img-url + 'logos/CGY.png');
     }
     &.CAR {
       background-image: url($img-url + 'logos/CAR.png');
@@ -554,12 +502,6 @@
       background-image: url($img-url + 'logos/DET.png');
       background-position: 130% 60%;
       background-size: 65%;
-    }
-    &.EDM {
-      background-image: url($img-url + 'logos/EDM.png');
-    }
-    &.FLA {
-      background-image: url($img-url + 'logos/FLA.png');
     }
     &.LAK {
       background-image: url($img-url + 'logos/LAK.png');
@@ -621,9 +563,6 @@
       background-position: 120% 30%;
       background-size: 65%;
     }
-    &.TBL {
-      background-image: url($img-url + 'logos/TBL.png');
-    }
     &.TOR {
       background-image: url($img-url + 'logos/TOR.png');
       background-position: 110% 60%;
@@ -639,8 +578,6 @@
       background-position: 180% 55%;
       background-size: 75%;
     }
-    &.WPG {
-      background-image: url($img-url + 'logos/WPG.png');
-    }
+    &.WPG { background-image: url($img-url + 'logos/WPG.png'); }
   }
 }
