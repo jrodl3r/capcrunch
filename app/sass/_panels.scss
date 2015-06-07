@@ -1,6 +1,3 @@
-// Roster Menu
-// ==================================================
-
 #menu {
   position: relative;
   width: 300px;
@@ -17,7 +14,7 @@
   border-radius: $border-radius;
   box-shadow: 0 0 2px 0 rgba(123,123,123, .1) inset;
   overflow: hidden;
-  transition: .3s;
+  transition: .4s;
   transform: translateZ(0);
 
   &.collapsed {
@@ -31,7 +28,7 @@
     color: #777;
     font-size: 12px;
     font-weight: bold;
-    overflow: inherit;
+    //overflow: inherit;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
   }

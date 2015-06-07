@@ -1,35 +1,57 @@
 'use strict';
 
-var UI  = require('../../ui.js');
-
 var GMPanel = React.createClass({
 
+  listUnsigned: function() {
+    return (
+      <div>
+        <div className="title">Unsigned Players</div>
+        <div className="list">(unsigned.map)</div>
+      </div>
+    );
+  },
+
+  listCreated: function() {
+    return (
+      <div>
+        <div className="group">Created Players</div>
+        <ul className="list">
+          { this.props.created.map(function(player, i) {
+            return (
+              <li key={i}>{player.firstname}</li>
+            );
+          }) }
+        </ul>
+      </div>
+    );
+  },
+
+  listTrades: function() {
+    return (
+      <div>
+        <div className="group">Trades</div>
+        <ul className="list">
+          { this.props.trades.map(function(trade, i) {
+            return (
+              <li key={i}>{trade} { i + 1 }</li>
+            );
+          }) }
+        </ul>
+      </div>
+    );
+  },
+
   render: function() {
+    var active = this.props.created.length + this.props.trades.length + this.props.unsigned;
 
     return (
-      <div id="overview" className="panel">
-        <div className="title">GM Overview
-          <a onClick={UI.togglePanelView}><i className="fa fa-chevron-up"></i></a>
+      <div id="overview" className={ active ? 'active panel' : 'panel' }>
+        <div className="title">GM Overview</div>
+        <div className="inner">
+          { this.props.unsigned ? this.listUnsigned() : null }
+          { this.props.created.length ? this.listCreated() : null }
+          { this.props.trades.length ? this.listTrades() : null }
         </div>
-      { this.props.trades.length || this.props.injured.length || this.props.benched.length || this.props.created.length || this.props.unsigned
-        ? <div>
-            { this.props.unsigned
-              ? <div>Unsigned Players</div>
-              : null }
-            { this.props.created.length
-              ? <div>Created Players</div>
-              : null }
-            { this.props.trades.length
-              ? <div>Trades List</div>
-              : null }
-            { this.props.injured.length
-              ? <div>Injured List</div>
-              : null }
-            { this.props.benched.length
-              ? <div>Benched List</div>
-              : null }
-          </div>
-        : <div className="inner no-action">Nothing to report...</div> }
       </div>
     );
   }

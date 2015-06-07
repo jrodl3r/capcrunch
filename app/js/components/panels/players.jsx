@@ -10,26 +10,7 @@ var PlayersPanel = React.createClass({
 
   buildPlayerList: function(players, group) {
     var list = players.map(function(player, i) {
-      if (/(inplay|ir|benched)/.test(player.status) || player.action === 'queued') {
-        return <li key={ i + player.id } className="row inplay"></li>;
-      } else if (player.action === 'traded') {
-        return (
-          <li key={ i + player.id } className="row traded">
-            <div className="item" data-group={group} data-index={i}>
-              <div className="jersey">{player.jersey}</div>
-              <div className="name">{player.lastname}<span>, </span>{player.firstname}</div>
-              { group !== 'goaltenders' ? <div className="info"><span className="shot">{player.shot}</span>
-              { group !== 'defensemen' ? <span className="position">{ player.shot ? '/' + player.position : player.position }</span> : null }
-              </div> : null }
-              <div className="handle"></div>
-          { /(UFA|RFA)/.test(player.contract[this.props.year])
-            ? <div className="salary agent">{player.contract[this.props.year]}</div>
-            : <div className="salary">{player.capnum}</div> }
-              <div className="status"><div className="tag traded">T</div></div>
-            </div>
-          </li>
-        );
-      } else {
+      if (!/(inplay|ir|benched)/.test(player.status) && !/(queued|traded)/.test(player.action)) {
         return (
           <li key={ i + player.id } className="row">
             <div className="item" data-group={group} data-index={i} draggable="true"
@@ -56,6 +37,25 @@ var PlayersPanel = React.createClass({
                 { group === 'created' ? <div className="tag created">C</div> : null }
                 </div>
               </div>
+            </div>
+          </li>
+        );
+      } else if (/(inplay|ir|benched)/.test(player.status) || player.action === 'queued') {
+        return <li key={ i + player.id } className="row inplay"></li>;
+      } else {
+        return (
+          <li key={ i + player.id } className="row traded">
+            <div className="item" data-group={group} data-index={i}>
+              <div className="jersey">{player.jersey}</div>
+              <div className="name">{player.lastname}<span>, </span>{player.firstname}</div>
+              { group !== 'goaltenders' ? <div className="info"><span className="shot">{player.shot}</span>
+              { group !== 'defensemen' ? <span className="position">{ player.shot ? '/' + player.position : player.position }</span> : null }
+              </div> : null }
+              <div className="handle"></div>
+          { /(UFA|RFA)/.test(player.contract[this.props.year])
+            ? <div className="salary agent">{player.contract[this.props.year]}</div>
+            : <div className="salary">{player.capnum}</div> }
+              <div className="status"><div className="tag traded">T</div></div>
             </div>
           </li>
         );
