@@ -140,7 +140,8 @@
 
 ## Refactor
 ---------------------------------------------------------------
-- 'immutable js + revamp object + array system (undo/redo/etc)'
+- 'Must start small, from basic load team + add/remove players, and work our way up (too complex to refactor in place!)'
+- '(Dont Need It) immutable js + revamp object + array system (undo/redo/etc)'
 
 - 'splicing the teamData players on trades is not good. Refactor.'
 - 'change view logic does not need to be that complex...'
@@ -160,16 +161,16 @@
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'share: cleanup layout + x-browser issues'
-- 'gm-overview: basic functionality (view + undo actions)'
-- 'disabled actions panel copy + layout'
-  - 'trades only, not create player'
-- 'disabled transaction button state (after action executes)'
----------------------------------------------------------------
+- 'data: draft-picks (data + layout + logic)'
+- 'trades: add draft-picks to dropdown list'
 - 'free agents: list + add UFA players'
   - 'filter by team'
   - 'sort by previous salary'
-- 'data: draft-picks (data + layout + logic)'
+- 'disabled actions panel copy + layout'
+  - 'trades only, not create player'
+- 'disabled transaction button state (after action executes)'
+- 'gm-overview: basic functionality (view + undo actions)'
+- 'share: cleanup layout + x-browser issues'
 ---------------------------------------------------------------
 - 'notifications: cleanup + global/fixed-pos user notify (slide/fade)'
   - 'nav: tools link (coming soon hover)'

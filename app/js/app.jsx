@@ -73,7 +73,7 @@ var App = React.createClass({
 // View + UI
 // --------------------------------------------------
 
-  changeView: function(view) { // TODO XXX
+  changeView: function(view) {
     var active = this.state.viewData.active;
     var last = this.state.viewData.last;
     var next = active === 'teams' && last === 'payroll' ? 'payroll' : null;

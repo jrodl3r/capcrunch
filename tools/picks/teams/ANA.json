@@ -1,0 +1,53 @@
+{
+	"id": "ANA",
+  "Y15": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "traded",
+			"to": { "id": "CLB", "info": "Traded James Wisniewski, 2015 third round pick to Ducks for Rene Bourque, William Karlsson, 2015 second round pick on 2015-03-02" }},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "FLA", "info": "Traded Tomas Fleischmann to Ducks for Dany Heatley, 2015 third round pick on 2015-02-28" }},
+    { "round": "3", "status": "acquired",
+			"from": { "id": "VAN", "info": "Traded Nick Bonino, Luca Sbisa, 2014 first round pick (#24-Jared McCann), 2014 third round pick (#85-Keegan Iverson) to Canucks for Ryan Kesler, 2015 third round pick on 2014-06-27" }},
+		{ "round": "3", "status": "acquired-traded",
+			"from": { "id": "EDM", "info": "Traded Viktor Fasth to Oilers for 2014 fifth round pick (#123-Matthew Berkovitz), 2015 third round pick on 2014-03-04"},
+			"to": { "id": "TBL", "info": "Traded Eric Brewer to Ducks for 2015 third round pick (?-?) on 2014-11-28" }},
+		{ "round": "3", "status": "acquired",
+			"from": { "CLB", "orig": "DET", "info": "Traded Rene Bourque, William Karlsson, 2015 second round pick to Blue Jackets for James Wisniewski, 2015 third round pick (DET) on 2015-03-02" }},
+		{ "round": "4", "status": "traded",
+			"to": { "id": "TBL", "info": "Traded Nate Thompson to Ducks for 2015 fourth round pick, 2015 seventh round pick on 2014-06-29" }},
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+		{ "round": "7", "status": "traded",
+			"to": { "id": "TBL", "info": "Traded Nate Thompson to Ducks for 2015 fourth round pick, 2015 seventh round pick on 2014-06-29" }},
+    { "round": "7", "status": "acquired",
+			"from": { "id": "COL", "info": "Traded Mat Clark to Avalanche for Michael Sgarbossa, 2015 conditional seventh round pick on 2015-03-02 (Conditions on pick unconfirmed.)" }}
+  ],
+  "Y16": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "traded",
+			"to": { "id": "TOR", "info": "Traded Korbinian Holzer to Ducks for Eric Brewer, 2016 fifth round pick on 2015-03-02" }},
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}
