@@ -1,0 +1,19 @@
+#overview {
+  height: 100px;
+
+  > .inner {
+    height: 66px;
+    background: rgba(255,255,255, .025);
+  }
+
+  &.active {
+    height: 200px;
+
+    > .inner { height: 166px; }
+  }
+
+  .no-action {
+    color: #484848;
+    line-height: 60px;
+  }
+}
