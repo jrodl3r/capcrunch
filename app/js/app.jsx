@@ -541,13 +541,18 @@ var App = React.createClass({
   },
 
   handleItemDragEnd: function(e) {
-    var drag = this.state.dragData, player;
-    player = drag.group === 'created' ? this.state.playerData.created[drag.index] : this.state.teamData.players[drag.group][drag.index];
-    player.group = drag.group;
-    if (dropData.cur && dropData.cur === dropData.last) { this.addPlayer(player); }
-    else if (dropData.action === 'trade' && this.verifyTradePlayer(player.action, player.contract[this.state.capData.year])) {
-      this.addTradePlayer('user', player);
-    } else {
+    var player, noaction = false;
+    if (dropData.cur && dropData.cur === dropData.last) { this.addPlayer(); }
+    else if (dropData.action === 'trade') {
+      player = this.state.dragData.group === 'created'
+        ? this.state.playerData.created[this.state.dragData.index]
+        : this.state.teamData.players[this.state.dragData.group][this.state.dragData.index];
+      if (this.verifyTradePlayer(player.action, player.contract[this.state.capData.year])) {
+        player.group = this.state.dragData.group;
+        this.addTradePlayer('user', player);
+      } else { noaction = true; }
+    } else { noaction = true; }
+    if (noaction) {
       e.currentTarget.parentNode.className = 'row';
       e.currentTarget.className = 'item';
       this.clearDrag();
@@ -647,8 +652,13 @@ var App = React.createClass({
     this.clearDrop();
   },
 
-  addPlayer: function(player) {
-    var playerData = this.state.playerData,
+  addPlayer: function() {
+    var player = this.state.dragData.group === 'created'
+      ? this.state.playerData.created[this.state.dragData.index]
+      : this.state.teamData.players[this.state.dragData.group][this.state.dragData.index];
+    player.group = this.state.dragData.group;
+
+    var playerData = $.extend(true, {}, this.state.playerData),
         altStatus = this.isAltLine(dropData.cur),
         capData = player.capnum !== '0.000' ? this.updateCapStats('add', player.capnum) : this.updateCapStats('add', 'unsigned'),
         updateData;

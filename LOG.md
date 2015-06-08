@@ -158,9 +158,20 @@
 ---------------------------------------------------------------
 
 
+## Post-Launch Rebuild (Whiteboard)
+---------------------------------------------------------------
+- 'Eradicate Object + Array Mutation'
+- 'Flatten Deep-Nested Objects'
+- 'Homogenize Objects + Arrays'
+- 'Optimize + Simplify Functions'
+---------------------------------------------------------------
+
+
+
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
+- 'gm-overview: basic functionality (view + undo actions)'
 - 'data: draft-picks (data + layout + logic)'
 - 'trades: add draft-picks to dropdown list'
 - 'free agents: list + add UFA players'
@@ -169,7 +180,6 @@
 - 'disabled actions panel copy + layout'
   - 'trades only, not create player'
 - 'disabled transaction button state (after action executes)'
-- 'gm-overview: basic functionality (view + undo actions)'
 - 'share: cleanup layout + x-browser issues'
 ---------------------------------------------------------------
 - 'notifications: cleanup + global/fixed-pos user notify (slide/fade)'
