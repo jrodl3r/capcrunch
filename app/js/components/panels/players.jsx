@@ -1,6 +1,6 @@
 'use strict';
 
-var UI  = require('../../ui.js');
+var UI = require('../../ui.js');
 
 var PlayersPanel = React.createClass({
 

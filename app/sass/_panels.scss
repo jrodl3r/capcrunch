@@ -28,7 +28,6 @@
     color: #777;
     font-size: 12px;
     font-weight: bold;
-    //overflow: inherit;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
   }
@@ -85,7 +84,7 @@
   }
 }
 
-.loading-list, .remove-player {
+.loading-list, .remove-player, .waiting {
   position: absolute;
   top: 0;
   height: 0;
@@ -120,7 +119,8 @@
 }
 
 .loading-list.active,
-.remove-player.active {
+.remove-player.active,
+.waiting.active {
   z-index: 3;
   height: 100%;
   opacity: 1;

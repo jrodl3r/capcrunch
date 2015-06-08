@@ -1,9 +1,9 @@
 'use strict';
 
-var SharePanel   = require('./panels/share.jsx'),
-    GMPanel      = require('./panels/overview.jsx'),
-    PlayersPanel = require('./panels/players.jsx'),
-    ActionsPanel = require('./panels/actions.jsx');
+var SharePanel    = require('./panels/share.jsx'),
+    OverviewPanel = require('./panels/overview.jsx'),
+    PlayersPanel  = require('./panels/players.jsx'),
+    ActionsPanel  = require('./panels/actions.jsx');
 
 var RosterMenu = React.createClass({
 
@@ -16,12 +16,12 @@ var RosterMenu = React.createClass({
           shareData={this.props.shareData}
           resetShare={this.props.resetShare}
           saveRoster={this.props.saveRoster} />
-        <GMPanel
-          unsigned={this.props.capData.unsigned}
-          trades={this.props.tradeData.trades}
-          injured={this.props.playerData.ir}
-          benched={this.props.playerData.benched}
-          created={this.props.playerData.created} />
+        <OverviewPanel
+          dragType={this.props.dragData.type}
+          unsigned={this.props.playerData.unsigned}
+          signed={this.props.playerData.signed}
+          created={this.props.playerData.created}
+          trades={this.props.tradeData.trades} />
         <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
           year={this.props.capData.year}
           dragType={this.props.dragData.type}

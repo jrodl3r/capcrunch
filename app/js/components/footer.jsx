@@ -7,7 +7,7 @@ var Footer = React.createClass({
   mixins: [PRM],
 
   render: function() {
-    return <footer><span className="cap">CAP</span>CRUNCH <span className="version">0.9.2</span></footer>;
+    return <footer>CAP<span className="alt">CRUNCH</span> <span className="version">0.9.2</span></footer>;
   }
 });
 

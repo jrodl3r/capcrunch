@@ -1,17 +1,114 @@
 #overview {
   height: 0;
+  max-height: 225px;
   margin-bottom: 0;
   opacity: 0;
-  transition: opacity .5s .35s, height .5s .85s, margin .5s .85s;
+  transition: opacity .4s .35s, height .4s .75s, margin .4s .75s;
 
-  > .inner { background: rgba(255,255,255, .025); }
+  > .inner {
+    max-height: 190px;
+    background: rgba(255,255,255, .025);
+    overflow-y: scroll;
+  }
 
   &.active {
-    height: 140px;
+    height: 95px;
     margin-bottom: 20px;
     opacity: 1;
-    transition: opacity .5s .85s, height .5s .35s, margin .5s .35s;
+    transition: opacity .4s .75s, height .4s .35s, margin .4s .35s;
 
-    > .inner { height: 106px; }
+    > .inner { height: auto; }
   }
+
+  &.loaded { transition: height .25s; }
+
+  .heading {
+    display: block;
+    height: 28px;
+    line-height: 28px;
+    background: linear-gradient(to top, rgba(0,0,0, .25) 0%, transparent 100%);
+  }
+
+  .signed .heading { color: #449454; }
+  .unsigned .heading { color: #944444; }
+  .trades .heading, .created .heading { color: #616161; }//#446394
+
+  .list {
+    width: 298px;
+    margin-left: 1px;
+    overflow: hidden;
+  }
+
+  .item {
+    box-shadow: 0 -1px 0 rgba(0,0,0, .2) inset;
+
+    .status {
+      float: left;
+      width: 35px;
+      margin-left: 10px;
+      margin-right: 0;
+      color: #525252;
+    }
+
+    .name { max-width: 180px; }
+  }
+
+  a.button {
+    float: right;
+    height: 22px;
+    width: 40px;
+    margin: 5px 5px 0 0;
+    color: #969696;
+    font-size: 10px;
+    line-height: 22px;
+    //text-transform: uppercase;
+    background: #515151;
+    border-radius: $border-radius;
+
+    &:hover {
+      color: #CCC;
+      text-shadow: 0 0 2px rgba(255,255,255, .2);
+      background: transparent;
+    }
+  }
+
+  .trade {
+    height: auto;
+
+    &:last-of-type { box-shadow: none !important; }
+
+    ul {
+      position: relative;
+      float: left;
+      width: 36%;
+      margin-left: 5%;
+      padding-bottom: 8px;
+
+      &.league { margin-left: 3%; }
+    }
+
+    li {
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+
+      &.team {
+        color: #575757;
+        font-size: 9px;
+        line-height: 20px;
+      }
+    }
+
+    a.button {
+      position: absolute;
+      top: 36%;
+      right: 0;
+      margin: 0 5px 0 0;
+    }
+  }
+
+  .waiting { color: rgba(255,255,255, .35); }
 }

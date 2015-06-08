@@ -76,7 +76,8 @@
   background: linear-gradient(to right, rgba(0,0,0, .2) 0%, rgba(255,255,255, .04) 75%, transparent);
   opacity: 1;
   overflow: hidden;
-  cursor: grab;
+  cursor: default;
+  //cursor: grab;
   transform: translateZ(0);
 
   &.hover {
@@ -94,7 +95,7 @@
     background: linear-gradient(to right, rgba(0,0,0, 0) 0%, rgba(255,255,255, .05) 75%, rgba(255,255,255, .15));
     border-bottom-right-radius: 2px;
     border-top-right-radius: 2px;
-    cursor: grabbing;
+    //cursor: grabbing;
 
     .jersey { color: #666; }
     .name { color: #BBB; }

@@ -37,7 +37,7 @@ var App = React.createClass({
       teamData   : { id : '', name : '',
         cap      : { players: '', hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
         players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] }},
-      playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], created : [] },
+      playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], unsigned : [], signed : [], created : [] },
       altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },
       tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
       tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }},
@@ -655,24 +655,22 @@ var App = React.createClass({
   addPlayer: function() {
     var player = this.state.dragData.group === 'created'
       ? this.state.playerData.created[this.state.dragData.index]
-      : this.state.teamData.players[this.state.dragData.group][this.state.dragData.index];
-    player.group = this.state.dragData.group;
-
-    var playerData = $.extend(true, {}, this.state.playerData),
+      : this.state.teamData.players[this.state.dragData.group][this.state.dragData.index],
+        unsigned = player.capnum === '0.000' ? true : false,
         altStatus = this.isAltLine(dropData.cur),
-        capData = player.capnum !== '0.000' ? this.updateCapStats('add', player.capnum) : this.updateCapStats('add', 'unsigned'),
-        updateData;
-    if (!playerData.team) { playerData.team = player.team; }
+        playerData = this.state.playerData,
+        capData = unsigned ? this.updateCapStats('add', 'unsigned') : this.updateCapStats('add', player.capnum);
     if (player.status === 'injured') { playerData.cleared.push(player.id); }
-    if (altStatus) { playerData[altStatus].push(player); }
-    else { playerData.inplay.push(player); }
+    player.group = this.state.dragData.group;
     player.status = altStatus || 'inplay';
-    updateData = update(this.state, {
+    playerData[player.status].push(player);
+    if (unsigned) { playerData.unsigned.push(player); }
+    if (!playerData.team) { playerData.team = player.team; }
+    this.setState(update(this.state, {
       capData    : { $set: capData },
       playerData : { $set: playerData },
       rosterData : { [dropData.cur] : { $set: player }}
-    });
-    this.setState(updateData, function() { this.clearDrag(); });
+    }), function() { this.clearDrag(); });
   },
 
   removePlayer: function(trading) {
@@ -680,9 +678,10 @@ var App = React.createClass({
         playerData = this.state.playerData,
         altStatus = this.isAltLine(dropData.origin),
         player = this.state.rosterData[dropData.origin],
-        capData = player.capnum !== '0.000' ? this.updateCapStats('remove', player.capnum) : this.updateCapStats('remove', 'unsigned'),
+        unsigned = player.capnum === '0.000' ? true : false,
+        capData = unsigned ? this.updateCapStats('remove', 'unsigned') : this.updateCapStats('remove', player.capnum),
         wasCleared = playerData.cleared.indexOf(player.id),
-        status = 'active', index, updateData;
+        status = 'active', index;
     if (wasCleared !== -1) { playerData.cleared.splice(wasCleared, 1); status = 'injured'; }
     if (player.team === teamData.id && player.group !== 'created') {
       index = teamData.players[player.group].map(function(p){ return p.id; }).indexOf(player.id);
@@ -695,12 +694,15 @@ var App = React.createClass({
     altStatus = altStatus || 'inplay';
     index = playerData[altStatus].map(function(p){ return p.id; }).indexOf(player.id);
     playerData[altStatus].splice(index, 1);
-    updateData = update(this.state, {
+    if (unsigned) {
+      index = playerData.unsigned.map(function(p){ return p.id; }).indexOf(player.id);
+      if (index !== -1) { playerData.unsigned.splice(index, 1); }
+    }
+    this.setState(update(this.state, {
       capData    : { $set: capData },
       playerData : { $set: playerData },
       rosterData : { [dropData.origin] : { $set: { status : 'empty' }}}
-    });
-    this.setState(updateData, function() {
+    }), function() {
       if (trading) { this.addTradePlayer('user', player); }
       else { this.clearDrag(); }
     });
