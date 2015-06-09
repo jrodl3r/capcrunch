@@ -28,7 +28,6 @@ var CapStats = React.createClass({
   //   </div>
 
   render: function() {
-    var unsigned = typeof this.props.capData.unsigned !== undefined ? this.props.capData.unsigned : 0;
 
     return (
       <div id={ this.props.activeView + '-stats' } className="cap-stats active">
@@ -39,9 +38,12 @@ var CapStats = React.createClass({
             <span className={ this.props.capData.space > 0 ? 'value' : 'value overage' }>{this.props.capData.space}</span>
           </span>
         </div>
-      { this.props.activeView === 'roster' && unsigned
-        ? <div className="unsigned value overage">Unsigned Players <i className="fa fa-info-circle" title="TBD » Coming Soon!"></i></div>
-        : <div className="salary-cap"><span>Salary Cap <span className="value">{this.props.capData.cap}</span></span></div> }
+      { this.props.activeView === 'roster' && this.props.capData.unsigned
+        ? <div className="unsigned value overage">
+            {this.props.capData.unsigned}&nbsp;Unsigned Player { this.props.capData.unsigned > 1 ? <span>s</span> : null }
+            <i className="fa fa-info-circle"></i>
+          </div>
+      : <div className="salary-cap"><span>Salary Cap <span className="value">{ this.props.capData.cap || this.props.league }</span></span></div> }
       </div>
     );
   }

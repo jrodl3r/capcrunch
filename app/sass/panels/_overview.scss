@@ -26,7 +26,8 @@
     display: block;
     height: 28px;
     line-height: 28px;
-    background: linear-gradient(to top, rgba(0,0,0, .25) 0%, transparent 100%);
+    //background: linear-gradient(to top, rgba(0,0,0, .25) 0%, transparent 100%);
+    background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
   }
 
   .signed .heading { color: #449454; }
@@ -42,6 +43,9 @@
   .item {
     box-shadow: 0 -1px 0 rgba(0,0,0, .2) inset;
 
+    &:last-of-type { box-shadow: none !important; }
+    .name { max-width: 180px; }
+
     .status {
       float: left;
       width: 35px;
@@ -49,11 +53,9 @@
       margin-right: 0;
       color: #525252;
     }
-
-    .name { max-width: 180px; }
   }
 
-  a.button {
+  .button {
     float: right;
     height: 22px;
     width: 40px;
@@ -74,8 +76,6 @@
 
   .trade {
     height: auto;
-
-    &:last-of-type { box-shadow: none !important; }
 
     ul {
       position: relative;
@@ -102,12 +102,43 @@
       }
     }
 
-    a.button {
+    .button {
       position: absolute;
       top: 36%;
       right: 0;
       margin: 0 5px 0 0;
     }
+  }
+
+  .confirm-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: .25s;
+
+    &.active {
+      width: inherit;
+      height: inherit;
+      color: #AAA;
+      opacity: 1;
+      background: #222 linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0.04) 75%, transparent);
+      transform: translateX(0);
+    }
+  }
+
+  .confirm-buttons {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+    color: #777;
+    font-size: 13px;
+
+    a:hover { color: #BBB; }
   }
 
   .waiting { color: rgba(255,255,255, .35); }

@@ -23,6 +23,7 @@ var GMPanel = React.createClass({
         $('#overview').css('height', height);
       } else { $('#overview').css('height', 95); }
     } else { $('#overview').css('height', 0); }
+    $('.confirm-slider.active').removeClass('active');
   },
 
   listUnsigned: function() {
@@ -73,11 +74,18 @@ var GMPanel = React.createClass({
               <li key={ i + player.id } className="item">
                 <span className="status">{player.position}</span>
                 <span className="name">{player.lastname}, {player.firstname}</span>
-                <a className="button">Undo</a>
+                <a className="button" data-target={player.id} onClick={this.showUndoConfirm}>Undo</a>
                 <span className="salary">{player.contract[6]}</span>
+                <div id={ player.id + '-undo-confirm' } className="confirm-slider">
+                  Are you sure?
+                  <div className="confirm-buttons">
+                    <a data-id={player.id} onClick={this.props.undoCreatePlayer}>Yes</a><span> / </span>
+                    <a className={ player.id + '-undo-confirm' } onClick={this.hideUndoConfirm}>No</a>
+                  </div>
+                </div>
               </li>
             );
-          }) }
+          }.bind(this)) }
         </ul>
       </div>
     );
@@ -110,6 +118,16 @@ var GMPanel = React.createClass({
         </ul>
       </div>
     );
+  },
+
+  showUndoConfirm: function (e) {
+    e.preventDefault();
+    document.getElementById(e.target.getAttribute('data-target') + '-undo-confirm').className = 'confirm-slider active';
+  },
+
+  hideUndoConfirm: function (e) {
+    e.preventDefault();
+    document.getElementById(e.target.className).className = 'confirm-slider';
   },
 
   render: function() {

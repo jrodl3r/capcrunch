@@ -21,6 +21,7 @@ var RosterMenu = React.createClass({
           unsigned={this.props.playerData.unsigned}
           signed={this.props.playerData.signed}
           created={this.props.playerData.created}
+          undoCreatePlayer={this.props.undoCreatePlayer}
           trades={this.props.tradeData.trades} />
         <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
           year={this.props.capData.year}

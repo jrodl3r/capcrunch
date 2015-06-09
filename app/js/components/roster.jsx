@@ -1,12 +1,12 @@
 'use strict';
 
 var CapStats = require('./capstats.jsx'),
-    UI       = require('../ui.js'),
-    PRM      = React.addons.PureRenderMixin;
+    UI       = require('../ui.js');//,
+    //PRM      = React.addons.PureRenderMixin;
 
 var Roster = React.createClass({
 
-  mixins: [PRM],
+  //mixins: [PRM],
 
   playerTile: function(id) {
     var player = this.props.rosterData[id], altLine, salary;

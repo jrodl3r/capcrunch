@@ -62,7 +62,11 @@ var App = React.createClass({
   componentDidMount: function() {
     var id = this.getRosterId();
     if (id) { Socket.emit('get roster', id); }
-    else { this.changeView('teams'); }
+    else {
+      $(window).on('load', function() {
+        this.changeView('teams');
+      }.bind(this));
+    }
     Socket.on('load team', this.loadTeam);
     Socket.on('load trade team', this.loadTradeTeam);
     Socket.on('load roster', this.loadRoster);
@@ -504,7 +508,38 @@ var App = React.createClass({
     }.bind(this), Timers.confirm);
   },
 
-  resetCreateData: function () {}, // TODO
+  undoCreatePlayer: function(e) {
+    var playerData = this.state.playerData,
+        id = e.target.getAttribute('data-id'),
+        index = playerData.created.map(function(p){ return p.id; }).indexOf(id),
+        inplay = false, rosterData, pos;
+    if (/(inplay|ir|benched)/.test(playerData.created[index].status)) {
+      inplay = true;
+      index = playerData.inplay.map(function(p){ return p.id; }).indexOf(id);
+      if (index !== -1) { playerData.inplay.splice(index, 1); }
+      else {
+        index = playerData.ir.map(function(p){ return p.id; }).indexOf(id);
+        if (index !== -1) { playerData.ir.splice(index, 1); }
+        else {
+          index = playerData.benched.map(function(p){ return p.id; }).indexOf(id);
+          playerData.benched.splice(index, 1);
+        }}
+      rosterData = this.state.rosterData;
+      for (pos in rosterData) {
+        if (rosterData.hasOwnProperty(pos)) {
+          if (rosterData[pos].id === id) {
+            rosterData[pos] = { status : 'empty' };
+            break;
+          }}}}
+    index = playerData.created.map(function(p){ return p.id; }).indexOf(id);
+    playerData.created.splice(index, 1);
+    if (inplay) {
+      this.setState(update(this.state, {
+        playerData : { $set: playerData },
+        rosterData : { $set: rosterData }
+      }), this.updateAltLines);
+    } else { this.setState(update(this.state.playerData, { $set: playerData })); }
+  },
 
 
 // Panels
@@ -825,6 +860,7 @@ var App = React.createClass({
               saveRoster={this.saveRoster}
               resetShare={this.resetShare}
               createPlayer={this.createPlayer}
+              undoCreatePlayer={this.undoCreatePlayer}
               executeTrade={this.executeTrade}
               changeTradeTeam={this.changeTradeTeam}
               addTradePlayer={this.addTradePlayer}

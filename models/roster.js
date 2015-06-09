@@ -7,7 +7,7 @@ var rosterSchema = new mongoose.Schema({
       name: String,
       name_id: String,
       activeTeam: String,
-      playerData: { team: String, inplay: [], benched: [], ir: [], cleared: [], traded: [], acquired: [], created: [] },
+      playerData: { team: String, inplay: [], benched: [], ir: [], cleared: [], traded: [], acquired: [], unsigned: [], signed: [], created: [] },
       rosterData: {
         F1L: {}, F1C: {}, F1R: {},
         F2L: {}, F2C: {}, F2R: {},

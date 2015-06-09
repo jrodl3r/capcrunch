@@ -14,7 +14,7 @@ var Payroll = React.createClass({
     return (
       <div id="payroll" className={ this.props.activeView === 'payroll' ? 'section active' : 'section' }>
         <h2>{this.props.teamData.name}
-          <CapStats activeView="payroll" capData={this.props.teamData.cap} />
+          <CapStats activeView="payroll" capData={this.props.teamData.cap} league={this.props.capData.cap} />
         </h2>
         <div className="inner">
           <PayrollTable activeView={this.props.activeView} teamData={this.props.teamData} year={this.props.capData.year} />
