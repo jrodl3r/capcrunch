@@ -41,7 +41,6 @@
     font-weight: bold;
     line-height: 33px;
     text-align: center;
-    cursor: default;
 
     .left, .center, .right { height: inherit; line-height: inherit; }
   }
@@ -167,7 +166,6 @@
     background: rgba(0,0,0, .15);
     border-radius: $border-radius;
     opacity: 1;
-    cursor: default;
     transform: translateZ(0);
     transition: opacity .25s .75s, margin .25s .5s, height .25s .5s, width .25s .5s, font-size 0s .5s;
 
@@ -236,7 +234,6 @@
 
   &.hover, &.clicked {
     //cursor: grab;
-    cursor: default;
     .inner { -webkit-box-shadow: 0 0 2px 0 transparent; }
     .handle { opacity: .25; }
     .bg { opacity: .85; }

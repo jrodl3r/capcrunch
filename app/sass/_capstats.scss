@@ -68,7 +68,6 @@
     float: left;
     height: inherit;
     line-height: inherit;
-    cursor: default;
     transition: .35s;
   }
 
@@ -94,7 +93,6 @@
     &.disabled, &.disabled:hover {
       color: #333;
       text-shadow: none;
-      cursor: default;
     }
   }
 

@@ -52,9 +52,9 @@
   &.engaged { opacity: .3; }
   &.inplay { animation: hide_row .35s ease-out; }
   &.traded {
-    .item { background: none; cursor: default; }
+    .item { background: none; }
     .name, .shot, .position, .salary { color: #575757; }
-    .handle { visibility: hidden; cursor: default; }
+    .handle { visibility: hidden; }
   }
 }
 
@@ -76,7 +76,6 @@
   background: linear-gradient(to right, rgba(0,0,0, .2) 0%, rgba(255,255,255, .04) 75%, transparent);
   opacity: 1;
   overflow: hidden;
-  cursor: default;
   //cursor: grab;
   transform: translateZ(0);
 
