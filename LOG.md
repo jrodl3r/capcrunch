@@ -130,6 +130,7 @@ Post-Launch Rebuild
   - 'sign UFA/RFA/Rookie players'
   - 'undo/revert signed player'
   - 'undo/revert trade'
+  - 'disabled view + disable on dirty roster (just like trade-actions)'
 ---------------------------------------------------------------
 
 

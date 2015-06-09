@@ -481,7 +481,6 @@ var App = React.createClass({
     UI.clearAction('trade-executed');
   },
 
-  // NOTE: Will need to disable GM-Overview Trades on dirty roster (just like trade-actions)
   undoTrade: function(e) {
     var playerData = this.state.playerData,
         tradeData = this.state.tradeData.trades,
@@ -491,7 +490,6 @@ var App = React.createClass({
         trade_index = e.target.getAttribute('data-index'),
         inplay = false, unsigned, index, pos, x, y;
     for (x = 0; x < tradeData[trade_index].league.length; x++) {
-      // TODO: Cleared Players
       if (/(inplay|ir|benched)/.test(tradeData[trade_index].league[x].status)) {
         inplay = true;
         if (tradeData[trade_index].league[x].status === 'inplay') {
@@ -509,6 +507,10 @@ var App = React.createClass({
             if (rosterData[pos].id === tradeData[trade_index].league[x].id) {
               unsigned = rosterData[pos].capnum === '0.000' ? true : false;
               capData = unsigned ? this.updateCapStats('remove', 'unsigned', capData) : this.updateCapStats('remove', rosterData[pos].capnum, capData);
+              if (unsigned) {
+                index = playerData.unsigned.map(function(p){ return p.id; }).indexOf(tradeData[trade_index].league[x].id);
+                playerData.unsigned.splice(index, 1);
+              }
               rosterData[pos] = { status : 'empty' };
               break;
             }}}}
@@ -518,7 +520,10 @@ var App = React.createClass({
       playerData.acquired.splice(index, 1);
     }
     for (y = 0; y < tradeData[trade_index].user.length; y++) {
-      tradeData[trade_index].user[y].action = '';
+      index = teamData.players[tradeData[trade_index].user[y].group].map(function(p){ return p.id; }).indexOf(tradeData[trade_index].user[y].id);
+      teamData.players[tradeData[trade_index].user[y].group][index].action = '';
+      index = playerData.traded.map(function(p){ return p.id; }).indexOf(tradeData[trade_index].user[y].id);
+      playerData.traded.splice(index, 1);
     }
     tradeData.splice(trade_index, 1);
     if (inplay) {
@@ -793,7 +798,7 @@ var App = React.createClass({
     playerData[altStatus].splice(index, 1);
     if (unsigned) {
       index = playerData.unsigned.map(function(p){ return p.id; }).indexOf(player.id);
-      if (index !== -1) { playerData.unsigned.splice(index, 1); }
+      playerData.unsigned.splice(index, 1);
     }
     this.setState(update(this.state, {
       capData    : { $set: capData },
