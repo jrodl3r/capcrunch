@@ -6,7 +6,7 @@
   transition: opacity .4s .35s, height .4s .75s, margin .4s .75s;
 
   > .inner {
-    max-height: 190px;
+    max-height: 191px;
     background: rgba(255,255,255, .025);
     overflow-y: scroll;
   }
@@ -26,7 +26,6 @@
     display: block;
     height: 28px;
     line-height: 28px;
-    //background: linear-gradient(to top, rgba(0,0,0, .25) 0%, transparent 100%);
     background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
   }
 
@@ -41,9 +40,11 @@
   }
 
   .item {
+    display: flex;
+    align-items: center;
     box-shadow: 0 -1px 0 rgba(0,0,0, .2) inset;
 
-    &:last-of-type { box-shadow: none !important; }
+    //&:last-of-type { box-shadow: none !important; }
     .name { max-width: 180px; }
 
     .status {
@@ -56,14 +57,13 @@
   }
 
   .button {
-    float: right;
     height: 22px;
     width: 40px;
-    margin: 5px 5px 0 0;
+    margin-left: auto;
+    margin-right: 5px;
     color: #969696;
     font-size: 10px;
     line-height: 22px;
-    //text-transform: uppercase;
     background: #515151;
     border-radius: $border-radius;
 
@@ -101,45 +101,40 @@
         line-height: 20px;
       }
     }
-
-    .button {
-      position: absolute;
-      top: 36%;
-      right: 0;
-      margin: 0 5px 0 0;
-    }
   }
 
   .confirm-slider {
     position: absolute;
+    display: flex;
     top: 0;
     left: 0;
     width: 0;
     height: 0;
+    color: #777;
     opacity: 0;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -1px 0 rgba(0,0,0, .2) inset;
     transform: translateX(-100%);
-    transition: .25s;
+    transition: transform .25s, height 0s;
 
     &.active {
-      width: inherit;
-      height: inherit;
-      color: #AAA;
+      width: 100%;
+      height: 100%;
       opacity: 1;
       background: #222 linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0.04) 75%, transparent);
       transform: translateX(0);
     }
+
+    a {
+      color: #999;
+      font-size: 13px;
+
+      &:hover { color: #BBB; }
+    }
   }
 
-  .confirm-buttons {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100px;
-    color: #777;
-    font-size: 13px;
-
-    a:hover { color: #BBB; }
-  }
-
+  .confirm-text { padding-right: 10px; }
+  .confirm-divider { padding: 0 4px; }
   .waiting { color: rgba(255,255,255, .35); }
 }

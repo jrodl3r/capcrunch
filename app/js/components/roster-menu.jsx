@@ -21,8 +21,11 @@ var RosterMenu = React.createClass({
           unsigned={this.props.playerData.unsigned}
           signed={this.props.playerData.signed}
           created={this.props.playerData.created}
-          undoCreatePlayer={this.props.undoCreatePlayer}
-          trades={this.props.tradeData.trades} />
+          trades={this.props.tradeData.trades}
+          undoTrade={this.props.undoTrade}
+          undoCreate={this.props.undoCreate}
+          signPlayer={this.props.signPlayer}
+          undoSigning={this.props.undoSigning} />
         <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
           year={this.props.capData.year}
           dragType={this.props.dragData.type}

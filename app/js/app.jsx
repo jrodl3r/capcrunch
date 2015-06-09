@@ -310,8 +310,8 @@ var App = React.createClass({
 
   buildTextRoster: function () {}, // TODO
 
-  updateCapStats: function(type, salary) {
-    var capUpdate = this.state.capData;
+  updateCapStats: function(type, salary, cap) {
+    var capUpdate = cap || this.state.capData;
     if (type === 'add') {
       capUpdate.players = capUpdate.players + 1;
       if (salary !== 'unsigned') {
@@ -323,8 +323,7 @@ var App = React.createClass({
       if (salary !== 'unsigned') {
         capUpdate.hit = (parseFloat(capUpdate.hit) - parseFloat(salary)).toFixed(3);
         capUpdate.space = (parseFloat(capUpdate.space) + parseFloat(salary)).toFixed(3);
-      }
-    }
+      }}
     if (salary === 'unsigned') {
       if (type === 'add') { capUpdate.unsigned = capUpdate.unsigned + 1; }
       else { capUpdate.unsigned = capUpdate.unsigned - 1; }
@@ -482,8 +481,59 @@ var App = React.createClass({
     UI.clearAction('trade-executed');
   },
 
+  // NOTE: Will need to disable GM-Overview Trades on dirty roster (just like trade-actions)
+  undoTrade: function(e) {
+    var playerData = this.state.playerData,
+        tradeData = this.state.tradeData.trades,
+        rosterData = this.state.rosterData,
+        teamData = this.state.teamData,
+        capData = this.state.capData,
+        trade_index = e.target.getAttribute('data-index'),
+        inplay = false, unsigned, index, pos, x, y;
+    for (x = 0; x < tradeData[trade_index].league.length; x++) {
+      // TODO: Cleared Players
+      if (/(inplay|ir|benched)/.test(tradeData[trade_index].league[x].status)) {
+        inplay = true;
+        if (tradeData[trade_index].league[x].status === 'inplay') {
+          index = playerData.inplay.map(function(p){ return p.id; }).indexOf(tradeData[trade_index].league[x].id);
+          playerData.inplay.splice(index, 1);
+        } else if (tradeData[trade_index].league[x].status === 'ir') {
+          index = playerData.ir.map(function(p){ return p.id; }).indexOf(tradeData[trade_index].league[x].id);
+          playerData.ir.splice(index, 1);
+        } else {
+          index = playerData.benched.map(function(p){ return p.id; }).indexOf(tradeData[trade_index].league[x].id);
+          playerData.benched.splice(index, 1);
+        }
+        for (pos in rosterData) {
+          if (rosterData.hasOwnProperty(pos)) {
+            if (rosterData[pos].id === tradeData[trade_index].league[x].id) {
+              unsigned = rosterData[pos].capnum === '0.000' ? true : false;
+              capData = unsigned ? this.updateCapStats('remove', 'unsigned', capData) : this.updateCapStats('remove', rosterData[pos].capnum, capData);
+              rosterData[pos] = { status : 'empty' };
+              break;
+            }}}}
+      index = teamData.players[tradeData[trade_index].league[x].group].map(function(p){ return p.id; }).indexOf(tradeData[trade_index].league[x].id);
+      teamData.players[tradeData[trade_index].league[x].group].splice(index, 1);
+      index = playerData.acquired.map(function(p){ return p.id; }).indexOf(tradeData[trade_index].league[x].id);
+      playerData.acquired.splice(index, 1);
+    }
+    for (y = 0; y < tradeData[trade_index].user.length; y++) {
+      tradeData[trade_index].user[y].action = '';
+    }
+    tradeData.splice(trade_index, 1);
+    if (inplay) {
+      this.setState(update(this.state, {
+        capData    : { $set: capData },
+        teamData   : { $set: teamData },
+        playerData : { $set: playerData },
+        rosterData : { $set: rosterData },
+        tradeData  : { trades : { $set: tradeData }}
+      }), this.updateAltLines);
+    } else { this.setState(update(this.state.tradeData, { trades : { $set: tradeData }})); }
+  },
 
-// Create
+
+// Create + Sign
 // --------------------------------------------------
 
   createPlayer: function(data) {
@@ -508,26 +558,29 @@ var App = React.createClass({
     }.bind(this), Timers.confirm);
   },
 
-  undoCreatePlayer: function(e) {
+  undoCreate: function(e) {
     var playerData = this.state.playerData,
         id = e.target.getAttribute('data-id'),
         index = playerData.created.map(function(p){ return p.id; }).indexOf(id),
-        inplay = false, rosterData, pos;
+        inplay = false, rosterData, capData, unsigned, pos;
     if (/(inplay|ir|benched)/.test(playerData.created[index].status)) {
-      inplay = true;
-      index = playerData.inplay.map(function(p){ return p.id; }).indexOf(id);
-      if (index !== -1) { playerData.inplay.splice(index, 1); }
-      else {
-        index = playerData.ir.map(function(p){ return p.id; }).indexOf(id);
-        if (index !== -1) { playerData.ir.splice(index, 1); }
-        else {
-          index = playerData.benched.map(function(p){ return p.id; }).indexOf(id);
-          playerData.benched.splice(index, 1);
-        }}
       rosterData = this.state.rosterData;
+      inplay = true;
+      if (playerData.created[index].status === 'inplay') {
+        index = playerData.inplay.map(function(p){ return p.id; }).indexOf(id);
+        playerData.inplay.splice(index, 1);
+      } else if (playerData.created[index].status === 'ir') {
+        index = playerData.ir.map(function(p){ return p.id; }).indexOf(id);
+        playerData.ir.splice(index, 1);
+      } else {
+        index = playerData.benched.map(function(p){ return p.id; }).indexOf(id);
+        playerData.benched.splice(index, 1);
+      }
       for (pos in rosterData) {
         if (rosterData.hasOwnProperty(pos)) {
           if (rosterData[pos].id === id) {
+            unsigned = rosterData[pos].capnum === '0.000' ? true : false;
+            capData = unsigned ? this.updateCapStats('remove', 'unsigned') : this.updateCapStats('remove', rosterData[pos].capnum);
             rosterData[pos] = { status : 'empty' };
             break;
           }}}}
@@ -535,10 +588,19 @@ var App = React.createClass({
     playerData.created.splice(index, 1);
     if (inplay) {
       this.setState(update(this.state, {
+        capData    : { $set: capData },
         playerData : { $set: playerData },
         rosterData : { $set: rosterData }
       }), this.updateAltLines);
     } else { this.setState(update(this.state.playerData, { $set: playerData })); }
+  },
+
+  signPlayer: function(id) {
+    console.log('sign player: ' + id);
+  },
+
+  undoSigning: function(id) {
+    console.log('undo signing: ' + id);
   },
 
 
@@ -860,7 +922,9 @@ var App = React.createClass({
               saveRoster={this.saveRoster}
               resetShare={this.resetShare}
               createPlayer={this.createPlayer}
-              undoCreatePlayer={this.undoCreatePlayer}
+              undoCreate={this.undoCreate}
+              signPlayer={this.signPlayer}
+              undoTrade={this.undoTrade}
               executeTrade={this.executeTrade}
               changeTradeTeam={this.changeTradeTeam}
               addTradePlayer={this.addTradePlayer}

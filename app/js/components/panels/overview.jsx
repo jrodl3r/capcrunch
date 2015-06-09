@@ -12,8 +12,7 @@ var GMPanel = React.createClass({
         height = height + 28;
         if (this.props.trades[x].user.length > this.props.trades[x].league.length) { height = height + (this.props.trades[x].user.length * 20); }
         else { height = height + (this.props.trades[x].league.length * 20); }
-      }
-    }
+      }}
     if (haveItems > 1) {
       if (this.props.unsigned.length) { height = height + 28 + (this.props.unsigned.length * 33); }
       if (this.props.created.length) { height = height + 28 + (this.props.created.length * 33); }
@@ -75,13 +74,11 @@ var GMPanel = React.createClass({
                 <span className="status">{player.position}</span>
                 <span className="name">{player.lastname}, {player.firstname}</span>
                 <a className="button" data-target={player.id} onClick={this.showUndoConfirm}>Undo</a>
-                <span className="salary">{player.contract[6]}</span>
                 <div id={ player.id + '-undo-confirm' } className="confirm-slider">
-                  Are you sure?
-                  <div className="confirm-buttons">
-                    <a data-id={player.id} onClick={this.props.undoCreatePlayer}>Yes</a><span> / </span>
-                    <a className={ player.id + '-undo-confirm' } onClick={this.hideUndoConfirm}>No</a>
-                  </div>
+                  <span className="confirm-text">Are you sure?</span>
+                  <a data-id={player.id} onClick={this.props.undoCreate}>Yes</a>
+                  <span className="confirm-divider"> / </span>
+                  <a className={ player.id + '-undo-confirm' } onClick={this.hideUndoConfirm}>No</a>
                 </div>
               </li>
             );
@@ -111,10 +108,16 @@ var GMPanel = React.createClass({
                     return <li key={ k + player.id }>{player.firstname.charAt(0)}. {player.lastname}</li>;
                   }) }
                 </ul>
-                <a className="button">Undo</a>
+                <a className="button" data-target={i} onClick={this.showUndoConfirm}>Undo</a>
+                <div id={ i + '-undo-confirm' } className="confirm-slider">
+                  <span className="confirm-text">Are you sure?</span>
+                  <a data-index={i} onClick={this.props.undoTrade}>Yes</a>
+                  <span className="confirm-divider"> / </span>
+                  <a className={ i + '-undo-confirm' } onClick={this.hideUndoConfirm}>No</a>
+                </div>
               </li>
             );
-          }) }
+          }.bind(this)) }
         </ul>
       </div>
     );
@@ -122,13 +125,15 @@ var GMPanel = React.createClass({
 
   showUndoConfirm: function (e) {
     e.preventDefault();
-    document.getElementById(e.target.getAttribute('data-target') + '-undo-confirm').className = 'confirm-slider active';
+    $('.confirm-slider.active').removeClass('active');
+    $('#' + e.target.getAttribute('data-target') + '-undo-confirm').addClass('active');
   },
 
   hideUndoConfirm: function (e) {
     e.preventDefault();
-    document.getElementById(e.target.className).className = 'confirm-slider';
+    $('#' + e.target.className).removeClass('active');
   },
+
 
   render: function() {
     var active = this.props.trades.length + this.props.created.length + this.props.unsigned.length,

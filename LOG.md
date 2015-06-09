@@ -43,6 +43,36 @@
 
 
 
+---------------------------------------------------------------
+## REFACTOR »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+Post-Launch Rebuild
+---------------------------------------------------------------
+- 'Eradicate Object + Array Mutation'
+- 'Flatten Deep-Nested Objects'
+- 'Homogenize Objects + Arrays'
+- 'Optimize + Simplify Functions'
+
+---------------------------------------------------------------
+- 'Must start small, from basic load team + add/remove players, and work our way up (too complex to refactor in place!)'
+- 'immutable js + revamp object + array system (undo/redo/etc) [maybe not necessary..]'
+
+- 'splicing the teamData players on trades is not good. Refactor.'
+- 'change view logic does not need to be that complex...'
+- 'convert array push + splice to direct/fixed size array ops'
+- 'convert alt-lines reverse loop to forward [0,1,2..]'
+---------------------------------------------------------------
+- 'setup roster + player objects w/ 1-to-1 pairty'
+  - 'replace { status : empty } w/ proper player objects (static/roster.js)'
+  - 're-verify db-data player objects...'
+- 'initialize arrays using literals [1,2,3.4,true]'
+- 'stop storing objects in array... just use objects {{},{{},{},{}}} not {[{},{},{}],{[{},{},{}]}}'
+- 'map max-size of all objects (ex: BN or IR can only be 8 nodes each, set them up that way instead of array manipulation!)'
+- 'distill + specify functions + homogenize argument data (monomorphic code #parody)'
+---------------------------------------------------------------
+
+
+
 ## Grid
 ---------------------------------------------------------------
 - 'IR players cap calculation (count, payroll)'
@@ -77,37 +107,29 @@
 
 ## Options
 ---------------------------------------------------------------
-- 'cleanup interaction + veritcal layout'
-- 'payroll: show user actions'
-- 'trades: trade summary layout + logic [or just actions summary?]'
-- 'make reusable component'
-- 'year ticker [2015-16 ⇵]
-- 'status icon legend'
-- 'clear roster'
+- 'reusable vertical dropdown options menu'
+- 'payroll: include/show user actions'
+- 'payroll+roster: icon legend (status, action, etc)'
+- 'payroll+roster: year ticker [2015-16 ⇵]
+- 'roster: clear roster/lineup'
 ---------------------------------------------------------------
 
 
 ## CapStats
 ---------------------------------------------------------------
-- 'obfuscated slides into view (scroll-end + !dragging)'
-- 'slides-up if covering active tiles while dragging'
+- 'if hidden (opaque) slides down into view (scroll-end + !dragging)'
+- 'on drag-start slide-up if covering active tiles'
+- 'hide on scroll-up'
 ---------------------------------------------------------------
 
 
 ## GM Overview 🏆
 ---------------------------------------------------------------
-- 'actions summary panel layout + logic (above forwards)'
-- 'team change w/ active trades: notify trading disabled'
-  - 'Trades have been disabled because you have active trades w/ another team (XXX)'
-  - 'Would you like to reset trade? [Yes]'
-  - 'Would you like to switch back to XXX? [Yes]'
-- 'roster player added/team conflict: notify mode-changed + trading disabled'
-  - 'Trades have been disabled because you are in all-star mode'
-- 'visual summary:'
-  - 'trade breakdowns'
-  - 'contract buyouts'
-  - 'created/signed players'
-  - 'injured/IR + benched/BN players'
+- 'actions summary panel layout + logic'
+- 'list unsigned/signed/created/trades'
+  - 'sign UFA/RFA/Rookie players'
+  - 'undo/revert signed player'
+  - 'undo/revert trade'
 ---------------------------------------------------------------
 
 
@@ -136,35 +158,6 @@
 ----------------------------------------------------------------------------
  What's Next? ⋮ Credits ⋮ Twitter    some rights reserved ⋮ CapCRUNCH © 2015
 ----------------------------------------------------------------------------
-
-
-## Refactor
----------------------------------------------------------------
-- 'Must start small, from basic load team + add/remove players, and work our way up (too complex to refactor in place!)'
-- '(Dont Need It) immutable js + revamp object + array system (undo/redo/etc)'
-
-- 'splicing the teamData players on trades is not good. Refactor.'
-- 'change view logic does not need to be that complex...'
-- 'convert array push + splice to direct/fixed size array ops'
-- 'convert alt-lines reverse loop to forward [0,1,2..]'
----------------------------------------------------------------
-- 'setup roster + player objects w/ 1-to-1 pairty'
-  - 'replace { status : empty } w/ proper player objects (static/roster.js)'
-  - 're-verify db-data player objects...'
-- 'initialize arrays using literals [1,2,3.4,true]'
-- 'stop storing objects in array... just use objects {{},{{},{},{}}} not {[{},{},{}],{[{},{},{}]}}'
-- 'map max-size of all objects (ex: BN or IR can only be 8 nodes each, set them up that way instead of array manipulation!)'
-- 'distill + specify functions + homogenize argument data (monomorphic code #parody)'
----------------------------------------------------------------
-
-
-## Post-Launch Rebuild (Whiteboard)
----------------------------------------------------------------
-- 'Eradicate Object + Array Mutation'
-- 'Flatten Deep-Nested Objects'
-- 'Homogenize Objects + Arrays'
-- 'Optimize + Simplify Functions'
----------------------------------------------------------------
 
 
 
@@ -199,6 +192,7 @@
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'gm-overview: undo/remove created player'
 - 'small bug fixes (see log)'
 - 'salary cap to 71.5M'
 - 'style RFA/UFA list item values'
