@@ -5,13 +5,14 @@ var UI = require('../../ui.js');
 var GMPanel = React.createClass({
 
   componentDidUpdate: function () {
-    var haveItems = this.props.created.length + this.props.unsigned.length + this.props.trades.length, height = 34, x;
+    var haveItems = this.props.created.length + this.props.signed.length + this.props.unsigned.length + this.props.trades.length, height = 34, x;
     if (this.props.trades.length) {
       height = height + 28;
       for (x = 0; x < this.props.trades.length; x++) {
         height = height + 28 + (Math.max(this.props.trades[x].user.length, this.props.trades[x].league.length) * 20);
       }}
     if (haveItems > 1) {
+      if (this.props.signed.length) { height = height + 28 + (this.props.signed.length * 33); }
       if (this.props.unsigned.length) { height = height + 28 + (this.props.unsigned.length * 33); }
       if (this.props.created.length) { height = height + 28 + (this.props.created.length * 33); }
       $('#overview').css('height', height);
@@ -96,7 +97,7 @@ var GMPanel = React.createClass({
                 <a className="button" data-target={ 'unsign-confirm-' + player.id } onClick={UI.showOverviewConfirm}>Undo</a>
                 <div id={ 'unsign-confirm-' + player.id } className="confirm-slider">
                   <span className="confirm-text">Are you sure?</span>
-                  <a data-id={player.id} onClick={this.props.undoSigning}>Yes</a>
+                  <a data-id={player.id} data-index={i} onClick={this.props.undoSigning}>Yes</a>
                   <span className="confirm-divider"> / </span>
                   <a data-target={ 'unsign-confirm-' + player.id } onClick={UI.hideOverviewConfirm}>No</a>
                 </div>
@@ -171,7 +172,7 @@ var GMPanel = React.createClass({
 
 
   render: function() {
-    var active = this.props.trades.length + this.props.created.length + this.props.unsigned.length,
+    var active = this.props.trades.length + this.props.created.length + this.props.signed.length + this.props.unsigned.length,
         loaded = active > 1 ? 'loaded ' : '';
 
     return (

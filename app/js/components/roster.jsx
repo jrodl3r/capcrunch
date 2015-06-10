@@ -37,6 +37,7 @@ var Roster = React.createClass({
                   { player.status === 'ir' ? <div className="tag injured">IR</div> : null }
                   { player.status === 'benched' ? <div className="tag benched">B</div> : null }
                   { player.action === 'created' ? <div className="tag created">C</div> : null }
+                  { player.prev_contract && !/(UFA|RFA)/.test(salary) ? <div className="tag signed">S</div> : null }
                   { player.action === 'acquired' ? <div className="tag acquired">A</div> : null }
                   { player.position !== 'G' ? <span className="shot">{player.shot}</span> : null }
                 </div>

@@ -125,12 +125,10 @@ Post-Launch Rebuild
 
 ## GM Overview 🏆
 ---------------------------------------------------------------
-- 'actions summary panel layout + logic'
-- 'list unsigned/signed/created/trades'
-  - 'sign UFA/RFA/Rookie players'
-  - 'undo/revert signed player'
-  - 'undo/revert trade'
-  - 'disabled view + disable on dirty roster (just like trade-actions)'
+- 'disabled view + disable on dirty roster (just like trade-actions)'
+- 're-sort/order teamData.players[player.group] on sign/unsign'
+- 'signed inactive player gets added to F/D/G player group'
+- 'sign-n-trade player scenario'
 ---------------------------------------------------------------
 
 
@@ -165,7 +163,6 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'gm-overview: basic functionality (view + undo actions)'
 - 'data: draft-picks (data + layout + logic)'
 - 'trades: add draft-picks to dropdown list'
 - 'free agents: list + add UFA players'
@@ -193,6 +190,10 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'gm-overview: list unsigned/signed/created/trades'
+- 'gm-overview: sign UFA/RFA/Rookie players'
+- 'gm-overview: undo/revert trade'
+- 'gm-overview: undo/revert signed player'
 - 'gm-overview: undo/remove created player'
 - 'small bug fixes (see log)'
 - 'salary cap to 71.5M'

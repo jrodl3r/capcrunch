@@ -359,6 +359,7 @@
     text-align: right;
 
     .ir &, .bench & {
+      //margin-right: -2px;
       padding-top: 8px;
       padding-right: 0;
     }
@@ -383,15 +384,16 @@
     font-weight: bold;
     line-height: 13px;
     text-align: center;
-    //text-indent: 1px;
     border-radius: 50%;
     opacity: .65;
 
-    .ir &, .bench & { margin: 1px 0 0 5px; }
+    .ir &, .bench & { margin: 1px 0 0 3px; }
+    .ir &:last-of-type, .bench &:last-of-type { margin-left: 4px; }
+
     &.acquired { color: #BBB; background: #1E44A2; }
     &.injured { color: #E09191; background: #A01313; }
     &.benched { color: #999; background: #323232; }
-    &.created { color: #CCC; background: #117C1B; }
+    &.created, &.signed { color: #CCC; background: #117C1B; }
   }
 
   .UFA, .RFA {
@@ -400,9 +402,7 @@
     font-size: 8px;
     background: #777;
     border-radius: $border-radius;
-  }
-  //.RFA { color: #265C15; background: #6DA06D; }
-  //.UFA { color: #611F1F; background: #A9797A; }
+  }//.RFA { color: #265C15; background: #6DA06D; } .UFA { color: #611F1F; background: #A9797A; }
 
   .handle {
     float: right;

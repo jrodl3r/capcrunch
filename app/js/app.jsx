@@ -317,17 +317,21 @@ var App = React.createClass({
       if (salary !== 'unsigned') {
         capUpdate.hit = (parseFloat(capUpdate.hit) + parseFloat(salary)).toFixed(3);
         capUpdate.space = (parseFloat(capUpdate.space) - parseFloat(salary)).toFixed(3);
-      }
-    } else if (type === 'remove') {
+      }}
+    else if (type === 'remove') {
       capUpdate.players = capUpdate.players - 1;
       if (salary !== 'unsigned') {
         capUpdate.hit = (parseFloat(capUpdate.hit) - parseFloat(salary)).toFixed(3);
         capUpdate.space = (parseFloat(capUpdate.space) + parseFloat(salary)).toFixed(3);
-      }
-    } else if (type == 'signed') {
+      }}
+    else if (type == 'signed') {
       capUpdate.hit = (parseFloat(capUpdate.hit) + parseFloat(salary)).toFixed(3);
       capUpdate.space = (parseFloat(capUpdate.space) - parseFloat(salary)).toFixed(3);
       capUpdate.unsigned = capUpdate.unsigned - 1;
+    } else if (type === 'undo-signed') {
+      capUpdate.hit = (parseFloat(capUpdate.hit) - parseFloat(salary)).toFixed(3);
+      capUpdate.space = (parseFloat(capUpdate.space) + parseFloat(salary)).toFixed(3);
+      capUpdate.unsigned = capUpdate.unsigned + 1;
     }
     if (salary === 'unsigned') {
       if (type === 'add') { capUpdate.unsigned = capUpdate.unsigned + 1; }
@@ -606,40 +610,37 @@ var App = React.createClass({
     } else { this.setState(update(this.state.playerData, { $set: playerData })); }
   },
 
-  // NOTE: Sort/Re-order teamData.players[player.group]
-
   signPlayer: function(id, index, salary, duration) {
     var playerData = this.state.playerData,
         rosterData = this.state.rosterData,
         teamData = this.state.teamData,
-        capData = this.state.capData, player, contract, team_index, pos, x;
+        capData = this.state.capData, team_index, player, contract, pos, x;
     if (!salary) { this.notifyUser('error', Messages.create.missing_salary); }
     else if (duration === '0') { this.notifyUser('error', Messages.create.missing_dur); }
     else {
       player = playerData.unsigned[index];
+      player.prev_contract = /(UFA|RFA)/.test(player.contract[6]) ? player.contract[6] : null;
       contract = ['','','','','','','','','','','','','','',''];
       for (x = 6; x < parseInt(duration) + 6; x++) { contract[x] = salary; }
       player.contract = contract;
       player.caphit = salary;
       player.capnum = salary;
-
       for (pos in rosterData) {
         if (rosterData.hasOwnProperty(pos)) {
           if (rosterData[pos].id === player.id) {
             rosterData[pos].contract = contract;
             rosterData[pos].capnum = salary;
+            rosterData[pos].prev_contract = /(UFA|RFA)/.test(player.prev_contract) ? player.prev_contract : null;
             break;
           }}}
-
       team_index = teamData.players[player.group].map(function(p) { return p.id; }).indexOf(player.id);
       teamData.players[player.group][team_index].contract = contract;
       teamData.players[player.group][team_index].caphit = salary;
       teamData.players[player.group][team_index].capnum = salary;
-
+      teamData.players[player.group][team_index].prev_contract = /(UFA|RFA)/.test(player.prev_contract) ? player.prev_contract : null;
       capData = this.updateCapStats('signed', salary);
       playerData.unsigned.splice(index, 1);
       playerData.signed.push(player);
-
       this.setState(update(this.state, {
         capData    : { $set: capData },
         teamData   : { $set: teamData },
@@ -649,9 +650,40 @@ var App = React.createClass({
     }
   },
 
-  undoSigning: function(e) { // TODO
-    var id = e.target.getAttribute('data-id');
-    console.log('undo signing: ' + id);
+  undoSigning: function(e) {
+    var playerData = this.state.playerData,
+        rosterData = this.state.rosterData,
+        teamData = this.state.teamData,
+        capData = this.state.capData,
+        id = e.target.getAttribute('data-id'),
+        index = e.target.getAttribute('data-index'),
+        team_index, player, contract, salary, pos;
+    player = playerData.signed[index];
+    salary = player.contract[6];
+    contract = ['','','','','','','','','','','','','','',''];
+    contract[6] = player.prev_contract || '0.000';
+    for (pos in rosterData) {
+      if (rosterData.hasOwnProperty(pos)) {
+        if (rosterData[pos].id === player.id) {
+          capData = this.updateCapStats('undo-signed', salary);
+          rosterData[pos].contract = contract;
+          rosterData[pos].capnum = '0.000';
+          rosterData[pos].prev_contract = player.prev_contract || '0.000';
+          playerData.unsigned.push(player);
+          break;
+        }}}
+    team_index = teamData.players[player.group].map(function(p) { return p.id; }).indexOf(player.id);
+    teamData.players[player.group][team_index].contract = contract;
+    teamData.players[player.group][team_index].caphit = '0.000';
+    teamData.players[player.group][team_index].capnum = '0.000';
+    teamData.players[player.group][team_index].prev_contract = player.prev_contract || '0.000';
+    playerData.signed.splice(index, 1);
+    this.setState(update(this.state, {
+      capData    : { $set: capData },
+      teamData   : { $set: teamData },
+      rosterData : { $set: rosterData },
+      playerData : { $set: playerData }
+    }));
   },
 
 
@@ -975,6 +1007,7 @@ var App = React.createClass({
               createPlayer={this.createPlayer}
               undoCreate={this.undoCreate}
               signPlayer={this.signPlayer}
+              undoSigning={this.undoSigning}
               undoTrade={this.undoTrade}
               executeTrade={this.executeTrade}
               changeTradeTeam={this.changeTradeTeam}

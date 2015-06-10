@@ -194,7 +194,7 @@
     &:nth-child(2) { margin-left: 0; }
     &.traded { color: #777; background: #212121; box-shadow: none; }
     &.acquired { color: #BBB; background: #1E44A2; }
-    &.created { color: #CCC; background: #117C1B; }
+    &.created, &.signed { color: #CCC; background: #117C1B; }
     &.injured { color: #888; background: #444; }
   }
 

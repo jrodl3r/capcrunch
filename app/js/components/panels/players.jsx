@@ -35,7 +35,7 @@ var PlayersPanel = React.createClass({
                 { player.action === 'acquired' ? <div className="tag acquired">A</div> : null }
                 { player.status === 'injured' ? <div className="tag injured">IR</div> : null }
                 { group === 'created' ? <div className="tag created">C</div> : null }
-                { player.signed ? <div className="tag signed">S</div> : null }
+                { player.prev_contract && !/(UFA|RFA)/.test(player.contract[this.props.year]) ? <div className="tag signed">S</div> : null }
                 </div>
               </div>
             </div>
