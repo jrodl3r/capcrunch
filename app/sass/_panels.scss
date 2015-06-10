@@ -42,6 +42,7 @@
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     background: linear-gradient(to top, #151515 0%, #232323);
+    cursor: default;
     transition: .3s;
 
     a {

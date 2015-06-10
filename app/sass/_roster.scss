@@ -376,7 +376,7 @@
     float: right;
     height: 13px;
     width: 13px;
-    margin: 6px 3px 0 2px;
+    margin: 6px 1px 0 2px;
     font-size: 7px;
     font-weight: bold;
     line-height: 13px;
@@ -416,14 +416,10 @@
       height: 20px;
       width: 18px;
       margin-top: 6px;
-      background-size: 35%;
+      background-size: 34%;
       background-position: top center;
 
-      .moz & {
-        width: 17px;
-        background-size: 25%;
-      }
-
+      .moz & { background-size: 24%; }
       .saf & {
         height: 19px;
         width: 17px;
