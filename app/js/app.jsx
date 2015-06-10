@@ -323,7 +323,12 @@ var App = React.createClass({
       if (salary !== 'unsigned') {
         capUpdate.hit = (parseFloat(capUpdate.hit) - parseFloat(salary)).toFixed(3);
         capUpdate.space = (parseFloat(capUpdate.space) + parseFloat(salary)).toFixed(3);
-      }}
+      }
+    } else if (type == 'signed') {
+      capUpdate.hit = (parseFloat(capUpdate.hit) + parseFloat(salary)).toFixed(3);
+      capUpdate.space = (parseFloat(capUpdate.space) - parseFloat(salary)).toFixed(3);
+      capUpdate.unsigned = capUpdate.unsigned - 1;
+    }
     if (salary === 'unsigned') {
       if (type === 'add') { capUpdate.unsigned = capUpdate.unsigned + 1; }
       else { capUpdate.unsigned = capUpdate.unsigned - 1; }
@@ -514,6 +519,8 @@ var App = React.createClass({
               rosterData[pos] = { status : 'empty' };
               break;
             }}}}
+      index = playerData.signed.map(function(p){ return p.id; }).indexOf(tradeData[trade_index].league[x].id);
+      if (index !== -1) { playerData.signed.splice(index, 1); }
       index = teamData.players[tradeData[trade_index].league[x].group].map(function(p){ return p.id; }).indexOf(tradeData[trade_index].league[x].id);
       teamData.players[tradeData[trade_index].league[x].group].splice(index, 1);
       index = playerData.acquired.map(function(p){ return p.id; }).indexOf(tradeData[trade_index].league[x].id);
@@ -542,7 +549,7 @@ var App = React.createClass({
 // --------------------------------------------------
 
   createPlayer: function(data) {
-    var playerData = this.state.playerData, player = data, updateData;
+    var playerData = this.state.playerData, player = data;
     this.changePanelView('loading');
     player.team = playerData.team || this.state.teamData.id;
     player.action = 'created';
@@ -553,11 +560,10 @@ var App = React.createClass({
     setTimeout(function() {
       playerData.created.push(player);
       if (!playerData.team) { playerData.team = player.team; }
-      updateData = update(this.state, {
+      this.setState(update(this.state, {
         panelData  : { loading : { $set: false }},
         playerData : { $set: playerData }
-      });
-      this.setState(updateData);
+      }));
       UI.clearAction('create');
       UI.resetPanelScroll('inactive');
     }.bind(this), Timers.confirm);
@@ -600,16 +606,50 @@ var App = React.createClass({
     } else { this.setState(update(this.state.playerData, { $set: playerData })); }
   },
 
-  signPlayer: function(id, salary, duration) {
-    // console.log('sign player: ', id, salary, duration);
+  // NOTE: Sort/Re-order teamData.players[player.group]
+
+  signPlayer: function(id, index, salary, duration) {
+    var playerData = this.state.playerData,
+        rosterData = this.state.rosterData,
+        teamData = this.state.teamData,
+        capData = this.state.capData, player, contract, team_index, pos, x;
     if (!salary) { this.notifyUser('error', Messages.create.missing_salary); }
     else if (duration === '0') { this.notifyUser('error', Messages.create.missing_dur); }
     else {
-      console.log('sign player: ', id, salary, duration);
+      player = playerData.unsigned[index];
+      contract = ['','','','','','','','','','','','','','',''];
+      for (x = 6; x < parseInt(duration) + 6; x++) { contract[x] = salary; }
+      player.contract = contract;
+      player.caphit = salary;
+      player.capnum = salary;
+
+      for (pos in rosterData) {
+        if (rosterData.hasOwnProperty(pos)) {
+          if (rosterData[pos].id === player.id) {
+            rosterData[pos].contract = contract;
+            rosterData[pos].capnum = salary;
+            break;
+          }}}
+
+      team_index = teamData.players[player.group].map(function(p) { return p.id; }).indexOf(player.id);
+      teamData.players[player.group][team_index].contract = contract;
+      teamData.players[player.group][team_index].caphit = salary;
+      teamData.players[player.group][team_index].capnum = salary;
+
+      capData = this.updateCapStats('signed', salary);
+      playerData.unsigned.splice(index, 1);
+      playerData.signed.push(player);
+
+      this.setState(update(this.state, {
+        capData    : { $set: capData },
+        teamData   : { $set: teamData },
+        rosterData : { $set: rosterData },
+        playerData : { $set: playerData }
+      }));
     }
   },
 
-  undoSigning: function(e) {
+  undoSigning: function(e) { // TODO
     var id = e.target.getAttribute('data-id');
     console.log('undo signing: ' + id);
   },

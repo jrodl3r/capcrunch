@@ -49,7 +49,7 @@ var GMPanel = React.createClass({
                     <option value="5">5 years</option>
                   </select>
                   <a className="button rounded cancel" data-target={ 'sign-confirm-' + player.id } onClick={UI.hideOverviewConfirm}>Cancel</a>
-                  <a className="button rounded sign" data-id={player.id} onClick={this.signPlayer}>Sign</a>
+                  <a className="button rounded sign" data-id={player.id} data-index={i} onClick={this.signPlayer}>Sign</a>
                 </div>
               </li>
             );
@@ -75,30 +75,34 @@ var GMPanel = React.createClass({
 
   signPlayer: function(e) {
     var id = e.target.getAttribute('data-id'),
+        index = e.target.getAttribute('data-index'),
         salary = $('#sign-confirm-' + id + ' input').val(),
         duration = $('#sign-confirm-' + id + ' select').val();
     $('#sign-confirm-' + id).addClass('enagaged');
-
-    // if (!salary || duration === '0') {}
-
-    this.props.signPlayer(id, salary, duration);
+    this.props.signPlayer(id, index, salary, duration);
   },
 
   listSigned: function() {
-    // this.props.undoSigning
     return (
       <div className="signed">
-        <div className="heading">Unsigned</div>
+        <div className="heading">Signed</div>
         <ul className="list">
           { this.props.signed.map(function(player, i) {
             return (
               <li key={ i + player.id } className="item">
+                <span className="status">{player.position}</span>
                 <span className="name">{player.lastname}, {player.firstname}</span>
-                <a className="button">Undo</a>
                 <span className="salary">{player.contract[6]}</span>
+                <a className="button" data-target={ 'unsign-confirm-' + player.id } onClick={UI.showOverviewConfirm}>Undo</a>
+                <div id={ 'unsign-confirm-' + player.id } className="confirm-slider">
+                  <span className="confirm-text">Are you sure?</span>
+                  <a data-id={player.id} onClick={this.props.undoSigning}>Yes</a>
+                  <span className="confirm-divider"> / </span>
+                  <a data-target={ 'unsign-confirm-' + player.id } onClick={UI.hideOverviewConfirm}>No</a>
+                </div>
               </li>
             );
-          }) }
+          }.bind(this)) }
         </ul>
       </div>
     );

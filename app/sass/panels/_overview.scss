@@ -5,11 +5,14 @@
   opacity: 0;
   transition: opacity .4s .35s, height .4s .75s, margin .4s .75s;
 
+  .title {
+    background: linear-gradient(to top, rgba(21, 21, 21, 0.03) 0%, rgba(60, 60, 60, 0.5));//transparent
+  }
+
   > .inner {
     max-height: 191px;
-    background: rgba(255,255,255, .025);
     overflow-y: scroll;
-  }
+  }//background: rgba(255,255,255, .025);
 
   &.active {
     height: 95px;
@@ -43,14 +46,13 @@
   .heading {
     display: block;
     height: 28px;
+    color: #616161;
     line-height: 28px;
     background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
     cursor: default;
   }
 
-  .signed .heading { color: #449454; }
-  .unsigned .heading { color: #944444; }
-  .trades .heading, .created .heading { color: #616161; }//#446394
+  .unsigned .heading { color: #944444; }//#449454, #446394
 
   .list {
     width: 298px;
@@ -75,6 +77,8 @@
       color: #525252;
     }
   }
+
+  .signed .name { width: 165px; }
 
   .button {
     height: 27px;
@@ -189,12 +193,12 @@
         color: #717171;
         font-size: 10px;
         line-height: 22px;
-        background: #232323;
         border-radius: $border-radius;
 
         &.sign { margin-right: 0; background: #444; cursor: default; }
         &.sign:hover { text-shadow: none; }
         &.sign.enabled:hover { color: #C5C5C5; background: #457B45; cursor: pointer; }
+        &.sign.enabled, &.cancel { background: #232323; }
         &.cancel:hover { color: #AAA; }//background: #8E4343;
       }
     }
