@@ -141,6 +141,86 @@ var UI = {
     }
   },
 
+  showOverviewConfirm: function (e) {
+    e.preventDefault();
+    $('.confirm-slider.active').removeClass('active');
+    $('#' + e.target.getAttribute('data-target')).addClass('active');
+  },
+
+  hideOverviewConfirm: function (e) {
+    e.preventDefault();
+    $('#' + e.target.getAttribute('data-target')).removeClass('active');
+  },
+
+
+  changePlayerInput: function(e) {
+    $(e.target).addClass('active');
+  },
+
+  formatSalary: function(e) {
+    var str = e.target.value;
+    if (str === '' || str === '0') {
+      e.target.value = '0.100';
+      $(e.target).addClass('active');
+    } else { e.target.value = parseFloat(str).toFixed(3); }
+  },
+
+  changePlayerSalary: function(e) {
+    if (e.target.value > 0) { $(e.target).addClass('active'); }
+  },
+
+  checkPlayerSalaryInput: function(e) {
+    var str = e.target.value,
+        key = String.fromCharCode(e.charCode),
+        sel = window.getSelection().toString();
+    // allow text-selection overwrite
+    if (sel && str.indexOf(sel) > -1 && /\d/.test(key)) { return true; }
+    // numbers/single-dot only + block enter key + six-digit max-length
+    if (!/\d|\./.test(key) || e.charCode === 13 || str.length === 6) { e.preventDefault(); }
+    // starts with digit or dot
+    else if (str.length === 0 && !/\d|\./.test(key)) { e.preventDefault(); }
+    // single-dot only
+    else if (/\./.test(key) && str.indexOf('.') > -1) { e.preventDefault(); }
+    // leading-zero must preceed dot
+    else if (str.length === 1 && str === '0' && !/\./.test(key)) { e.preventDefault(); }
+    // max of 99 million
+    else if (str.length === 2 && /\d{2}/.test(str) && !/\./.test(key)) { e.preventDefault(); }
+    // prevent 4 decimal-places on single-digit millions
+    else if (str.length === 5 && /\d{1}\.\d{3}/.test(str)) { e.preventDefault(); }
+  },
+
+  checkPlayerJerseyInput: function(e) {
+    var str = e.target.value,
+        key = String.fromCharCode(e.charCode),
+        sel = window.getSelection().toString();
+    // allow text-selection overwrite
+    if (sel && str.indexOf(sel) > -1 && /\d/.test(key)) { e.preventDefault(); }
+    // numbers only + block enter key + two-digit max-length
+    if (!/\d/.test(key) || e.charCode === 13 || str.length === 2) { e.preventDefault(); }
+  },
+
+  formatName: function(e) {
+    var value = e.target.value;
+    if (value === ' ' || value === '-' || value === '.') { e.target.value = ''; }
+    else { e.target.value = value.charAt(0).toUpperCase() + value.slice(1); }
+  },
+
+  checkPlayerNameInput: function(e) {
+    var str = e.target.value,
+        key = String.fromCharCode(e.charCode);
+    // two-dots/dashes/spaces max-total
+    if (str.match(/\./g) && str.match(/\./g).length > 1 && /\./.test(key)) { e.preventDefault(); }
+    if (str.match(/\-/g) && str.match(/\-/g).length > 1 && /\-/.test(key)) { e.preventDefault(); }
+    if (str.match(/\s/g) && str.match(/\s/g).length > 1 && /\s/.test(key)) { e.preventDefault(); }
+    // letters/dashes/spaces/dots + block enter key + single-dash/dot
+    else if (!/[a-zA-Z]|-|\s|\./.test(key) || e.charCode === 13) { e.preventDefault(); }
+    else if (/-|\./.test(key) && /-|\.|\s/.test(str.substr(str.length - 1))) { e.preventDefault(); }
+    // single-space (following letters/dots)
+    else if (/\s/.test(key) && /-|\s/.test(str.substr(str.length - 1))) { e.preventDefault(); }
+    // starts with letter
+    else if (str.length === 0 && !/[a-zA-Z]/.test(key)) { e.preventDefault(); }
+  },
+
   clearDrag: function() {
     $('.clicked').removeClass('clicked');
     $('.list-drag-cover').removeClass('active');

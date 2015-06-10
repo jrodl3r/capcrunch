@@ -600,11 +600,17 @@ var App = React.createClass({
     } else { this.setState(update(this.state.playerData, { $set: playerData })); }
   },
 
-  signPlayer: function(id) {
-    console.log('sign player: ' + id);
+  signPlayer: function(id, salary, duration) {
+    // console.log('sign player: ', id, salary, duration);
+    if (!salary) { this.notifyUser('error', Messages.create.missing_salary); }
+    else if (duration === '0') { this.notifyUser('error', Messages.create.missing_dur); }
+    else {
+      console.log('sign player: ', id, salary, duration);
+    }
   },
 
-  undoSigning: function(id) {
+  undoSigning: function(e) {
+    var id = e.target.getAttribute('data-id');
     console.log('undo signing: ' + id);
   },
 

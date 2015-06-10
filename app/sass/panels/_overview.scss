@@ -22,11 +22,30 @@
 
   &.loaded { transition: height .25s; }
 
+  input, select {
+    margin: 4px 0 0;
+    height: 24px;
+    background: #666;
+
+    &::placeholder { color: #222; }
+    &:hover { color: #222; background: #777; }
+    &.active { background: #686868; }
+  }
+
+  input {
+    width: 85px;
+    margin-right: 5px;
+    margin-left: 8px;
+  }
+
+  select { width: 80px; }
+
   .heading {
     display: block;
     height: 28px;
     line-height: 28px;
     background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
+    cursor: default;
   }
 
   .signed .heading { color: #449454; }
@@ -44,8 +63,8 @@
     align-items: center;
     background: #222 linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0.04) 75%, transparent);
     box-shadow: 0 -1px 0 rgba(0,0,0, .2) inset;
+    -webkit-transform: translateZ(0);
 
-    //&:last-of-type { box-shadow: none !important; }
     .name { max-width: 180px; }
 
     .status {
@@ -70,6 +89,23 @@
       color: #CCC;
       text-shadow: 0 0 2px rgba(255,255,255, .2);
       background: transparent;
+    }
+  }
+
+  .sign-player-area {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: 0;
+    width: 100%;
+    background: #000;
+    opacity: 0;
+    overflow: hidden;
+    transition: .3s;
+
+    &.active {
+      opacity: 1;
+      height: 30px;
     }
   }
 
@@ -106,22 +142,37 @@
     display: flex;
     top: 0;
     left: 0;
-    width: 0;
     height: 0;
+    width: 300px;
     color: #777;
     opacity: 0;
     align-items: center;
     justify-content: center;
     box-shadow: 0 -1px 0 rgba(0,0,0, .2) inset;
-    transform: translateX(-100%);
-    transition: transform .25s, height 0s;
+    transform: translateX(-300px);
+    transition: all .25s, height 0s .25s, opacity 0s .25s;
 
     &.active {
-      width: 100%;
       height: 100%;
+      width: 300px;
       opacity: 1;
       background: #333 linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0.04) 75%, transparent);
       transform: translateX(0);
+      transition: transform .25s, height 0s, opacity 0s;
+    }
+
+    &.unsigned {
+      display: block !important;
+
+      * {
+        opacity: 0;
+        transition: opacity 0s;
+      }
+    }
+
+    &.active.unsigned * {
+      opacity: 1;
+      transition: opacity .25s .25s;
     }
 
     a {
@@ -129,6 +180,23 @@
       font-size: 13px;
 
       &:hover { color: #BBB; }
+
+      &.button {
+        float: right;
+        margin: 5px 9px 0 5px;
+        height: 22px;
+        width: 50px;
+        color: #717171;
+        font-size: 10px;
+        line-height: 22px;
+        background: #232323;
+        border-radius: $border-radius;
+
+        &.sign { margin-right: 0; background: #444; cursor: default; }
+        &.sign:hover { text-shadow: none; }
+        &.sign.enabled:hover { color: #C5C5C5; background: #457B45; cursor: pointer; }
+        &.cancel:hover { color: #AAA; }//background: #8E4343;
+      }
     }
   }
 

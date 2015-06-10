@@ -26,6 +26,34 @@
     &.createplayer-active { height: $actions-height; }
   }
 
+  p { cursor: default; }
+
+  .add-button {
+    float: left;
+    height: 26px;
+    width: 35px;
+    color: #555;
+    font-size: 14px;
+    line-height: 26px;
+    text-shadow: 0 0 2px rgba(0,0,0, .25);
+    opacity: .5;
+
+    &.active {
+      color: #777;
+      text-shadow: 0 0 2px rgba(0,0,0, .85);
+      opacity: .8;
+
+      &:hover {
+        color: #999;
+        text-shadow: 0 0 4px rgba(0,0,0, .95);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+#actions, #overview {
+
   input, select {
     float: left;
     height: 26px;
@@ -97,29 +125,6 @@
     }
 
     &.clicked { cursor: default; }
-  }
-
-  .add-button {
-    float: left;
-    height: 26px;
-    width: 35px;
-    color: #555;
-    font-size: 14px;
-    line-height: 26px;
-    text-shadow: 0 0 2px rgba(0,0,0, .25);
-    opacity: .5;
-
-    &.active {
-      color: #777;
-      text-shadow: 0 0 2px rgba(0,0,0, .85);
-      opacity: .8;
-
-      &:hover {
-        color: #999;
-        text-shadow: 0 0 4px rgba(0,0,0, .95);
-        opacity: 1;
-      }
-    }
   }
 }
 
@@ -226,6 +231,7 @@
     border-radius: $border-radius;
     box-shadow: 0 0 30px rgba(255,255,255, .03) inset;
     overflow: hidden;
+    cursor: default;
     transition: .4s;
 
     &:first-of-type { margin-right: 30px; }
@@ -342,6 +348,7 @@
   border: 1px dashed rgba(255,255,255, .1);
   border-radius: $border-radius;
   background: rgba(0,0,0, .15);
+  cursor: default;
   transition: .35s;
 
   &.hover {

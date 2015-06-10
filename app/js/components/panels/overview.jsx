@@ -9,9 +9,7 @@ var GMPanel = React.createClass({
     if (this.props.trades.length) {
       height = height + 28;
       for (x = 0; x < this.props.trades.length; x++) {
-        height = height + 28;
-        if (this.props.trades[x].user.length > this.props.trades[x].league.length) { height = height + (this.props.trades[x].user.length * 20); }
-        else { height = height + (this.props.trades[x].league.length * 20); }
+        height = height + 28 + (Math.max(this.props.trades[x].user.length, this.props.trades[x].league.length) * 20);
       }}
     if (haveItems > 1) {
       if (this.props.unsigned.length) { height = height + 28 + (this.props.unsigned.length * 33); }
@@ -22,7 +20,7 @@ var GMPanel = React.createClass({
         $('#overview').css('height', height);
       } else { $('#overview').css('height', 95); }
     } else { $('#overview').css('height', 0); }
-    $('.confirm-slider.active').removeClass('active');
+    $('.confirm-slider.active').not('.enagaged').removeClass('active');
   },
 
   listUnsigned: function() {
@@ -35,16 +33,59 @@ var GMPanel = React.createClass({
               <li key={ i + player.id } className="item">
                 <span className="status">{player.contract[6]}</span>
                 <span className="name">{player.lastname}, {player.firstname}</span>
-                <a className="button">Sign</a>
+                <a className="button" data-target={ 'sign-confirm-' + player.id } onClick={UI.showOverviewConfirm}>Sign</a>
+                <div id={ 'sign-confirm-' + player.id } className="confirm-slider unsigned">
+                  <input className="sign-player-salary" type="number" step="0.100" min="0.100" max="99.999" placeholder="Salary"
+                    onKeyPress={UI.checkPlayerSalaryInput}
+                    onChange={this.changeSignPlayerInput}
+                    onBlur={UI.formatSalary}
+                    onPaste={UI.blockAction} />
+                  <select className="sign-player-duration" defaultValue="0" onChange={this.changeSignPlayerDuration}>
+                    <option value="0" disabled>Duration</option>
+                    <option value="1">1 year</option>
+                    <option value="2">2 years</option>
+                    <option value="3">3 years</option>
+                    <option value="4">4 years</option>
+                    <option value="5">5 years</option>
+                  </select>
+                  <a className="button rounded cancel" data-target={ 'sign-confirm-' + player.id } onClick={UI.hideOverviewConfirm}>Cancel</a>
+                  <a className="button rounded sign" data-id={player.id} onClick={this.signPlayer}>Sign</a>
+                </div>
               </li>
             );
-          }) }
+          }.bind(this)) }
         </ul>
       </div>
     );
   },
 
+  changeSignPlayerInput: function(e) {
+    UI.changePlayerSalary(e);
+    if ($(e.target).val() > 0 && $(e.target).siblings('.sign-player-duration').val() !== '0') {
+      $(e.target).siblings('.button.sign').addClass('enabled');
+    }
+  },
+
+  changeSignPlayerDuration: function(e) {
+    UI.changePlayerSalary(e);
+    if ($(e.target).val() !== '0' && $(e.target).siblings('.sign-player-salary').val() > 0) {
+      $(e.target).siblings('.button.sign').addClass('enabled');
+    }
+  },
+
+  signPlayer: function(e) {
+    var id = e.target.getAttribute('data-id'),
+        salary = $('#sign-confirm-' + id + ' input').val(),
+        duration = $('#sign-confirm-' + id + ' select').val();
+    $('#sign-confirm-' + id).addClass('enagaged');
+
+    // if (!salary || duration === '0') {}
+
+    this.props.signPlayer(id, salary, duration);
+  },
+
   listSigned: function() {
+    // this.props.undoSigning
     return (
       <div className="signed">
         <div className="heading">Unsigned</div>
@@ -73,12 +114,12 @@ var GMPanel = React.createClass({
               <li key={ i + player.id } className="item">
                 <span className="status">{player.position}</span>
                 <span className="name">{player.lastname}, {player.firstname}</span>
-                <a className="button" data-target={player.id} onClick={this.showUndoConfirm}>Undo</a>
-                <div id={ player.id + '-undo-confirm' } className="confirm-slider">
+                <a className="button" data-target={ 'undo-confirm-' + player.id } onClick={UI.showOverviewConfirm}>Undo</a>
+                <div id={ 'undo-confirm-' + player.id } className="confirm-slider">
                   <span className="confirm-text">Are you sure?</span>
                   <a data-id={player.id} onClick={this.props.undoCreate}>Yes</a>
                   <span className="confirm-divider"> / </span>
-                  <a className={ player.id + '-undo-confirm' } onClick={this.hideUndoConfirm}>No</a>
+                  <a data-target={ 'undo-confirm-' + player.id } onClick={UI.hideOverviewConfirm}>No</a>
                 </div>
               </li>
             );
@@ -94,8 +135,9 @@ var GMPanel = React.createClass({
         <div className="heading">Trades</div>
         <ul className="list">
           { this.props.trades.map(function(trade, i) {
+            var len = Math.max(trade.user.length, trade.league.length);
             return (
-              <li key={i} className="trade item">
+              <li key={i} className={ 'span-' + len + ' trade item' }>
                 <ul className="user">
                   <li className="team">{trade.user[0].team}</li>
                   { trade.user.map(function(player, j) {
@@ -108,12 +150,12 @@ var GMPanel = React.createClass({
                     return <li key={ k + player.id }>{player.firstname.charAt(0)}. {player.lastname}</li>;
                   }) }
                 </ul>
-                <a className="button" data-target={i} onClick={this.showUndoConfirm}>Undo</a>
-                <div id={ i + '-undo-confirm' } className="confirm-slider">
+                <a className="button" data-target={ 'undo-confirm-' + i } onClick={UI.showOverviewConfirm}>Undo</a>
+                <div id={ 'undo-confirm-' + i } className="confirm-slider">
                   <span className="confirm-text">Are you sure?</span>
                   <a data-index={i} onClick={this.props.undoTrade}>Yes</a>
                   <span className="confirm-divider"> / </span>
-                  <a className={ i + '-undo-confirm' } onClick={this.hideUndoConfirm}>No</a>
+                  <a data-target={ 'undo-confirm-' + i } onClick={UI.hideOverviewConfirm}>No</a>
                 </div>
               </li>
             );
@@ -121,17 +163,6 @@ var GMPanel = React.createClass({
         </ul>
       </div>
     );
-  },
-
-  showUndoConfirm: function (e) {
-    e.preventDefault();
-    $('.confirm-slider.active').removeClass('active');
-    $('#' + e.target.getAttribute('data-target') + '-undo-confirm').addClass('active');
-  },
-
-  hideUndoConfirm: function (e) {
-    e.preventDefault();
-    $('#' + e.target.className).removeClass('active');
   },
 
 
