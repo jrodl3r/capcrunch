@@ -12,11 +12,10 @@ var express     = require('express'),
     timezone    = 'America/New_York',
     mongoose    = require('mongoose'),
     Team        = require('./models/team.js'),
+    Picks       = require('./models/picks.js'),
     Roster      = require('./models/roster.js'),
     env         = process.env.NODE_ENV || 'development',
     port        = process.env.PORT || 3000;
-    // auth        = require('http-auth'),
-    // admin       = auth.basic({ realm: 'Private Beta', file: path.join(__dirname, 'data/users.htpasswd') });
 
 
 // Connect
@@ -34,16 +33,14 @@ if (env === 'development') {
     if (err) { console.error(err); }
     else { console.log('Connected to mongodb (' + moment.tz(timezone).format(timestamp) + ')'); }
   });
-} // else if (env === 'testing') {}
+}//else if (env === 'testing'){}
 
 
 // Routes
 // --------------------------------------------------
 
-// if (env === 'production') { app.use(auth.connect(admin)); }
 app.use(compression());
 app.get('/', function(req, res) {
-  // console.log('User Connected [' + req.user + '] (' + moment.tz(timezone).format(timestamp) + ')');
   console.log('User Connected (' + moment.tz(timezone).format(timestamp) + ')');
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
@@ -87,6 +84,18 @@ io.sockets.on('connection', function(socket) {
         };
         socket.emit('load trade team', id, players);
         console.log('Trade Team Loaded: ' + id + ' (' + moment.tz(timezone).format(timestamp) + ')');
+      }
+    });
+  });
+
+  // load draft picks
+  socket.on('get picks', function(id) {
+    Picks.find({ id : id }, function(err, data) {
+      if (err || !data[0]) {
+        socket.emit('load picks', 'error');
+        console.error(err || 'Load Picks Failed: ' + id + ' (' + moment.tz(timezone).format(timestamp) + ')');
+      } else {
+        socket.emit('load picks', data[0]);
       }
     });
   });

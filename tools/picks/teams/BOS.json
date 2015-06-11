@@ -1,0 +1,46 @@
+[{
+	"id": "BOS",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "traded",
+			"to": { "id": "TBL", "info": "Traded Brett Connolly to Bruins for <strong>2015 second round pick</strong>, 2016 second round pick on 2015-03-01" }},
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "NYI", "orig": "PHI", "info": "Traded Johnny Boychuk to Islanders for <strong>2015 second round pick</strong>, 2016 second round pick, 2015 conditional third round pick (if Islanders trade Boychuk to another Eastern Conference team during 2014-15 season) on 2014-10-04" }},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "traded",
+			"to": { "id": "TBL", "info": "Traded Brett Connolly to Bruins for 2015 second round pick, <strong>2016 second round pick</strong> on 2015-03-01" }},
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "NYI", "info": "Traded Johnny Boychuk to Islanders for 2015 second round pick, <strong>2016 second round pick</strong>, 2015 conditional third round pick (if Islanders trade Boychuk to another Eastern Conference team during 2014-15 season) on 2014-10-04" }},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "traded",
+		 	"to": { "id": "COL", "info": "Traded Maxime Talbot, Paul Carey to Avalanche for Jordan Caron, <strong>2016 sixth round pick</strong> on 2015-03-02" }},
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

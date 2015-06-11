@@ -1,30 +1,30 @@
-{
+[{
 	"id": "ARI",
   "Y15": [
 		{ "round": "1", "status": "own" },
 		{ "round": "1", "status": "acquired",
-			"from": { "id": "CHI", "info": "Traded Antoine Vermette to Blackhawks for Klas Dahlbeck, 2015 first round pick on 2015-02-28" }},
+			"from": { "id": "CHI", "info": "Traded Antoine Vermette to Blackhawks for Klas Dahlbeck, <strong>2015 first round pick</strong> on 2015-02-28" }},
     { "round": "2", "status": "own" },
 		{ "round": "2", "status": "acquired",
-			"from": { "id": "NYR", "orig": "TBL", "info": "Traded Keith Yandle, Chris Summers, 2016 fourth round pick to Rangers for John Moore, Anthony Duclair, 2015 second round pick, 2016 first round pick (lottery protected in 2016, unprotected in 2017) on 2015-03-02" }},
+			"from": { "id": "NYR", "orig": "TBL", "info": "Traded Keith Yandle, Chris Summers, 2016 fourth round pick to Rangers for John Moore, Anthony Duclair, <strong>2015 second round pick, 2016 first round pick (lottery protected in 2016, unprotected in 2017)</strong> on 2015-03-02" }},
     { "round": "3", "status": "own" },
     { "round": "3", "status": "acquired",
-		 	"from": { "id": "MIN", "info": "Traded Devan Dubnyk to Wild for 2015 third round pick on 2015-01-14" }},
+		 	"from": { "id": "MIN", "info": "Traded Devan Dubnyk to Wild for <strong>2015 third round pick</strong> on 2015-01-14" }},
     { "round": "4", "status": "traded",
-		 	"to": { "id": "WAS", "info": "Traded Martin Erat, John Mitchell to Coyotes for Rostislav Klesla, Chris Brown, 2015 fourth round pick on 2014-03-04" }},
+		 	"to": { "id": "WAS", "info": "Traded Martin Erat, John Mitchell to Coyotes for Rostislav Klesla, Chris Brown, <strong>2015 fourth round pick</strong> on 2014-03-04" }},
     { "round": "5", "status": "own" },
     { "round": "6", "status": "traded",
-		 	"to": { "id": "TBL", "info": "Traded Sam Gagner, B.J. Crombeen to Coyotes for 2015 sixth round pick on 2014-06-29" }},
+		 	"to": { "id": "TBL", "info": "Traded Sam Gagner, B.J. Crombeen to Coyotes for <strong>2015 sixth round pick</strong> on 2014-06-29" }},
     { "round": "7", "status": "own" }
   ],
   "Y16": [
     { "round": "1", "status": "own" },
 		{ "round": "1", "status": "acquired",
-			"from": { "id": "NYR", "info": "Traded Keith Yandle, Chris Summers, 2016 fourth round pick to Rangers for John Moore, Anthony Duclair, 2015 second round pick, 2016 first round pick (lottery protected in 2016, unprotected in 2017) on 2015-03-02" }},
+			"from": { "id": "NYR", "info": "Traded Keith Yandle, Chris Summers, 2016 fourth round pick to Rangers for John Moore, Anthony Duclair, 2015 second round pick, <strong>2016 first round pick (lottery protected in 2016, unprotected in 2017)</strong> on 2015-03-02" }},
     { "round": "2", "status": "own" },
     { "round": "3", "status": "own" },
     { "round": "4", "status": "traded",
-			"to": { "id": "NYR", "info": "Traded John Moore, Anthony Duclair, 2015 second round pick, 2016 conditional first round pick to Coyotes for Keith Yandle, Chris Summers, 2016 fourth round pick on 2015-03-01" }},
+			"to": { "id": "NYR", "info": "Traded John Moore, Anthony Duclair, 2015 second round pick, 2016 conditional first round pick to Coyotes for Keith Yandle, Chris Summers, <strong>2016 fourth round pick</strong> on 2015-03-01" }},
     { "round": "5", "status": "own" },
     { "round": "6", "status": "own" },
     { "round": "7", "status": "own" }
@@ -47,4 +47,4 @@
     { "round": "6", "status": "own" },
     { "round": "7", "status": "own" }
   ]
-}
+}]

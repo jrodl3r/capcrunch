@@ -31,19 +31,6 @@
 
 
 ---------------------------------------------------------------
-## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
----------------------------------------------------------------
-- 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
-- 'Backspace key refresh/back-page-nav...Grr!'
-- 'Occasional missed remove-player tile dragend'
-- 'Occasional missed list-item dragstart'
-- 'Tabbing makes actions tabs disappear'
-- 'tile trade drag-end hover sticking + not queuing (BN/Hodgson)'
----------------------------------------------------------------
-
-
-
----------------------------------------------------------------
 ## REFACTOR »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
 Post-Launch Rebuild
@@ -73,9 +60,24 @@ Post-Launch Rebuild
 
 
 
+---------------------------------------------------------------
+## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+- 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
+- 'Backspace key refresh/back-page-nav...Grr!'
+- 'Occasional missed remove-player tile dragend'
+- 'Occasional missed list-item dragstart'
+- 'Tabbing makes actions tabs disappear'
+- 'tile trade drag-end hover sticking + not queuing (BN/Hodgson)'
+- 'inactive player grid-highlight stops working after adding to roster'
+---------------------------------------------------------------
+
+
+
 ## Grid
 ---------------------------------------------------------------
 - 'IR players cap calculation (count, payroll)'
+---------------------------------------------------------------
 
 
 ## Panels
@@ -125,10 +127,17 @@ Post-Launch Rebuild
 
 ## GM Overview 🏆
 ---------------------------------------------------------------
+|   You have 3 Unsigned Players  ⋮  1 Created  ⋮  2 Trades     |
+---------------------------------------------------------------
+- 'morphs into status persistent HUD when not engaged'
+- 'auto-expands to full-height on mouse-over'
+- 'add remove roster player drop-area/target'
+---------------------------------------------------------------
 - 'disabled view + disable on dirty roster (just like trade-actions)'
 - 're-sort/order teamData.players[player.group] on sign/unsign'
 - 'signed inactive player gets added to F/D/G player group'
-- 'sign-n-trade player scenario'
+- 'sign-n-trade players'
+  - 'drop unsigned from list to sign w/out adding to roster'
 ---------------------------------------------------------------
 
 
@@ -136,8 +145,10 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 - 'free-agents panel (data + layout + logic)'
 ---------------------------------------------------------------
-- 'create: add salary row button'
+- 'create: add age, image url + team (auto-select)'
 - 'create: players goto F/D/G panel (makes sense)'
+- 'create: add salary row button'
+- 'enable create player w/ dirty roster (prompt for team)'
 ---------------------------------------------------------------
 - 'trade: asset + salary summary breakdown'
 - 'trade: cap violation/overage check + warning'
@@ -148,8 +159,14 @@ Post-Launch Rebuild
 ##### Share
 ---------------------------------------------------------------
 - 'confirm active team (team mismatch / mixed roster)'
-- 'twitter, facebook + copy text version buttons'
-- 'build text roster w/ actions summary + button logic'
+---------------------------------------------------------------
+
+
+##### Demo Video
+---------------------------------------------------------------
+- 'record HD video guide w/ roster building walkthrough'
+- 'add splash button/fade-in fullscreen video on team-grid (bottom)'
+- 'add link to footer + header button Video Guide'
 ---------------------------------------------------------------
 
 
@@ -172,6 +189,8 @@ Post-Launch Rebuild
   - 'trades only, not create player'
 - 'disabled transaction button state (after action executes)'
 - 'share: cleanup layout + x-browser issues'
+- 'share: twitter + facebook social sharing'
+- 'share: text roster w/ actions summary builder'
 ---------------------------------------------------------------
 - 'notifications: cleanup + global/fixed-pos user notify (slide/fade)'
   - 'nav: tools link (coming soon hover)'

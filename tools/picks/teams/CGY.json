@@ -1,0 +1,46 @@
+[{
+	"id": "CGY",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "VAN", "info": "Traded Sven Baertschi to Canucks for <strong>2015 second round pick</strong> on 2015-03-02" }},
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "WAS", "info": "Traded Curtis Glencross to Capitals for <strong>2015 second round pick</strong>, 2015 third round pick on 2015-03-01" }},
+    { "round": "3", "status": "own" },
+		{ "round": "3", "status": "acquired",
+			"from": { "id": "WAS", "info": "Traded Curtis Glencross to Capitals for 2015 second round pick, <strong>2015 third round pick</strong> on 2015-03-01" }},
+		{ "round": "4", "status": "traded",
+			"to": { "id": "SJS", "info": "Traded T.J. Galiardi to Flames for <strong>2015 fourth round pick</strong> on 2013-07-02" }},
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

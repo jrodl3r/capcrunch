@@ -1,0 +1,51 @@
+[{
+	"id": "CAR",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "own" },
+		{ "round": "3", "status": "own" },
+		{ "round": "4", "status": "own" },
+		{ "round": "4", "status": "acquired",
+			"from": { "id": "WAS", "orig": "ARI", "info": "Traded Tim Gleason to Capitals for Jack Hillen, <strong>2015 fourth round pick</strong> on 2015-02-28" }},
+		{ "round": "5", "status": "own" },
+		{ "round": "5", "status": "acquired",
+		 	"from": { "id": "WPG", "info": "Traded Jiri Tlusty to Jets for <strong>2015 conditional pick (fifth round if Jets qualify for 2015 playoffs, else sixth round)</strong>, 2016 third round pick on 2015-02-25" }},
+    { "round": "6", "status": "own" },
+		{ "round": "6", "status": "acquired",
+			"from": { "id": "WPG", "orig": "OTT", "info": "Traded Jay Harrison to Jets for <strong>2015 sixth round pick</strong> on 2014-12-18" }},
+	  { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+		{ "round": "1", "status": "acquired",
+		 	"from": { "id": "LAK", "info": "Traded Andrej Sekera to Kings for Roland McKeown, <strong>conditional first round pick (in 2015 if Kings qualify for 2015 playoff, else 2016)</strong> on 2015-02-25" }},
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+		{ "round": "3", "status": "acquired",
+		 	"from": { "id": "WPG", "info": "Traded Jiri Tlusty to Jets for 2015 conditional round pick (fifth round if Jets qualify for 2015 playoffs, else sixth round), <strong>2016 third round pick</strong> on 2015-02-25" }},
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+		{ "round": "3", "status": "acquired",
+		 	"from": { "id": "NJD", "info": "Traded Tuomo Ruutu to Devils for Andrei Loktionov, <strong>2017 conditional third round pick</strong> on 2014-03-05 <strong><em>(Conditions on pick are unconfirmed.)</em></strong>"}},
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]
