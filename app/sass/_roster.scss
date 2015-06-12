@@ -336,7 +336,7 @@
     padding-left: 2px;
     font-size: 10px;
     text-align: left;
-    text-shadow: 0 0 3px rgba(255,255,255, .2);
+    //text-shadow: 0 0 3px rgba(255,255,255, .2);
     border-top: 1px solid rgba(0,0,0, .05);
 
     .ir &, .bench & {
@@ -376,24 +376,14 @@
   }
 
   .tag {
-    float: right;
     height: 13px;
     width: 13px;
     margin: 6px 1px 0 2px;
-    font-size: 7px;
-    font-weight: bold;
     line-height: 13px;
-    text-align: center;
-    border-radius: 50%;
     opacity: .65;
 
     .ir &, .bench & { margin: 1px 0 0 3px; }
     .ir &:last-of-type, .bench &:last-of-type { margin-left: 4px; }
-
-    &.acquired { color: #BBB; background: #1E44A2; }
-    &.injured { color: #E09191; background: #A01313; }
-    &.benched { color: #999; background: #323232; }
-    &.created, &.signed { color: #CCC; background: #117C1B; }
   }
 
   .UFA, .RFA {

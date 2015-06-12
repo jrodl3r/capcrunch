@@ -97,7 +97,7 @@ var PayrollTable = React.createClass({
           </tr>
           {this.playerGroup(this.props.teamData.players.inactive)}
           <tr className="title other">
-            <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Picks</td>
+            <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Draft Picks</td>
             <td colSpan="17"></td>
           </tr>
           <tr className="picks-row">

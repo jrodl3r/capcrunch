@@ -95,6 +95,9 @@ Post-Launch Rebuild
 - 'player: swap-tiles drop action'
 - 'player button/icons/menu: [ info | edit | buyout | +IR | +BN ]'
 ---------------------------------------------------------------
+- 'shrink player name on bench/ir lines if status tag count > 2'
+- 'remove team logo images from css, append bg-img style on the fly'
+---------------------------------------------------------------
 
 
 ## Payroll

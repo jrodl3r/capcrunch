@@ -7,27 +7,34 @@ var PicksTable = React.createClass({
 
   buildPicks: function(year, round, label) {
     var info, key = 'Y' + year,
-        last = round === 7 ? 'last ' : '';
+        last = year === '18' && round === 7 ? 'last ' : '';
     return (
       <td className={ year % 2 ? last : last + 'odd' }>
         { this.props.pickData[key].map(function(pick) {
           if (parseInt(pick.round) === round) {
-            if (pick.status === 'own') {
-              return <span className="own pick">Own {label}</span>;
-            } else {
-              if (pick.status === 'acquired') {
-                info = pick.from.info;
-                return <span className="acquired pick" data-info={info}>Acquired {pick.from.id}</span>;
-              } else if (pick.status === 'traded') {
-                info = pick.to.info;
-                return <span className="traded pick" data-info={info}>Traded {pick.to.id}</span>;
-              } else if (pick.status === 'traded-cond') {
-                info = pick.to.info;
-                return <span className="traded pick" data-info={info}>Traded {pick.to.id}</span>;
-              } else if (pick.status === 'acquired-traded') {
-                info = pick.from.info + '...' + pick.to.info;
-                return <span className="acquired-traded pick" data-info={info}>Traded {pick.to.id}</span>;
-              }}}
+            if (pick.status === 'acquired') {
+              info = pick.from.info;
+            } else if (pick.status === 'acquired-traded') {
+              info = pick.from.info + '...' + pick.to.info;
+            } else if (/(traded|traded-cond)/.test(pick.status)) {
+              info = pick.to.info;
+            }
+            //{this.props.pickData.id}
+            return (
+              <span className={ pick.status + ' pick' } data-info={info}>
+
+                { pick.status === 'own' ? <span>Own {label}</span> : null }
+                { pick.status === 'acquired' ? <span>From {pick.from.id}</span> : null }
+                { /(traded|traded-cond|acquired-traded)/.test(pick.status) ? <span>To {pick.to.id}</span> : null }
+
+                { pick.status === 'acquired' ? <div className="tag acquired">A</div> : null }
+                { pick.status === 'traded' ? <div className="tag traded">T</div> : null }
+                { pick.status === 'traded-cond' ? <div className="tag traded">TC</div> : null }
+                { pick.status === 'acquired-traded' ? <div className="tag traded">AT</div> : null }
+
+              </span>
+            );
+          }
         }.bind(this)) }
       </td>
     );
