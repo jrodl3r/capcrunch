@@ -191,7 +191,6 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'draft-picks: cleanup layout + display logic'
 - 'draft-picks: finalize data acquisition'
 - 'trades: add draft-picks to dropdown list'
 - 'free agents: list + add UFA players'
@@ -221,6 +220,8 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'draft-picks: info tooltips layout + logic'
+- 'draft-picks: cleanup layout + display logic'
 - 'draft-picks: initial layout + display logic'
 - 'gm-overview: list unsigned/signed/created/trades'
 - 'gm-overview: sign UFA/RFA/Rookie players'

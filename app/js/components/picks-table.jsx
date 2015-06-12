@@ -6,32 +6,31 @@ var years = ['2015','2016','2017','2018'],
 var PicksTable = React.createClass({
 
   buildPicks: function(year, round, label) {
-    var info, key = 'Y' + year,
+    var info, pos, key = 'Y' + year,
         last = year === '18' && round === 7 ? 'last ' : '';
     return (
       <td className={ year % 2 ? last : last + 'odd' }>
         { this.props.pickData[key].map(function(pick) {
           if (parseInt(pick.round) === round) {
-            if (pick.status === 'acquired') {
-              info = pick.from.info;
-            } else if (pick.status === 'acquired-traded') {
-              info = pick.from.info + '...' + pick.to.info;
-            } else if (/(traded|traded-cond)/.test(pick.status)) {
-              info = pick.to.info;
+            if (pick.status === 'acquired') { info = pick.from.info; }
+            else if (pick.status === 'traded' || pick.status === 'traded-cond') { info = pick.to.info; }
+            else if (pick.status === 'acquired-traded') {
+              info = '<p><span class="pick-title">Acquired from ' + pick.from.id + ': </span>' + pick.from.info + '</p><p><span class="pick-title">Traded to ' + pick.to.id + ': </span>' + pick.to.info + '</p>';
             }
-            //{this.props.pickData.id}
+            pos = '';
+            if (round > 5) { pos = 'bottom '; }
+            if (parseInt(year) > 15) { pos = pos + 'shift '; }
             return (
-              <span className={ pick.status + ' pick' } data-info={info}>
-
-                { pick.status === 'own' ? <span>Own {label}</span> : null }
-                { pick.status === 'acquired' ? <span>From {pick.from.id}</span> : null }
-                { /(traded|traded-cond|acquired-traded)/.test(pick.status) ? <span>To {pick.to.id}</span> : null }
-
+              <span className={ pick.status + ' pick' }>
+                { pick.status === 'own' ? <span className="label">Own {label}</span> : null }
+                { pick.status === 'acquired' ? <span className="label">From {pick.from.id}</span> : null }
+                { /(traded|traded-cond|acquired-traded)/.test(pick.status) ? <span className="label">To {pick.to.id}</span> : null }
                 { pick.status === 'acquired' ? <div className="tag acquired">A</div> : null }
                 { pick.status === 'traded' ? <div className="tag traded">T</div> : null }
                 { pick.status === 'traded-cond' ? <div className="tag traded">TC</div> : null }
                 { pick.status === 'acquired-traded' ? <div className="tag traded">AT</div> : null }
-
+                { /(traded|traded-cond|acquired|acquired-traded)/.test(pick.status)
+                  ? <div className={ pos + 'info' } dangerouslySetInnerHTML={{ __html: info }} /> : null }
               </span>
             );
           }
@@ -67,9 +66,12 @@ var PicksTable = React.createClass({
             </tr>
           </thead>
           <tbody>
-            {this.buildRow(1, '1st')}{this.buildRow(2, '2nd')}
-            {this.buildRow(3, '3rd')}{this.buildRow(4, '4th')}
-            {this.buildRow(5, '5th')}{this.buildRow(6, '6th')}
+            {this.buildRow(1, '1st')}
+            {this.buildRow(2, '2nd')}
+            {this.buildRow(3, '3rd')}
+            {this.buildRow(4, '4th')}
+            {this.buildRow(5, '5th')}
+            {this.buildRow(6, '6th')}
             {this.buildRow(7, '7th')}
           </tbody>
         </table>
