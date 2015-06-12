@@ -43,6 +43,7 @@ var App = React.createClass({
       tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }},
       panelData  : { active : 'trades', loading : false, engaged : false, enabled : true },
       capData    : { year : 6, players : 0, unsigned : 0, hit : '0.000', space : '71.500', cap: '71.500' },
+      pickData   : { id: '', Y15: [], Y16: [], Y17: [], Y18: [] },
       viewData   : { active : 'loading', last : '', next : '' },
       shareData  : { name : '', link : '', view : 'input' },
       dragData   : { type : '', group : '', index : '' },
@@ -69,6 +70,7 @@ var App = React.createClass({
     }
     Socket.on('load team', this.loadTeam);
     Socket.on('load trade team', this.loadTradeTeam);
+    Socket.on('load picks', this.loadPicks);
     Socket.on('load roster', this.loadRoster);
     Socket.on('roster saved', this.confirmShare);
   },
@@ -159,6 +161,7 @@ var App = React.createClass({
   changeTeam: function(id) {
     this.changeView('loading');
     Socket.emit('get team', id);
+    Socket.emit('get picks', id);
     UI.resetViewScroll();
   },
 
@@ -185,6 +188,11 @@ var App = React.createClass({
       this.changeView('teams');
       this.notifyUser('error', Messages.error.loading_team);
     }
+  },
+
+  loadPicks: function(data) {
+    var pickData = data;
+    this.setState({ pickData : pickData });
   },
 
   isCleanTeam: function (team) {
@@ -991,7 +999,8 @@ var App = React.createClass({
             <Payroll
               activeView={this.state.viewData.active}
               capData={this.state.capData}
-              teamData={this.state.teamData} />
+              teamData={this.state.teamData}
+              pickData={this.state.pickData} />
             <RosterMenu
               capData={this.state.capData}
               viewData={this.state.viewData}

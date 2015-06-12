@@ -1,13 +1,11 @@
 'use strict';
 
+var PicksTable = require('./picks-table.jsx');
+
 var PayrollTable = React.createClass({
 
-  shouldComponentUpdate: function(nextProps) {
-    return nextProps.activeView === 'payroll';
-  },
-
   playerGroup: function(players) {
-    var row, group, year = this.props.year, x = 0;
+    var year = this.props.year, row, group, x = 0;
     group = players.map(function(player, i) {
       if (!/(acquired|created)/.test(player.action)) {
         row = x % 2 ? '' : 'even';
@@ -26,8 +24,9 @@ var PayrollTable = React.createClass({
             { player.capnum === '0.000' ? <td className="num zero">-</td> : <td className="num">{player.capnum}</td> }
             { player.caphit === '0.000' ? <td className="hit zero">-</td> : <td className="hit">{player.caphit}</td> }
             { player.contract.map(function(salary, j) {
-              if (salary) { return <td className={ j === year ? 'cur' : '' }><span className={ /(UFA|RFA)/.test(salary) ? salary : '' }>{salary}</span></td>; }
-              else { return <td></td>; }
+              if (salary) {
+                return <td className={ j === year ? 'cur' : '' }><span className={ /(UFA|RFA)/.test(salary) ? salary : '' }>{salary}</span></td>;
+              } else { return <td className={ j === 14 ? 'last' : '' }></td>; }
             }) }
           </tr>
         );
@@ -97,6 +96,13 @@ var PayrollTable = React.createClass({
             <td className="year">21/22</td><td className="year">22/23</td><td className="year last">23/24</td>
           </tr>
           {this.playerGroup(this.props.teamData.players.inactive)}
+          <tr className="title other">
+            <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Picks</td>
+            <td colSpan="17"></td>
+          </tr>
+          <tr className="picks-row">
+            <PicksTable activeView={this.props.activeView} pickData={this.props.pickData} />
+          </tr>
         </tbody>
       </table>
     );

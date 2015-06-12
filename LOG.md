@@ -170,6 +170,14 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
+##### Free Agents DB
+---------------------------------------------------------------
+- 'store expiring 2015 contracts'
+- 'diff + store all existing UFA/RFA players'
+- 'diff + merge expired contracts into that...'
+---------------------------------------------------------------
+
+
 ## Footer
 ----------------------------------------------------------------------------
  What's Next? ⋮ Credits ⋮ Twitter    some rights reserved ⋮ CapCRUNCH © 2015
@@ -180,7 +188,8 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'data: draft-picks (data + layout + logic)'
+- 'draft-picks: cleanup layout + display logic'
+- 'draft-picks: finalize data acquisition'
 - 'trades: add draft-picks to dropdown list'
 - 'free agents: list + add UFA players'
   - 'filter by team'
@@ -209,6 +218,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'draft-picks: initial layout + display logic'
 - 'gm-overview: list unsigned/signed/created/trades'
 - 'gm-overview: sign UFA/RFA/Rookie players'
 - 'gm-overview: undo/revert trade'

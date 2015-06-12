@@ -45,11 +45,13 @@ var UI = {
   },
 
   updateViewHeight: function() {
-    var table_height = $('#payroll-table').height(),
-        full_height = table_height + 92;
-    $('#payroll .inner').css('height', table_height);
-    $('#app .wrap').css('height', full_height);
-    $('#team-select').removeClass('clicked');
+    setTimeout(function() {
+      var table_height = $('#payroll-table').height(),
+          full_height = table_height + 92;
+      $('#payroll .inner').css('height', table_height);
+      $('#app .wrap').css('height', full_height);
+      $('#team-select').removeClass('clicked');
+    }, 100);
   },
 
   resetViewHeight: function() {
@@ -151,7 +153,6 @@ var UI = {
     e.preventDefault();
     $('#' + e.target.getAttribute('data-target')).removeClass('active');
   },
-
 
   changePlayerInput: function(e) {
     $(e.target).addClass('active');

@@ -5,10 +5,6 @@ var CapStats = require('./capstats.jsx'),
 
 var Payroll = React.createClass({
 
-  shouldComponentUpdate: function(nextProps) {
-    return this.props.activeView !== nextProps.activeView;
-  },
-
   render: function() {
 
     return (
@@ -17,7 +13,11 @@ var Payroll = React.createClass({
           <CapStats activeView="payroll" capData={this.props.teamData.cap} league={this.props.capData.cap} />
         </h2>
         <div className="inner">
-          <PayrollTable activeView={this.props.activeView} teamData={this.props.teamData} year={this.props.capData.year} />
+          <PayrollTable
+            activeView={this.props.activeView}
+            teamData={this.props.teamData}
+            pickData={this.props.pickData}
+            year={this.props.capData.year} />
         </div>
       </div>
     );
