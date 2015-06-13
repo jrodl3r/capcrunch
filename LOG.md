@@ -193,9 +193,10 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'draft-picks: share data + logic'
-- 'draft-picks: trade data + logic'
+- 'trades: add picks to trade logic'
+- 'trades: add user team draft picks button + add logic'
 - 'trades: add draft-picks to dropdown list'
+- 'share: update save roster/share logic'
 - 'free agents: list + add UFA players'
   - 'filter by team'
   - 'sort by previous salary'
