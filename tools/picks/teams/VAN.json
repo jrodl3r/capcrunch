@@ -1,0 +1,45 @@
+[{
+	"id": "VAN",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "traded",
+			"to": { "id": "CGY", "info": "Traded Sven Baertschi to Canucks for <strong>2015 second round pick</strong> on 2015-03-02" }},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "ANA", "info": "Traded Nick Bonino, Luca Sbisa, 2014 first round pick (#24-Jared McCann), 2014 third round pick (#85-Keegan Iverson) to Canucks for Ryan Kesler, <strong>2015 third round pick</strong> on 2014-06-27" }},
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+		{ "round": "5", "status": "acquired",
+			"from": { "id": "NYR", "info": "Traded Raphael Diaz to Rangers for <strong>2015 fifth round pick</strong> on 2014-03-05" }},
+		{ "round": "6", "status": "own" },
+		{ "round": "7", "status": "traded",
+			"to": { "id": "TBL", "info": "Traded 2014 second round pick (#50-Roland McKeown) to Canucks for Jason Garrison, rights to Jeff Costello, <strong>2015 seventh round pick</strong> on 2014-06-27" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "3", "status": "traded",
+			"to": { "id": "NYI", "info": "Traded Andrey Pedan to Canucks for Alexandre Mallet, <strong>2016 third round pick</strong> on 2014-11-25" }},
+		{ "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

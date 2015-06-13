@@ -1,0 +1,42 @@
+[{
+	"id": "NAS",
+  "Y15": [
+		{ "round": "1", "status": "traded",
+			"to": { "id": "TOR", "info": "Traded Cody Franson, Mike Santorelli to Predators for Olli Jokinen, Brendan Leipsic, <strong>2015 first round pick</strong> on 2015-02-15"}},
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+		{ "round": "4", "status": "acquired",
+			"from": { "id": "SJS", "info": "Traded 2014 second round pick (#46-Julius Bergman) to Sharks for 2014 second round pick (#51-Jack Dougherty), <strong>2015 fourth round pick</strong> on 2014-06-28"}},
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

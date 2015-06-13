@@ -1,0 +1,52 @@
+[{
+	"id": "EDM",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+		{ "round": "1", "status": "acquired",
+			"from": { "id": "PIT", "info": "Traded David Perron to Penguins for Rob Klinkhammer, <strong>2015 first round pick</strong> on 2015-01-02"}},
+    { "round": "2", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "MTL", "info": "Traded Jeff Petry to Canadiens for <strong>2015 second round pick</strong>, 2015 conditional round pick (third round if Canadiens advance to third round of 2015 playoffs, fourth round if Canadiens advance to second round of 2015 playoffs, else fifth round) on 2015-03-02"}},
+    { "round": "3", "status": "acquired",
+			"from": { "id": "STL", "info": "Traded Magnus Paajarvi, 2014 second round pick (#33-Ivan Barbashev), 2015 fourth round pick to Blues for David Perron, <strong>2015 third round pick</strong> on 2013-07-10"}},
+		{ "round": "3", "status": "acquired",
+			"from": { "id": "OTT", "info": "Traded Ales Hemsky to Senators for 2014 fifth round pick, <strong>2015 third round pick</strong> on 2014-03-05" }},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "ANA", "info": "Traded Viktor Fasth to Oilers for 2014 fifth round pick (#123-Matthew Berkovitz), <strong>2015 third round pick</strong> on 2014-03-04"}},
+		{ "round": "4", "status": "acquired-cond",
+			"from": { "id": "MTL", "info": "Traded Jeff Petry to Canadiens for 2015 second round pick, <strong>2015 conditional round pick (third round if Canadiens advance to third round of 2015 playoffs, fourth round if Canadiens advance to second round of 2015 playoffs, else fifth round)</strong> on 2015-03-02" }},
+		{ "round": "4", "status": "traded",
+			"to": { "id": "STL", "info": "Traded David Perron, 2015 third round pick to Oilers for Magnus Paajarvi, 2014 second round pick (#33-Ivan Barbashev), <strong>2015 fourth round pick</strong> on 2013-07-10"}},
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "acquired",
+			"from": { "id": "DAL", "info": "Traded Shawn Horcoff to Stars for Philip Larsen, <strong>2016 seventh round pick</strong> on 2013-07-04"}}
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

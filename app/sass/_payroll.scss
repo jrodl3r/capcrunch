@@ -229,7 +229,7 @@
   }
 
   td {
-    padding: 5px 0 3px;
+    padding: 5px 0 6px;
     line-height: 25px;
 
     &.first { background: rgba(0,0,0, .25); }
@@ -254,7 +254,7 @@
     opacity: .8;
 
     &.own { box-shadow: none; opacity: 1; }
-    &.acquired { background: linear-gradient(to top, rgba(150,150,150, .5) 0%, rgba(255,255,255, .85) 100%); }
+    &.acquired, &.acquired-cond { background: linear-gradient(to top, rgba(150,150,150, .5) 0%, rgba(255,255,255, .85) 100%); }
     &.traded, &.traded-cond, &.acquired-traded {
       background: linear-gradient(to top, rgba(60,60,60, .5) 0%, rgba(200,200,200, .5) 100%);
       box-shadow: 0 0 1px rgba(0,0,0, .5), 0 0 10px rgba(100,100,100, .25) inset;
@@ -275,9 +275,9 @@
       display: none;
       z-index: 2;
       width: 435px;
-      margin-top: -15px;
+      margin-top: -30px;
       margin-left: 55px;
-      padding: 14px;
+      padding: 10px 14px;
       color: #AAA;
       font-weight: normal;
       line-height:16px;
@@ -287,7 +287,15 @@
       box-shadow: 0 0 10px rgba(175,175,175, .25);
 
       &:hover { display: none; }
-      &.bottom { margin-top: -56px; }
+      &.bottom {
+        margin-top: -52px;
+        &.tall { margin-top: -68px; }
+        &.tall-mid { margin-top: -100px; }
+        &.taller { margin-top: -110px; }
+        &.large { margin-top: -142px; }
+        &.larger { margin-top: -159px; }
+      }
+      &.full-shift { margin-left: -477px; }
     }
 
     .pick-title {
@@ -303,7 +311,7 @@
       width: 90px;
     }
 
-    &.acquired .label, &.traded .label, &.traded-cond .label, &.acquired-traded .label {
+    &:not(.own) .label {
       text-indent: -10px;
     }
 

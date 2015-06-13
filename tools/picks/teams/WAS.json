@@ -1,0 +1,47 @@
+[{
+	"id": "WAS",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "traded",
+			"to": { "id": "CGY", "info": "Traded Curtis Glencross to Capitals for <strong>2015 second round pick</strong>, 2015 third round pick on 2015-03-01"}},
+		{ "round": "3", "status": "acquired",
+			"from": { "id": "BUF", "info": "Traded Michal Neuvirth, Rostislav Klesla to Sabres for Jaroslav Halak, <strong>2015 third round pick</strong> on 2014-03-05"}},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "CGY", "info": "Traded Curtis Glencross to Capitals for 2015 second round pick, <strong>2015 third round pick</strong> on 2015-03-01"}},
+		{ "round": "4", "status": "own" },
+		{ "round": "4", "status": "acquired-traded",
+			"from": { "id": "ARI", "info": "Traded Martin Erat, John Mitchell to Coyotes for Rostislav Klesla, Chris Brown, <strong>2015 fourth round pick</strong> on 2014-03-04"},
+			"to": { "id": "CAR", "info": "Traded Tim Gleason to Capitals for Jack Hillen, <strong>2015 fourth round pick</strong> on 2015-02-28" }},
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+		{ "round": "7", "status": "traded",
+			"to": { "id": "WGP", "info": "Traded Edward Pasquale, 2014 sixth round pick (#159-Steven Spinner) to Capitals for 2014 sixth round pick (#164-Pavel Kraskovsky), 2014 seventh round pick (#192-Matt Ustaski), <strong>2015 seventh round pick</strong> on 2014-06-28" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

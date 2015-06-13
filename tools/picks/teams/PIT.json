@@ -1,0 +1,45 @@
+[{
+	"id": "PIT",
+  "Y15": [
+		{ "round": "1", "status": "traded",
+			"to": { "id": "EDM", "info": "Traded David Perron to Penguins for Rob Klinkhammer, <strong>2015 first round pick</strong> on 2015-01-02"}},
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "traded",
+			"to": { "id": "FLA", "info": "Traded Marcel Goc to Penguins for 2014 fifth round pick (#143-Miguel Fidler), <strong>2015 third round pick</strong> on 2014-03-05"}},
+		{ "round": "4", "status": "traded",
+			"to": { "id": "TOR", "info": "Traded Daniel Winnik to Penguins for Zach Sill, <strong>2015 fourth round pick</strong>, 2016 second round pick on 2015-02-25"}},
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+  	{ "round": "2", "status": "traded",
+			"to": { "id": "TOR", "info": "Traded Daniel Winnik to Penguins for Zach Sill, <strong>2015 fourth round pick</strong>, 2016 second round pick on 2015-02-25"}},
+    { "round": "3", "status": "acquired",
+			"from": { "id": "NJD", "info": "Received <strong>2016 third round pick</strong> from Devils as compensation for head coach John Hynes on 2015-06-02"}},
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "traded",
+			"to": { "id": "STL", "info": "Traded Ian Cole to Penguins for Robert Bortuzzo, <strong>2016 seventh round pick</strong> on 2015-03-02"}}
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

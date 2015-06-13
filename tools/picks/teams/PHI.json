@@ -1,0 +1,52 @@
+[{
+	"id": "PHI",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+		{ "round": "1", "status": "acquired",
+			"from": { "id": "TBL", "info": "Traded Braydon Coburn to Lightning for Radko Gudas, <strong>2015 first round pick (Rangers pick if Lightning pick is #1 overall, else Lightning pick)</strong>, 2015 third round pick on 2015-03-02" }},
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "CHI", "info": "Traded Kimmo Timonen to Blackhawks for <strong>2015 second round pick</strong>, 2016 conditional round pick (third round if Blackahawks win 2 playoff rounds in 2015 and Timonen plays in at least 50% of the games, else fourth round) on 2015-02-27" }},
+		{ "round": "2", "status": "traded",
+			"to": { "id": "NYI", "info": "Traded Andrew MacDonald to Flyers for Matt Mangene, 2014 third round pick (#78-Ilya Sorokin), <strong>2015 second round pick</strong> on 2014-03-04"}},
+    { "round": "3", "status": "acquired",
+			"from": { "id": "SJS", "info": "Traded Tye McGinn to Sharks for <strong>2015 third round pick</strong> on 2014-07-02" }},
+		{ "round": "3", "status": "acquired",
+			"from": { "id": "TBL", "info": "Traded Braydon Coburn to Lightning for Radko Gudas, 2015 first round pick (Rangers pick if Lightning pick is #1 overall, else Lightning pick), <strong>2015 third round pick</strong> on 2015-03-02" }},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "CLB", "info": "Traded Steve Mason to Flyers for Michael Leighton, <strong>2015 third round pick</strong> on 4013-04-03" }},
+    { "round": "4", "status": "own" },
+		{ "round": "4", "status": "acquired",
+			"from": { "id": "CLB", "info": "Traded Scott Hartnell to Blue Jackets for R.J. Umberger, <strong>2015 fourth round pick</strong> on 2014-06-20" }},
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "acquired-cond",
+			"from": { "id": "CHI", "info": "Traded Kimmo Timonen to Blackhawks for 2015 second round pick, <strong>2016 conditional round pick (second round if Blackhawks advance to 2015 Stanley Cup Finals and Timonen plays in at least 50% of the games, third round if Blackhawks advance to third round of 2015 playoffs and Timonen plays in at least 50% of the games, else fourth round)</strong> on 2015-02-27" }},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

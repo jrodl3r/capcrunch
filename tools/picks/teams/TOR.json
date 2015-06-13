@@ -1,0 +1,51 @@
+[{
+	"id": "TOR",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+		{ "round": "1", "status": "acquired",
+			"from": { "id": "NAS", "info": "Traded Cody Franson, Mike Santorelli to Predators for Olli Jokinen, Brendan Leipsic, <strong>2015 first round pick</strong> on 2015-02-15" }},
+		{ "round": "2", "status": "traded",
+			"to": { "id": "LAK", "info": "Traded rights to Jonathan Bernier to Maple Leafs for Ben Scrivens, Matt Frattin, <strong>2014 or 2015 (Maple Leafs option) second round pick</strong> on 2013-06-23" }},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+		{ "round": "4", "status": "acquired",
+			"from": { "id": "PIT", "info": "Traded Daniel Winnik to Penguins for Zach Sill, <strong>2015 fourth round pick</strong>, 2016 second round pick on 2015-02-25" }},
+		{ "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+		{ "round": "7", "status": "traded-cond",
+			"to": { "id": "CLB", "info": "Traded Matt Frattin to Maple Leafs for Jerry D'Amigo, <strong>2015 conditional seventh round pick</strong> on 2014-07-01 <strong><em>(Conditions on pick are unconfirmed.)</em></strong>" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "PIT", "info": "Traded Daniel Winnik to Penguins for Zach Sill, 2015 fourth round pick, <strong>2016 second round pick</strong> on 2015-02-25" }},
+
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+		{ "round": "5", "status": "acquired",
+			"from": { "id": "ANA", "info": "Traded Korbinian Holzer to Ducks for Eric Brewer, <strong>2016 fifth round pick</strong> on 2015-03-02" }},
+    { "round": "6", "status": "own" },
+		{ "round": "6", "status": "acquired-cond",
+			"from": { "id": "STL", "info": "Traded Olli Jokinen to Blues for Joakim Lindstrom, <strong>2016 conditional round pick (fourth round if Blues advance to 2015 Stanley Cup Finals and Jokinen plays a role in it, else sixth round)</strong> on 2015-03-02" }},
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

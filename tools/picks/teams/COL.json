@@ -1,0 +1,45 @@
+[{
+	"id": "COL",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+		{ "round": "5", "status": "traded",
+		 	"to": { "id": "MTL", "info": "Traded Daniel Briere to Avalanche for P.A. Parenteau, <strong>2015 fifth round pick</strong> on 2014-06-30" }},
+    { "round": "6", "status": "own" },
+		{ "round": "7", "status": "traded",
+		 	"to": { "id": "ANA", "info": "Traded Mat Clark to Avalanche for Michael Sgarbossa, <strong>2015 conditional seventh round pick</strong> on 2015-03-02 <strong><em>(Conditions on pick are unconfirmed.)</em></strong>" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "traded",
+		 	"to": { "id": "SJS", "info": "Traded Brad Stuart to Avalanche for <strong>2016 second round pick</strong>, 2017 sixth round pick on 2014-07-01" }},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+		{ "round": "6", "status": "acquired",
+		 	"from": { "id": "BOS", "info": "Traded Maxime Talbot, Paul Carey to Avalanche for Jordan Caron, <strong>2016 sixth round pick</strong> on 2015-03-02" }},
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+		{ "round": "6", "status": "traded",
+		 	"to": { "id": "SJS", "info": "Traded Brad Stuart to Avalanche for 2016 second round pick, <strong>2017 sixth round pick</strong> on 2014-07-01" }},
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

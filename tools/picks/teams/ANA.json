@@ -12,7 +12,7 @@
 			"from": { "id": "EDM", "info": "Traded Viktor Fasth to Oilers for 2014 fifth round pick (#123-Matthew Berkovitz), <strong>2015 third round pick</strong> on 2014-03-04"},
 			"to": { "id": "TBL", "info": "Traded Eric Brewer to Ducks for <strong>2015 third round pick</strong> on 2014-11-28" }},
 		{ "round": "3", "status": "acquired",
-			"from": { "id": "CLB", "orig": "DET", "info": "Traded Rene Bourque, William Karlsson, 2015 second round pick to Blue Jackets for James Wisniewski, <strong>2015 third round pick</strong> (DET) on 2015-03-02" }},
+			"from": { "id": "CLB", "orig": "DET", "info": "Traded Rene Bourque, William Karlsson, 2015 second round pick to Blue Jackets for James Wisniewski, <strong>2015 third round pick</strong> on 2015-03-02" }},
 		{ "round": "4", "status": "traded",
 			"to": { "id": "TBL", "info": "Traded Nate Thompson to Ducks for <strong>2015 fourth round pick</strong>, 2015 seventh round pick on 2014-06-29" }},
     { "round": "5", "status": "own" },

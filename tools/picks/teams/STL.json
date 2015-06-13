@@ -1,0 +1,52 @@
+[{
+	"id": "STL",
+  "Y15": [
+		{ "round": "1", "status": "traded",
+			"to": { "id": "BUF", "info": "Traded Ryan Miller, Steve Ott, conditional draft picks (2014 second round pick and 2014 third round pick) to Blues for Jaroslav Halak, Chris Stewart, William Carrier, <strong>2015 first round pick</strong>, conditional draft picks (2014 first round pick and 2016 third round pick) on 2014-02-28" }},
+    { "round": "2", "status": "own" },
+		{ "round": "3", "status": "traded",
+			"to": { "id": "EDM", "info": "Traded Magnus Paajarvi, 2014 second round pick (#33-Ivan Barbashev), 2015 fourth round pick to Blues for David Perron, <strong>2015 third round pick</strong> on 2013-07-10" }},
+    { "round": "4", "status": "own" },
+		{ "round": "4", "status": "acquired",
+			"from": { "id": "EDM", "info": "Traded David Perron, 2015 third round pick to Oilers for Magnus Paajarvi, 2014 second round pick (#33-Ivan Barbashev), <strong>2015 fourth round pick</strong> on 2013-07-10" }},
+    { "round": "5", "status": "own" },
+		{ "round": "5", "status": "acquired-cond",
+			"from": { "id": "NJD", "info": "Traded Matt D'Agostini, 2015 seventh round pick to Devils for <strong>2015 conditional pick (fourth round if Devils qualify or re-sign D'Agostini, else fifth round)</strong> on 2013-03-22" }},
+    { "round": "6", "status": "own" },
+		{ "round": "7", "status": "traded",
+			"to": { "id": "NJD", "info": "Traded 2015 conditional pick (fourth round if Devils qualify or re-sign D'Agostini, else fifth round) to Blues for Matt D'Agostini, <strong>2015 seventh round pick</strong> on 2013-03-22" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "3", "status": "traded",
+			"to": { "id": "BUF", "info": "Traded Ryan Miller, Steve Ott, conditional draft picks (2014 second round pick and 2014 third round pick) to Blues for Jaroslav Halak, Chris Stewart, William Carrier, 2015 first round pick, <strong>conditional draft picks (2014 first round pick and 2016 third round pick)</strong> on 2014-02-28" }},
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+		{ "round": "5", "status": "acquired",
+			"from": { "id": "CLB", "info": "Traded Jordan Leopold to Blue Jackets for <strong>2016 fifth round pick</strong> on 2014-11-15" }},
+		{ "round": "6", "status": "traded-cond",
+			"to": { "id": "TOR", "info": "Traded Olli Jokinen to Blues for Joakim Lindstrom, <strong>2016 conditional round pick (fourth round if Blues advance to 2015 Stanley Cup Finals and Jokinen plays a role in it, else sixth round)</strong> on 2015-03-02" }},
+    { "round": "7", "status": "own" },
+		{ "round": "7", "status": "acquired",
+			"from": { "id": "PIT", "info": "Traded Ian Cole to Penguins for Robert Bortuzzo, <strong>2016 seventh round pick</strong> on 2015-03-02" }}
+  ],
+	"Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

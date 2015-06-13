@@ -11,7 +11,7 @@ var PayrollTable = React.createClass({
         row = x % 2 ? '' : 'even';
         x = x + 1;
         return (
-          <tr className={row}>
+          <tr key={i} className={row}>
             <td className="first">
               <span className="marker jersey">{player.jersey}</span>
               <span className="name">{player.lastname}, {player.firstname}</span>
@@ -25,8 +25,8 @@ var PayrollTable = React.createClass({
             { player.caphit === '0.000' ? <td className="hit zero">-</td> : <td className="hit">{player.caphit}</td> }
             { player.contract.map(function(salary, j) {
               if (salary) {
-                return <td className={ j === year ? 'cur' : '' }><span className={ /(UFA|RFA)/.test(salary) ? salary : '' }>{salary}</span></td>;
-              } else { return <td className={ j === 14 ? 'last' : '' }></td>; }
+                return <td key={j} className={ j === year ? 'cur' : '' }><span className={ /(UFA|RFA)/.test(salary) ? salary : '' }>{salary}</span></td>;
+              } else { return <td key={j} className={ j === 14 ? 'last' : '' }></td>; }
             }) }
           </tr>
         );

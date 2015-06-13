@@ -6,31 +6,48 @@ var years = ['2015','2016','2017','2018'],
 var PicksTable = React.createClass({
 
   buildPicks: function(year, round, label) {
-    var info, pos, key = 'Y' + year,
+    var pos, key = 'Y' + year, info = '',
         last = year === '18' && round === 7 ? 'last ' : '';
     return (
       <td className={ year % 2 ? last : last + 'odd' }>
-        { this.props.pickData[key].map(function(pick) {
+        { this.props.pickData[key].map(function(pick, i) {
           if (parseInt(pick.round) === round) {
-            if (pick.status === 'acquired') { info = pick.from.info; }
-            else if (pick.status === 'traded' || pick.status === 'traded-cond') { info = pick.to.info; }
-            else if (pick.status === 'acquired-traded') {
+            if (pick.status === 'acquired' || pick.status === 'acquired-cond') {
+              info = '<p><span class="pick-title">Acquired from ' + pick.from.id + ': </span>' + pick.from.info;
+              if (pick.from.orig) { info = info + '&nbsp; <span class="pick-title">(Originally acquired from ' + pick.from.orig + ')</span></p>' }
+              else { info = info + '</p>'; }
+            } else if (pick.status === 'traded' || pick.status === 'traded-cond') {
+              info = '<p><span class="pick-title">Traded to ' + pick.to.id + ': </span>' + pick.to.info + '</p>';
+            } else if (pick.status === 'acquired-traded') {
               info = '<p><span class="pick-title">Acquired from ' + pick.from.id + ': </span>' + pick.from.info + '</p><p><span class="pick-title">Traded to ' + pick.to.id + ': </span>' + pick.to.info + '</p>';
+            } else if (pick.status === 'traded-acquired') {
+              info = '<p><span class="pick-title">Traded to ' + pick.to.id + ': </span>' + pick.to.info + ': </p><p><span class="pick-title">Acquired from ' + pick.from.id + ': </span>' + pick.from.info + '</p>';
             }
             pos = '';
-            if (round > 5) { pos = 'bottom '; }
-            if (parseInt(year) > 15) { pos = pos + 'shift '; }
+            if (round > 5) {
+              pos = 'bottom ';
+              if (info.length > 230 && info.length < 379) { pos = pos + 'tall '; }
+              else if (info.length >= 380 && info.length < 420) { pos = pos + 'tall-mid ';}
+              else if (info.length >= 420 && info.length < 500) { pos = pos + 'taller '; }
+              else if (info.length >= 500 && info.length < 600) { pos = pos + 'large '; }
+              else if (info.length >= 600) { pos = pos + 'larger '; }
+            }
+            if (parseInt(year) === 16) { pos = pos + 'shift '; }
+            else if (parseInt(year) > 16) { pos = pos + 'full-shift '; }
             return (
-              <span className={ pick.status + ' pick' }>
-                { pick.status === 'own' ? <span className="label">Own {label}</span> : null }
-                { pick.status === 'acquired' ? <span className="label">From {pick.from.id}</span> : null }
-                { /(traded|traded-cond|acquired-traded)/.test(pick.status) ? <span className="label">To {pick.to.id}</span> : null }
+              <span key={i} className={ pick.status + ' pick' }>
+                { pick.status === 'own' ? <span className="own label">Own {label}</span> : null }
+                { pick.status === 'acquired' || pick.status === 'acquired-cond' || pick.status === 'traded-acquired'
+                  ? <span className="label">From {pick.from.id}</span> : null }
+                { pick.status === 'traded' || pick.status === 'traded-cond' || pick.status === 'acquired-traded'
+                  ? <span className="label">To {pick.to.id}</span> : null }
                 { pick.status === 'acquired' ? <div className="tag acquired">A</div> : null }
+                { pick.status === 'acquired-cond' ? <div className="tag acquired">AC</div> : null }
                 { pick.status === 'traded' ? <div className="tag traded">T</div> : null }
                 { pick.status === 'traded-cond' ? <div className="tag traded">TC</div> : null }
                 { pick.status === 'acquired-traded' ? <div className="tag traded">AT</div> : null }
-                { /(traded|traded-cond|acquired|acquired-traded)/.test(pick.status)
-                  ? <div className={ pos + 'info' } dangerouslySetInnerHTML={{ __html: info }} /> : null }
+                { pick.status === 'traded-acquired' ? <div className="tag acquired">TA</div> : null }
+                { pick.status !== 'own' ? <div className={ pos + 'info' } dangerouslySetInnerHTML={{ __html: info }} /> : null }
               </span>
             );
           }

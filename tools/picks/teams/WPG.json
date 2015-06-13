@@ -1,0 +1,50 @@
+[{
+	"id": "WPG",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+		{ "round": "1", "status": "acquired-cond",
+			"from": { "id": "BUF", "orig": "STL", "info": "Traded Evander Kane, Zach Bogosian, Jason Kasdorf to Sabres for Tyler Myers, Drew Stafford, Joel Armia, Brendan Lemieux, <strong>2015 first round pick (least favorable of Blues, Islanders, Sabres picks)</strong> on 2015-02-11" }},
+		{ "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "traded-cond",
+		 	"to": { "id": "CAR", "info": "CAR Traded Jiri Tlusty to Jets for <strong>2015 conditional round pick (fifth round if Jets qualify for 2015 playoffs, else sixth round)</strong>, 2016 third round pick on 2015-02-25" }},
+    { "round": "6", "status": "own" },
+		{ "round": "6", "status": "acquired-traded",
+		 	"from": { "id": "OTT", "info": "Traded 2014 seventh round pick (#189-Kelly Summers) to Senators for <strong>2015 sixth round pick</strong> on 2014-06-28" },
+			"to": { "id": "CAR", "info": "Traded Jay Harrison to Jets for <strong>2015 sixth round pick</strong> on 2014-12-18" }},
+		{ "round": "7", "status": "own" },
+		{ "round": "7", "status": "acquired",
+		 	"from": { "id": "WAS", "info": "Traded Edward Pasquale, 2014 sixth round pick (#159-Steven Spinner) to Capitals for 2014 sixth round pick (#164-Pavel Kraskovsky), 2014 seventh round pick (#192-Matt Ustaski), <strong>2015 seventh round pick</strong> on 2014-06-28" }},
+		{ "round": "7", "status": "acquired-cond",
+		 	"from": { "id": "BUF", "info": "Traded rights to Jordan Samuels-Thomas to Sabres for <strong>2015 conditional seventh round pick (if Sabres sign Samuels-Thomas before 08-15)</strong> on 2014-07-09 <strong><em>(Conditions on pick are unconfirmed.)</em></strong>" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "3", "status": "traded",
+		 	"to": { "id": "CAR", "info": "Traded Jiri Tlusty to Jets for 2015 conditional round pick (fifth round if Jets qualify for 2015 playoffs, else sixth round), <strong>2016 third round pick</strong> on 2015-02-25" }},
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

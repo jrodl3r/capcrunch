@@ -26,6 +26,7 @@
 - 'static dropData to state [?]'
 - 'team logo strip on team-select hover (quicker team change)'
 - 'pre-cache team + player images on team select' [really?]
+- 'update window.location on team-select (ex: capcrunch.io/BUF)'
 ---------------------------------------------------------------
 
 
@@ -70,6 +71,7 @@ Post-Launch Rebuild
 - 'Tabbing makes actions tabs disappear'
 - 'tile trade drag-end hover sticking + not queuing (BN/Hodgson)'
 - 'inactive player grid-highlight stops working after adding to roster'
+- 'clicking active nav link removes active className'
 ---------------------------------------------------------------
 
 
@@ -191,7 +193,8 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'draft-picks: finalize data acquisition'
+- 'draft-picks: share data + logic'
+- 'draft-picks: trade data + logic'
 - 'trades: add draft-picks to dropdown list'
 - 'free agents: list + add UFA players'
   - 'filter by team'
@@ -220,6 +223,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'draft-picks: finalize data acquisition + update display logic'
 - 'draft-picks: info tooltips layout + logic'
 - 'draft-picks: cleanup layout + display logic'
 - 'draft-picks: initial layout + display logic'

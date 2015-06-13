@@ -1,0 +1,55 @@
+[{
+	"id": "CLB",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "ANA", "info": "Traded James Wisniewski, 2015 third round pick to Ducks for Rene Bourque, William Karlsson, <strong>2015 second round pick</strong> on 2015-03-02"}},
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "LAK", "orig": "TOR", "info": "Traded Marian Gaborik to Kings for Matt Frattin, <strong>2014 or 2015 (Ducks option from prior trade) second round pick</strong>, 2014 conditional third round pick (if Kings advance to second round of 2014 playoffs) (#63-Dominic Turgeon) on 2014-03-05"}},
+    { "round": "3", "status": "own" },
+		{ "round": "3", "status": "acquired",
+			"from": { "id": "PHI", "info": "Traded Steve Mason to Flyers for Michael Leighton, <strong>2015 third round pick</strong> on 4013-04-03"}},
+		{ "round": "3", "status": "acquired-traded",
+			"from": { "id": "DET", "info": "Traded 2014 third round pick (#63-Dominic Turgeon) to Red Wings for 2014 third round pick (#76-Elvis Merzlikins), <strong>2015 third round pick</strong> on 2014-06-28" },
+			"to": { "id": "ANA", "info": "Traded Rene Bourque, William Karlsson, 2015 second round pick to Blue Jackets for James Wisniewski, <strong>2015 third round pick</strong> on 2015-03-02"}},
+    { "round": "4", "status": "own" },
+		{ "round": "4", "status": "traded",
+			"to": { "id": "PHI", "info": "Traded Scott Hartnell to Blue Jackets for R.J. Umberger, <strong>2015 fourth round pick</strong> on 2014-06-20"}},
+    { "round": "5", "status": "own" },
+		{ "round": "5", "status": "acquired",
+			"from": { "id": "MIN", "info": "Traded Jordan Leopold to Wild for Justin Falk, <strong>2015 fifth round pick</strong> on 2015-03-02"}},
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" },
+		{ "round": "7", "status": "acquired-cond",
+			"from": { "id": "TOR", "info": "Traded Matt Frattin to Maple Leafs for Jerry D'Amigo, <strong>2015 conditional seventh round pick</strong> on 2014-07-01 <strong><em>(Conditions on pick are unconfirmed.)</em></strong>"}}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "traded",
+		 	"to": { "id": "STL", "info": "Traded Jordan Leopold to Blue Jackets for <strong>2016 fifth round pick</strong> on 2014-11-15"}},
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

@@ -1,0 +1,73 @@
+[{"":[
+
+		{ "round": "X", "status": "acquired",
+			"from": { "id": "XXX", "info": "" }},
+
+		{ "round": "X", "status": "acquired",
+			"from": { "id": "XXX", "orig": "XXX", "info": "" }},
+
+		{ "round": "X", "status": "acquired-cond",
+			"from": { "id": "XXX", "info": "" }},
+
+		{ "round": "X", "status": "acquired-traded",
+			"from": { "id": "XXX", "info": "" },
+			"to": { "id": "XXX", "info": "" }},
+
+		{ "round": "X", "status": "traded",
+			"to": { "id": "XXX", "info": "" }},
+
+		{ "round": "X", "status": "traded-cond",
+			"to": { "id": "XXX", "info": "" }},
+
+		{ "round": "X", "status": "traded-acquired",
+			"to": { "id": "XXX", "info": "" },
+			"from": { "id": "XXX", "info": "" }},
+
+		{ "cond": "<strong><em>(Conditions on pick are unconfirmed.)</em></strong>" }
+
+]},
+
+[{
+	"id": "XXX",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]
+
+
+
+
+]

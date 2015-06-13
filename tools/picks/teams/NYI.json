@@ -1,0 +1,54 @@
+[{
+	"id": "NYI",
+  "Y15": [
+		{ "round": "1", "status": "traded-cond",
+			"to": { "id": "BUF", "info": "Traded Thomas Vanek to Islanders for Matt Moulson, <strong>2014 or 2015 first round pick (Islanders have option to defer pick to 2015 if pick is in top 10 in 2014)</strong>, 2015 second round pick on 2013-10-27" }},
+		{ "round": "2", "status": "acquired-traded",
+			"from": { "id": "PHI", "info": "Traded Andrew MacDonald to Flyers for Matt Mangene, 2014 third round pick (#78-Ilya Sorokin), <strong>2015 second round pick</strong> on 2014-03-04" },
+			"to": { "id": "BOS", "info": "Traded Johnny Boychuk to Islanders for <strong>2015 second round pick</strong>, 2015 conditional third round pick (if Islanders trade Boychuk to another Eastern Conference team during 2014-15 season), 2016 second round pick on 2014-10-04" }},
+		{ "round": "2", "status": "traded",
+			"to": { "id": "BUF", "info": "Traded Thomas Vanek to Islanders for Matt Moulson, 2014 or 2015 first round pick (Islanders have option to defer pick to 2015 if pick is in top 10 in 2014), <strong>2015 second round pick</strong> on 2013-10-27" }},
+    { "round": "3", "status": "own" },
+		{ "round": "3", "status": "acquired",
+			"from": { "id": "FLA", "info": "Traded 2014 third round pick (#65-Juho Lammikko) to Panthers for <strong>2015 third round pick</strong> on 2014-06-28" }},
+    { "round": "4", "status": "own" },
+		{ "round": "5", "status": "traded-cond",
+			"to": { "id": "SJS", "info": "Traded Dan Boyle to Islanders for <strong>2015 conditional pick (fourth round if Boyle re-signs with Islanders, else fifth round)</strong> on 2014-06-05" }},
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "traded-cond",
+			"to": { "id": "SJS", "info": "Traded Tyler Kennedy to Islanders for <strong>conditional draft pick (2016 third round pick (less favorable of Canucks, Islanders picks) if Islanders win the 2015 Stanley Cup and Kennedy plays in at least 50% of games in the Finals, else 2015 seventh round pick)</strong> on 2015-03-02 <strong><em>(Unconfirmed if pick is Ducks, Islanders pick.)</em></strong>" }},
+		{ "round": "7", "status": "acquired",
+			"from": { "id": "TBL", "info": "Traded 2014 seventh round pick (#185-Cameron Darcy) to Lightning for 2014 seventh round pick (#200-Lukas Sutter), <strong>2015 seventh round pick</strong> on 2014-06-28  <strong><em>(Unconfirmed if pick is Ducks, Rangers or Lightning pick.)</em></strong>" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "BOS", "info": "Traded Johnny Boychuk to Islanders for 2015 second round pick, <strong>2016 second round pick</strong>, 2015 conditional third round pick (if Islanders trade Boychuk to another Eastern Conference team during 2014-15 season) on 2014-10-04" }},
+		{ "round": "3", "status": "acquired-traded",
+			"from": { "id": "VAN", "info": "Traded Andrey Pedan to Canucks for Alexandre Mallet, <strong>2016 third round pick</strong> on 2014-11-25"},
+			"to": { "id": "BUF", "info": "Traded Michal Neuvirth to Islanders for Chad Johnson, <strong>2016 conditional third round pick</strong> on 2015-03-02 <strong><em>(Conditions on pick are unconfirmed. Unconfirmed if pick is Canucks or Islanders pick.)</em></strong>" }},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

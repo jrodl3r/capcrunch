@@ -1,0 +1,52 @@
+[{
+	"id": "NJD",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "FLA", "info": "Traded Jaromir Jagr to Panthers for <strong>2015 second round pick</strong>, 2016 third round pick (Devils option of Panthers, Wild picks) on 2015-02-26"}},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+		{ "round": "5", "status": "traded",
+			"to": { "id": "STL", "info": "Traded Matt D'Agostini, 2015 seventh round pick to Devils for <strong>2015 conditional pick (fourth round if Devils qualify or re-sign D'Agostini, else fifth round)</strong> on 2013-03-22"}},
+    { "round": "6", "status": "own" },
+		{ "round": "7", "status": "acquired-traded",
+			"from": { "id": "STL", "info": "Traded 2015 conditional pick (fourth round if Devils qualify or re-sign D'Agostini, else fifth round) to Blues for Matt D'Agostini, <strong>2015 seventh round pick</strong> on 2013-03-22"},
+			"to": { "id": "FLA", "info": "Traded Scott Timmins, 2014 sixth round pick (#152-Joey Dudek) to Devils for Krys Barch, <strong>2015 seventh round pick</strong> on 2013-09-28" }},
+		{ "round": "7", "status": "acquired",
+			"from": { "id": "LAK", "info": "Traded 2013 seventh round pick (#208-Anthony Brodeur) to Devils for <strong>2015 seventh round pick</strong> on 2013-06-30"}}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "3", "status": "acquired-cond",
+			"from": { "id": "DET", "info": "Traded Marek Zidlicky to Red Wings for <strong>conditional draft pick(s) (2016 second round pick if Red Wings advance to 2015 Stanley Cup Finals, 2015 fifth round pick and 2016 third round pick if Red Wings advance to 2015 Eastern Conference Finals, else 2016 third round pick)</strong> on 2015-03-02" }},
+		{ "round": "3", "status": "acquired-cond",
+			"from": { "id": "FLA", "info": "Traded Jaromir Jagr to Panthers for 2015 second round pick, <strong>2016 third round pick <em>(Devils option of Panthers, Wild picks)</em></strong> on 2015-02-26"}},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "PIT", "info": "Received <strong>2016 third round pick</strong> from Devils as compensation for head coach John Hynes on 2015-06-02" }},
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "traded-cond",
+			"to": { "id": "CAR", "info": "Traded Tuomo Ruutu to Devils for Andrei Loktionov, <strong>2017 conditional third round pick</strong> on 2014-03-05 <strong><em>(Conditions on pick are unconfirmed.)</em></strong>"}},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

@@ -1,0 +1,58 @@
+[{
+	"id": "SJS",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "3", "status": "traded",
+			"to": { "id": "PHI", "info": "Traded Tye McGinn to Sharks for <strong>2015 third round pick</strong> on 2014-07-02" }},
+		{ "round": "4", "status": "acquired",
+			"from": { "id": "CGY", "info": "Traded T.J. Galiardi to Flames for <strong>2015 fourth round pick</strong> on 2013-07-02" }},
+		{ "round": "4", "status": "traded",
+			"to": { "id": "NAS", "info": "Traded 2014 second round pick (#46-Julius Bergman) to Sharks for <strong>2014 second round pick (#51-Jack Dougherty), 2015 fourth round pick</strong> on 2014-06-28" }},
+    { "round": "5", "status": "own" },
+		{ "round": "5", "status": "acquired-cond",
+			"from": { "id": "NYI", "info": "Traded Dan Boyle to Islanders for <strong>2015 conditional pick (fourth round if Boyle re-signs with Islanders, else fifth round)</strong> on 2014-06-05" }},
+		{ "round": "6", "status": "own" },
+    { "round": "7", "status": "own" },
+		{ "round": "7", "status": "acquired-cond",
+			"from": { "id": "NYI", "info": "Traded Tyler Kennedy to Islanders for <strong>conditional draft pick (2016 third round pick (less favorable of Canucks, Islanders picks) if Islanders win the 2015 Stanley Cup and Kennedy plays in at least 50% of games in the Finals, else 2015 seventh round pick)</strong> on 2015-03-02 <strong><em>(Unconfirmed if pick is Ducks or Islanders pick.)</em></strong>" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "COL", "info": "Traded Brad Stuart to Avalanche for 2016 second round pick, <strong>2017 sixth round pick</strong> on 2014-07-01" }},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "DAL", "info": "Traded Brenden Dillon to Sharks for Jason Demers, <strong>2016 third round pick</strong> on 2014-11-21" }},
+		{ "round": "4", "status": "own" },
+		{ "round": "4", "status": "acquired",
+			"from": { "id": "NYR", "info": "Traded James Sheppard to Rangers for <strong>2016 fourth round pick</strong> on 2015-03-01" }},
+		{ "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" },
+		{ "round": "7", "status": "acquired-cond",
+			"from": { "id": "LAK", "info": "Traded James Livingston to Kings for <strong>2016 conditional seventh round pick</strong> on 2014-03-05 <strong><em>(Conditions on pick are unconfirmed.)</em></strong>" }}
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+		{ "round": "6", "status": "acquired",
+			"from": { "id": "COL", "info": "Traded Brad Stuart to Avalanche for 2016 second round pick, <strong>2017 sixth round pick</strong> on 2014-07-01" }},
+		{ "round": "7", "status": "own" },
+		{ "round": "7", "status": "acquired-cond",
+			"from": { "id": "CHI", "info": "Traded Andrew Desjardins to Blackhawks for Ben Smith, <strong>2017 conditional seventh round pick</strong> on 2015-03-02 <strong><em>(Conditions on pick are unconfirmed.)</em></strong>" }}
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

@@ -1,0 +1,54 @@
+[{
+	"id": "FLA",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "traded",
+			"to": { "id": "NJD", "info": "Traded Jaromir Jagr to Panthers for <strong>2015 second round pick</strong>, 2016 third round pick (Devils option of Panthers, Wild picks) on 2015-02-26"}},
+		{ "round": "3", "status": "acquired",
+			"from": { "id": "ANA", "info": "Traded Tomas Fleischmann to Ducks for Dany Heatley, <strong>2015 third round pick</strong> on 2015-02-28"}},
+		{ "round": "3", "status": "acquired",
+			"from": { "id": "PIT", "info": "Traded Marcel Goc to Penguins for 2014 fifth round pick (#143-Miguel Fidler), <strong>2015 third round pick</strong> on 2014-03-05" }},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "NYI", "info": "Traded 2014 third round pick (#65-Juho Lammikko) to Panthers for <strong>2015 third round pick</strong> on 2014-06-28"}},
+    { "round": "4", "status": "own" },
+		{ "round": "5", "status": "own" },
+		{ "round": "5", "status": "acquired",
+			"from": { "id": "MTL", "info": "Traded Mike Weaver to Canadiens for <strong>2015 fifth round pick</strong> on 2014-03-04" }},
+		{ "round": "6", "status": "own" },
+    { "round": "7", "status": "own" },
+		{ "round": "7", "status": "acquired",
+			"from": { "id": "NJD", "orig": "STL", "info": "Traded Scott Timmins, 2014 sixth round pick (#152-Joey Dudek) to Devils for Krys Barch, <strong>2015 seventh round pick</strong> on 2013-09-28" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "traded-cond",
+			"to": { "id": "NJD", "info": "Traded Jaromir Jagr to Panthers for 2015 second round pick, <strong>2016 third round pick (Devils option of Panthers, Wild picks)</strong> on 2015-02-26" }},
+		{ "round": "3", "status": "acquired",
+			"from": { "id": "MIN", "info": "Traded Sean Bergenheim, 2016 seventh round pick to Wild for <strong>2016 third round pick</strong> on 2015-02-24" }},
+		{ "round": "4", "status": "own" },
+    { "round": "5", "status": "traded",
+			"to": { "id": "CHI", "info": "Traded Brandon Pirri to Panthers for 2014 third round pick, <strong>2016 fifth round pick</strong> on 2014-03-02" }},
+		{ "round": "6", "status": "own" },
+		{ "round": "7", "status": "traded",
+			"to": { "id": "MIN", "info": "Traded 2016 third round pick to Panthers for Sean Bergenheim, <strong>2016 seventh round pick</strong> on 2015-02-24" }}
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

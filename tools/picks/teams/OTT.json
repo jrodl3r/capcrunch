@@ -1,0 +1,43 @@
+[{
+	"id": "OTT",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "DAL", "info": "Traded Jason Spezza to Stars for Alex Chiasson, Nicholas Paul, Alexander Guptill, Ludwig Karlsson, <strong>2015 second round pick</strong> on 2014-07-01"}},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "EDM", "info": "Traded Ales Hemsky to Senators for 2014 fifth round pick, <strong>2015 third round pick</strong> on 2014-03-05"}},
+		{ "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+		{ "round": "6", "status": "traded",
+			"to": { "id": "WPG", "info": "Traded 2014 seventh round pick (#189-Kelly Summers) to Senators for <strong>2015 sixth round pick</strong> on 2014-06-28" }},
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

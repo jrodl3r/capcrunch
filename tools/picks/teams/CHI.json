@@ -1,0 +1,49 @@
+[{
+	"id": "CHI",
+  "Y15": [
+		{ "round": "1", "status": "traded",
+		 	"to": { "id": "ARI", "info": "Traded Antoine Vermette to Blackhawks for Klas Dahlbeck, <strong>2015 first round pick</strong> on 2015-02-28"}},
+		{ "round": "2", "status": "traded",
+			"to": { "id": "PHI", "info": "Traded Kimmo Timonen to Blackhawks for <strong>2015 second round pick</strong>, 2016 conditional round pick (second round if Blackhawks advance to 2015 Stanley Cup Finals and Timonen plays in at least 50% of the games, third round if Blackhawks advance to third round of 2015 playoffs and Timonen plays in at least 50% of the games, else fourth round) on 2015-02-27"}},
+		{ "round": "2", "status": "acquired-cond",
+		 	"from": { "id": "NYR", "info": "Blackhawks received <strong>2015 second round pick (#54)</strong> as compensation for unsigned 2010 draft pick Kevin Hayes"}},
+		{ "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+		{ "round": "6", "status": "acquired-cond",
+		 	"from": { "id": "LAK", "info": "Traded Daniel Carcillo to Kings for <strong>2015 conditional round pick (fifth round if Carcillo plays 40 or more games with the Kings in the 2013-14 season, else sixth round)</strong> on 2013-07-16"}},
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+		{ "round": "2", "status": "traded-cond",
+		 	"to": { "id": "PHI", "info": "Traded Kimmo Timonen to Blackhawks for 2015 second round pick, <strong>2016 conditional round pick (second round if Blackhawks advance to 2015 Stanley Cup Finals and Timonen plays in at least 50% of the games, third round if Blackhawks advance to third round of 2015 playoffs and Timonen plays in at least 50% of the games, else fourth round)</strong> on 2015-02-27"}},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+		{ "round": "5", "status": "acquired",
+		 	"from": { "id": "FLA", "info": "Traded Brandon Pirri to Panthers for 2014 third round pick, <strong>2016 fifth round pick</strong> on 2014-03-02"}},
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+		{ "round": "7", "status": "traded-cond",
+		 	"to": { "id": "SJS", "info": ", Traded Andrew Desjardins to Blackhawks for Ben Smith, <strong>2017 conditional seventh round pick</strong> on 2015-03-02 <strong><em>(Conditions on pick are unconfirmed.)</em></strong>"}}
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

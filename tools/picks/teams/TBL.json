@@ -1,0 +1,63 @@
+[{
+	"id": "TBL",
+  "Y15": [
+		{ "round": "1", "status": "acquired",
+			"from": { "id": "NYR", "info": "Traded Martin St. Louis, 2015 conditional second round pick (if Callahan re-signs with Lightning) to Rangers for Ryan Callahan, 2014 conditional round pick (first round if Rangers reach 2014 Eastern Conference Finals, else second round) (#28-Joshua Ho-Sang), <strong>2015 first round pick</strong>, 2015 conditional seventh round pick (if Callahan re-signs with Lightning) on 2014-03-05" }},
+		{ "round": "1", "status": "traded",
+			"to": { "id": "PHI", "info": "Traded Braydon Coburn to Lightning for Radko Gudas, 2015 first round pick (Rangers pick if Lightning pick is #1 overall, else Lightning pick), <strong>2015 third round pick</strong> on 2015-03-02" }},
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "BOS", "info": "Traded Brett Connolly to Bruins for <strong>2015 second round pick</strong>, 2016 second round pick on 2015-03-01" }},
+		{ "round": "2", "status": "traded-cond",
+			"to": { "id": "NYR", "info": "Traded Ryan Callahan, 2014 conditional round pick (first round if Rangers reach 2014 Eastern Conference Finals, else second round) (#28-Joshua Ho-Sang), 2015 first round pick, 2015 conditional seventh round pick (if Callahan re-signs with Lightning) to Lightning for Martin St. Louis, <strong>2015 conditional second round pick (if Callahan re-signs with Lightning)</strong> on 2014-03-05" }},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "PHI", "info": "Traded Braydon Coburn to Lightning for Radko Gudas, 2015 first round pick (Rangers pick if Lightning pick is #1 overall, else Lightning pick), <strong>2015 third round pick</strong> on 2015-03-02" }},
+		{ "round": "3", "status": "acquired",
+			"from": { "orig": "EDM", "id": "ANA", "info": "Traded Eric Brewer to Ducks for <strong>2015 third round pick</strong> on 2014-11-28" }},
+    { "round": "4", "status": "own" },
+		{ "round": "4", "status": "acquired",
+			"from": { "id": "ANA", "info": "Traded Nate Thompson to Ducks for <strong>2015 fourth round pick</strong>, 2015 seventh round pick on 2014-06-29" }},
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+		{ "round": "6", "status": "acquired",
+			"from": { "id": "ARI", "info": "Traded Sam Gagner, B.J. Crombeen to Coyotes for <strong>2015 sixth round pick</strong> on 2014-06-29" }},
+		{ "round": "7", "status": "acquired",
+			"from": { "id": "ANA", "info": "Traded Nate Thompson to Ducks for 2015 fourth round pick, <strong>2015 seventh round pick</strong> on 2014-06-29" }},
+		{ "round": "7", "status": "acquired-traded",
+			"from": { "id": "VAN", "info": "Traded 2014 second round pick (#50-Roland McKeown) to Canucks for Jason Garrison, rights to Jeff Costello, <strong>2015 seventh round pick</strong> on 2014-06-27" },
+			"to": { "id": "MIN", "info": "Traded 2014 third round pick (#79-Brayden Point) to Lightning for 2014 third round pick (#80-Louis Belpedio), <strong>2015 seventh round pick</strong> on 2014-06-28" }},
+		{ "round": "7", "status": "acquired-traded",
+			"from": { "id": "NYR", "info": "Traded Martin St. Louis, 2015 conditional second round pick (if Callahan re-signs with Lightning) to Rangers for Ryan Callahan, 2014 conditional round pick (first round if Rangers reach 2014 Eastern Conference Finals, else second round) (#28-Joshua Ho-Sang), 2015 first round pick, <strong>2015 conditional seventh round pick (if Callahan re-signs with Lightning)</strong> on 2014-03-05" },
+			"to": { "id": "NYR", "info": "Traded rights to Daniel Walcott to Lightning for <strong>2015 seventh round pick</strong> on 2015-06-01" }},
+		{ "round": "7", "status": "traded",
+			"to": { "id": "NYI", "info": "Traded 2014 seventh round pick (#185-Cameron Darcy) to Lightning for 2014 seventh round pick (#200-Lukas Sutter), <strong>2015 seventh round pick</strong> on 2014-06-28 <strong><em>(Unconfirmed if pick is Ducks or Lightning pick.)</em></strong>" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "BOS", "info": "Traded Brett Connolly to Bruins for 2015 second round pick, <strong>2016 second round pick</strong> on 2015-03-01" }},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

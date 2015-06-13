@@ -1,0 +1,44 @@
+[{
+	"id": "DET",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "traded",
+			"to": { "id": "DAL", "info": "Traded Erik Cole, 2015 conditional third round pick (if Red Wings do not advance to 2015 Eastern Conference Finals and Cole does not play in 50% of Red Wings playoff games) to Red Wings for Mattias Backman, Mattias Janmark, <strong>2015 second round pick</strong> on 2015-03-01" }},
+		{ "round": "3", "status": "traded",
+			"to": { "id": "CLB", "info": "Traded 2014 third round pick (#63-Dominic Turgeon) to Red Wings for 2014 third round pick (#76-Elvis Merzlikins), <strong>2015 third round pick</strong> on 2014-06-28"}},
+		{ "round": "3", "status": "acquired-cond",
+			"from": { "id": "DAL", "info": "Traded Mattias Backman, Mattias Janmark-Nylen, 2015 second round pick to Stars for Erik Cole, <strong>2015 conditional third round pick (if Red Wings do not advance to 2015 Eastern Conference Finals and Cole does not play in 50% of Red Wings playoff games)</strong> on 2015-03-01"}},
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "3", "status": "traded-cond",
+			"to": { "id": "NJD", "info": "Traded Marek Zidlicky to Red Wings for <strong>conditional draft pick(s) (2016 second round pick if Red Wings advance to 2015 Stanley Cup Finals, 2015 fifth round pick and 2016 third round pick if Red Wings advance to 2015 Eastern Conference Finals, else 2016 third round pick)</strong> on 2015-03-02"}},
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

@@ -1,0 +1,48 @@
+[{
+	"id": "MTL",
+  "Y15": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "traded",
+			"to": { "id": "EDM", "info": "Traded Jeff Petry to Canadiens for <strong>2015 second round pick</strong>, 2015 conditional round pick (third round if Canadiens advance to third round of 2015 playoffs, fourth round if Canadiens advance to second round of 2015 playoffs, else fifth round) on 2015-03-02" }},
+    { "round": "3", "status": "own" },
+		{ "round": "4", "status": "traded-cond",
+			"to": { "id": "EDM", "info": "Traded Jeff Petry to Canadiens for 2015 second round pick, <strong>2015 conditional round pick (third round if Canadiens advance to third round of 2015 playoffs, fourth round if Canadiens advance to second round of 2015 playoffs, else fifth round)</strong> on 2015-03-02" }},
+		{ "round": "5", "status": "acquired",
+			"from": { "id": "COL", "info": "Traded Daniel Briere to Avalanche for P.A. Parenteau, <strong>2015 fifth round pick</strong> on 2014-06-30" }},
+		{ "round": "5", "status": "traded",
+			"to": { "id": "FLA", "info": "Traded Mike Weaver to Canadiens for <strong>2015 fifth round pick</strong> on 2014-03-04" }},
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y16": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+		{ "round": "2", "status": "acquired",
+			"from": { "id": "BUF", "orig": "MIN", "info": "Traded Josh Gorges to Sabres for <strong>2016 second round pick</strong> on 2014-07-01" }},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+		{ "round": "5", "status": "traded",
+			"to": { "id": "BUF", "info": "Traded Brian Flynn to Canadiens for <strong>2016 fifth round pick</strong> on 2015-03-02"}},
+		{ "round": "6", "status": "own" },
+		{ "round": "7", "status": "traded",
+			"to": { "id": "BUF", "info": "Traded Torrey Mitchell to Canadiens for Jack Nevins, <strong>2016 seventh round pick</strong> on 2015-03-02"}}
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]

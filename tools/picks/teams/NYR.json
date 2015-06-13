@@ -1,0 +1,49 @@
+[{
+	"id": "NYR",
+  "Y15": [
+		{ "round": "1", "status": "traded",
+			"to": { "id": "TBL", "info": "Traded Martin St. Louis, 2015 conditional second round pick (if Callahan re-signs with Lightning) to Rangers for Ryan Callahan, 2014 conditional round pick (first round if Rangers reach 2014 Eastern Conference Finals, else second round) (#28-Joshua Ho-Sang), <strong>2015 first round pick</strong>, 2015 conditional seventh round pick (if Callahan re-signs with Lightning) on 2014-03-05" }},
+    { "round": "2", "status": "acquired-traded",
+			"from": { "id": "TBL", "info": "Traded Ryan Callahan, 2014 conditional round pick (first round if Rangers reach 2014 Eastern Conference Finals, else second round) (#28-Joshua Ho-Sang), 2015 first round pick, 2015 conditional seventh round pick (if Callahan re-signs with Lightning) to Lightning for Martin St. Louis, <strong>2015 conditional second round pick (if Callahan re-signs with Lightning)</strong> on 2014-03-05" },
+			"to": { "id": "ARI", "info": "Traded Keith Yandle, Chris Summers, 2016 fourth round pick (?-?) to Rangers for John Moore, Anthony Duclair, <strong>2015 second round pick</strong>, 2016 first round pick (lottery protected in 2016, unprotected in 2017) on 2015-03-02" }},
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+		{ "round": "5", "status": "traded",
+			"to": { "id": "VAN", "info": "Traded Raphael Diaz to Rangers for <strong>2015 fifth round pick</strong> on 2014-03-05" }},
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "traded-acquired",
+			"to": { "id": "TBL", "info": "Traded Martin St. Louis, 2015 conditional second round pick (if Callahan re-signs with Lightning) to Rangers for Ryan Callahan, 2014 conditional round pick (first round if Rangers reach 2014 Eastern Conference Finals, else second round) (#28-Joshua Ho-Sang), 2015 first round pick, <strong>2015 conditional seventh round pick (if Callahan re-signs with Lightning)</strong> on 2014-03-05" },
+			"from": { "id": "TBL", "info": "Traded rights to Daniel Walcott to Lightning for <strong>2015 seventh round pick</strong> on 2015-06-01" }}
+  ],
+  "Y16": [
+		{ "round": "1", "status": "traded",
+			"to": { "id": "ARI", "info": "Traded Keith Yandle, Chris Summers, 2016 fourth round pick (?-?) to Rangers for John Moore, Anthony Duclair, 2015 second round pick, <strong>2016 first round pick (lottery protected in 2016, unprotected in 2017)</strong> on 2015-03-02" }},
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+		{ "round": "4", "status": "acquired",
+			"from": { "id": "ARI", "info": "Traded John Moore, Anthony Duclair, 2015 second round pick, 2016 conditional first round pick to Coyotes for Keith Yandle, Chris Summers, <strong>2016 fourth round pick</strong> on 2015-03-01" }},
+		{ "round": "4", "status": "traded",
+			"to": { "id": "SJS", "info": "Traded James Sheppard to Rangers for <strong>2016 fourth round pick</strong> on 2015-03-01" }},
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y17": [
+		{ "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ],
+  "Y18": [
+    { "round": "1", "status": "own" },
+    { "round": "2", "status": "own" },
+    { "round": "3", "status": "own" },
+    { "round": "4", "status": "own" },
+    { "round": "5", "status": "own" },
+    { "round": "6", "status": "own" },
+    { "round": "7", "status": "own" }
+  ]
+}]
