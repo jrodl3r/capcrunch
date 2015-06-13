@@ -35,16 +35,19 @@ var Trades = React.createClass({
     if (this.props.tradeData.league.length === maxPlayers) {
       UI.showActionMessage('trade', Messages.trade.max_players);
     } else if (players.value !== '0') {
-      group = players.options[players.selectedIndex].getAttribute('data-group');
-      index = players.options[players.selectedIndex].getAttribute('data-index');
-      this.props.addTradePlayer('league', null, index, group);
+
+      if (players.options[players.selectedIndex].getAttribute('data-type') === 'pick') {
+        this.props.addTradePick(players.value);
+      } else {
+        group = players.options[players.selectedIndex].getAttribute('data-group');
+        index = players.options[players.selectedIndex].getAttribute('data-index');
+        this.props.addTradePlayer('league', null, index, group);
+      }
       UI.clearAction('trade');
       UI.resetActionMessage();
       selectedPlayer = '';
     } else {
-      if (!this.props.tradeData.user.length) {
-        UI.missingTradeInput();
-      }
+      if (!this.props.tradeData.user.length) { UI.missingTradeInput(); }
       UI.showActionMessage('trade', Messages.trade.min_players);
     }
   },
@@ -93,6 +96,26 @@ var Trades = React.createClass({
     return list;
   },
 
+  buildPicksList: function(year) {
+    var picks, round = '', label = '', x = String.fromCharCode(10004);
+    picks = this.props.tradeTeam.picks[ 'Y' + year ].map(function(pick, i) {
+      if (pick.round === 1) { label = '1st'; }
+      else if (pick.round === 2) { label = '2nd'; }
+      else if (pick.round === 3) { label = '3rd'; }
+      else if (pick.round > 3) { label = pick.round + 'th'; }
+      if(pick.status === 'own' || pick.status === 'acquired' || pick.status === 'acquired-cond') {
+        return (
+          <option key={i} value={ 'Y' + year + '-' + i } data-type="pick" data-title={ label + ' Round Pick (20' + year + ')' }>
+            Round {pick.round} { pick.status === 'own' ? <span> - Own</span> : <span> - (From {pick.from.id})</span> }
+          </option>
+        );
+      } else {
+        return <option key={i} value={ year + '-' + i } disabled="disabled">Round {pick.round} <span> - (To {pick.to.id})</span></option>;
+      }
+    }.bind(this));
+    return picks;
+  },
+
   changeTradePlayer: function(e) {
     e.target.className = '';
     selectedPlayer = e.target.value;
@@ -130,6 +153,14 @@ var Trades = React.createClass({
             {this.buildTeamList('goaltenders', this.props.tradeTeam.goaltenders, this.props.tradeData.league, this.props.playerData.acquired)}
             <option disabled="disabled">─ Inactive ────────</option>
             {this.buildTeamList('inactive', this.props.tradeTeam.inactive, this.props.tradeData.league, this.props.playerData.acquired)}
+            <option disabled="disabled">─ 2015 Picks ──────</option>
+            {this.buildPicksList('15')}
+            <option disabled="disabled">─ 2016 Picks ──────</option>
+            {this.buildPicksList('16')}
+            <option disabled="disabled">─ 2017 Picks ──────</option>
+            {this.buildPicksList('17')}
+            <option disabled="disabled">─ 2018 Picks ──────</option>
+            {this.buildPicksList('18')}
           </select>
           <a id="add-trade-player" className="add-button" onClick={this.addTradePlayer}>
             <i className="fa fa-plus"></i>

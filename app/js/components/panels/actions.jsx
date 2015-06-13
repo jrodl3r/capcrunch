@@ -34,6 +34,7 @@ var ActionsPanel = React.createClass({
             playerData={this.props.playerData}
             executeTrade={this.props.executeTrade}
             changeTradeTeam={this.props.changeTradeTeam}
+            addTradePick={this.props.addTradePick}
             addTradePlayer={this.props.addTradePlayer}
             removeTradePlayer={this.props.removeTradePlayer}
             onTradeDragEnter={this.props.onTradeDragEnter} />

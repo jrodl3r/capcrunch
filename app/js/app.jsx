@@ -39,7 +39,7 @@ var App = React.createClass({
         players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] }},
       playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], unsigned : [], signed : [], created : [] },
       altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },
-      tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
+      tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [], picks : { Y15: [], Y16: [], Y17: [], Y18: [] }},
       tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }},
       panelData  : { active : 'trades', loading : false, engaged : false, enabled : true },
       capData    : { year : 6, players : 0, unsigned : 0, hit : '0.000', space : '71.500', cap: '71.500' },
@@ -356,16 +356,10 @@ var App = React.createClass({
     Socket.emit('get trade team', id);
   },
 
-  loadTradeTeam: function(id, data) {
+  loadTradeTeam: function(data) {
     if (data && data !== 'error') {
-      var updateData = update(this.state.tradeTeam, {
-        id          : { $set: id },
-        forwards    : { $set: data.forwards },
-        defensemen  : { $set: data.defensemen },
-        goaltenders : { $set: data.goaltenders },
-        inactive    : { $set: data.inactive }
-      });
-      this.setState({ tradeTeam : updateData });
+      var tradeTeam = data;
+      this.setState({ tradeTeam : tradeTeam });
     } else { this.notifyUser('error', Messages.error.loading_team); }
   },
 
@@ -421,6 +415,11 @@ var App = React.createClass({
       UI.clearAction('trade-executed');
       UI.resetPanelScroll();
     }.bind(this), Timers.confirm);
+  },
+
+  addTradePick: function(pick) {
+
+    console.log('add pick: ' + pick);
   },
 
   addTradePlayer: function(type, player, index, group) {
@@ -1020,6 +1019,7 @@ var App = React.createClass({
               undoTrade={this.undoTrade}
               executeTrade={this.executeTrade}
               changeTradeTeam={this.changeTradeTeam}
+              addTradePick={this.addTradePick}
               addTradePlayer={this.addTradePlayer}
               removeTradePlayer={this.removeTradePlayer}
               onItemMouseEnter={this.handleItemMouseEnter}

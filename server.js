@@ -71,19 +71,30 @@ io.sockets.on('connection', function(socket) {
 
   // load trade team
   socket.on('get trade team', function(id) {
-    Team.find({ id : id }, function(err, data) {
-      if (err || !data[0]) {
+    Picks.find({ id : id }, function(p_err, p_data) {
+      if (p_err || !p_data[0]) {
         socket.emit('load trade team', 'error');
-        console.error(err || 'Load Trade Team Failed: ' + id + ' (' + moment.tz(timezone).format(timestamp) + ')');
+        console.error(p_err || 'Load Picks Failed: ' + id + ' (' + moment.tz(timezone).format(timestamp) + ')');
       } else {
-        var players = {
-          forwards    : data[0].players.forwards,
-          defensemen  : data[0].players.defensemen,
-          goaltenders : data[0].players.goaltenders,
-          inactive    : data[0].players.inactive
-        };
-        socket.emit('load trade team', id, players);
-        console.log('Trade Team Loaded: ' + id + ' (' + moment.tz(timezone).format(timestamp) + ')');
+        var picks = p_data[0];
+        Team.find({ id : id }, function(err, data) {
+          if (err || !data[0]) {
+            socket.emit('load trade team', 'error');
+            console.error(err || 'Load Trade Team Failed: ' + id + ' (' + moment.tz(timezone).format(timestamp) + ')');
+          } else {
+            var team = {
+              id          : id,
+              picks       : picks,
+              forwards    : data[0].players.forwards,
+              defensemen  : data[0].players.defensemen,
+              goaltenders : data[0].players.goaltenders,
+              inactive    : data[0].players.inactive
+            };
+            socket.emit('load trade team', team);
+            console.log('Trade Team Loaded: ' + id + ' (' + moment.tz(timezone).format(timestamp) + ')');
+          }
+        });
+
       }
     });
   });

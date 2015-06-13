@@ -224,6 +224,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'trades: initial picks trade logic'
 - 'draft-picks: finalize data acquisition + update display logic'
 - 'draft-picks: info tooltips layout + logic'
 - 'draft-picks: cleanup layout + display logic'
