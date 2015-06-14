@@ -179,10 +179,9 @@ var App = React.createClass({
           panelData.enabled = this.isCleanTeam(teamData.id);
         } else { // Passive Action Data (hide players acquired by active team)
           if (tradeData.trades.length) { teamData = this.loadTradeData(teamData, 'loading', 'passive'); }
-          if (panelData.enabled) { panelData.enabled = false; } // NOTE: Notify/Prompt User - Undo / Switch Team? (Changed Teams w/ Active Roster)
-          this.resetTradeData('active');
-        }
-      } else if (tradeData.user.length || tradeData.league.length) { this.resetTradeData('active'); } // NOTE: Notify/Prompt User Clearing Trade?
+          if (panelData.enabled) { panelData.enabled = false; } // TODO: Prompt User Trades Disabled
+        }}
+      this.resetTradeData('active'); // TODO: Prompt User Clearing Trade
       this.setState({ teamData : teamData }, function() { this.changeView('roster'); });
     } else {
       this.changeView('teams');
@@ -393,9 +392,9 @@ var App = React.createClass({
   },
 
   executeTrade: function() {
-    var playerData = this.state.playerData, teamData, updateData,
-        tradeData = { trades : [], user : [], league : [], players : { user : [], league : [] }, picks : { user : [], league : [] }},
-        tradeTeam = { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [], picks : { Y15: [], Y16: [], Y17: [], Y18: [] }};
+    var tradeData = { trades : [], user : [], league : [], players : { user : [], league : [] }, picks : { user : [], league : [] }},
+        tradeTeam = { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [], picks : { Y15: [], Y16: [], Y17: [], Y18: [] }},
+        playerData = this.state.playerData, teamData, trade = {};
     this.changePanelView('loading');
     setTimeout(function() {
       teamData = this.loadTradeData(this.state.teamData);
@@ -403,15 +402,18 @@ var App = React.createClass({
       playerData.traded = playerData.traded.concat(this.state.tradeData.players.user);
       playerData.acquired = playerData.acquired.concat(this.state.tradeData.players.league);
       tradeData.trades = this.state.tradeData.trades;
-      tradeData.trades.push(this.state.tradeData.players);
-      updateData = update(this.state, {
+      trade = this.state.tradeData.players;
+      trade.picks = this.state.tradeData.picks;
+      trade.user_team = this.state.teamData.id;
+      trade.league_team = this.state.tradeTeam.id;
+      tradeData.trades.push(trade);
+      this.setState(update(this.state, {
         teamData   : { $set: teamData },
         tradeTeam  : { $set: tradeTeam },
         tradeData  : { $set: tradeData },
         playerData : { $set: playerData },
         panelData  : { loading : { $set: false }}
-      });
-      this.setState(updateData);
+      }));
       UI.clearAction('trade-executed');
       UI.resetPanelScroll();
     }.bind(this), Timers.confirm);
@@ -477,7 +479,7 @@ var App = React.createClass({
   },
 
   verifyTradePlayer: function(action, salary) {
-    if (this.state.tradeData.user.length === this.props.maxPlayers) {
+    if (this.state.tradeData.user.length + this.state.tradeData.picks.user.length === this.props.maxPlayers) {
       UI.showActionMessage('trade', Messages.trade.max_players);
       return false;
     } else if (/(created|acquired)/.test(action) || /UFA/.test(salary)) {

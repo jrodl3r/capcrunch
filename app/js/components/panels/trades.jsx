@@ -11,7 +11,8 @@ var teams = TeamList,
 var Trades = React.createClass({
 
   executeTrade: function() {
-    if (this.props.tradeData.user.length && this.props.tradeData.league.length) {
+    if (this.props.tradeData.user.length + this.props.tradeData.picks.user.length &&
+        this.props.tradeData.league.length + this.props.tradeData.picks.league.length) {
       this.props.executeTrade();
       UI.confirmAction('trade');
     } else {
@@ -83,7 +84,6 @@ var Trades = React.createClass({
 
   buildPickGroup: function(type, picks) {
     var list = picks.map(function(pick, i) {
-      // <span>{ '20' + pick.year } {pick.label}</span>
       return (
         <li key={ i + pick.id } id={ 'trade-item-' + pick.id } className="active">
           <span>{pick.label} Round <span className="year">{ '20' + pick.year }</span></span>
@@ -120,7 +120,7 @@ var Trades = React.createClass({
   },
 
   buildPicksList: function(year) {
-    var picks, round, id, label = '', x = String.fromCharCode(10004);
+    var picks, round, id, label = '', x = String.fromCharCode(10004), y , z;
     picks = this.props.tradeTeam.picks[ 'Y' + year ].map(function(pick, i) {
       id = this.props.tradeTeam.id + year + 'l' + i;
       round = pick.round;
@@ -128,6 +128,11 @@ var Trades = React.createClass({
       else if (round === '2') { label = '2nd'; }
       else if (round === '3') { label = '3rd'; }
       else if (round > 3) { label = round + 'th'; }
+      for (y = 0; y < this.props.tradeData.trades.length; y++) {
+        for (z = 0; z < this.props.tradeData.trades[y].picks.league.length; z++) {
+          if (this.props.tradeData.trades[y].picks.league[z].id === id) {
+            return <option key={i} disabled="disabled">{x} {label} Round { pick.status !== 'own' ? <span> (from {pick.from.id})</span> : null }</option>;
+          }}}
       if (this.props.tradeData.picks.league.map(function(p){ return p.id; }).indexOf(id) !== -1) {
         return <option key={i} disabled="disabled">{x} {label} Round { pick.status !== 'own' ? <span> (from {pick.from.id})</span> : null }</option>;
       } else if (selected === id) {
@@ -181,7 +186,7 @@ var Trades = React.createClass({
             className={ this.props.tradeTeam.id ? '' : 'disabled' }
             disabled={ this.props.tradeTeam.id ? '' : 'disabled' }
             onChange={this.changeTradePlayer}>
-            <option value="0" disabled="disabled">Players</option>
+            <option value="0" disabled="disabled">Players &amp; Draft Picks</option>
             <option disabled="disabled">─ Forwards ────────</option>
             {this.buildTeamList('forwards', this.props.tradeTeam.forwards, this.props.tradeData.league, this.props.playerData.acquired)}
             <option disabled="disabled">─ Defense ────────</option>

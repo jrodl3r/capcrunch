@@ -193,19 +193,19 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'trades: finalize trade picks logic'
-- 'trades: add user team draft picks button + add logic'
-- 'trades: add draft-picks to dropdown list'
-- 'share: update save roster/share logic'
-- 'free agents: list + add UFA players'
-  - 'filter by team'
-  - 'sort by previous salary'
+- 'trades: user team picks button/menu/panel layout'
+- 'trades: user team add picks button + logic'
+- 'Bug Fixes...'
 - 'disabled actions panel copy + layout'
   - 'trades only, not create player'
 - 'disabled transaction button state (after action executes)'
 - 'share: cleanup layout + x-browser issues'
 - 'share: twitter + facebook social sharing'
 - 'share: text roster w/ actions summary builder'
+---------------------------------------------------------------
+- 'free agents: list + add UFA players'
+  - 'filter by team'
+  - 'sort by previous salary'
 ---------------------------------------------------------------
 - 'notifications: cleanup + global/fixed-pos user notify (slide/fade)'
   - 'nav: tools link (coming soon hover)'
@@ -224,6 +224,8 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'trades: draft-picks gm-overview update'
+- 'share: save/load roster w/ pick trades logic'
 - 'trades: add picks to trade logic + layout updates'
 - 'trades: initial trade picks logic'
 - 'draft-picks: finalize data acquisition + update display logic'

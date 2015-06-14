@@ -9,7 +9,7 @@ var GMPanel = React.createClass({
     if (this.props.trades.length) {
       height = height + 28;
       for (x = 0; x < this.props.trades.length; x++) {
-        height = height + 28 + (Math.max(this.props.trades[x].user.length, this.props.trades[x].league.length) * 20);
+        height = height + 28 + (Math.max(this.props.trades[x].user.length + this.props.trades[x].picks.user.length, this.props.trades[x].league.length + this.props.trades[x].picks.league.length) * 20);
       }}
     if (haveItems > 1) {
       if (this.props.signed.length) { height = height + 28 + (this.props.signed.length * 33); }
@@ -140,19 +140,25 @@ var GMPanel = React.createClass({
         <div className="heading">Trades</div>
         <ul className="list">
           { this.props.trades.map(function(trade, i) {
-            var len = Math.max(trade.user.length, trade.league.length);
+            var len = Math.max(trade.user.length + trade.picks.user.length, trade.league.length + trade.picks.league.length);
             return (
               <li key={i} className={ 'span-' + len + ' trade item' }>
                 <ul className="user">
-                  <li className="team">{trade.user[0].team}</li>
+                  <li className="team">{trade.user_team}</li>
                   { trade.user.map(function(player, j) {
                     return <li key={ j + player.id }>{player.firstname.charAt(0)}. {player.lastname}</li>;
                   }) }
+                  { trade.picks.user.map(function(pick, x) {
+                    return <li key={pick.id}>{pick.label} Round <span className="year">{ '20' + pick.year }</span></li>;
+                  }) }
                 </ul>
                 <ul className="league">
-                  <li className="team">{trade.league[0].team_orig}</li>
+                  <li className="team">{trade.league_team}</li>
                   { trade.league.map(function(player, k) {
                     return <li key={ k + player.id }>{player.firstname.charAt(0)}. {player.lastname}</li>;
+                  }) }
+                  { trade.picks.league.map(function(pick, y) {
+                    return <li key={pick.id}>{pick.label} Round <span className="year">{ '20' + pick.year }</span></li>;
                   }) }
                 </ul>
                 <a className="button" data-target={ 'undo-confirm-' + i } onClick={UI.showOverviewConfirm}>Undo</a>
