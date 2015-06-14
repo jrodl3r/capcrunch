@@ -193,7 +193,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'trades: add picks to trade logic'
+- 'trades: finalize trade picks logic'
 - 'trades: add user team draft picks button + add logic'
 - 'trades: add draft-picks to dropdown list'
 - 'share: update save roster/share logic'
@@ -224,7 +224,8 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
-- 'trades: initial picks trade logic'
+- 'trades: add picks to trade logic + layout updates'
+- 'trades: initial trade picks logic'
 - 'draft-picks: finalize data acquisition + update display logic'
 - 'draft-picks: info tooltips layout + logic'
 - 'draft-picks: cleanup layout + display logic'

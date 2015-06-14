@@ -94,6 +94,7 @@ var RosterMenu = React.createClass({
           teamData={this.props.teamData}
           tradeTeam={this.props.tradeTeam}
           tradeData={this.props.tradeData}
+          pickData={this.props.pickData}
           playerData={this.props.playerData}
           createPlayer={this.props.createPlayer}
           executeTrade={this.props.executeTrade}

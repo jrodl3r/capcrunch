@@ -35,6 +35,8 @@
     text-shadow: 0 0 2px rgba(0,0,0, .25);
     opacity: .5;
 
+    &:hover { cursor: default; }
+
     &.active {
       color: #777;
       text-shadow: 0 0 2px rgba(0,0,0, .85);
@@ -44,6 +46,7 @@
         color: #999;
         text-shadow: 0 0 4px rgba(0,0,0, .95);
         opacity: 1;
+        cursor: pointer;
       }
     }
   }
@@ -212,6 +215,13 @@
 // Trades
 // --------------------------------------------------
 
+@keyframes add_trade_item {
+  0% { height: 0; opacity: 0; }
+  50% { height: $trade-player-item-height; opacity: 0; }
+  75% { height: $trade-player-item-height; opacity: .5; }
+  100% { height: $trade-player-item-height; opacity: 1; }
+}
+
 #trades {
 
   &.tab-area.active { height: 100%; }
@@ -229,7 +239,7 @@
     box-shadow: 0 0 30px rgba(255,255,255, .03) inset;
     overflow: hidden;
     cursor: default;
-    transition: .4s;
+    transition: .35s;
 
     &:first-of-type { margin-right: 30px; }
 
@@ -274,6 +284,7 @@
       }
     }
 
+    &.add-item { animation: add_trade_item .4s ease-out; }
     &:last-of-type { margin-bottom: 0; }
 
     > span {
@@ -295,7 +306,7 @@
       height: 0;
       width: 0;
       margin-bottom: 0;
-      padding: 0;
+      padding: 1px 0 0;
       color: rgba(255,255,255, .3);
       font-size: 0;
       line-height: 0;
@@ -308,6 +319,11 @@
         color: rgba(255,255,255, .5);
         cursor: pointer;
       }
+    }
+
+    .year {
+      margin-left: 3px;
+      color: #555;
     }
   }
 

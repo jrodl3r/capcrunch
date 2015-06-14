@@ -40,7 +40,7 @@ var App = React.createClass({
       playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], unsigned : [], signed : [], created : [] },
       altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },
       tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [], picks : { Y15: [], Y16: [], Y17: [], Y18: [] }},
-      tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }},
+      tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }, picks : { user : [], league : [] }},
       panelData  : { active : 'trades', loading : false, engaged : false, enabled : true },
       capData    : { year : 6, players : 0, unsigned : 0, hit : '0.000', space : '71.500', cap: '71.500' },
       pickData   : { id: '', Y15: [], Y16: [], Y17: [], Y18: [] },
@@ -394,8 +394,8 @@ var App = React.createClass({
 
   executeTrade: function() {
     var playerData = this.state.playerData, teamData, updateData,
-        tradeData = { trades : [], user : [], league : [], players : { user : [], league : [] }},
-        tradeTeam = { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] };
+        tradeData = { trades : [], user : [], league : [], players : { user : [], league : [] }, picks : { user : [], league : [] }},
+        tradeTeam = { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [], picks : { Y15: [], Y16: [], Y17: [], Y18: [] }};
     this.changePanelView('loading');
     setTimeout(function() {
       teamData = this.loadTradeData(this.state.teamData);
@@ -417,40 +417,47 @@ var App = React.createClass({
     }.bind(this), Timers.confirm);
   },
 
-  addTradePick: function(pick) {
-
-    console.log('add pick: ' + pick);
-  },
-
   addTradePlayer: function(type, player, index, group) {
     var tradeData = this.state.tradeData,
         teamData = this.state.teamData;
-    switch (type) {
-      case 'user':
-        player.action = 'queued';
-        tradeData.user.push(player.id);
-        tradeData.players.user.push(player);
-        break;
-      case 'league':
-        player = this.state.tradeTeam[group][index];
-        player.group = group;
-        player.index = index;
-        tradeData.league.push(player.id);
-        tradeData.players.league.push(player);
-        break;
-      default: UI.showActionMessage('trade', Messages.error.trade_player);
+    if (type === 'user') {
+      player.action = 'queued';
+      tradeData.user.push(player.id);
+      tradeData.players.user.push(player);
+    } else {
+      player = this.state.tradeTeam[group][index];
+      player.group = group;
+      player.index = index;
+      tradeData.league.push(player.id);
+      tradeData.players.league.push(player);
     }
-    var id = player.id;
-    this.setState({ tradeData : tradeData }, function() { this.clearDrag(); });
-    setTimeout(function() {
-      document.getElementById(id + '-trade-item').className = 'active';
-    }, Timers.clear);
-    document.getElementById('trade-drop-area').className = '';
+    this.setState({ tradeData : tradeData }, function() {
+      $('#trade-item-' + player.id).attr('class', 'add-item active');
+      this.clearDrag();
+    });
+    $('#trade-drop-area').removeClass('hover');
+  },
+
+  addTradePick: function(type, year, index, label) {
+    var tradeData = this.state.tradeData, pick, key, id;
+    id = this.state.tradeTeam.id + year + type.substr(0, 1) + index;
+    key = 'Y' + year;
+    pick = type === 'user' ? this.state.pickData[key][index] : this.state.tradeTeam.picks[key][index];
+    pick.id = id;
+    pick.year = year;
+    pick.index = index;
+    pick.label = label;
+    if (type === 'user') { tradeData.picks.league.push(pick); }
+    else if (type === 'league') { tradeData.picks.league.push(pick); }
+    this.setState({ tradeData : tradeData }, function() {
+      $('#trade-item-' + pick.id).attr('class', 'add-item active');
+    });
   },
 
   removeTradePlayer: function(type, index, id) {
     var tradeData = this.state.tradeData,
         teamData = this.state.teamData, tradeIndex, player;
+    $('#trade-item-' + id).removeClass('active');
     setTimeout(function() {
       if (type === 'user') {
         tradeIndex = tradeData.user.indexOf(id);
@@ -458,14 +465,15 @@ var App = React.createClass({
         teamData.players[player.group][index].action = '';
         tradeData.user.splice(tradeIndex, 1);
         tradeData.players.user.splice(tradeIndex, 1);
-      } else {
+      } else if (type === 'league') {
         tradeIndex = tradeData.league.indexOf(id);
         tradeData.league.splice(tradeIndex, 1);
         tradeData.players.league.splice(tradeIndex, 1);
       }
+      else if (type === 'user-pick') { tradeData.picks.user.splice(index, 1); }
+      else if (type === 'league-pick') { tradeData.picks.league.splice(index, 1); }
       this.setState({ tradeData : tradeData });
     }.bind(this), Timers.item);
-    document.getElementById(id + '-trade-item').className = '';
   },
 
   verifyTradePlayer: function(action, salary) {
@@ -481,8 +489,8 @@ var App = React.createClass({
   resetTradeData: function(type) {
     var tradeTeam = this.state.tradeTeam,
         playerData = this.state.playerData, updateData,
-        resetTradeData = { trades : [], user : [], league : [], players : { user : [], league : [] }},
-        resetTradeTeam = { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] };
+        resetTradeData = { trades: [], user: [], league: [], players: { user: [], league: [] }, picks : { user: [], league: [] }},
+        resetTradeTeam = { id: '', forwards: [], defensemen: [], goaltenders: [], inactive: [], picks : { Y15: [], Y16: [], Y17: [], Y18: [] }};
     if (type === 'active') { resetTradeData.trades = this.state.tradeData.trades; }
     else {
       playerData.acquired = [];
@@ -1006,6 +1014,7 @@ var App = React.createClass({
               dragData={this.state.dragData}
               panelData={this.state.panelData}
               teamData={this.state.teamData}
+              pickData={this.state.pickData}
               tradeTeam={this.state.tradeTeam}
               tradeData={this.state.tradeData}
               playerData={this.state.playerData}

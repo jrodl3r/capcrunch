@@ -9,8 +9,8 @@ var ActionsPanel = React.createClass({
 
   render: function() {
 
-    var userCount   = this.props.tradeData.user.length,
-        leagueCount = this.props.tradeData.league.length,
+    var userCount   = this.props.tradeData.user.length + this.props.tradeData.picks.user.length,
+        leagueCount = this.props.tradeData.league.length + this.props.tradeData.picks.league.length,
         activeTab   = this.props.panelData.active + '-active',
         tradeSize   = userCount > leagueCount ? ' trade-size-' + userCount : ' trade-size-' + leagueCount,
         activePanel = activeTab === 'trades' ? activeTab + tradeSize : activeTab;
@@ -29,6 +29,7 @@ var ActionsPanel = React.createClass({
             year={this.props.year}
             activeTab={this.props.panelData.active}
             teamData={this.props.teamData}
+            pickData={this.props.pickData}
             tradeTeam={this.props.tradeTeam}
             tradeData={this.props.tradeData}
             playerData={this.props.playerData}
