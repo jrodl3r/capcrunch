@@ -84,7 +84,7 @@ var CreatePlayer = React.createClass({
             <option value="5">5 years</option>
           </select>
           <button id="create-player-button" className="" onClick={this.createPlayer}>Create &amp; Sign Player</button>
-          <div id="create-player-confirm" className="transaction-confirm">Player Created <i className="fa fa-magic"></i></div>
+          <div id="create-player-confirm" className="transaction-confirm">Player Created <i className="fa fa-check"></i></div>
         </div>
       </div>
     );

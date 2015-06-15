@@ -91,17 +91,6 @@ var UI = {
     $('#team-select').removeClass('clicked');
   },
 
-  updateLogos: function(id) {
-    var rule = '.player .logo.' + id + '{  background-image: url("http://s3.amazonaws.com/capcrunch/img/logos/' + id + '.png");}',
-        style = (function() {
-      var style = document.createElement('style');
-      style.appendChild(document.createTextNode(''));
-      document.head.appendChild(style);
-      return style;
-    })();
-    style.sheet.insertRule(rule, 0);
-  },
-
   confirmAction: function(type) {
     $('#' + type + '-player-confirm').attr('class', 'transaction-confirm active');
     $('#' + type + '-player-button').attr('class', 'clicked');

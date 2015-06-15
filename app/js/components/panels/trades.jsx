@@ -1,8 +1,9 @@
 'use strict';
 
-var TeamList = require('../../static/teams.js'),
-    Messages = require('../../static/messages.js'),
-    UI       = require('../../ui.js');
+var UserPicks = require('./user-picks.js'),
+    TeamList  = require('../../static/teams.js'),
+    Messages  = require('../../static/messages.js'),
+    UI        = require('../../ui.js');
 
 var teams = TeamList,
     maxPlayers = 5,
@@ -31,19 +32,19 @@ var Trades = React.createClass({
   },
 
   addTradeAsset: function(e) {
-    var group, year, index, label, players = document.getElementById('trade-player-select');
+    var players = document.getElementById('trade-player-select'),
+        item = players.options[players.selectedIndex],
+        index = item.getAttribute('data-index'), group, year, label;
     e.preventDefault();
     if (this.props.tradeData.league.length + this.props.tradeData.picks.league.length === maxPlayers) {
       UI.showActionMessage('trade', Messages.trade.max_players);
     } else if (players.value !== '0') {
-      if (players.options[players.selectedIndex].getAttribute('data-type') === 'pick') {
-        index = players.options[players.selectedIndex].getAttribute('data-index');
-        year = players.options[players.selectedIndex].getAttribute('data-year');
-        label = players.options[players.selectedIndex].getAttribute('data-label');
+      if (item.getAttribute('data-type') === 'league-pick') {
+        year = item.getAttribute('data-year');
+        label = item.getAttribute('data-label');
         this.props.addTradePick('league', year, index, label);
       } else {
-        group = players.options[players.selectedIndex].getAttribute('data-group');
-        index = players.options[players.selectedIndex].getAttribute('data-index');
+        group = item.getAttribute('data-group');
         this.props.addTradePlayer('league', null, index, group);
       }
       UI.clearAction('trade');
@@ -53,6 +54,13 @@ var Trades = React.createClass({
       if (!this.props.tradeData.user.length) { UI.missingTradeInput(); }
       UI.showActionMessage('trade', Messages.trade.min_players);
     }
+  },
+
+  addUserAsset: function(e) {
+    var index = e.currentTarget.getAttribute('data-index'),
+        year = e.currentTarget.getAttribute('data-year'),
+        label = e.currentTarget.getAttribute('data-label');
+    this.props.addTradePick('user', year, index, label);
   },
 
   removeAsset: function(e) {
@@ -137,22 +145,26 @@ var Trades = React.createClass({
         return <option key={i} disabled="disabled">{x} {label} Round { pick.status !== 'own' ? <span> (from {pick.from.id})</span> : null }</option>;
       } else if (selected === id) {
         return (
-          <option key={i} data-type="pick" data-year={year} data-index={i} data-label={label} value={id} disabled="disabled">
+          <option key={i} data-type="league-pick" data-year={year} data-index={i} data-label={label} value={id} disabled="disabled">
             { pick.from ? <span>{ '20' + year } {label} (from {pick.from.id})</span> : <span>{ '20' + year } {label} Round</span> }
           </option>
         );
       } else if (pick.status === 'own' || pick.status === 'acquired' || pick.status === 'acquired-cond') {
         return (
-          <option key={i} data-type="pick" data-year={year} data-index={i} data-label={label} value={id}>
+          <option key={i} data-type="league-pick" data-year={year} data-index={i} data-label={label} value={id}>
             {label} Round { pick.status !== 'own' ? <span> (from {pick.from.id})</span> : null }
           </option>
         );
       } else if (pick.status === 'traded-acquired') {
-        return <option key={i} data-type="pick" data-year={year} data-index={i} data-label={label} value={id}>{label} Round (returned by {pick.from.id})</option>;
+        return (
+          <option key={i} data-type="league-pick" data-year={year} data-index={i} data-label={label} value={id}>
+            {label} Round (returned by {pick.from.id})
+          </option>
+        );
       } else if (pick.status === 'acquired-traded') {
         return <option key={i} disabled="disabled">{label} Round <span> (from {pick.from.id} / to {pick.to.id})</span></option>;
       } else {
-        return <option key={i} value={ year + '-' + i } disabled="disabled">{label} Round <span> (to {pick.to.id})</span></option>;
+        return <option key={i} disabled="disabled">{label} Round <span> (to {pick.to.id})</span></option>;
       }
     }.bind(this));
     return picks;
@@ -207,7 +219,7 @@ var Trades = React.createClass({
           <a id="add-trade-player" className="add-button" onClick={this.addTradeAsset}>
             <i className="fa fa-plus"></i>
           </a>
-          <div id="trade-player-breakdown">
+          <div id="trade-breakdown">
         { this.props.tradeData.user.length + this.props.tradeData.picks.user.length
           ? <ul className="active">
               {this.buildPlayerGroup('user', this.props.tradeData.players.user)}
@@ -228,9 +240,15 @@ var Trades = React.createClass({
               <li><div>{ this.props.tradeTeam.id ? this.props.tradeTeam.id : '- - -' }</div></li>
             </ul> }
           </div>
+          <UserPicks
+            userTeam={this.props.teamData.id}
+            pickData={this.props.pickData}
+            tradeData={this.props.tradeData.trades}
+            queuedPicks={this.props.tradeData.picks.user}
+            addUserAsset={this.addUserAsset} />
           <button id="trade-player-button" onClick={this.executeTrade}>Execute Trade</button>
           <div id="trade-player-confirm" className="transaction-confirm">
-            <span>Traded Executed <i className="fa fa-magic"></i></span>
+            <span>Traded Executed <i className="fa fa-check"></i></span>
           </div>
         </div>
       </div>

@@ -123,7 +123,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 - 'morphs into status persistent HUD when not engaged'
 - 'auto-expands to full-height on mouse-over'
-- 'add remove roster player drop-area/target'
+- 'overview: setup sign FA drop-area/target'
 ---------------------------------------------------------------
 - 'disabled view + disable on dirty roster (just like trade-actions)'
 - 're-sort/order teamData.players[player.group] on sign/unsign'
@@ -191,8 +191,6 @@ Post-Launch Rebuild
 - 'signed players no longer signed after removing from shared roster'
 - 'remove player tile dragend not removing player / missed drag-end'
 - 'clicking active nav link removes active className'
-- 'inactive player grid-highlight stops working after adding to roster'
-- 'gm-overview cover/shade sticking'
 ---------------------------------------------------------------
 
 
@@ -200,9 +198,9 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'trades: user team picks button/menu/panel layout'
-- 'trades: user team add picks button + logic'
+- 'overview: setup remove player drop-area/target (fixes sticking bug)'
 - 'update GM overview contract to show years (ex: 2.500/4yr)'
+- 'fix inactive player grid-highlight (stops working after adding)'
 - 'Bug Fixes...'
 - 'disabled actions panel copy + layout'
   - 'trades only, not create player'
@@ -233,6 +231,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'trades: user team picks button/menu/panel layout + logic'
 - 'cleanup nav, add button font icons, add Video Guide button'
 - 'remove team logo images from css, append bg-img style on the fly'
 - 'trades: draft-picks gm-overview update'

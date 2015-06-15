@@ -43,7 +43,7 @@ var App = React.createClass({
       tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }, picks : { user : [], league : [] }},
       panelData  : { active : 'trades', loading : false, engaged : false, enabled : true },
       capData    : { year : 6, players : 0, unsigned : 0, hit : '0.000', space : '71.500', cap: '71.500' },
-      pickData   : { id: '', Y15: [], Y16: [], Y17: [], Y18: [] },
+      pickData   : { Y15: [], Y16: [], Y17: [], Y18: [] },
       viewData   : { active : 'loading', last : '', next : '' },
       shareData  : { name : '', link : '', view : 'input' },
       dragData   : { type : '', group : '', index : '' },
@@ -163,7 +163,6 @@ var App = React.createClass({
     Socket.emit('get team', id);
     Socket.emit('get picks', id);
     UI.resetViewScroll();
-    UI.updateLogos(id);
   },
 
   loadTeam: function(data) {
@@ -442,15 +441,16 @@ var App = React.createClass({
   },
 
   addTradePick: function(type, year, index, label) {
-    var tradeData = this.state.tradeData, pick, key, id;
-    id = this.state.tradeTeam.id + year + type.substr(0, 1) + index;
+    var tradeData = this.state.tradeData, team, pick, key, id;
+    team = type === 'user' ? this.state.teamData.id : this.state.tradeTeam.id;
+    id = team + year + type.substr(0, 1) + index;
     key = 'Y' + year;
     pick = type === 'user' ? this.state.pickData[key][index] : this.state.tradeTeam.picks[key][index];
     pick.id = id;
     pick.year = year;
     pick.index = index;
     pick.label = label;
-    if (type === 'user') { tradeData.picks.league.push(pick); }
+    if (type === 'user') { tradeData.picks.user.push(pick); }
     else if (type === 'league') { tradeData.picks.league.push(pick); }
     this.setState({ tradeData : tradeData }, function() {
       $('#trade-item-' + pick.id).attr('class', 'add-item active');
