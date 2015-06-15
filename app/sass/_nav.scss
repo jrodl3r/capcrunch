@@ -41,48 +41,16 @@ header {
   }
 }
 
-#notify {
-  float: left;
-  height: 30px;
-  width: 370px;
-  margin-top: 0;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 30px;
-  text-align: center;
-  border-radius: 0;
-  opacity: 0;
-  transition: 1s;
-  transition-timing-function: ease-out;
-
-  &.active { opacity: 1; }
-
-  &.error {
-    color: #CF6C6C;
-    text-shadow: 0 0 10px rgba(255,0,0, 1);
-  }
-
-  &.tip {
-    color: #75A0FF;
-    text-shadow: 0 0 10px rgba(93,163,244, 1);
-  }
-
-  &.success {
-    color: #6CCF6C;
-    text-shadow: 0 0 10px rgba(0,255,0, 1);
-  }
-}
-
 nav {
   position: relative;
   float: right;
   height: 0;
-  width: 360px;
   padding-right: 0;
+  padding-left: 10px;
   line-height: 30px;
   text-align: right;
   opacity: 0;
-  overflow: hidden;
+  // overflow: hidden;
   transition: opacity $view-shift, height $view-hide;
 
   &.active {
@@ -98,27 +66,67 @@ nav {
     float: right;
     height: inherit;
 
-    &:last-of-type a { padding-left: 10px; }
+    // &:last-of-type a { padding-left: 10px; }
   }
 
   a {
+    position: relative;
     display: block;
-    height: inherit;
+    height: 40px;
     margin-top: -1px;
-    padding: 0 17px;
+    padding: 0 24px;
     line-height: inherit;
-    color: #888;
+    color: #999;
     font-size: 15px;
     font-weight: 500;
     text-decoration: none;
+    opacity: .75;
 
-    &:hover { color: #CCC; }
+    &:hover {
+      color: #EEE;
+      text-shadow: 0 0 7px rgba(255,255,255, .5);
+      opacity: .8;
+    }
+
     &.active {
-      color: #FFF;
+      color: #EEE;
+      opacity: .8;
       cursor: default;
+      &:hover { text-shadow: none; }
+    }
+
+    i {
+      position: absolute;
+      top: 9px;
+      left: 2px;
+      font-size: 14px !important;
+
+      &.fa-calculator { top: 10px; font-size: 11px !important; }
     }
   }
 }
+
+#video-demo-link {
+  position: absolute;
+  display: block;
+  top: 42px;
+  right: 20px;
+  width: 145px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: .6;
+
+  &:hover { opacity: .75; }
+
+  i {
+    float: left;
+    margin-top: -1px;
+    margin-left: -5px;
+  }
+}
+
+#video-demo-link, #tools-link { display: none; }
 
 #team-select {
   position: relative;
@@ -140,7 +148,7 @@ nav {
   transition: .3s;
 
   &:hover {
-    box-shadow: 0 0 2px rgba(255,255,255, .25);
+    box-shadow: 0 0 7px rgba(255,255,255, .5);
     opacity: 1;
     cursor: pointer;
   }
@@ -174,4 +182,45 @@ footer {
 
   &.active { opacity: 1; }
   .alt { color: rgba(255,255,255, .25); }
+}
+
+#notify {
+  float: left;
+  height: 30px;
+  width: 370px;
+  margin-top: 0;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 0;
+  opacity: 0;
+  transition: 1s;
+  transition-timing-function: ease-out;
+
+  opacity: 1;
+  position: absolute;
+  left: 250px;
+  width: 500px;
+  top: 38px;
+  height: 36px;
+  border-radius: 5px;
+  // background-color: #f06;
+
+  &.active { opacity: 1; }
+
+  &.error {
+    color: #CF6C6C;
+    text-shadow: 0 0 10px rgba(255,0,0, 1);
+  }
+
+  &.tip {
+    color: #75A0FF;
+    text-shadow: 0 0 10px rgba(93,163,244, 1);
+  }
+
+  &.success {
+    color: #6CCF6C;
+    text-shadow: 0 0 10px rgba(0,255,0, 1);
+  }
 }

@@ -159,7 +159,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 - 'record HD video guide w/ roster building walkthrough'
 - 'add splash button/fade-in fullscreen video on team-grid (bottom)'
-- 'add link to footer + header button Video Guide'
+- 'add Video Guide link to footer'
 ---------------------------------------------------------------
 
 
@@ -233,6 +233,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'cleanup nav, add button font icons, add Video Guide button'
 - 'remove team logo images from css, append bg-img style on the fly'
 - 'trades: draft-picks gm-overview update'
 - 'share: save/load roster w/ pick trades logic'

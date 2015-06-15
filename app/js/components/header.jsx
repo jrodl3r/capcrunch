@@ -39,13 +39,16 @@ var Header = React.createClass({
               </li>
               <li>
                 <a id="payroll-link" data-view="payroll" className={ this.props.activeView === 'payroll' ? 'active' : '' }
-                  onClick={this.changeView}>Payroll</a>
+                  onClick={this.changeView}><i className="fa fa-tasks"></i>Payroll</a>
               </li>
               <li>
                 <a id="roster-link" data-view="roster" className={ this.props.activeView === 'roster' ? 'active' : '' }
-                  onClick={this.changeView}>Roster</a>
+                  onClick={this.changeView}><i className="fa fa-trophy"></i>Roster</a>
               </li>
+              <li id="tools-link"><a><i className="fa fa-server"></i>Tools</a></li>
+              <li id="help-link"><a><i className="fa fa-question-circle"></i>Help</a></li>
             </ul>
+            <a id="video-demo-link"><i className="fa fa-film"></i>Watch Video Guide</a>
           </nav>
         </div>
       </header>
