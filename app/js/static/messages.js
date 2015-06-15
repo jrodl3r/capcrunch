@@ -9,7 +9,7 @@ var Messages = {
     active_only    : 'Active player trades only...'
   },
   create : {
-    heading        : 'Create & Sign custom players to your team:',
+    heading        : 'Create & Sign a custom player to your team:',
     missing_fname  : 'Don\'t forget to add a first name...',
     missing_lname  : 'Don\'t forget to add a last name...',
     missing_pos    : 'Don\'t forget to choose a position...',

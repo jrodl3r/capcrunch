@@ -18,6 +18,9 @@
 #### LATER (Features) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
 - 'tools: buyout calculator'
+- 'tools: draft board'
+  - 'simulate drafts'
+  - 'social/friend draft-challenges (all-time/allstar/legend drafts)'
 - 'roster: minor team roster/lineup'
 - 'roster: special teams (PP1/PP2/PK1/PK2) layout + logic'
 - 'share: message-board sharing widget (dynamic image generator)'
@@ -61,21 +64,6 @@ Post-Launch Rebuild
 
 
 
----------------------------------------------------------------
-## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
----------------------------------------------------------------
-- 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
-- 'Backspace key refresh/back-page-nav...Grr!'
-- 'Occasional missed remove-player tile dragend'
-- 'Occasional missed list-item dragstart'
-- 'Tabbing makes actions tabs disappear'
-- 'tile trade drag-end hover sticking + not queuing (BN/Hodgson)'
-- 'inactive player grid-highlight stops working after adding to roster'
-- 'clicking active nav link removes active className'
----------------------------------------------------------------
-
-
-
 ## Grid
 ---------------------------------------------------------------
 - 'IR players cap calculation (count, payroll)'
@@ -98,7 +86,6 @@ Post-Launch Rebuild
 - 'player button/icons/menu: [ info | edit | buyout | +IR | +BN ]'
 ---------------------------------------------------------------
 - 'shrink player name on bench/ir lines if status tag count > 2'
-- 'remove team logo images from css, append bg-img style on the fly'
 ---------------------------------------------------------------
 
 
@@ -155,6 +142,7 @@ Post-Launch Rebuild
 - 'create: add salary row button'
 - 'enable create player w/ dirty roster (prompt for team)'
 ---------------------------------------------------------------
+- 'trade: add bag-o-pucks below draft picks'
 - 'trade: asset + salary summary breakdown'
 - 'trade: cap violation/overage check + warning'
 - 'trade: league player select salary info [ X. Xxx (0.000) ]'
@@ -191,10 +179,30 @@ Post-Launch Rebuild
 
 
 ---------------------------------------------------------------
+## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+- 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
+- 'Backspace key refresh/back-page-nav...Grr!'
+- 'Occasional missed list-item dragstart'
+- 'Tabbing makes actions tabs disappear'
+- 'tile trade drag-end hover sticking + not queuing (BN/Hodgson)'
+---------------------------------------------------------------
+- 'contract displays as 0.000 after unsigning'
+- 'signed players no longer signed after removing from shared roster'
+- 'remove player tile dragend not removing player / missed drag-end'
+- 'clicking active nav link removes active className'
+- 'inactive player grid-highlight stops working after adding to roster'
+- 'gm-overview cover/shade sticking'
+---------------------------------------------------------------
+
+
+
+---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
 - 'trades: user team picks button/menu/panel layout'
 - 'trades: user team add picks button + logic'
+- 'update GM overview contract to show years (ex: 2.500/4yr)'
 - 'Bug Fixes...'
 - 'disabled actions panel copy + layout'
   - 'trades only, not create player'
@@ -212,6 +220,7 @@ Post-Launch Rebuild
   - 'better notification messages (acquired players, UFAs, etc)'
 - 'onboard: drag-n-drop/trades-create/change-team splashes'
 - 'cap stats menu (¿header/panels/capStats?)'
+- 'remove/replace unsupported mobile splash w/ disabled panels'
 ---------------------------------------------------------------
 - 'footer logic + layout'
 - 'React initial DOM loading SSR'
@@ -224,6 +233,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'remove team logo images from css, append bg-img style on the fly'
 - 'trades: draft-picks gm-overview update'
 - 'share: save/load roster w/ pick trades logic'
 - 'trades: add picks to trade logic + layout updates'

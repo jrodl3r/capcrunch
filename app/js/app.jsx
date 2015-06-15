@@ -163,6 +163,7 @@ var App = React.createClass({
     Socket.emit('get team', id);
     Socket.emit('get picks', id);
     UI.resetViewScroll();
+    UI.updateLogos(id);
   },
 
   loadTeam: function(data) {

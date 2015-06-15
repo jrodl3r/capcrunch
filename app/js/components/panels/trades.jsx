@@ -171,7 +171,7 @@ var Trades = React.createClass({
     return (
       <div id="trades" className={ this.props.activeTab === 'trades' ? 'tab-area active' + this.props.tradeSize : 'tab-area' }>
         <div className="inner">
-          <p id="trade-player-msg">Execute a blockbuster trade for your team:</p>
+          <p id="trade-player-msg">{Messages.trade.heading}</p>
           <div id="trade-drop-area">Drop Players</div>
           <select id="trade-team-select" defaultValue="0"
             className={ this.props.tradeData.league.length ? 'disabled' : '' }

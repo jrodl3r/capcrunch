@@ -443,126 +443,30 @@
     background-repeat: no-repeat;
     opacity: .04;
 
+    &.BOS { opacity: .035; }
     &.BOS, &.BUF, &.CGY, &.EDM, &.FLA, &.TBL, &.WPG { background-position: 105% 25%; }
-    &.BOS { background-image: url($img-url + 'logos/BOS.png'); }
-    &.BUF { background-image: url($img-url + 'logos/BUF.png'); }
-    &.CGY { background-image: url($img-url + 'logos/CGY.png'); }
-    &.EDM { background-image: url($img-url + 'logos/EDM.png'); }
-    &.FLA { background-image: url($img-url + 'logos/FLA.png'); }
-    &.TBL { background-image: url($img-url + 'logos/TBL.png'); }
-    &.WPG { background-image: url($img-url + 'logos/WPG.png'); }
-    &.ANA {
-      background-image: url($img-url + 'logos/ANA.png');
-      background-position: 105% 45%;
-      background-size: 75%;
-    }
-    &.ARI {
-      background-image: url($img-url + 'logos/ARI.png');
-      background-position: 110% 35%;
-      background-size: 65%;
-    }
-    &.CAR {
-      background-image: url($img-url + 'logos/CAR.png');
-      background-position: 120% 45%;
-      background-size: 65%;
-    }
-    &.CHI {
-      background-image: url($img-url + 'logos/CHI.png');
-      background-position: 115% 50%;
-      background-size: 63%;
-    }
-    &.COL {
-      background-image: url($img-url + 'logos/COL.png');
-      background-position: 105% 65%;
-    }
-    &.CLB {
-      background-image: url($img-url + 'logos/CLB.png');
-      background-position: 105% 45%;
-    }
-    &.DAL {
-      background-image: url($img-url + 'logos/DAL.png');
-      background-position: 200% 65%;
-      background-size: 80%;
-    }
-    &.DET {
-      background-image: url($img-url + 'logos/DET.png');
-      background-position: 130% 60%;
-      background-size: 65%;
-    }
-    &.LAK {
-      background-image: url($img-url + 'logos/LAK.png');
-      background-position: 150% 25%;
-      background-size: 73%;
-    }
-    &.MIN {
-      background-image: url($img-url + 'logos/MIN.png');
-      background-position: 175% 55%;
-      background-size: 75%;
-    }
-    &.MTL {
-      background-image: url($img-url + 'logos/MTL.png');
-      background-position: 145% 50%;
-      background-size: 70%;
-    }
-    &.NAS {
-      background-image: url($img-url + 'logos/NAS.png');
-      background-position: 115% 45%;
-      background-size: 70%;
-    }
-    &.NJD {
-      background-image: url($img-url + 'logos/NJD.png');
-      background-position: 105% 45%;
-      background-size: 60%;
-    }
-    &.NYI {
-      background-image: url($img-url + 'logos/NYI.png');
-      background-position: 110% 25%;
-      background-size: 60%;
-    }
-    &.NYR {
-      background-image: url($img-url + 'logos/NYR.png');
-      background-position: 118% 25%;
-      background-size: 66%;
-    }
-    &.OTT {
-      background-image: url($img-url + 'logos/OTT.png');
-      background-position: 115% 75%;
-      background-size: 65%;
-    }
-    &.PHI {
-      background-image: url($img-url + 'logos/PHI.png');
-      background-position: 120% 35%;
-      background-size: 65%;
-    }
-    &.PIT {
-      background-image: url($img-url + 'logos/PIT.png');
-      background-position: 110% 17%;
-      background-size: 60%;
-    }
-    &.SJS {
-      background-image: url($img-url + 'logos/SJS.png');
-      background-position: 120% 60%;
-      background-size: 65%;
-    }
-    &.STL {
-      background-image: url($img-url + 'logos/STL.png');
-      background-position: 120% 30%;
-      background-size: 65%;
-    }
-    &.TOR {
-      background-image: url($img-url + 'logos/TOR.png');
-      background-position: 110% 60%;
-      background-size: 60%;
-    }
-    &.VAN {
-      background-image: url($img-url + 'logos/VAN.png');
-      background-position: 110% 45%;
-      background-size: 60%;
-    }
-    &.WAS {
-      background-image: url($img-url + 'logos/WAS.png');
-      background-position: 180% 55%;
-      background-size: 75%;
-    }
+    &.ANA { background-position: 105% 45%; background-size: 75%; }
+    &.ARI { background-position: 110% 35%; background-size: 65%; }
+    &.CAR { background-position: 120% 45%; background-size: 65%; }
+    &.CHI { background-position: 115% 50%; background-size: 63%; }
+    &.COL { background-position: 105% 65%; }
+    &.CLB { background-position: 105% 45%; }
+    &.DAL { background-position: 200% 65%; background-size: 80%; }
+    &.DET { background-position: 130% 60%; background-size: 65%; }
+    &.LAK { background-position: 150% 25%; background-size: 73%; }
+    &.MIN { background-position: 175% 55%; background-size: 75%; }
+    &.MTL { background-position: 145% 50%; background-size: 70%; }
+    &.NAS { background-position: 115% 45%; background-size: 70%; }
+    &.NJD { background-position: 105% 45%; background-size: 60%; }
+    &.NYI { background-position: 110% 25%; background-size: 60%; }
+    &.NYR { background-position: 118% 25%; background-size: 66%; }
+    &.OTT { background-position: 115% 75%; background-size: 65%; }
+    &.PHI { background-position: 120% 35%; background-size: 65%; }
+    &.PIT { background-position: 110% 17%; background-size: 60%; }
+    &.SJS { background-position: 120% 60%; background-size: 65%; }
+    &.STL { background-position: 120% 30%; background-size: 65%; }
+    &.TOR { background-position: 110% 60%; background-size: 60%; }
+    &.VAN { background-position: 110% 45%; background-size: 60%; }
+    &.WAS { background-position: 180% 55%; background-size: 75%; }
   }
 }
