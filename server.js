@@ -36,10 +36,17 @@ if (env === 'development') {
 }//else if (env === 'testing'){}
 
 
-// Routes
+// Config
 // --------------------------------------------------
 
 app.use(compression());
+app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
+app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: 10000000 }));
+
+
+// Routes
+// --------------------------------------------------
+
 app.get('/', function(req, res) {
   console.log('User Connected (' + moment.tz(timezone).format(timestamp) + ')');
   res.sendFile(path.join(__dirname, '/public/index.html'));
@@ -47,8 +54,6 @@ app.get('/', function(req, res) {
 app.get('/:roster', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
-app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: 10000000 }));
-app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
 
 // Events
