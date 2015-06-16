@@ -4,16 +4,12 @@ var UI = require('../../ui.js');
 
 var PlayersPanel = React.createClass({
 
-  // shouldComponentUpdate: function(nextProps) {
-  //   return this.props.playerGroup !== nextProps.playerGroup;
-  // },
-
   buildPlayerList: function(players, group) {
     var list = players.map(function(player, i) {
       if (!/(inplay|ir|benched)/.test(player.status) && !/(queued|traded)/.test(player.action)) {
         return (
           <li key={ i + player.id } className="row">
-            <div className="item" data-group={group} data-index={i} draggable="true"
+            <div className="item" data-group={group} data-index={i} data-pos={player.position} draggable="true"
               onMouseEnter={this.props.onItemMouseEnter}
               onMouseLeave={this.props.onItemMouseLeave}
               onMouseDown={this.props.onItemMouseDown}

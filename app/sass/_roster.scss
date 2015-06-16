@@ -195,7 +195,7 @@
   border-radius: $border-radius;
   -webkit-box-shadow: 0 0 4px 0 rgba(0,0,0, .1) inset;
   -webkit-transform: translateZ(0);
-  transition: .3s ease-out;
+  transition: .25s ease-out;
 
   .dragging &:not(.active) {
     background: rgba(255,255,255, .05);

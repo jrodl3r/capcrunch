@@ -46,7 +46,7 @@ var App = React.createClass({
       pickData   : { Y15: [], Y16: [], Y17: [], Y18: [] },
       viewData   : { active : 'loading', last : '', next : '' },
       shareData  : { name : '', link : '', view : 'input' },
-      dragData   : { type : '', group : '', index : '' },
+      dragData   : { type : '', group : '', index : '', pos : '' },
       notify     : { label : '', msg : '' }
     };
   },
@@ -144,7 +144,7 @@ var App = React.createClass({
     updateData = update(this.state, {
       lineData  : { $set: lineData },
       panelData : { $set: panelData },
-      dragData  : { $set: { type : '', group : '', index : '' }}
+      dragData  : { $set: { type : '', group : '', index : '', pos : '' }}
     });
     this.setState(updateData);
   },
@@ -244,6 +244,7 @@ var App = React.createClass({
       this.setState(updateData, function() {
         this.changeTeam(data.activeTeam);
         this.loadAltLines();
+        UI.clearHover();
       });
     } else {
       this.changeView('teams');
@@ -718,14 +719,14 @@ var App = React.createClass({
 
   handleItemMouseDown: function(e) {
     e.currentTarget.className = 'item clicked';
-    this.setState({ dragData : { type : 'item', group : e.currentTarget.getAttribute('data-group'), index : e.currentTarget.getAttribute('data-index') }});
+    this.setState({ dragData : { type: 'item', group: e.currentTarget.getAttribute('data-group'), index: e.currentTarget.getAttribute('data-index'), pos: e.currentTarget.getAttribute('data-pos') }});
   },
 
   handleItemMouseUp: function(e) {
     if (e.target.className === 'item clicked') {
       e.target.className = 'item hover';
     }
-    this.setState({ dragData : { type : '', group : '', index : '' }});
+    this.setState({ dragData : { type: '', group: '', index: '', pos: '' }});
   },
 
   handleItemDragStart: function(e) {
@@ -800,17 +801,18 @@ var App = React.createClass({
   },
 
   handleTileDragEnter: function(e) {
+    var id = e.currentTarget.id;
     e.stopPropagation();
-    if (this.state.rosterData[e.currentTarget.id].status === 'empty') {
+    if (this.state.rosterData[id].status === 'empty') {
       e.currentTarget.className = 'tile hover';
-      dropData.action = this.isAltLine(e.currentTarget.id);
-      dropData.cur = e.currentTarget.id;
+      dropData.action = this.isAltLine(id);
+      dropData.cur = id;
     }
-    dropData.last = e.currentTarget.id;
+    dropData.last = id;
   },
 
   handleTileDragLeave: function(e) {
-    if (this.state.rosterData[e.currentTarget.id].status === 'empty') { e.currentTarget.className = 'tile'; }
+    $(e.currentTarget).removeClass('hover');
   },
 
   handlePlayerMouseEnter: function(e) {
@@ -824,12 +826,12 @@ var App = React.createClass({
   handlePlayerMouseDown: function(e) {
     e.currentTarget.className = 'player active clicked';
     dropData.origin = e.currentTarget.parentNode.id;
-    this.setState({ dragData : { type : 'tile', group : e.currentTarget.getAttribute('data-group'), index : e.currentTarget.getAttribute('data-index') }});
+    this.setState({ dragData : { type: 'tile', group: e.currentTarget.getAttribute('data-group'), index: '', pos: e.currentTarget.getAttribute('data-pos') }});
   },
 
   handlePlayerMouseUp: function(e) {
     e.currentTarget.className = 'player active hover';
-    this.setState({ dragData : { type : '', group : '', index : '' }});
+    this.setState({ dragData : { type: '', group: '', index: '', pos: '' }});
   },
 
   handlePlayerDragStart: function(e) {

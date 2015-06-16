@@ -223,6 +223,10 @@ var UI = {
     $('.remove-player').removeClass('active hover');
   },
 
+  clearHover: function() {
+    $('.player.active').removeClass('hover');
+  },
+
   dropEffect: function(e) {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';

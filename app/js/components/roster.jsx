@@ -1,12 +1,9 @@
 'use strict';
 
 var CapStats = require('./capstats.jsx'),
-    UI       = require('../ui.js');//,
-    //PRM      = React.addons.PureRenderMixin;
+    UI       = require('../ui.js');
 
 var Roster = React.createClass({
-
-  //mixins: [PRM],
 
   playerTile: function(id) {
     var player = this.props.rosterData[id], altLine, salary;
@@ -17,7 +14,8 @@ var Roster = React.createClass({
         <div id={id} className="tile active"
           onDragEnter={this.props.onTileDragEnter}
           onDragLeave={this.props.onTileDragLeave}>
-          <div id={player.id} data-group={player.group} data-index={player.index} className="player active hover" draggable="true"
+          <div id={player.id} data-group={player.group} className="player active hover" draggable="true"
+            data-pos={ /(inactive|created)/.test(player.group) ? player.position : null }
             onMouseEnter={this.props.onPlayerMouseEnter}
             onMouseLeave={this.props.onPlayerMouseLeave}
             onMouseDown={this.props.onPlayerMouseDown}
@@ -67,18 +65,11 @@ var Roster = React.createClass({
   },
 
   render: function() {
-
-    var dragGroup = this.props.dragData.group,
-        dragIndex = this.props.dragData.index;
-    if (dragIndex) {
-      if (dragGroup === 'inactive' || dragGroup === 'created') {
-        dragGroup = dragGroup === 'inactive'
-          ? this.props.teamData.players[dragGroup][dragIndex].position
-          : this.props.playerData.created[dragIndex].position;
-        if (dragGroup === 'G') { dragGroup = 'goaltenders'; }
-        else if (dragGroup === 'D') { dragGroup = 'defensemen'; }
-        else { dragGroup = 'forwards'; }
-      }
+    var dragGroup = this.props.dragData.group;
+    if (this.props.dragData.pos) {
+      if (this.props.dragData.pos === 'D') { dragGroup = 'defensemen'; }
+      else if (this.props.dragData.pos === 'G') { dragGroup = 'goaltenders'; }
+      else { dragGroup = 'forwards'; }
     }
 
     return (

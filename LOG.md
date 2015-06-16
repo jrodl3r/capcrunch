@@ -203,8 +203,9 @@ Post-Launch Rebuild
   - 'create: always active, create players for any team'
 
 - 'overview: setup remove player drop-area/target (fixes sticking bug)'
+    - 'just hide it, eh?... (if scrollTop() < #overview.top)'
+
 - 'update GM overview contract to show years (ex: 2.500/4yr)'
-- 'fix inactive player grid-highlight (stops working after adding)'
 
 - 'disabled transaction button state (after action executes)'
 - 'share: cleanup layout + x-browser issues'
@@ -233,6 +234,8 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'fix inactive/created player post-add-to-roster grid-highlight issue'
+- 'fix shared-roster initial-load hover-class issue'
 - 'fix FF gm-overview scrollbar overflow issue + add auto-scroll-top'
 - 'trades: user team picks button/menu/panel layout + logic'
 - 'cleanup nav, add button font icons, add Video Guide button'
