@@ -123,13 +123,11 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 - 'morphs into status persistent HUD when not engaged'
 - 'auto-expands to full-height on mouse-over'
-- 'overview: setup sign FA drop-area/target'
 ---------------------------------------------------------------
 - 'disabled view + disable on dirty roster (just like trade-actions)'
 - 're-sort/order teamData.players[player.group] on sign/unsign'
 - 'signed inactive player gets added to F/D/G player group'
-- 'sign-n-trade players'
-  - 'drop unsigned from list to sign w/out adding to roster'
+- 'sign-n-trade + sign FA drop-area (drop unsigned from player list to sign w/out adding to roster)'
 ---------------------------------------------------------------
 
 
@@ -198,12 +196,16 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
+- 'disabled/allstar-mode actions + breakdown view logic'
+  - 'overview: inactive if not viewing active-roster-team'
+  - 'overview: switch back to active team link/button'
+  - 'trades+sign: inactive if not viewing active-roster-team ..or.. dirty-roster'
+  - 'create: always active, create players for any team'
+
 - 'overview: setup remove player drop-area/target (fixes sticking bug)'
 - 'update GM overview contract to show years (ex: 2.500/4yr)'
 - 'fix inactive player grid-highlight (stops working after adding)'
-- 'Bug Fixes...'
-- 'disabled actions panel copy + layout'
-  - 'trades only, not create player'
+
 - 'disabled transaction button state (after action executes)'
 - 'share: cleanup layout + x-browser issues'
 - 'share: twitter + facebook social sharing'
@@ -231,6 +233,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'fix FF gm-overview scrollbar overflow issue + add auto-scroll-top'
 - 'trades: user team picks button/menu/panel layout + logic'
 - 'cleanup nav, add button font icons, add Video Guide button'
 - 'remove team logo images from css, append bg-img style on the fly'

@@ -81,12 +81,7 @@ var UI = {
         $(panel).scrollTo({ endY: 0, duration: 750 });
       }
     } else {
-      ['forwards', 'defense', 'goalies', 'inactive'].forEach(function(e, i){
-        panel = '#' + e + '-list ul';
-        if ($(panel).scrollTop()) {
-          $(panel).scrollTo({ endY: 0, duration: 750 });
-        }
-      });
+      $('#overview > .inner, #forwards-list ul, #defense-list ul, #goalies-list ul, #inactive-list ul').scrollTo({ endY: 0, duration: 650 });
     }
     $('#team-select').removeClass('clicked');
   },

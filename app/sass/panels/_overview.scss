@@ -11,8 +11,15 @@
 
   > .inner {
     max-height: 191px;
+    width: 300px;
     overflow-y: scroll;
-  }//background: rgba(255,255,255, .025);
+    overflow-x: hidden;
+
+    .moz & {
+      width: 317px;
+      padding-right: 16px;
+    }
+  }
 
   &.active {
     height: 95px;
@@ -46,6 +53,7 @@
   .heading {
     display: block;
     height: 28px;
+    width: 300px;
     color: #616161;
     line-height: 28px;
     background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
@@ -208,5 +216,8 @@
 
   .confirm-text { padding-right: 10px; }
   .confirm-divider { padding: 0 4px; }
+
   .waiting { color: rgba(255,255,255, .35); }
+
+
 }
