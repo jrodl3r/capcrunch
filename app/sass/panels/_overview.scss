@@ -64,7 +64,7 @@
     display: flex;
     align-items: center;
     background: #222 linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0.04) 75%, transparent);
-    box-shadow: 0 -1px 0 rgba(0,0,0, .2) inset;
+    border-bottom: 1px solid rgba(0,0,0, .2);// box-shadow: 0 -1px 0 rgba(0,0,0, .2) inset;
     -webkit-transform: translateZ(0);
 
     .name { max-width: 180px; }
