@@ -38,8 +38,6 @@ var ActionsPanel = React.createClass({
                 onClick={this.props.toggleActionsTab}>Create Player</a></li>
           </ul>
           <Trades
-            userCount={userCount}
-            leagueCount={leagueCount}
             tradeSize={tradeSize}
             year={this.props.year}
             panelData={this.props.panelData}

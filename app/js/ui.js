@@ -7,6 +7,7 @@ var UI = {
 
   team_loaded : false,
   msg_timeout : null,
+  panel_state : [false, false, false, false],
 
   init: function() {
     UI.detect();
@@ -71,6 +72,12 @@ var UI = {
 
   togglePanelView: function(e) {
     e.preventDefault();
+    var index = $('#' + $(e.currentTarget).parent().parent().attr('id')).index() - 2;
+    if (index >= 0) {
+      if (!$(e.currentTarget).parent().parent().hasClass('collapsed')) {
+        UI.panel_state[index] = true;
+      } else { UI.panel_state[index] = false; }
+    }
     $(e.currentTarget).toggleClass('active');
     $(e.currentTarget).parent().parent().toggleClass('collapsed');
   },
@@ -86,27 +93,32 @@ var UI = {
   },
 
   autoUpdatePanels: function() {
-    if ($('#forwards-list li').length === $('#forwards-list .inplay').length) {
+    if ($('#forwards-list li').length === $('#forwards-list li.inplay, #forwards-list li.traded').length) {
       $('#forwards-list').addClass('collapsed');
       $('#forwards-list .title a').addClass('active');
-    } else if ($('#forwards-list li').not('.inplay').length === 1) {
+    } else if ($('#forwards-list li').not('.inplay, .traded').length >= 1 && !UI.panel_state[0]) {
       $('#forwards-list').removeClass('collapsed');
       $('#forwards-list .title a').removeClass('active');
     }
-    if ($('#defense-list li').length === $('#defense-list .inplay').length) {
+    if ($('#defense-list li').length === $('#defense-list li.inplay, #defense-list li.traded').length) {
       $('#defense-list').addClass('collapsed');
       $('#defense-list .title a').addClass('active');
-    } else if ($('#defense-list li').not('.inplay').length === 1) {
+    } else if ($('#defense-list li').not('.inplay, .traded').length >= 1 && !UI.panel_state[1]) {
       $('#defense-list').removeClass('collapsed');
       $('#defense-list .title a').removeClass('active');
     }
-    if ($('#goalies-list li').length === $('#goalies-list .inplay').length) {
+    if ($('#goalies-list li').length === $('#goalies-list li.inplay, #goalies-list li.traded').length) {
       $('#goalies-list').addClass('collapsed');
       $('#goalies-list .title a').addClass('active');
-    } else if ($('#goalies-list li').not('.inplay').length === 1) {
+    } else if ($('#goalies-list li').not('.inplay, .traded').length >= 1 && !UI.panel_state[2]) {
       $('#goalies-list').removeClass('collapsed');
       $('#goalies-list .title a').removeClass('active');
     }
+  },
+
+  expandPanels: function() {
+    $('.player-list').removeClass('collapsed');
+    $('.player-list .title a').removeClass('active');
   },
 
   confirmAction: function(type) {
@@ -240,6 +252,7 @@ var UI = {
     $('.clicked').removeClass('clicked');
     $('.list-drag-cover').removeClass('active');
     $('.remove-player').removeClass('active hover');
+    $('#trade-drop-area').removeClass('hover');
   },
 
   clearHover: function() {

@@ -183,7 +183,6 @@ Post-Launch Rebuild
 - 'Occasional missed list-item dragstart'
 - 'tile drag-end on trades hover sticking + not queuing (BN/Hodgson)'
 - 'tile drag-end not removing player'
-- 'execute-trade button not always hover-active on verified trade'
 ---------------------------------------------------------------
 
 
@@ -217,6 +216,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'fix execute-trade button-hover + auto-collapse panel issue'
 - 'auto-collapse empty panels + increase collapse click area'
 - 'allstar mode, tweaks + bug fixes (full details in log)'
 - 'fix: tabbing breaks actions tab menu + view'

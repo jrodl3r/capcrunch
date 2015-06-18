@@ -253,8 +253,7 @@ var Trades = React.createClass({
             tradeData={this.props.tradeData.trades}
             queuedPicks={this.props.tradeData.picks.user}
             addUserAsset={this.addUserAsset} />
-          <button id="trade-player-button" onClick={this.executeTrade}
-            className={ this.props.userCount && this.props.leagueCount ? 'enabled' : '' }>Execute Trade</button>
+          <button id="trade-player-button" className="" onClick={this.executeTrade}>Execute Trade</button>
           <div id="trade-player-confirm" className="transaction-confirm">
             <span>Traded Executed <i className="fa fa-check"></i></span>
           </div>

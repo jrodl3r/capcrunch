@@ -181,10 +181,13 @@ var App = React.createClass({
           if (panelData.enabled) {
             panelData.enabled = false; // TODO: Prompt User Trades Disabled
             panelData.active = 'createplayer';
-          }
-        }}
+          }}}
       this.resetTradeData('active'); // TODO: Prompt User Clearing Trade
-      this.setState({ teamData : teamData }, function() { this.changeView('roster'); });
+      this.setState({ teamData : teamData }, function() {
+        this.changeView('roster');
+        if (playerData.team === teamData.id) { UI.autoUpdatePanels(); }
+        else { UI.expandPanels(); }
+      });
     } else {
       this.changeView('teams');
       this.notifyUser('error', Messages.error.loading_team);
@@ -440,6 +443,7 @@ var App = React.createClass({
     this.setState({ tradeData : tradeData }, function() {
       $('#trade-item-' + player.id).attr('class', 'add-item active');
       this.clearDrag();
+      this.verifyTrade();
     });
     $('#trade-drop-area').removeClass('hover');
   },
@@ -458,6 +462,7 @@ var App = React.createClass({
     else if (type === 'league') { tradeData.picks.league.push(pick); }
     this.setState({ tradeData : tradeData }, function() {
       $('#trade-item-' + pick.id).attr('class', 'add-item active');
+      this.verifyTrade();
     });
   },
 
@@ -479,8 +484,18 @@ var App = React.createClass({
       }
       else if (type === 'user-pick') { tradeData.picks.user.splice(index, 1); }
       else if (type === 'league-pick') { tradeData.picks.league.splice(index, 1); }
-      this.setState({ tradeData : tradeData });
+      this.setState({ tradeData : tradeData }, function() {
+        UI.autoUpdatePanels();
+        this.verifyTrade();
+      });
     }.bind(this), Timers.item);
+  },
+
+  verifyTrade: function() {
+    if ((this.state.tradeData.user.length + this.state.tradeData.picks.user.length) &&
+        (this.state.tradeData.league.length + this.state.tradeData.picks.league.length)) {
+      $('#trade-player-button').addClass('enabled'); }
+    else { $('#trade-player-button').removeClass('enabled'); }
   },
 
   verifyTradePlayer: function(action, salary) {
