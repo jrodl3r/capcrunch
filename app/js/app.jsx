@@ -131,7 +131,7 @@ var App = React.createClass({
         playerData = this.state.playerData,
         lineData = this.updateAltLines(),
         teamSize = this.state.capData.players,
-        team = this.state.teamData.id, updateData;
+        team = this.state.teamData.id;
     if (teamSize) {
       panelData.enabled = this.isCleanTeam(team);
       if (panelData.enabled) { playerData.team = team; }
@@ -140,12 +140,11 @@ var App = React.createClass({
       panelData.enabled = true;
     }
     panelData.engaged = false;
-    updateData = update(this.state, {
+    this.setState(update(this.state, {
       lineData  : { $set: lineData },
       panelData : { $set: panelData },
       dragData  : { $set: { type : '', group : '', index : '', pos : '' }}
-    });
-    this.setState(updateData);
+    }), function() { UI.collapsePanels(); });
   },
 
   clearDrop: function() {

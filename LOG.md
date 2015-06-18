@@ -70,15 +70,6 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
-## Panels
----------------------------------------------------------------
-- 'drag-to-vertically-reorder panels (ex: move forwards panel below defense)' [?]
-- 'obfuscated list slides into view on scroll-end' [?]
-- 'player details/info icon click/hover' [?]
-- 'increase collapse click area'
----------------------------------------------------------------
-
-
 ## Roster
 ---------------------------------------------------------------
 - 'obfuscated group slides into view (list-item-clicked)'
@@ -94,19 +85,6 @@ Post-Launch Rebuild
 - 'fade-in years for group on scroll-end (if header not visible)'
 - 'player details/info on click/hover'
 - 'year column sorting'
----------------------------------------------------------------
-
-
-## Options
----------------------------------------------------------------
-- 'reusable vertical dropdown options menu'
-- 'delayed hover reveal/appear'
-- 'payroll: include/show user actions'
-- 'payroll+roster: icon legend (status, action, etc)'
-- 'payroll+roster: year ticker [2015-16 ⇵]
-- 'roster: clear roster/lineup'
-- 'overview: clear all trades / created'
-- 'overview: unsign all'
 ---------------------------------------------------------------
 
 
@@ -133,10 +111,10 @@ Post-Launch Rebuild
 ## Transactions
 ---------------------------------------------------------------
 - 'free-agents panel (data + layout + logic)'
+- 'longer, tiered contracts (add-salary-row button)'
 ---------------------------------------------------------------
 - 'create: add age, image url + team (auto-select)'
 - 'create: players goto F/D/G panel (makes sense)'
-- 'create: add salary row button'
 ---------------------------------------------------------------
 - 'trade: parlay picks, show acquire picks on user-pick-list [prob not]'
 - 'trade: add bag-o-pucks below draft picks'
@@ -145,9 +123,32 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
-##### Share
+##### Free Agents DB
 ---------------------------------------------------------------
-- 'confirm active team (on dirty roster)'
+- 'store expiring 2015 contracts'
+- 'diff + store all existing UFA/RFA players'
+- 'diff + merge expired contracts into that...'
+---------------------------------------------------------------
+
+
+## Panels
+---------------------------------------------------------------
+- 'drag-to-vertically-reorder panels (ex: move forwards panel below defense)' [?]
+- 'obfuscated list slides into view on scroll-end' [?]
+- 'player details/info icon click/hover' [?]
+---------------------------------------------------------------
+
+
+## Options
+---------------------------------------------------------------
+- 'reusable vertical dropdown options menu'
+- 'delayed hover reveal/appear'
+- 'payroll: include/show user actions'
+- 'payroll+roster: icon legend (status, action, etc)'
+- 'payroll+roster: year ticker [2015-16 ⇵]
+- 'roster: clear roster/lineup'
+- 'overview: clear all trades / created'
+- 'overview: unsign all'
 ---------------------------------------------------------------
 
 
@@ -160,11 +161,9 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
-##### Free Agents DB
+##### Share
 ---------------------------------------------------------------
-- 'store expiring 2015 contracts'
-- 'diff + store all existing UFA/RFA players'
-- 'diff + merge expired contracts into that...'
+- 'confirm active team (on dirty roster)'
 ---------------------------------------------------------------
 
 
@@ -184,6 +183,7 @@ Post-Launch Rebuild
 - 'Occasional missed list-item dragstart'
 - 'tile drag-end on trades hover sticking + not queuing (BN/Hodgson)'
 - 'tile drag-end not removing player'
+- 'execute-trade button not always hover-active on verified trade'
 ---------------------------------------------------------------
 
 
@@ -217,6 +217,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'auto-collapse empty panels + increase collapse click area'
 - 'allstar mode, tweaks + bug fixes (full details in log)'
 - 'fix: tabbing breaks actions tab menu + view'
 - 'trade/create button disabled-hover-state'

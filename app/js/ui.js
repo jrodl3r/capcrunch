@@ -75,6 +75,21 @@ var UI = {
     $(e.currentTarget).parent().parent().toggleClass('collapsed');
   },
 
+  collapsePanels: function() {
+    if ($('#forwards-list li').length === $('#forwards-list .inplay').length) {
+      $('#forwards-list').addClass('collapsed');
+      $('#forwards-list .title a').addClass('active');
+    } else { $('#forwards-list').removeClass('collapsed'); $('#forwards-list .title a').removeClass('active'); }
+    if ($('#defense-list li').length === $('#defense-list .inplay').length) {
+      $('#defense-list').addClass('collapsed');
+      $('#defense-list .title a').addClass('active');
+    } else { $('#defense-list').removeClass('collapsed'); $('#defense-list .title a').removeClass('active'); }
+    if ($('#goalies-list li').length === $('#goalies-list .inplay').length) {
+      $('#goalies-list').addClass('collapsed');
+      $('#goalies-list .title a').addClass('active');
+    } else { $('#goalies-list').removeClass('collapsed'); $('#goalies-list .title a').removeClass('active'); }
+  },
+
   resetPanelScroll: function(panel) {
     if (panel) {
       panel = '#' + panel + '-list ul';

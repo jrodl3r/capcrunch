@@ -21,7 +21,7 @@
     height: $panel-titlebar-height !important;
     min-height: 0 !important;
 
-    .loading-list { opacity: 0; }
+    .loading-list, .remove-player { opacity: 0; }
     .title { color: #585858; }
   }
 
@@ -51,7 +51,8 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 34px;
+      height: 33px;
+      width: 40px;
       color: #3F3F3F;
       font-weight: bold;
       line-height: 28px;
