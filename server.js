@@ -5,7 +5,6 @@ var express     = require('express'),
     server      = require('http').createServer(app),
     io          = require('socket.io').listen(server, { 'transports': ['websocket'] }),
     compression = require('compression'),
-    favicon     = require('serve-favicon'),
     path        = require('path'),
     moment      = require('moment-timezone'),
     timestamp   = 'MMMM Do YYYY, h:mm:ss a',
@@ -16,6 +15,7 @@ var express     = require('express'),
     Roster      = require('./models/roster.js'),
     env         = process.env.NODE_ENV || 'development',
     port        = process.env.PORT || 3000;
+    // favicon     = require('serve-favicon'),
 
 
 // Connect
@@ -40,8 +40,8 @@ if (env === 'development') {
 // --------------------------------------------------
 
 app.use(compression());
-app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: 10000000 }));
+// app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
 
 // Routes
