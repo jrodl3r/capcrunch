@@ -75,31 +75,38 @@ var UI = {
     $(e.currentTarget).parent().parent().toggleClass('collapsed');
   },
 
-  collapsePanels: function() {
-    if ($('#forwards-list li').length === $('#forwards-list .inplay').length) {
-      $('#forwards-list').addClass('collapsed');
-      $('#forwards-list .title a').addClass('active');
-    } else { $('#forwards-list').removeClass('collapsed'); $('#forwards-list .title a').removeClass('active'); }
-    if ($('#defense-list li').length === $('#defense-list .inplay').length) {
-      $('#defense-list').addClass('collapsed');
-      $('#defense-list .title a').addClass('active');
-    } else { $('#defense-list').removeClass('collapsed'); $('#defense-list .title a').removeClass('active'); }
-    if ($('#goalies-list li').length === $('#goalies-list .inplay').length) {
-      $('#goalies-list').addClass('collapsed');
-      $('#goalies-list .title a').addClass('active');
-    } else { $('#goalies-list').removeClass('collapsed'); $('#goalies-list .title a').removeClass('active'); }
-  },
-
   resetPanelScroll: function(panel) {
     if (panel) {
       panel = '#' + panel + '-list ul';
-      if ($(panel).scrollTop()) {
-        $(panel).scrollTo({ endY: 0, duration: 750 });
-      }
+      if ($(panel).scrollTop()) { $(panel).scrollTo({ endY: 0, duration: 750 }); }
     } else {
       $('#overview > .inner, #forwards-list ul, #defense-list ul, #goalies-list ul, #inactive-list ul').scrollTo({ endY: 0, duration: 650 });
     }
     $('#team-select').removeClass('clicked');
+  },
+
+  autoUpdatePanels: function() {
+    if ($('#forwards-list li').length === $('#forwards-list .inplay').length) {
+      $('#forwards-list').addClass('collapsed');
+      $('#forwards-list .title a').addClass('active');
+    } else if ($('#forwards-list li').not('.inplay').length === 1) {
+      $('#forwards-list').removeClass('collapsed');
+      $('#forwards-list .title a').removeClass('active');
+    }
+    if ($('#defense-list li').length === $('#defense-list .inplay').length) {
+      $('#defense-list').addClass('collapsed');
+      $('#defense-list .title a').addClass('active');
+    } else if ($('#defense-list li').not('.inplay').length === 1) {
+      $('#defense-list').removeClass('collapsed');
+      $('#defense-list .title a').removeClass('active');
+    }
+    if ($('#goalies-list li').length === $('#goalies-list .inplay').length) {
+      $('#goalies-list').addClass('collapsed');
+      $('#goalies-list .title a').addClass('active');
+    } else if ($('#goalies-list li').not('.inplay').length === 1) {
+      $('#goalies-list').removeClass('collapsed');
+      $('#goalies-list .title a').removeClass('active');
+    }
   },
 
   confirmAction: function(type) {

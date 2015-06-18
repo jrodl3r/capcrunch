@@ -144,7 +144,7 @@ var App = React.createClass({
       lineData  : { $set: lineData },
       panelData : { $set: panelData },
       dragData  : { $set: { type : '', group : '', index : '', pos : '' }}
-    }), function() { UI.collapsePanels(); });
+    }), function() { UI.autoUpdatePanels(); });
   },
 
   clearDrop: function() {
@@ -417,7 +417,7 @@ var App = React.createClass({
         tradeData  : { $set: tradeData },
         playerData : { $set: playerData },
         panelData  : { loading : { $set: false }}
-      }));
+      }), function() { UI.autoUpdatePanels(); });
       UI.clearAction('trade-executed');
       UI.resetPanelScroll();
     }.bind(this), Timers.confirm);
