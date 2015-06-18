@@ -72,9 +72,9 @@ Post-Launch Rebuild
 
 ## Panels
 ---------------------------------------------------------------
+- 'drag-to-vertically-reorder panels (ex: move forwards panel below defense)' [?]
 - 'obfuscated list slides into view on scroll-end' [?]
 - 'player details/info icon click/hover' [?]
-- 'drag vertical reorder/pos'
 - 'increase collapse click area'
 ---------------------------------------------------------------
 
@@ -91,21 +91,22 @@ Post-Launch Rebuild
 
 ## Payroll
 ---------------------------------------------------------------
-- 'fade-in group title years on scroll-end (if header not visible)'
+- 'fade-in years for group on scroll-end (if header not visible)'
 - 'player details/info on click/hover'
-- 'collapsable player groups' [?]
 - 'year column sorting'
-- 'draft picks summary'
 ---------------------------------------------------------------
 
 
 ## Options
 ---------------------------------------------------------------
 - 'reusable vertical dropdown options menu'
+- 'delayed hover reveal/appear'
 - 'payroll: include/show user actions'
 - 'payroll+roster: icon legend (status, action, etc)'
 - 'payroll+roster: year ticker [2015-16 ⇵]
 - 'roster: clear roster/lineup'
+- 'overview: clear all trades / created'
+- 'overview: unsign all'
 ---------------------------------------------------------------
 
 
@@ -124,10 +125,8 @@ Post-Launch Rebuild
 - 'morphs into status persistent HUD when not engaged'
 - 'auto-expands to full-height on mouse-over'
 ---------------------------------------------------------------
-- 'disabled view + disable on dirty roster (just like trade-actions)'
-- 're-sort/order teamData.players[player.group] on sign/unsign'
-- 'signed inactive player gets added to F/D/G player group'
 - 'sign-n-trade + sign FA drop-area (drop unsigned from player list to sign w/out adding to roster)'
+- 'buy-out drop-area (drop signed players to buy-out or edit player info/salary/etc)'
 ---------------------------------------------------------------
 
 
@@ -138,26 +137,26 @@ Post-Launch Rebuild
 - 'create: add age, image url + team (auto-select)'
 - 'create: players goto F/D/G panel (makes sense)'
 - 'create: add salary row button'
-- 'enable create player w/ dirty roster (prompt for team)'
 ---------------------------------------------------------------
+- 'trade: parlay picks, show acquire picks on user-pick-list [prob not]'
 - 'trade: add bag-o-pucks below draft picks'
 - 'trade: asset + salary summary breakdown'
-- 'trade: cap violation/overage check + warning'
-- 'trade: league player select salary info [ X. Xxx (0.000) ]'
+- 'trade: cap violation/overage check + warning' [?]
 ---------------------------------------------------------------
 
 
 ##### Share
 ---------------------------------------------------------------
-- 'confirm active team (team mismatch / mixed roster)'
+- 'confirm active team (on dirty roster)'
 ---------------------------------------------------------------
 
 
-##### Demo Video
+##### Help Guide
 ---------------------------------------------------------------
 - 'record HD video guide w/ roster building walkthrough'
-- 'add splash button/fade-in fullscreen video on team-grid (bottom)'
-- 'add Video Guide link to footer'
+- 'setup help view instructions + support info'
+- 'help view Video Guide heading-splash'
+- 'add help link to footer'
 ---------------------------------------------------------------
 
 
@@ -170,9 +169,9 @@ Post-Launch Rebuild
 
 
 ## Footer
-----------------------------------------------------------------------------
- What's Next? ⋮ Credits ⋮ Twitter    some rights reserved ⋮ CapCRUNCH © 2015
-----------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+ Help ⋮ Credits ⋮ What's Next? ⋮ Feedback    some rights reserved CAPCRUNCH © 2015 ⋮ v1.0.3
+-------------------------------------------------------------------------------------------
 
 
 
@@ -180,15 +179,11 @@ Post-Launch Rebuild
 ## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
 - 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
+- 'FF: view height not 100% accurate after changing team'
 - 'Backspace key refresh/back-page-nav...Grr!'
 - 'Occasional missed list-item dragstart'
-- 'Tabbing makes actions tabs disappear'
-- 'tile trade drag-end hover sticking + not queuing (BN/Hodgson)'
----------------------------------------------------------------
-- 'contract displays as 0.000 after unsigning'
-- 'signed players no longer signed after removing from shared roster'
-- 'remove player tile dragend not removing player / missed drag-end'
-- 'clicking active nav link removes active className'
+- 'tile drag-end on trades hover sticking + not queuing (BN/Hodgson)'
+- 'tile drag-end not removing player'
 ---------------------------------------------------------------
 
 
@@ -196,37 +191,25 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'disabled/allstar-mode actions + breakdown view logic'
-  - 'overview: inactive if not viewing active-roster-team'
-  - 'overview: switch back to active team link/button'
-  - 'trades+sign: inactive if not viewing active-roster-team ..or.. dirty-roster'
-  - 'create: always active, create players for any team'
-
-- 'overview: setup remove player drop-area/target (fixes sticking bug)'
-    - 'just hide it, eh?... (if scrollTop() < #overview.top)'
-
-- 'update GM overview contract to show years (ex: 2.500/4yr)'
-
-- 'disabled transaction button state (after action executes)'
 - 'share: cleanup layout + x-browser issues'
 - 'share: twitter + facebook social sharing'
 - 'share: text roster w/ actions summary builder'
 ---------------------------------------------------------------
+- 'free agents: setup agents db collection'
 - 'free agents: list + add UFA players'
-  - 'filter by team'
-  - 'sort by previous salary'
+- 'free agents: filter by team'
+- 'free agents: sort by previous salary'
 ---------------------------------------------------------------
 - 'notifications: cleanup + global/fixed-pos user notify (slide/fade)'
-  - 'nav: tools link (coming soon hover)'
-  - 'better notification messages (acquired players, UFAs, etc)'
-- 'onboard: drag-n-drop/trades-create/change-team splashes'
+- 'notifications: update messages (acquired players, UFAs, picks, etc)'
+- 'onboarding: help guide splashes + nav hover reappear'
+- 'onboarding: player + roster movement visual intro animation'
 - 'cap stats menu (¿header/panels/capStats?)'
-- 'remove/replace unsupported mobile splash w/ disabled panels'
 ---------------------------------------------------------------
-- 'footer logic + layout'
+- 'footer layout + display logic'
 - 'React initial DOM loading SSR'
-- 'back/forward browser action management'
-- 'basic mobile support (view shared roster + payroll)'
+- 'browser navigation management (back/forward/history)'
+- 'limited mobile support (view shared roster + payroll + disabled panels)'
 - 'player image pre-loading (slow connection factor...)'
 
 
@@ -234,6 +217,17 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'allstar mode, tweaks + bug fixes (full details in log)'
+- 'fix: tabbing breaks actions tab menu + view'
+- 'trade/create button disabled-hover-state'
+- 'actions + overview disabled/allstar-mode view logic'
+- 'fix: signed player contracts appearing on payroll'
+- 'fix: clicking active nav link removes active className'
+- 'overview: setup remove player drop-area/target (fixes sticking bug)'
+- 'overview: update contract to show years (ex: 2.500/4yr)'
+- 'overview: cleanup tab-focus on sign players inputs'
+- 'signed players unsigned after removing from roster'
+- 'trade: league player select salary info [ X. Xxx (0.000) ]'
 - 'fix inactive/created player post-add-to-roster grid-highlight issue'
 - 'fix shared-roster initial-load hover-class issue'
 - 'fix FF gm-overview scrollbar overflow issue + add auto-scroll-top'

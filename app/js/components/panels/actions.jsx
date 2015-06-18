@@ -7,6 +7,13 @@ var Trades       = require('./trades.jsx'),
 
 var ActionsPanel = React.createClass({
 
+  changeView: function(e) {
+    e.preventDefault();
+    $('#team-grid div.active').removeClass('active');
+    $('#team-grid div.' + this.props.playerData.team).addClass('active');
+    this.props.changeView('teams');
+  },
+
   render: function() {
 
     var userCount   = this.props.tradeData.user.length + this.props.tradeData.picks.user.length,
@@ -20,14 +27,22 @@ var ActionsPanel = React.createClass({
         <div className="title">Transactions</div>
         <div className={ 'inner ' + activePanel + tradeSize }>
           <ul id="actions-menu">
-            <li><a id="trades-tab" data-tab="trades" className={ this.props.panelData.active === 'trades' ? 'active' : '' } onClick={this.props.toggleActionsTab}>Trades</a></li>
-            <li><a id="freeagents-tab" data-tab="freeagents" className={ this.props.panelData.active === 'freeagents' ? 'active' : '' } onClick={this.props.toggleActionsTab}>Free Agents</a></li>
-            <li><a id="createplayer-tab" data-tab="createplayer" className={ this.props.panelData.active === 'createplayer' ? 'active' : '' } onClick={this.props.toggleActionsTab}>Create Player</a></li>
+            <li>
+              <a id="trades-tab" data-tab="trades" className={ this.props.panelData.active === 'trades' ? 'active' : '' }
+                onClick={this.props.toggleActionsTab}>Trades</a></li>
+            <li>
+              <a id="freeagents-tab" data-tab="freeagents" className={ this.props.panelData.active === 'freeagents' ? 'active' : '' }
+                onClick={this.props.toggleActionsTab}>Free Agents</a></li>
+            <li>
+              <a id="createplayer-tab" data-tab="createplayer" className={ this.props.panelData.active === 'createplayer' ? 'active' : '' }
+                onClick={this.props.toggleActionsTab}>Create Player</a></li>
           </ul>
           <Trades
+            userCount={userCount}
+            leagueCount={leagueCount}
             tradeSize={tradeSize}
             year={this.props.year}
-            activeTab={this.props.panelData.active}
+            panelData={this.props.panelData}
             teamData={this.props.teamData}
             pickData={this.props.pickData}
             tradeTeam={this.props.tradeTeam}
@@ -41,19 +56,20 @@ var ActionsPanel = React.createClass({
             onTradeDragEnter={this.props.onTradeDragEnter} />
           <FreeAgents activeTab={this.props.panelData.active} />
           <CreatePlayer activeTab={this.props.panelData.active} createPlayer={this.props.createPlayer} />
-          <div id="actions-disabled-cover" className={ !this.props.panelData.enabled ? 'active' : '' }>
-            <p>Transactions are disabled (Allstar-Mode)</p>
-            <p>To Re-enable:</p>
-            <p>#1 » Switch back to your active team ({this.props.playerData.team})</p>
-            <p>#2 » Remove players from other teams</p>
-            <p>#3 » Undo trades (Coming Soon)</p>
-            <p>»»» TBD «««</p>
-          </div>
           <div id="actions-drag-cover"
             className={ this.props.dragType ? 'active' : '' }
             onDragEnter={this.props.onTradeDragEnter}
             onDragLeave={this.props.onTradeDragLeave}
             onDragOver={UI.dropEffect}>
+          </div>
+          <div id="actions-disabled-cover" className={ !this.props.panelData.enabled ? 'active' : '' }>
+            <p>Allstar Mode
+              <i className="fa fa-info-circle">
+                <span className="info-bubble"><strong>Allstar-Mode</strong> is enabled whenenver the active team does not match your roster players.</span>
+              </i><br/>
+              { this.props.playerData.team !== this.props.teamData.id
+                ? <a onClick={this.changeView}>Switch back to active team ({this.props.playerData.team})</a> : null }
+            </p>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ var Header = React.createClass({
 
   changeView: function(e) {
     var view = e.currentTarget.getAttribute('data-view');
-    e.currentTarget.className = 'clicked';
+    if (e.currentTarget.className !== 'active') { e.currentTarget.className = 'clicked'; }
     this.props.changeView(view);
   },
 

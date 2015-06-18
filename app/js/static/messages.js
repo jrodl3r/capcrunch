@@ -3,7 +3,7 @@
 var Messages = {
   trade : {
     heading        : 'Execute a blockbuster trade for your team:',
-    max_players    : 'Five players per team trade maximum...',
+    max_players    : 'Five assets per team max on trades...',
     min_players    : 'Both teams need at least one player...',
     oneway_only    : 'One-way trades only...',
     active_only    : 'Active player trades only...'

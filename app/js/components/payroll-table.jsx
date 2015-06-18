@@ -5,11 +5,12 @@ var PicksTable = require('./picks-table.jsx');
 var PayrollTable = React.createClass({
 
   playerGroup: function(players) {
-    var year = this.props.year, row, group, x = 0;
+    var year = this.props.year, row, cell, group, signed, status, x = 0;
     group = players.map(function(player, i) {
       if (!/(acquired|created)/.test(player.action)) {
         row = x % 2 ? '' : 'even';
         x = x + 1;
+        signed = player.prev_contract ? player.prev_contract : false;
         return (
           <tr key={i} className={row}>
             <td className="first">
@@ -21,12 +22,22 @@ var PayrollTable = React.createClass({
               { /(traded|waived|retired)/.test(player.status)
                 ? <i className="status fa fa-info-circle" title={ player.status.charAt(0).toUpperCase() + player.status.slice(1) }></i> : null }
             </td>
-            { player.capnum === '0.000' ? <td className="num zero">-</td> : <td className="num">{player.capnum}</td> }
-            { player.caphit === '0.000' ? <td className="hit zero">-</td> : <td className="hit">{player.caphit}</td> }
+            { player.capnum === '0.000' || signed ? <td className="num zero">-</td> : <td className="num">{player.capnum}</td> }
+            { player.caphit === '0.000' || signed ? <td className="hit zero">-</td> : <td className="hit">{player.caphit}</td> }
             { player.contract.map(function(salary, j) {
-              if (salary) {
-                return <td key={j} className={ j === year ? 'cur' : '' }><span className={ /(UFA|RFA)/.test(salary) ? salary : '' }>{salary}</span></td>;
-              } else { return <td key={j} className={ j === 14 ? 'last' : '' }></td>; }
+              cell = j === year ? 'cur' : '';
+              cell = j === 14 ? cell + ' last' : cell;
+              status = /(UFA|RFA)/.test(salary) ? salary : '';
+              status = j === year && signed ? player.prev_contract : status;
+              return (
+                <td key={j} className={cell}>
+                  <span className={status}>
+                    { salary && !signed ? salary : null }
+                    { signed && j !== year ? '' : null }
+                    { signed && j === year ? player.prev_contract : null }
+                  </span>
+                </td>
+              );
             }) }
           </tr>
         );

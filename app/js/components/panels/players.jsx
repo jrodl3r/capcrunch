@@ -75,7 +75,7 @@ var PlayersPanel = React.createClass({
     { this.props.playerGroup.length
       ? <div className="inner">
       { this.props.playerType === 'inactive' && this.props.createdData
-        ? <ul>{ this.props.createdData.length && this.props.createdData[0].team === this.props.playerGroup[0].team
+        ? <ul>{ this.props.createdData.length && this.props.createdData[0].team === this.props.activeTeam
                 ? this.buildPlayerList(this.props.createdData, 'created') : null }
               {this.buildPlayerList(this.props.playerGroup, this.props.playerType)}</ul>
         : <ul>{this.buildPlayerList(this.props.playerGroup, this.props.playerType)}</ul> }

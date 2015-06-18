@@ -19,9 +19,10 @@ var UI = {
   },
 
   detect: function() {
-    if ($.os.phone || $.os.tablet && !$.browser.ie) { UI.showMobileSplash(); }
+    if ($.os.phone || $.os.tablet || $.browser.ie) { UI.showDisabledSplash(); }
     if ($.browser.firefox) { $('html').addClass('moz'); }
     if ($.browser.safari) { $('html').addClass('saf'); }
+    if (/Win\d{2}|Windows/.test(navigator.platform)) { $('html').addClass('windows'); }
   },
 
   events: function() {
@@ -149,10 +150,6 @@ var UI = {
     $('#' + e.target.getAttribute('data-target')).removeClass('active');
   },
 
-  changePlayerInput: function(e) {
-    $(e.target).addClass('active');
-  },
-
   formatSalary: function(e) {
     var str = e.target.value;
     if (str === '' || str === '0') {
@@ -238,10 +235,11 @@ var UI = {
     return false;
   },
 
-  showMobileSplash: function() {
+  showDisabledSplash: function() {
+    var msg = $.browser.ie ? 'IE is currently unsupported<br/><br/>Please use Chrome or Firefox' : 'Mobile Version Coming Soon...';
     $('body').addClass('unsupported');
     $('#loading, #teams, #app, header, footer').css('display', 'none');
-    $('#main').append('<div id="unsupported"><img className="logo" src="img/logo.svg"/><p>Mobile Version Coming Soon...</p></div>');
+    $('#main').append('<div id="unsupported"><img className="logo" src="img/logo.svg"/><p>' + msg + '</p></div>');
   }
 };
 

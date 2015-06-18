@@ -4,18 +4,13 @@ var UI = require('../../ui.js');
 
 var UserPicks = React.createClass({
 
-  showUserPicks: function() {
-    $('#user-picks-list').attr('class', 'active');
-    $('#user-picks-list').scrollTo(0);
+  addUserPick: function(e) {
+    this.props.addUserAsset(e);
+    this.hideUserPicks();
   },
 
   hideUserPicks: function() {
     $('#user-picks-list').attr('class', '');
-  },
-
-  addUserPick: function(e) {
-    this.props.addUserAsset(e);
-    this.hideUserPicks();
   },
 
   buildUserPicksList: function(year) {
@@ -32,7 +27,7 @@ var UserPicks = React.createClass({
           if (this.props.tradeData[y].picks.user[z].id === id) {
             return (
               <li key={i} className="disabled inplay">
-                {label} Round { pick.status !== 'own' ? <span> (from {pick.from.id})</span> : null }
+                {label} Round { pick.status !== 'own' && pick.from ? <span> (from {pick.from.id})</span> : null }
                 <i className="fa fa-check"></i>
               </li>
             );
@@ -40,7 +35,7 @@ var UserPicks = React.createClass({
       if (this.props.queuedPicks.map(function(p){ return p.id; }).indexOf(id) !== -1) {
         return (
           <li key={i} className="disabled inplay">
-            {label} Round { pick.status !== 'own' ? <span> (from {pick.from.id})</span> : null }
+            {label} Round { pick.status !== 'own' && pick.from ? <span> (from {pick.from.id})</span> : null }
             <i className="fa fa-plus"></i>
           </li>
         );
@@ -71,9 +66,6 @@ var UserPicks = React.createClass({
 
     return (
       <div id="user-picks">
-        <a className="user-picks-button" onMouseOver={this.showUserPicks}>
-          <i className="fa fa-server" onMouseEnter={this.showUserPicks}></i>
-        </a>
         <ul id="user-picks-list" onMouseLeave={this.hideUserPicks}>
           <li className="picks-title">─ 2015 Draft ──────</li>
           {this.buildUserPicksList('15')}

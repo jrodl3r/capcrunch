@@ -17,7 +17,10 @@ var RosterMenu = React.createClass({
           resetShare={this.props.resetShare}
           saveRoster={this.props.saveRoster} />
         <OverviewPanel
+          changeView={this.props.changeView}
           dragType={this.props.dragData.type}
+          activeTeam={this.props.teamData.id}
+          userTeam={this.props.playerData.team}
           unsigned={this.props.playerData.unsigned}
           signed={this.props.playerData.signed}
           created={this.props.playerData.created}
@@ -25,7 +28,9 @@ var RosterMenu = React.createClass({
           undoTrade={this.props.undoTrade}
           undoCreate={this.props.undoCreate}
           signPlayer={this.props.signPlayer}
-          undoSigning={this.props.undoSigning} />
+          undoSigning={this.props.undoSigning}
+          onRemoveDragEnter={this.props.onRemoveDragEnter}
+          onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <PlayersPanel playerType="forwards" panelTitle="Forwards" panelId="forwards-list"
           year={this.props.capData.year}
           dragType={this.props.dragData.type}
@@ -77,6 +82,7 @@ var RosterMenu = React.createClass({
           panelData={this.props.panelData}
           tradeData={this.props.tradeData}
           createdData={this.props.playerData.created}
+          activeTeam={this.props.teamData.id}
           playerGroup={this.props.teamData.players.inactive}
           onItemMouseEnter={this.props.onItemMouseEnter}
           onItemMouseLeave={this.props.onItemMouseLeave}
@@ -89,6 +95,7 @@ var RosterMenu = React.createClass({
           onRemoveDragLeave={this.props.onRemoveDragLeave} />
         <ActionsPanel
           year={this.props.capData.year}
+          changeView={this.props.changeView}
           dragType={this.props.dragData.type}
           panelData={this.props.panelData}
           teamData={this.props.teamData}

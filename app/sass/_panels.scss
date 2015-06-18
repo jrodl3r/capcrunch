@@ -14,12 +14,14 @@
   border-radius: $border-radius;
   box-shadow: 0 0 2px 0 rgba(123,123,123, .1) inset;
   overflow: hidden;
-  transition: .4s;
+  transition: height .4s, min-height 0s;
   transform: translateZ(0);
 
   &.collapsed {
     height: $panel-titlebar-height !important;
+    min-height: 0 !important;
 
+    .loading-list { opacity: 0; }
     .title { color: #585858; }
   }
 
@@ -85,24 +87,25 @@
   }
 }
 
-.loading-list, .remove-player, .waiting {
+.loading-list, .remove-player {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 0;
   height: 0;
   width: 300px;
   color: rgba(255,255,255, .2);
   font-size: 18px;
   font-weight: 500;
-  line-height: 200px;
   background: rgba(23,24,25, .8);
   border-radius: $border-radius;
   box-shadow: 0 0 100px 0 rgba(0,0,0, .5) inset;
   opacity: 0;
   overflow: inherit;
+  cursor: default;
   transform: translateZ(0);
   transition: opacity .3s, height 0s .3s;
-
-  .short & { line-height: 134px; }
 
   i {
     position: relative;
@@ -114,14 +117,14 @@
     position: absolute;
     z-index: 4;
     top: 0;
+    left: 0;
     height: 100%;
     width: inherit;
   }
 }
 
 .loading-list.active,
-.remove-player.active,
-.waiting.active {
+.remove-player.active {
   z-index: 3;
   height: 100%;
   opacity: 1;
@@ -141,8 +144,7 @@
 
   i {
     position: relative;
-    top: 2px;
-    left: -6px;
-    font-size: 21px;
+    left: -10px;
+    font-size: 22px;
   }
 }

@@ -116,12 +116,12 @@ ul {
   opacity: 0;
   overflow: hidden;
   transform: translateZ(0);
-  transition: opacity .01s, height 0s .01s;
+  transition: opacity .5s, height 0s .5s;
 
   &.active {
     top: 50%;
     opacity: .25;
-    transition: opacity .01s, height 0s;
+    transition: opacity .1s, height 0s;
   }
 
   i {

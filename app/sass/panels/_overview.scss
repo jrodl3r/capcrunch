@@ -5,9 +5,7 @@
   opacity: 0;
   transition: opacity .4s .35s, height .4s .75s, margin .4s .75s;
 
-  .title {
-    background: linear-gradient(to top, rgba(21, 21, 21, 0.03) 0%, rgba(60, 60, 60, 0.5));//transparent
-  }
+  .title { background: linear-gradient(to top, rgba(21, 21, 21, 0.03) 0%, rgba(60, 60, 60, 0.5)); }
 
   > .inner {
     max-height: 191px;
@@ -39,6 +37,7 @@
 
     &::placeholder { color: #222; }
     &:hover { color: #222; background: #777; }
+    &:focus { background: #AAA; }
     &.active { background: #686868; }
   }
 
@@ -84,9 +83,15 @@
       margin-right: 0;
       color: #525252;
     }
+
+    .salary {
+      width: 70px;
+      margin-right: 10px;
+      color: #515151;
+    }
   }
 
-  .signed .name { width: 165px; }
+  .signed .name, .created .name { width: 165px; }
 
   .button {
     height: 27px;
@@ -162,7 +167,6 @@
     opacity: 0;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 -1px 0 rgba(0,0,0, .2) inset;
     transform: translateX(-300px);
     transition: all .25s, height 0s .25s, opacity 0s .25s;
 
@@ -207,17 +211,13 @@
 
         &.sign { margin-right: 0; background: #444; cursor: default; }
         &.sign:hover { text-shadow: none; }
-        &.sign.enabled:hover { color: #C5C5C5; background: #457B45; cursor: pointer; }
+        &.sign.enabled:hover, &.sign.enabled:focus { color: #C5C5C5; background: #457B45; cursor: pointer; }
         &.sign.enabled, &.cancel { background: #232323; }
-        &.cancel:hover { color: #AAA; }//background: #8E4343;
+        &.cancel:hover, &.cancel:focus { color: #8E4343; text-shadow: none; }
       }
     }
   }
 
   .confirm-text { padding-right: 10px; }
   .confirm-divider { padding: 0 4px; }
-
-  .waiting { color: rgba(255,255,255, .35); }
-
-
 }

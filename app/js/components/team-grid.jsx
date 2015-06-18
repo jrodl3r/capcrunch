@@ -4,10 +4,6 @@ var Teams = require('../static/teams.js'),
 
 TeamGrid = React.createClass({
 
-  shouldComponentUpdate: function(nextProps) {
-    return this.props.activeView !== nextProps.activeView;
-  },
-
   getDefaultProps: function() {
     return { teams: Teams };
   },

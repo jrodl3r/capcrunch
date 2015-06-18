@@ -1,6 +1,6 @@
 'use strict';
 
-var UserPicks = require('./user-picks.js'),
+var UserPicks = require('./user-picks.jsx'),
     TeamList  = require('../../static/teams.js'),
     Messages  = require('../../static/messages.js'),
     UI        = require('../../ui.js');
@@ -60,7 +60,9 @@ var Trades = React.createClass({
     var index = e.currentTarget.getAttribute('data-index'),
         year = e.currentTarget.getAttribute('data-year'),
         label = e.currentTarget.getAttribute('data-label');
-    this.props.addTradePick('user', year, index, label);
+    if (this.props.tradeData.user.length + this.props.tradeData.picks.user.length === maxPlayers) {
+      UI.showActionMessage('trade', Messages.trade.max_players);
+    } else { this.props.addTradePick('user', year, index, label); }
   },
 
   removeAsset: function(e) {
@@ -178,26 +180,28 @@ var Trades = React.createClass({
     this.forceUpdate();
   },
 
+  showUserPicks: function() {
+    $('#user-picks-list').attr('class', 'active').scrollTo({ endY: 0, duration: 250 });
+  },
+
   render: function() {
 
     return (
-      <div id="trades" className={ this.props.activeTab === 'trades' ? 'tab-area active' + this.props.tradeSize : 'tab-area' }>
+      <div id="trades" className={ this.props.panelData.active === 'trades' ? 'tab-area active' + this.props.tradeSize : 'tab-area' }>
         <div className="inner">
           <p id="trade-player-msg">{Messages.trade.heading}</p>
           <div id="trade-drop-area">Drop Players</div>
-          <select id="trade-team-select" defaultValue="0"
+          <select id="trade-team-select" defaultValue="0" onChange={this.changeTradeTeam}
             className={ this.props.tradeData.league.length ? 'disabled' : '' }
-            disabled={ this.props.tradeData.league.length ? 'disabled' : false }
-            onChange={this.changeTradeTeam}>
+            disabled={ this.props.tradeData.league.length ? 'disabled' : false }>
             <option value="0" disabled>Team</option>
           { teams.map(function(team) {
             if (team.id !== this.props.teamData.id) { return <option key={team.id} value={team.id}>{team.id}</option>; }
           }.bind(this)) }
           </select>
-          <select id="trade-player-select" defaultValue="0"
+          <select id="trade-player-select" defaultValue="0" onChange={this.changeTradePlayer}
             className={ this.props.tradeTeam.id ? '' : 'disabled' }
-            disabled={ this.props.tradeTeam.id ? '' : 'disabled' }
-            onChange={this.changeTradePlayer}>
+            disabled={ this.props.tradeTeam.id ? '' : 'disabled' }>
             <option value="0" disabled="disabled">Players &amp; Draft Picks</option>
             <option disabled="disabled">─ Forwards ────────</option>
             {this.buildTeamList('forwards', this.props.tradeTeam.forwards, this.props.tradeData.league, this.props.playerData.acquired)}
@@ -239,6 +243,9 @@ var Trades = React.createClass({
           : <ul className="list-placeholder">
               <li><div>{ this.props.tradeTeam.id ? this.props.tradeTeam.id : '- - -' }</div></li>
             </ul> }
+            <a className="user-picks-button" onMouseOver={this.showUserPicks}>
+              <i className="fa fa-server" onMouseEnter={this.showUserPicks}></i>
+            </a>
           </div>
           <UserPicks
             userTeam={this.props.teamData.id}
@@ -246,7 +253,8 @@ var Trades = React.createClass({
             tradeData={this.props.tradeData.trades}
             queuedPicks={this.props.tradeData.picks.user}
             addUserAsset={this.addUserAsset} />
-          <button id="trade-player-button" onClick={this.executeTrade}>Execute Trade</button>
+          <button id="trade-player-button" onClick={this.executeTrade}
+            className={ this.props.userCount && this.props.leagueCount ? 'enabled' : '' }>Execute Trade</button>
           <div id="trade-player-confirm" className="transaction-confirm">
             <span>Traded Executed <i className="fa fa-check"></i></span>
           </div>

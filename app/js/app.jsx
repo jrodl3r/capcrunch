@@ -10,10 +10,9 @@ var TeamGrid    = require('./components/team-grid.jsx'),
     Messages    = require('./static/messages.js'),
     Timers      = require('./static/timers.js'),
     UI          = require('./ui.js'),
-    Socket      = io.connect('', { 'transports': ['websocket'] });
-
-var update   = React.addons.update,
-    dropData = { origin : '', cur : '', last : null, action : '' };
+    Socket      = io.connect('', { 'transports': ['websocket'] }),
+    update      = React.addons.update,
+    dropData    = { origin : '', cur : '', last : null, action : '' };
 
 var App = React.createClass({
 
@@ -127,7 +126,7 @@ var App = React.createClass({
     this.setState({notify: notify});
   },
 
-  clearDrag: function() { // TODO: don't setState, return data (avoid +rerender)
+  clearDrag: function() {
     var panelData = this.state.panelData,
         playerData = this.state.playerData,
         lineData = this.updateAltLines(),
@@ -177,9 +176,13 @@ var App = React.createClass({
         if (playerData.team === teamData.id) {
           if (tradeData.trades.length) { teamData = this.loadTradeData(teamData, 'loading'); } // Action Data (traded/acquired)
           panelData.enabled = this.isCleanTeam(teamData.id);
+          if (panelData.enabled) { panelData.active = 'trades'; }
         } else { // Passive Action Data (hide players acquired by active team)
           if (tradeData.trades.length) { teamData = this.loadTradeData(teamData, 'loading', 'passive'); }
-          if (panelData.enabled) { panelData.enabled = false; } // TODO: Prompt User Trades Disabled
+          if (panelData.enabled) {
+            panelData.enabled = false; // TODO: Prompt User Trades Disabled
+            panelData.active = 'createplayer';
+          }
         }}
       this.resetTradeData('active'); // TODO: Prompt User Clearing Trade
       this.setState({ teamData : teamData }, function() { this.changeView('roster'); });
@@ -245,6 +248,7 @@ var App = React.createClass({
         this.changeTeam(data.activeTeam);
         this.loadAltLines();
         UI.clearHover();
+        $('#team-grid div.' + this.state.playerData.team).addClass('active');
       });
     } else {
       this.changeView('teams');
@@ -310,7 +314,7 @@ var App = React.createClass({
     }
   },
 
-  resetShare: function() { // resetShareView()
+  resetShare: function() {
     var shareData = this.state.shareData;
     shareData.view = 'input';
     this.setState({ shareData : shareData });
@@ -579,6 +583,7 @@ var App = React.createClass({
     player.status = 'active';
     player.capnum = data.salary;
     player.caphit = data.salary;
+    player.duration = data.duration;
     player.id = (9901 + playerData.created.length).toString();
     setTimeout(function() {
       playerData.created.push(player);
@@ -644,6 +649,7 @@ var App = React.createClass({
       player.contract = contract;
       player.caphit = salary;
       player.capnum = salary;
+      player.duration = duration;
       for (pos in rosterData) {
         if (rosterData.hasOwnProperty(pos)) {
           if (rosterData[pos].id === player.id) {
@@ -878,14 +884,20 @@ var App = React.createClass({
         playerData = this.state.playerData,
         altStatus = this.isAltLine(dropData.origin),
         player = this.state.rosterData[dropData.origin],
-        unsigned = player.capnum === '0.000' ? true : false,
-        capData = unsigned ? this.updateCapStats('remove', 'unsigned') : this.updateCapStats('remove', player.capnum),
+        capData = player.capnum === '0.000' ? this.updateCapStats('remove', 'unsigned') : this.updateCapStats('remove', player.capnum),
         wasCleared = playerData.cleared.indexOf(player.id),
         status = 'active', index;
     if (wasCleared !== -1) { playerData.cleared.splice(wasCleared, 1); status = 'injured'; }
     if (player.team === teamData.id && player.group !== 'created') {
       index = teamData.players[player.group].map(function(p){ return p.id; }).indexOf(player.id);
       teamData.players[player.group][index].status = status;
+      if (player.prev_contract) {
+        teamData.players[player.group][index].contract = ['','','','','','','','','','','','','','',''];
+        teamData.players[player.group][index].contract[6] = player.prev_contract;
+        teamData.players[player.group][index].capnum = '0.000';
+        teamData.players[player.group][index].caphit = '0.000';
+        teamData.players[player.group][index].prev_contract = '';
+      }
       if (trading) { teamData.players[player.group][index].action = 'queued'; }
     } else if (/(acquired|created)/.test(player.action)) {
       index = playerData[player.action].map(function(p){ return p.id; }).indexOf(player.id);
@@ -894,10 +906,10 @@ var App = React.createClass({
     altStatus = altStatus || 'inplay';
     index = playerData[altStatus].map(function(p){ return p.id; }).indexOf(player.id);
     playerData[altStatus].splice(index, 1);
-    if (unsigned) {
-      index = playerData.unsigned.map(function(p){ return p.id; }).indexOf(player.id);
-      playerData.unsigned.splice(index, 1);
-    }
+    index = playerData.signed.map(function(p){ return p.id; }).indexOf(player.id);
+    if (index !== -1) { playerData.signed.splice(index, 1); }
+    index = playerData.unsigned.map(function(p){ return p.id; }).indexOf(player.id);
+    if (index !== -1) { playerData.unsigned.splice(index, 1); }
     this.setState(update(this.state, {
       capData    : { $set: capData },
       playerData : { $set: playerData },
@@ -1016,6 +1028,7 @@ var App = React.createClass({
             <RosterMenu
               capData={this.state.capData}
               viewData={this.state.viewData}
+              changeView={this.changeView}
               dragData={this.state.dragData}
               panelData={this.state.panelData}
               teamData={this.state.teamData}
