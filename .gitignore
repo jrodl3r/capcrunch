@@ -12,7 +12,7 @@ node_modules
 /design
 /public/css/*.css*
 /public/js/*.js*
-/public/*.html
+#/public/*.html
 /tools/payrolls/data
 /tools/payrolls/img
 /tools/picks/data
