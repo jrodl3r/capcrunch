@@ -1,15 +1,20 @@
 'use strict';
 
-var UI  = require('../../ui.js');
+require('setimmediate');
+
+var UI = require('../../ui.js'),
+    TimerMixin  = require('react-timer-mixin');
 
 var SharePanel = React.createClass({
+
+  mixins: [TimerMixin],
 
   saveRoster: function(e) {
     e.preventDefault();
     var name = document.getElementById('roster-name').value || this.props.shareData.name || this.props.teamName;
     document.getElementById('share-button').className = 'clicked';
     this.props.saveRoster(name);
-    setTimeout(function() {
+    this.setTimeout(() => {
       document.getElementById('share-button').className = '';
     }, 1000);
   },

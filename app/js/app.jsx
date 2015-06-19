@@ -1,5 +1,7 @@
 'use strict';
 
+require('setimmediate');
+
 var TeamGrid    = require('./components/team-grid.jsx'),
     Loading     = require('./components/loading.jsx'),
     Header      = require('./components/header.jsx'),
@@ -10,12 +12,15 @@ var TeamGrid    = require('./components/team-grid.jsx'),
     Messages    = require('./static/messages.js'),
     Timers      = require('./static/timers.js'),
     UI          = require('./ui.js'),
+    TimerMixin  = require('react-timer-mixin'),
     Socket      = io.connect('', { 'transports': ['websocket'] }),
     dropData    = { origin : '', cur : '', last : null, action : '' },
     update      = React.addons.update,
     onboard     = true;
 
 var App = React.createClass({
+
+  mixins: [TimerMixin],
 
   getInitialState: function() {
     return {
@@ -125,7 +130,7 @@ var App = React.createClass({
     if (!this.state.notify.label) {
       var notify = {label: label, msg: msg};
       this.setState({notify: notify});
-      setTimeout(this.hideNotify, Timers.notify);
+      this.setTimeout(this.hideNotify, Timers.notify);
     }
   },
 
@@ -281,9 +286,7 @@ var App = React.createClass({
       shareData.name = name || this.state.teamData.name;
       shareData.view = 'loading';
       this.setState({ shareData : shareData });
-      setTimeout(function() {
-        Socket.emit('save roster', data);
-      }, Timers.save);
+      this.setTimeout(() => { Socket.emit('save roster', data); }, Timers.save);
     } else { this.notifyUser('tip', Messages.error.min_players); }
   },
 
@@ -411,7 +414,7 @@ var App = React.createClass({
         tradeTeam = { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [], picks : { Y15: [], Y16: [], Y17: [], Y18: [] }},
         playerData = this.state.playerData, teamData, trade = {};
     this.changePanelView('loading');
-    setTimeout(function() {
+    this.setTimeout(() => {
       teamData = this.loadTradeData(this.state.teamData);
       if (!playerData.team) { playerData.team = teamData.id; }
       playerData.traded = playerData.traded.concat(this.state.tradeData.players.user);
@@ -431,7 +434,7 @@ var App = React.createClass({
       }), function() { UI.autoUpdatePanels(); });
       UI.clearAction('trade-executed');
       UI.resetPanelScroll();
-    }.bind(this), Timers.confirm);
+    }, Timers.confirm);
   },
 
   addTradePlayer: function(type, player, index, group) {
@@ -478,7 +481,7 @@ var App = React.createClass({
     var tradeData = this.state.tradeData,
         teamData = this.state.teamData, tradeIndex, player;
     $('#trade-item-' + id).removeClass('active');
-    setTimeout(function() {
+    this.setTimeout(() => {
       if (type === 'user') {
         tradeIndex = tradeData.user.indexOf(id);
         player = this.state.tradeData.players.user[tradeIndex];
@@ -496,7 +499,7 @@ var App = React.createClass({
         UI.autoUpdatePanels();
         this.verifyTrade();
       });
-    }.bind(this), Timers.item);
+    }, Timers.item);
   },
 
   verifyTrade: function() {
@@ -607,7 +610,7 @@ var App = React.createClass({
     player.caphit = data.salary;
     player.duration = data.duration;
     player.id = (9901 + playerData.created.length).toString();
-    setTimeout(function() {
+    this.setTimeout(() => {
       playerData.created.push(player);
       if (!playerData.team) { playerData.team = player.team; }
       this.setState(update(this.state, {
@@ -616,7 +619,7 @@ var App = React.createClass({
       }));
       UI.clearAction('create');
       UI.resetPanelScroll('inactive');
-    }.bind(this), Timers.confirm);
+    }, Timers.confirm);
   },
 
   undoCreate: function(e) {
@@ -761,10 +764,10 @@ var App = React.createClass({
     e.dataTransfer.effectAllowed = 'copy';
     e.dataTransfer.setData('text', '');
     e.target.parentNode.className = 'row engaged';
-    setTimeout(function() {
+    this.setTimeout(() => {
       var panelData = update(this.state.panelData, { engaged : { $set: true }});
       this.setState({ panelData : panelData });
-    }.bind(this), 1);
+    }, 1);
   },
 
   handleItemDragEnd: function(e) {
