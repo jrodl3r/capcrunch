@@ -77,7 +77,14 @@ ul {
   min-height: 680px;
   width: $content-width;
   margin: $header-height auto $footer-height;
+  opacity: 1;
   transform: translateZ(0);
+  transition: .3s;
+
+  &.onboarding {
+    opacity: .5;
+    transition: opacity .7s;
+  }
 }
 
 .section {

@@ -1,11 +1,9 @@
 'use strict';
 
 var Teams = require('../static/teams.js'),
-    PRM   = React.addons.PureRenderMixin;
+    UI    = require('../ui.js');
 
 var Header = React.createClass({
-
-  mixins: [PRM],
 
   getDefaultProps: function() {
     return { teams: Teams };
@@ -46,7 +44,12 @@ var Header = React.createClass({
                   onClick={this.changeView}><i className="fa fa-trophy"></i>Roster</a>
               </li>
               <li id="tools-link"><a><i className="fa fa-server"></i>Tools</a></li>
-              <li id="help-link"><a><i className="fa fa-question-circle"></i>Help</a></li>
+              <li>
+                <a id="help-link"
+                  onMouseOver={ this.props.activeView === 'roster' ? UI.showOnboard : null }
+                  onMouseLeave={ this.props.activeView === 'roster' ? UI.hideOnboard : null }>
+                  <i className="fa fa-question-circle"></i>Help</a>
+              </li>
             </ul>
             <a id="video-demo-link"><i className="fa fa-film"></i>Watch Video Guide</a>
           </nav>

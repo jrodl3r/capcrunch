@@ -11,8 +11,9 @@ var TeamGrid    = require('./components/team-grid.jsx'),
     Timers      = require('./static/timers.js'),
     UI          = require('./ui.js'),
     Socket      = io.connect('', { 'transports': ['websocket'] }),
+    dropData    = { origin : '', cur : '', last : null, action : '' },
     update      = React.addons.update,
-    dropData    = { origin : '', cur : '', last : null, action : '' };
+    onboard     = true;
 
 var App = React.createClass({
 
@@ -61,11 +62,15 @@ var App = React.createClass({
 
   componentDidMount: function() {
     var id = this.getRosterId();
-    if (id) { Socket.emit('get roster', id); }
-    else {
+    if (id) {
+      Socket.emit('get roster', id);
+      onboard = false;
+    } else {
       $(window).on('load', function() {
         this.changeView('teams');
       }.bind(this));
+      if (/cc_loaded/.test(document.cookie)) { onboard = false; }
+      else { document.cookie = 'cc_loaded=1'; }
     }
     Socket.on('load team', this.loadTeam);
     Socket.on('load trade team', this.loadTradeTeam);
@@ -90,7 +95,12 @@ var App = React.createClass({
         next   : { $set: next }
       });
       this.setState({ viewData : viewData }, function() {
-        if (view === 'roster') { UI.resetPanelScroll(); }
+        if (view === 'roster') {
+          UI.resetPanelScroll();
+          if (onboard && !this.state.playerData.team) {
+            UI.loadOnboard();
+            onboard = false;
+          }}
         if (view === 'payroll') { UI.updateViewHeight(); }
         else if (active === 'payroll') { UI.resetViewHeight(); }
       });
@@ -1023,6 +1033,7 @@ var App = React.createClass({
     return (
       <div id="main">
         <Loading activeView={this.state.viewData.active} />
+        <div id="onboard"></div>
         <Header
           activeView={this.state.viewData.active}
           activeTeam={this.state.teamData.id}

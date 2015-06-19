@@ -201,7 +201,6 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 - 'notifications: cleanup + global/fixed-pos user notify (slide/fade)'
 - 'notifications: update messages (acquired players, UFAs, picks, etc)'
-- 'onboarding: help guide splashes + nav hover reappear'
 - 'onboarding: player + roster movement visual intro animation'
 - 'cap stats menu (¿header/panels/capStats?)'
 ---------------------------------------------------------------
@@ -216,6 +215,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'onboarding: help guide splashes + nav hover reappear'
 - 'fix execute-trade button-hover + auto-collapse panel issue'
 - 'auto-collapse empty panels + increase collapse click area'
 - 'allstar mode, tweaks + bug fixes (full details in log)'

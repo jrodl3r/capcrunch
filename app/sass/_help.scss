@@ -1,0 +1,27 @@
+// #help {}
+
+#onboard {
+  position: fixed;
+  z-index: 99;
+  top: 65px; right: 0; left: 0;
+  height: 0;
+  max-height: 960px;
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  background: url(https://s3.amazonaws.com/capcrunch/img/onboard-top.svg) top left no-repeat,
+              url(https://s3.amazonaws.com/capcrunch/img/onboard-actions.svg) bottom/46% no-repeat;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .5s, height 0s .5s;
+
+  &.active {
+    opacity: .6;
+    transition: opacity .5s .75s, height 0s;
+  }
+
+  &.hover {
+    opacity: .6;
+    transition: opacity .4s, height 0s;
+  }
+}

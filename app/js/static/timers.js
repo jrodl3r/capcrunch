@@ -1,10 +1,11 @@
 'use strict';
 
 var Timers = {
-  confirm : 1000,
   warning : 2000,
   notify  : 4000,
   save    : 1000,
+  confirm : 1000,
+  onboard : 3500,
   loading : 750,
   action  : 500,
   intro   : 350,

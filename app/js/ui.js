@@ -270,6 +270,34 @@ var UI = {
     return false;
   },
 
+  loadOnboard: function() {
+    $('#onboard').css('height', $(window).height() - 100);
+    $('#onboard, #help-link').addClass('active');
+    setTimeout(function() {
+      $('#app > .wrap').addClass('onboarding');
+    }, Timers.loading);
+    setTimeout(function() {
+      $('#onboard').removeClass('active');
+      $('#app > .wrap').removeClass('onboarding');
+    }, Timers.onboard);
+    setTimeout(function() {
+      $('#onboard').css('height', 0);
+      $('#help-link').removeClass('active');
+    }, Timers.onboard + Timers.action);
+  },
+
+  showOnboard: function() {
+    $('#onboard').css('height', $(window).height() - 100);
+    $('#onboard, #help-link').addClass('hover');
+    $('#app > .wrap').addClass('onboarding');
+  },
+
+  hideOnboard: function() {
+    $('#onboard').css('height', 0);
+    $('#onboard, #help-link').removeClass('hover');
+    $('#app > .wrap').removeClass('onboarding');
+  },
+
   showDisabledSplash: function() {
     var msg = $.browser.ie ? 'IE is currently unsupported<br/><br/>Please use Chrome or Firefox' : 'Mobile Version Coming Soon...';
     $('body').addClass('unsupported');

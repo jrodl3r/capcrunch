@@ -50,7 +50,6 @@ nav {
   line-height: 30px;
   text-align: right;
   opacity: 0;
-  // overflow: hidden;
   transition: opacity $view-shift, height $view-hide;
 
   &.active {
@@ -65,8 +64,6 @@ nav {
     position: relative;
     float: right;
     height: inherit;
-
-    // &:last-of-type a { padding-left: 10px; }
   }
 
   a {
@@ -76,7 +73,7 @@ nav {
     margin-top: -1px;
     padding: 0 24px;
     line-height: inherit;
-    color: #999;
+    color: #AAA;
     font-size: 15px;
     font-weight: 500;
     text-decoration: none;
@@ -89,10 +86,14 @@ nav {
     }
 
     &.active {
-      color: #EEE;
+      color: #FFF;
       opacity: .8;
       cursor: default;
-      &:hover { text-shadow: none; }
+
+      &:hover {
+        color: #FFF;
+        text-shadow: none;
+      }
     }
 
     i {
@@ -103,6 +104,29 @@ nav {
 
       &.fa-calculator { top: 10px; font-size: 11px !important; }
     }
+  }
+}
+
+#help-link {
+  cursor: default;
+  transition: 1s;
+
+  &:hover {
+    color: #AAA;
+    text-shadow: none;
+    opacity: .75;
+  }
+
+  &.active, &.active:hover {
+    color: #FFF;
+    text-shadow: 0 0 10px #FFF;
+    opacity: .85;
+  }
+
+  &.hover {
+    color: #FFF;
+    text-shadow: 0 0 10px #FFF;
+    transition: .4s;
   }
 }
 
@@ -205,7 +229,6 @@ footer {
   top: 38px;
   height: 36px;
   border-radius: 5px;
-  // background-color: #f06;
 
   &.active { opacity: 1; }
 
