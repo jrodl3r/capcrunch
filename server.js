@@ -54,10 +54,6 @@ app.get('/', function(req, res) {
 app.get('/:roster', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
-// TEMP
-app.get('/google11caf14346799dfa.html', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/google11caf14346799dfa.html'));
-});
 
 
 // Events
