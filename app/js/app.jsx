@@ -66,9 +66,7 @@ var App = React.createClass({
       Socket.emit('get roster', id);
       onboard = false;
     } else {
-      $(window).on('load', function() {
-        this.changeView('teams');
-      }.bind(this));
+      $(window).on('load', function() { this.changeView('teams'); }.bind(this));
       if (/cc_loaded/.test(document.cookie)) { onboard = false; }
       else { document.cookie = 'cc_loaded=1'; }
     }

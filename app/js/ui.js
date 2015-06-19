@@ -303,6 +303,20 @@ var UI = {
     $('body').addClass('unsupported');
     $('#loading, #teams, #app, header, footer').css('display', 'none');
     $('#main').append('<div id="unsupported"><img className="logo" src="img/logo.svg"/><p>' + msg + '</p></div>');
+  },
+
+  injectStyles: function(type) {
+    // var rule, st;
+    // if (type === 'onboard') {
+    //   rule = '#onboard{background:url(https://s3.amazonaws.com/capcrunch/img/onboard-top.svg) top left no-repeat,url(https://s3.amazonaws.com/capcrunch/img/onboard-actions.svg) bottom/46% no-repeat;}';
+    // }
+    // st = (function() {
+    //   var s = document.createElement('style');
+    //   s.appendChild(document.createTextNode(''));
+    //   document.head.appendChild(s);
+    //   return s;
+    // })();
+    // st.sheet.insertRule(rule, 0);
   }
 };
 
