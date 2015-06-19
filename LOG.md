@@ -2,13 +2,14 @@
 ---------------------------------------------------------------
 #### LATER (Technical) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'React initial DOM loading SSR (VERY Complicated/Extensive)'
 - 'upgrade Mongolab'
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
 ---------------------------------------------------------------
 - 'on-before-unload clear + restore state (socket/cookies?)'
 - 'gulp asset management + optimization (fonts, images)'
-- 'checkout CodeClimate, SpeedCurve, GTMetrix'
+- 'checkout SpeedCurve, GTMetrix'
 - 'error pages (h5bp)'
 ---------------------------------------------------------------
 
@@ -204,11 +205,11 @@ Post-Launch Rebuild
 - 'onboarding: player + roster movement visual intro animation'
 - 'cap stats menu (¿header/panels/capStats?)'
 ---------------------------------------------------------------
-- 'footer layout + display logic'
-- 'React initial DOM loading SSR'
 - 'browser navigation management (back/forward/history)'
 - 'limited mobile support (view shared roster + payroll + disabled panels)'
 - 'player image pre-loading (slow connection factor...)'
+- 'setup view tracking google analytics'
+- 'footer layout + display logic'
 
 
 

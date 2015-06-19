@@ -15,7 +15,6 @@ var express     = require('express'),
     Roster      = require('./models/roster.js'),
     env         = process.env.NODE_ENV || 'development',
     port        = process.env.PORT || 3000;
-    // favicon     = require('serve-favicon'),
 
 
 // Connect
@@ -41,7 +40,6 @@ if (env === 'development') {
 
 app.use(compression());
 app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: 10000000 }));
-// app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 
 
 // Routes
