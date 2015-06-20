@@ -50,7 +50,7 @@ var App = React.createClass({
       capData    : { year : 6, players : 0, unsigned : 0, hit : '0.000', space : '71.500', cap: '71.500' },
       pickData   : { Y15: [], Y16: [], Y17: [], Y18: [] },
       viewData   : { active : 'loading', last : '', next : '' },
-      shareData  : { name : '', link : '', view : 'input' },
+      shareData  : { name : '', link : '', view : 'input', text: '' },
       dragData   : { type : '', group : '', index : '', pos : '' },
       notify     : { label : '', msg : '' }
     };
@@ -285,9 +285,15 @@ var App = React.createClass({
       var shareData = this.state.shareData;
       shareData.name = name || this.state.teamData.name;
       shareData.view = 'loading';
+      shareData.text = this.buildTextRoster();
       this.setState({ shareData : shareData });
       this.setTimeout(() => { Socket.emit('save roster', data); }, Timers.save);
     } else { this.notifyUser('tip', Messages.error.min_players); }
+  },
+
+  buildTextRoster: function() {
+    UI.loader('zc');
+    return 'build-text-roster';
   },
 
   resetRoster: function() {
@@ -332,8 +338,6 @@ var App = React.createClass({
     shareData.view = 'input';
     this.setState({ shareData : shareData });
   },
-
-  buildTextRoster: function () {}, // TODO
 
   updateCapStats: function(type, salary, cap) {
     var capUpdate = cap || this.state.capData;

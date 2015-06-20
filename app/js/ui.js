@@ -305,10 +305,29 @@ var UI = {
     $('#main').append('<div id="unsupported"><img className="logo" src="img/logo.svg"/><p>' + msg + '</p></div>');
   },
 
-  injectStyles: function(type) {
-    // var rule, st;
-    // if (type === 'onboard') {
-    //   rule = '#onboard{background:url(https://s3.amazonaws.com/capcrunch/img/onboard-top.svg) top left no-repeat,url(https://s3.amazonaws.com/capcrunch/img/onboard-actions.svg) bottom/46% no-repeat;}';
+  loader: function(type) {
+    if (type === 'zc') {
+      var sc = document.createElement('script'), loaded;
+      sc.setAttribute('src', '/js/vendor/zc.js');
+      sc.onreadystatechange = sc.onload = function() {
+        if (!loaded) {
+          // console.log('executing zc');
+          var client = new ZeroClipboard(document.getElementById('text-share'), {swfPath: 'https://s3.amazonaws.com/capcrunch/js/zc.swf'});
+          client.on('ready', function(readyEvent) {
+            // console.log('executing zc is ready!');
+            client.on('aftercopy', function(e) {
+              console.log('Copied text to clipboard: ' + e.data['text/plain']);
+              // $('#text-share .copy-label')
+                // check-mark icon... Roster copied to clipboard
+              // <i className="fa fa-check"></i>
+            });
+          });
+        } loaded = true;
+      };
+      document.getElementsByTagName('head')[0].appendChild(sc);
+    }
+    // else if (type === 'onboard') {
+    //   var st, rule = '#onboard{background:url(https://s3.amazonaws.com/capcrunch/img/onboard-top.svg) top left no-repeat,url(https://s3.amazonaws.com/capcrunch/img/onboard-actions.svg) bottom/46% no-repeat;}';
     // }
     // st = (function() {
     //   var s = document.createElement('style');

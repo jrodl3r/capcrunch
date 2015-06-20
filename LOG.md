@@ -189,10 +189,9 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
+- 'share: text roster w/ actions summary builder'
 - 'share: confirm active team (on dirty roster)'
 - 'share: cleanup layout + x-browser issues'
-- 'share: twitter + facebook social sharing'
-- 'share: text roster w/ actions summary builder'
 ---------------------------------------------------------------
 - 'capstats + notify: cleanup, merge layout + display logic'
 - 'capstats: dynamic positioning slide+fade-in/out'
@@ -221,6 +220,8 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'share: copy text roster w/ zeroClipboard logic'
+- 'share: twitter + facebook social sharing + layout tweaks'
 - 'info bubbles on-panel-hover (info icon) + onboard opacity'
 - 'onboarding: help guide splashes + nav hover reappear'
 - 'fix execute-trade button-hover + auto-collapse panel issue'

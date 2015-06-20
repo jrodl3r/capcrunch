@@ -31,14 +31,6 @@ var SharePanel = React.createClass({
     else if (/\_|-|\s/.test(key) && /\_|-|\s/.test(str.substr(str.length - 1))) { return false; }
   },
 
-  copyTextRoster: function(e) {
-    e.preventDefault();
-
-    // TODO
-
-
-  },
-
   sharePopup: function(e) {
     e.preventDefault();
     var url   = encodeURIComponent(document.location),
@@ -61,11 +53,10 @@ var SharePanel = React.createClass({
   render: function() {
 
     var placeholder = this.props.shareData.name || this.props.teamName,
-        title       = encodeURIComponent(document.title),
-        url         = encodeURIComponent(document.location),
-        tw_link     = 'http://twitter.com/share?text=' + title + '%20%C2%BB&url=' + url + '&hashtags=capcrunch,nhl',
-        fb_link     = 'http://www.facebook.com/sharer.php?u=' + url + '&t=CapCrunch',
-        copy_button = 'Copy text-only roster to clipboard'; // check-mark icon... Roster copied to clipboard
+        title   = encodeURIComponent(document.title),
+        url     = encodeURIComponent(document.location),
+        tw_link = 'http://twitter.com/share?text=' + title + '%20%C2%BB&url=' + url + '&hashtags=capcrunch,nhl',
+        fb_link = 'http://www.facebook.com/sharer.php?u=' + url + '&t=CapCrunch';
 
     return (
       <div id="share">
@@ -89,8 +80,8 @@ var SharePanel = React.createClass({
               <i className="fa fa-twitter"></i> Share on Twitter</a>
             <a id="facebook-share" href={fb_link} data-type="fb" onClick={this.sharePopup} target="_blank">
               <i className="fa fa-facebook"></i> Share on Facebook</a>
-            <a id="text-share" onClick={this.copyTextRoster}>
-              <i className="fa fa-pencil"></i> {copy_button}</a>
+            <a id="text-share" data-clipboard-text={this.props.shareData.text}><i className="fa fa-pencil"></i>
+              <span className="copy-label">Copy text-only roster to clipboard</span></a>
           </div>
         </div>
       </div>
