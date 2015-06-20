@@ -30,7 +30,9 @@
 - 'static dropData to state [?]'
 - 'team logo strip on team-select hover (quicker team change)'
 - 'pre-cache team + player images on team select' [really?]
-- 'update window.location on team-select (ex: capcrunch.io/BUF)'
+- 'update window.location on team-select (ex: capcrunch.io/BUF) (don't F w/ location)
+- 'player image pre-loading (slow connection factor...)'
+- 'onboarding/intro animation (solitare deal animation)'
 ---------------------------------------------------------------
 
 
@@ -65,12 +67,27 @@ Post-Launch Rebuild
 
 
 
+---------------------------------------------------------------
+## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+- 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
+- 'FF: view height not 100% accurate after changing team'
+- 'Backspace key refresh/back-page-nav...Grr!'
+- 'Occasional missed list-item dragstart'
+- 'tile drag-end on trades hover sticking + not queuing (BN/Hodgson)'
+- 'tile drag-end not removing player'
+---------------------------------------------------------------
+
+
+
+---------------------------------------------------------------
 ## Grid
 ---------------------------------------------------------------
 - 'IR players cap calculation (count, payroll)'
 ---------------------------------------------------------------
 
 
+---------------------------------------------------------------
 ## Roster
 ---------------------------------------------------------------
 - 'obfuscated group slides into view (list-item-clicked)'
@@ -81,6 +98,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
+---------------------------------------------------------------
 ## Payroll
 ---------------------------------------------------------------
 - 'fade-in years for group on scroll-end (if header not visible)'
@@ -89,14 +107,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
-## CapStats
 ---------------------------------------------------------------
-- 'if hidden (opaque) slides down into view (scroll-end + !dragging)'
-- 'on drag-start slide-up if covering active tiles'
-- 'hide on scroll-up'
----------------------------------------------------------------
-
-
 ## GM Overview 🏆
 ---------------------------------------------------------------
 |   You have 3 Unsigned Players  ⋮  1 Created  ⋮  2 Trades     |
@@ -109,6 +120,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
+---------------------------------------------------------------
 ## Transactions
 ---------------------------------------------------------------
 - 'free-agents panel (data + layout + logic)'
@@ -124,6 +136,24 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
+---------------------------------------------------------------
+##### Help Guide
+---------------------------------------------------------------
+- 'record HD video guide w/ roster building walkthrough'
+- 'setup help view instructions + support info'
+- 'help view Video Guide heading-splash'
+- 'add help link to footer'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+##### Footer
+-------------------------------------------------------------------------------------------
+ Help ⋮ Credits ⋮ What's Next? ⋮ Feedback    some rights reserved CAPCRUNCH © 2015 ⋮ v1.0.3
+-------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------
 ##### Free Agents DB
 ---------------------------------------------------------------
 - 'store expiring 2015 contracts'
@@ -132,6 +162,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
+---------------------------------------------------------------
 ## Panels
 ---------------------------------------------------------------
 - 'drag-to-vertically-reorder panels (ex: move forwards panel below defense)' [?]
@@ -140,6 +171,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
+---------------------------------------------------------------
 ## Options
 ---------------------------------------------------------------
 - 'reusable vertical dropdown options menu'
@@ -153,69 +185,43 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
-##### Help Guide
----------------------------------------------------------------
-- 'record HD video guide w/ roster building walkthrough'
-- 'setup help view instructions + support info'
-- 'help view Video Guide heading-splash'
-- 'add help link to footer'
----------------------------------------------------------------
-
-
-##### Share
----------------------------------------------------------------
-- 'confirm active team (on dirty roster)'
----------------------------------------------------------------
-
-
-## Footer
--------------------------------------------------------------------------------------------
- Help ⋮ Credits ⋮ What's Next? ⋮ Feedback    some rights reserved CAPCRUNCH © 2015 ⋮ v1.0.3
--------------------------------------------------------------------------------------------
-
-
-
----------------------------------------------------------------
-## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
----------------------------------------------------------------
-- 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
-- 'FF: view height not 100% accurate after changing team'
-- 'Backspace key refresh/back-page-nav...Grr!'
-- 'Occasional missed list-item dragstart'
-- 'tile drag-end on trades hover sticking + not queuing (BN/Hodgson)'
-- 'tile drag-end not removing player'
----------------------------------------------------------------
-
-
 
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
+- 'share: confirm active team (on dirty roster)'
 - 'share: cleanup layout + x-browser issues'
 - 'share: twitter + facebook social sharing'
 - 'share: text roster w/ actions summary builder'
 ---------------------------------------------------------------
+- 'capstats + notify: cleanup, merge layout + display logic'
+- 'capstats: dynamic positioning slide+fade-in/out'
+  - 'show if not visible on-mouse-off-grid'
+  - 'show if not visible on-scroll-end'
+  - 'hide if visible on-drag-start + mouse-over-grid'
+  - 'hide on-scroll-up'
+---------------------------------------------------------------
+- 'options: reusable menu layout + logic (overview/actions/capstats/header)'
+- 'notify: update messages (acquired players, UFAs, picks, etc)'
+- 'footer layout + display logic'
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [v0.9.3] !!!!!
+
 - 'free agents: setup agents db collection'
 - 'free agents: list + add UFA players'
 - 'free agents: filter by team'
 - 'free agents: sort by previous salary'
 ---------------------------------------------------------------
-- 'notifications: cleanup + global/fixed-pos user notify (slide/fade)'
-- 'notifications: update messages (acquired players, UFAs, picks, etc)'
-- 'onboarding: player + roster movement visual intro animation'
-- 'cap stats menu (¿header/panels/capStats?)'
----------------------------------------------------------------
+- 'limited mobile support (enable shared/payroll, disable panels)'
 - 'browser navigation management (back/forward/history)'
-- 'limited mobile support (view shared roster + payroll + disabled panels)'
-- 'player image pre-loading (slow connection factor...)'
 - 'setup view tracking google analytics'
-- 'footer layout + display logic'
 
 
 
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'info bubbles on-panel-hover (info icon) + onboard opacity'
 - 'onboarding: help guide splashes + nav hover reappear'
 - 'fix execute-trade button-hover + auto-collapse panel issue'
 - 'auto-collapse empty panels + increase collapse click area'

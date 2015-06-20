@@ -61,12 +61,10 @@ var ActionsPanel = React.createClass({
             onDragOver={UI.dropEffect}>
           </div>
           <div id="actions-disabled-cover" className={ !this.props.panelData.enabled ? 'active' : '' }>
-            <p>Allstar Mode
-              <i className="fa fa-info-circle">
-                <span className="info-bubble"><strong>Allstar-Mode</strong> is enabled whenenver the active team does not match your roster players.</span>
-              </i><br/>
-              { this.props.playerData.team !== this.props.teamData.id
-                ? <a onClick={this.changeView}>Switch back to active team ({this.props.playerData.team})</a> : null }
+            <span className="info-bubble"><strong>Allstar-Mode</strong> is enabled whenenver the active team does not match your roster players.</span>
+            <p>Allstar Mode <i className="fa fa-info-circle"></i><br/>
+            { this.props.playerData.team !== this.props.teamData.id
+              ? <a onClick={this.changeView}>Switch back to active team ({this.props.playerData.team})</a> : null }
             </p>
           </div>
         </div>

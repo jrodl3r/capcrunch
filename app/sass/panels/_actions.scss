@@ -562,6 +562,19 @@
   overflow: hidden;
   opacity: 0;
 
+  &:hover {
+
+    p { color: rgba(255,255,255, .1); }
+
+    .info-bubble {
+      top: 22px;
+      height: initial;
+      padding: 10px;
+      opacity: 1;
+      transition: top .25s, opaicty .25s, height 0s, padding 0s;
+    }
+  }
+
   &.active {
     height: auto;
     opacity: 1;
@@ -572,29 +585,17 @@
     width: 100%;
     height: auto;
     margin: 0;
-    color: rgba(255,255,255, .225);
+    color: rgba(255,255,255, .25);
     font-size: 17px;
     font-weight: 500;
     align-self: center;
+    transition: .25s;
     cursor: default;
 
     > i {
       position: relative;
       top: 1px;
       right: -10px;
-      transition: .25s;
-
-      &:hover {
-        color: rgba(255,255,255, .35);
-
-        .info-bubble {
-          top: -75px;
-          height: initial;
-          padding: 10px;
-          opacity: 1;
-          transition: opaicty .3s, height 0s, padding 0s, top .3s;
-        }
-      }
     }
 
     a {
@@ -610,37 +611,34 @@
         border-bottom: 1px dotted #444;
       }
     }
+  }
 
-    .info-bubble {
-      position: absolute;
-      top: -70px;
-      left: -192px;
-      display: block;
-      height: 0;
-      width: 282px;
-      padding: 0;
-      color: #777;
-      font-size: 11px;
-      line-height: 18px;
-      background: rgba(0,0,0, .35);
-      border-radius: $border-radius;
-      opacity: 0;
-      overflow: hidden;
-    }
+  .info-bubble {
+    position: absolute;
+    top: -30px; right: 0; left: 0;
+    display: block;
+    height: 0;
+    width: 282px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0;
+    color: #777;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 18px;
+    background: rgba(0,0,0, .35);
+    border-radius: $border-radius;
+    opacity: 0;
+    overflow: hidden;
+    cursor: default;
+    transition: top .25s, opaicty .25s, height 0s .25s, padding 0s .25s;
   }
 }
 
 #overview-disabled-cover {
   top: 34px;
 
-  p > i:hover .info-bubble { top: -55px; }
-
-  p .info-bubble {
-    top: -80px;
-    font-size: 10px;
-    line-height: 16px;
-    padding: 10px;
-  }
+  &:hover .info-bubble { top: -10px; }
 }
 
 
