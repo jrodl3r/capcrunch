@@ -214,7 +214,7 @@ var GMPanel = React.createClass({
           <div id="overview-disabled-cover" className={ this.props.userTeam && this.props.userTeam !== this.props.activeTeam ? 'active' : '' }>
             <span className="info-bubble"><strong>Allstar-Mode</strong> is enabled whenenver the active team does not match your roster players.</span>
             <p>Allstar Mode <i className="fa fa-info-circle"></i><br/>
-            <a onClick={this.changeView}>Switch back to active team ({this.props.userTeam})</a>
+              <a onClick={this.changeView}>Switch back to active team ({this.props.userTeam})</a>
             </p>
           </div>
         </div>

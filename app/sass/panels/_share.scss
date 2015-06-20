@@ -10,21 +10,6 @@
     border-radius: $border-radius;
   }
 
-  #roster-name {
-    width: 220px;
-    padding: 0 10px;
-    margin-right: 10px;
-    line-height: 32px;
-    font-size: 15px;
-    background: linear-gradient(to top, #6A6A6A 0%, #A5A5A5);
-    border: 0;
-    box-shadow: 0 0 10px 0 rgba(0,0,0, .75);
-
-    &::placeholder { color: #5A5A5A; }
-    &:hover { background: linear-gradient(to top, #666 0%, #AAA); }
-    &:focus { box-shadow: 0 0 15px 0 rgba(0,0,0, .95); }
-  }
-
   button {
     width: 70px;
     color: #CACACA;
@@ -45,6 +30,22 @@
   }
 }
 
+#roster-name {
+  width: 220px;
+  padding: 0 10px;
+  margin-right: 10px;
+  color: #111;
+  font-size: 15px;
+  line-height: 32px;
+  background: linear-gradient(to top, #6A6A6A 0%, #A5A5A5);
+  border: 0;
+  box-shadow: 0 0 10px 0 rgba(0,0,0, .75);
+
+  &::placeholder { color: #424242; }
+  &:hover { background: linear-gradient(to top, #666 0%, #AAA); }
+  &:focus { box-shadow: 0 0 15px 0 rgba(0,0,0, .95); }
+}
+
 #share-form {
   opacity: 0;
   transition: opacity .4s ease-out;
@@ -63,7 +64,7 @@
   float: left;
   height: 0;
   margin-top: -32px;
-  box-shadow: 0 0 15px 0 rgba(0,0,0, .25) inset;
+  box-shadow: 0 0 15px 0 rgba(0,0,0, .25) inset, 0 0 15px 0 rgba(0,0,0, .25);
   background: rgba(255,255,255, 0.125);
   border-radius: $border-radius;
   opacity: 0;
@@ -79,16 +80,18 @@
 }
 
 #share-loading {
+  display: flex;
   height: 0;
   margin: 0;
   padding-left: 10px;
-  color: rgba(255,255,255, .25);
-  font-size: 16px;
+  color: rgba(255,255,255, .2);
+  font-size: 18px;
   font-weight: 500;
   line-height: $share-height;
-  text-align: center;
   opacity: 0;
   overflow: hidden;
+  align-items: center;
+  justify-content: center;
   transition: opacity .35s, height 0s .35s;
   transition-timing-function: ease-out;
 
@@ -104,9 +107,8 @@
 
   i {
     position: relative;
-    top: 2px;
-    left: -6px;
-    font-size: 21px;
+    left: -10px;
+    font-size: 22px;
   }
 }
 
@@ -140,60 +142,6 @@
 
   p { margin: 0 0 15px; }
 
-  #share-close {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    font-size: 13px;
-    color: rgba(255,255,255, .15);
-
-    &:hover {
-      color: rgba(255,255,255, .35);
-      text-shadow: 0 0 5px rgba(0,0,0, .35);
-    }
-  }
-
-  #text-roster {
-    position: absolute;
-    right: 15px;
-    bottom: 0;
-    height: 25px;
-    width: 105px;
-    padding-right: 5px;
-    color: rgba(255,255,255, .3);
-    font-size: 10px;
-    font-weight: 600;
-    text-align: right;
-    line-height: 25px;
-    cursor: pointer;
-
-    &:hover {
-      color: rgba(255,255,255, .5);
-      text-shadow: 0 0 5px rgba(0,0,0, .4);
-    }
-
-    i {
-      position: relative;
-      left: -5px;
-    }
-  }
-
-  a#share-link {
-    position: absolute;
-    top: 65px;
-    left: 15px;
-    height: 32px;
-    width: 30px;
-    color: #999;
-    line-height: 32px;
-    text-align: center;
-
-    &:hover {
-      color: #111;
-      text-shadow: 0 0 5px rgba(255,255,255, .2);
-    }
-  }
-
   input {
     width: 270px;
     margin: 0 0 10px 15px;
@@ -213,72 +161,147 @@
       color: #111;
     }
   }
+}
 
-  button {
-    height: 32px;
-    width: 135px;
-    margin-left: 10px;
-    padding: 0;
-    color: #EEE;
-    font-size: 11px;
-    line-height: 30px;
-    text-align: left;
-    text-shadow: 0 0 2px rgba(0,0,0, .35);
-    border: 1px solid #9A9A9A;
-    background: #AAA;
+#share-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255, .15);
 
-    &:first-of-type {
-      width: 125px;
-      margin-left: 15px;
-
-      i { font-size: 15px; }
-    }
-
-    &:hover { background: #9A9A9A; }
-
-    &#twitter-share, &#facebook-share {
-      border: 0;
-      padding-left: 4px;
-      color: rgba(255,255,255, .75);
-      text-shadow: 0 1px 1px rgba(51,86,148, .75);
-      box-shadow: 0 0 10px rgba(255,255,255, .2), 0 0 1px rgba(0,0,0, .15) inset;
-
-      &:hover {
-        border: 0;
-        padding-left: 4px;
-        color: rgba(255,255,255, .95);
-        text-shadow: 0 1px 1px rgba(51,86,148, .95);
-        box-shadow: 0 0 5px rgba(255,255,255, .25), 0 2px 8px rgba(255,255,255, .15) inset;
-
-        i { text-shadow: 0 1px 1px rgba(51,86,148, .95); }
-      }
-
-      &:active {
-        color: rgba(255,255,255, .5);
-        text-shadow: 0 1px 1px rgba(51,86,148, .25);
-        box-shadow: 0 0 10px rgba(255,255,255, .15), 0 0 1px rgba(0,0,0, .15) inset;
-
-        i {
-          color: rgba(255,255,255, .5);
-          text-shadow: 0 1px 1px rgba(51,86,148, .25);
-        }
-      }
-    }
-
-    &#twitter-share {
-      background: linear-gradient(to top, #335694 0%, #06a5e0 100%);
-
-      i { position: relative; top: 1px; }
-    }
-
-    &#facebook-share { background: linear-gradient(to top, #335694 0%, #528bc6 100%); }
-
-    i {
-      color: #FFF;
-      font-size: 14px;
-      padding: 0 3px 0 6px;
-      transition: .4s;
-      transition-timing-function: ease-out;
-    }
+  &:hover {
+    color: rgba(255,255,255, .35);
+    text-shadow: 0 0 5px rgba(0,0,0, .35);
   }
 }
+
+#share-link {
+  position: absolute;
+  top: 65px;
+  left: 15px;
+  height: 32px;
+  width: 30px;
+  color: #999;
+  line-height: 36px;
+  text-align: center;
+
+  &:hover {
+    color: #111;
+    text-shadow: 0 0 5px rgba(255,255,255, .2);
+  }
+}
+
+#twitter-share, #facebook-share {
+  float: left;
+  height: 32px;
+  width: 135px;
+  margin-left: 10px;
+  padding-left: 4px;
+  color: rgba(255,255,255, .75);
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 32px;
+  text-align: left;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(51,86,148, .75);
+  border: 0;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px rgba(255,255,255, .2), 0 0 1px rgba(0,0,0, .15) inset;
+
+  &:hover {
+    color: rgba(255,255,255, .95);
+    text-shadow: 0 1px 1px rgba(51,86,148, .95);
+    box-shadow: 0 0 5px rgba(255,255,255, .25), 0 2px 8px rgba(255,255,255, .15) inset;
+
+    i { text-shadow: 0 1px 1px rgba(51,86,148, .95); }
+  }
+
+  &:active {
+    color: rgba(255,255,255, .5);
+    text-shadow: 0 1px 1px rgba(51,86,148, .25);
+    box-shadow: 0 0 10px rgba(255,255,255, .15), 0 0 1px rgba(0,0,0, .15) inset;
+
+    i {
+      color: rgba(255,255,255, .5);
+      text-shadow: 0 1px 1px rgba(51,86,148, .25);
+    }
+  }
+
+  i {
+    position: relative;
+    top: 3px;
+    padding: 0 3px 0 4px;
+    color: #FFF;
+    font-size: 16px;
+    transition: .4s ease-out;
+  }
+}
+
+#twitter-share {
+  width: 125px;
+  margin-left: 15px;
+  background: linear-gradient(to top, #335694 0%, #06a5e0 100%);
+
+  i { font-size: 17px; }
+}
+
+#facebook-share {
+  background: linear-gradient(to top, #335694 0%, #528bc6 100%);
+
+  i { padding-right: 4px; }
+}
+
+#text-share {
+  float: left;
+  height: 25px;
+  width: 270px;
+  margin: 10px 0 0 15px;
+  color: rgba(255,255,255, .4);
+  font-size: 11px;
+  font-weight: bold;
+  text-shadow: 0 1px 0 rgba(0,0,0, .25);
+  text-align: center;
+  text-indent: -10px;
+
+  &:hover {
+    color: rgba(255,255,255, .55);
+    text-shadow: 0 1px 0 rgba(0,0,0, .35);
+  }
+
+  i {
+    font-size: 14px;
+    position: relative;
+    top: 1px;
+    left: 10px;
+    padding-right: 12px;
+  }
+}
+
+
+#text-roster {
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+  height: 25px;
+  width: 105px;
+  padding-right: 5px;
+  color: rgba(255,255,255, .3);
+  font-size: 10px;
+  font-weight: 600;
+  text-align: right;
+  line-height: 25px;
+  cursor: pointer;
+
+  &:hover {
+    color: rgba(255,255,255, .5);
+    text-shadow: 0 0 5px rgba(0,0,0, .4);
+  }
+
+  i {
+    position: relative;
+    left: -5px;
+  }
+}
+
+

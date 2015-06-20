@@ -9,6 +9,10 @@ var SharePanel = React.createClass({
 
   mixins: [TimerMixin],
 
+  componentDidUpdate: function() {
+    if (!$('#roster-name').val()) { $('#roster-name').val(this.props.shareData.name); }
+  },
+
   saveRoster: function(e) {
     e.preventDefault();
     var name = document.getElementById('roster-name').value || this.props.shareData.name || this.props.teamName;
@@ -27,9 +31,27 @@ var SharePanel = React.createClass({
     else if (/\_|-|\s/.test(key) && /\_|-|\s/.test(str.substr(str.length - 1))) { return false; }
   },
 
-  shareTwitter: function(e) { e.preventDefault(); }, // TODO
-  shareFacebook: function(e) { e.preventDefault(); }, // TODO
-  showTextRoster: function(e) { e.preventDefault(); }, // TODO
+  copyTextRoster: function(e) {
+    e.preventDefault();
+
+    // TODO
+
+
+  },
+
+  sharePopup: function(e) {
+    e.preventDefault();
+    var url   = encodeURIComponent(document.location),
+        title = encodeURIComponent(document.title),
+        type  = e.currentTarget.getAttribute('data-type'), h = 380, w = 560,
+        lpos  = (window.screen.width/2) - ((w/2) + 10),
+        tpos  = (window.screen.height/2) - ((h/2) + 50),
+        setup = 'status=no,height=' + h + ',width=' + w + ',resizable=yes,left=' + lpos + ',top=' + tpos + ',screenX=' + lpos + ',screenY=' + tpos + ',toolbar=no,menubar=no,scrollbars=no,location=no,directories=no';
+    if (type === 'fb') { var link = 'http://www.facebook.com/sharer.php?u=' + url + '&t=CapCrunch'; }
+    else { var link = 'http://twitter.com/share?text=' + title + '%20%C2%BB&url=' + url + '&hashtags=capcrunch,nhl'; }
+    window.open(link, 'sharer', setup);
+    return false;
+  },
 
   closeShare: function(e) {
     e.preventDefault();
@@ -38,13 +60,17 @@ var SharePanel = React.createClass({
 
   render: function() {
 
-    var placeholder = this.props.shareData.name || this.props.teamName;
+    var placeholder = this.props.shareData.name || this.props.teamName,
+        title       = encodeURIComponent(document.title),
+        url         = encodeURIComponent(document.location),
+        tw_link     = 'http://twitter.com/share?text=' + title + '%20%C2%BB&url=' + url + '&hashtags=capcrunch,nhl',
+        fb_link     = 'http://www.facebook.com/sharer.php?u=' + url + '&t=CapCrunch',
+        copy_button = 'Copy text-only roster to clipboard'; // check-mark icon... Roster copied to clipboard
 
     return (
       <div id="share">
         <form id="share-form" className={ this.props.shareData.view === 'input' ? 'active' : '' } onSubmit={this.saveRoster}>
-          <input id="roster-name" type="text"
-            placeholder={ placeholder ? placeholder : 'Roster Name' }
+          <input id="roster-name" type="text" placeholder={ placeholder ? placeholder : 'Roster Name' }
             onKeyPress={this.checkRosterNameInput}
             onPaste={UI.blockAction} />
           <button id="share-button" onClick={this.saveRoster}>Share</button>
@@ -59,9 +85,12 @@ var SharePanel = React.createClass({
             <h3>Show off your GM skills...</h3>
             <p>Share your roster with friends for the win.</p>
             <input id="share-url" type="text" value={this.props.shareData.link} readOnly />
-            <button id="twitter-share" onClick={this.shareTwitter}><i className="fa fa-twitter"></i> Share on Twitter</button>
-            <button id="facebook-share" onClick={this.shareFacebook}><i className="fa fa-facebook"></i> Share on Facebook</button>
-            <a id="text-roster" onClick={this.showTextRoster}><i className="fa fa-pencil"></i>text-only version</a>
+            <a id="twitter-share" href={tw_link} data-type="tw" onClick={this.sharePopup} target="_blank">
+              <i className="fa fa-twitter"></i> Share on Twitter</a>
+            <a id="facebook-share" href={fb_link} data-type="fb" onClick={this.sharePopup} target="_blank">
+              <i className="fa fa-facebook"></i> Share on Facebook</a>
+            <a id="text-share" onClick={this.copyTextRoster}>
+              <i className="fa fa-pencil"></i> {copy_button}</a>
           </div>
         </div>
       </div>
