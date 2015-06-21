@@ -3,11 +3,9 @@
 var UserPicks = require('./user-picks.jsx'),
     TeamList  = require('../../static/teams.js'),
     Messages  = require('../../static/messages.js'),
-    UI        = require('../../ui.js');
-
-var teams = TeamList,
-    maxPlayers = 5,
-    selected = '';
+    League    = require('../../static/league.js'),
+    UI        = require('../../ui.js'),
+    selected  = '';
 
 var Trades = React.createClass({
 
@@ -36,7 +34,7 @@ var Trades = React.createClass({
         item = players.options[players.selectedIndex],
         index = item.getAttribute('data-index'), group, year, label;
     e.preventDefault();
-    if (this.props.tradeData.league.length + this.props.tradeData.picks.league.length === maxPlayers) {
+    if (this.props.tradeData.league.length + this.props.tradeData.picks.league.length === League.max_trade_size) {
       UI.showActionMessage('trade', Messages.trade.max_players);
     } else if (players.value !== '0') {
       if (item.getAttribute('data-type') === 'league-pick') {
@@ -60,7 +58,7 @@ var Trades = React.createClass({
     var index = e.currentTarget.getAttribute('data-index'),
         year = e.currentTarget.getAttribute('data-year'),
         label = e.currentTarget.getAttribute('data-label');
-    if (this.props.tradeData.user.length + this.props.tradeData.picks.user.length === maxPlayers) {
+    if (this.props.tradeData.user.length + this.props.tradeData.picks.user.length === League.max_trade_size) {
       UI.showActionMessage('trade', Messages.trade.max_players);
     } else { this.props.addTradePick('user', year, index, label); }
   },
@@ -108,7 +106,7 @@ var Trades = React.createClass({
     return list;
   },
 
-  buildTeamList: function(group, players, queued, acquired) {
+  buildPlayerList: function(group, players, queued, acquired) {
     var list, salary, x = String.fromCharCode(10004);
     list = players.map(function(player, j) {
       salary = player.contract[this.props.year];
@@ -195,7 +193,7 @@ var Trades = React.createClass({
             className={ this.props.tradeData.league.length ? 'disabled' : '' }
             disabled={ this.props.tradeData.league.length ? 'disabled' : false }>
             <option value="0" disabled>Team</option>
-          { teams.map(function(team) {
+          { TeamList.map(function(team) {
             if (team.id !== this.props.teamData.id) { return <option key={team.id} value={team.id}>{team.id}</option>; }
           }.bind(this)) }
           </select>
@@ -204,13 +202,13 @@ var Trades = React.createClass({
             disabled={ this.props.tradeTeam.id ? '' : 'disabled' }>
             <option value="0" disabled="disabled">Players &amp; Draft Picks</option>
             <option disabled="disabled">─ Forwards ────────</option>
-            {this.buildTeamList('forwards', this.props.tradeTeam.forwards, this.props.tradeData.league, this.props.playerData.acquired)}
+            {this.buildPlayerList('forwards', this.props.tradeTeam.forwards, this.props.tradeData.league, this.props.playerData.acquired)}
             <option disabled="disabled">─ Defense ────────</option>
-            {this.buildTeamList('defensemen', this.props.tradeTeam.defensemen, this.props.tradeData.league, this.props.playerData.acquired)}
+            {this.buildPlayerList('defensemen', this.props.tradeTeam.defensemen, this.props.tradeData.league, this.props.playerData.acquired)}
             <option disabled="disabled">─ Goalies ────────</option>
-            {this.buildTeamList('goaltenders', this.props.tradeTeam.goaltenders, this.props.tradeData.league, this.props.playerData.acquired)}
+            {this.buildPlayerList('goaltenders', this.props.tradeTeam.goaltenders, this.props.tradeData.league, this.props.playerData.acquired)}
             <option disabled="disabled">─ Inactive ────────</option>
-            {this.buildTeamList('inactive', this.props.tradeTeam.inactive, this.props.tradeData.league, this.props.playerData.acquired)}
+            {this.buildPlayerList('inactive', this.props.tradeTeam.inactive, this.props.tradeData.league, this.props.playerData.acquired)}
             <option disabled="disabled">─ 2015 Draft ──────</option>
             {this.buildPicksList('15')}
             <option disabled="disabled">─ 2016 Draft ──────</option>

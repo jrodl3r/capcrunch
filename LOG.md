@@ -10,7 +10,7 @@
 - 'on-before-unload clear + restore state (socket/cookies?)'
 - 'gulp asset management + optimization (fonts, images)'
 - 'checkout SpeedCurve, GTMetrix'
-- 'error pages (h5bp)'
+- 'error pages (h5bp, devcenter.heroku.com/articles/error-pages#customize-pages)'
 ---------------------------------------------------------------
 
 
@@ -220,6 +220,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'cleanup state + props, update socket + express'
 - 'share: copy text roster w/ zeroClipboard logic'
 - 'share: twitter + facebook social sharing + layout tweaks'
 - 'info bubbles on-panel-hover (info icon) + onboard opacity'

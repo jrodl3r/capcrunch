@@ -2,84 +2,47 @@
 
 require('setimmediate');
 
-var TeamGrid    = require('./components/team-grid.jsx'),
-    Loading     = require('./components/loading.jsx'),
-    Header      = require('./components/header.jsx'),
-    Footer      = require('./components/footer.jsx'),
-    Payroll     = require('./components/payroll.jsx'),
-    RosterGrid  = require('./components/roster.jsx'),
-    RosterMenu  = require('./components/roster-menu.jsx'),
-    Messages    = require('./static/messages.js'),
-    Timers      = require('./static/timers.js'),
-    UI          = require('./ui.js'),
-    TimerMixin  = require('react-timer-mixin'),
-    Socket      = io.connect('', { 'transports': ['websocket'] }),
-    dropData    = { origin : '', cur : '', last : null, action : '' },
-    update      = React.addons.update,
-    onboard     = true;
+var TeamGrid   = require('./components/team-grid.jsx'),
+    Loading    = require('./components/loading.jsx'),
+    Header     = require('./components/header.jsx'),
+    Footer     = require('./components/footer.jsx'),
+    Payroll    = require('./components/payroll.jsx'),
+    RosterGrid = require('./components/roster.jsx'),
+    RosterMenu = require('./components/roster-menu.jsx'),
+    League     = require('./static/league.js'),
+    Messages   = require('./static/messages.js'),
+    Timers     = require('./static/timers.js'),
+    TimerMixin = require('react-timer-mixin'),
+    State      = require('./state.js'),
+    UI         = require('./ui.js'),
+    update     = React.addons.update,
+    socket     = io();
+
+var dropData = { origin: '', cur: '', last: null, action: '' },
+    altLines = ['FR', 'FB', 'DR', 'DB', 'GR', 'GB'],
+    onboard  = true;
 
 var App = React.createClass({
 
   mixins: [TimerMixin],
 
-  getInitialState: function() {
-    return {
-      rosterData : {
-        F1L : { status : 'empty' }, F1C : { status : 'empty' }, F1R : { status : 'empty' },
-        F2L : { status : 'empty' }, F2C : { status : 'empty' }, F2R : { status : 'empty' },
-        F3L : { status : 'empty' }, F3C : { status : 'empty' }, F3R : { status : 'empty' },
-        F4L : { status : 'empty' }, F4C : { status : 'empty' }, F4R : { status : 'empty' },
-        FB1 : { status : 'empty' }, FB2 : { status : 'empty' }, FB3 : { status : 'empty' },
-        FR1 : { status : 'empty' }, FR2 : { status : 'empty' }, FR3 : { status : 'empty' },
-        D1L : { status : 'empty' }, D1R : { status : 'empty' },
-        D2L : { status : 'empty' }, D2R : { status : 'empty' },
-        D3L : { status : 'empty' }, D3R : { status : 'empty' },
-        DB1 : { status : 'empty' }, DB2 : { status : 'empty' },
-        DR1 : { status : 'empty' }, DR2 : { status : 'empty' },
-        G1L : { status : 'empty' }, G1R : { status : 'empty' },
-        GB1 : { status : 'empty' }, GB2 : { status : 'empty' },
-        GR1 : { status : 'empty' }, GR2 : { status : 'empty' }},
-      teamData   : { id : '', name : '',
-        cap      : { players: '', hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
-        players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] }},
-      playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], unsigned : [], signed : [], created : [] },
-      altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },
-      tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [], picks : { Y15: [], Y16: [], Y17: [], Y18: [] }},
-      tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }, picks : { user : [], league : [] }},
-      panelData  : { active : 'trades', loading : false, engaged : false, enabled : true },
-      capData    : { year : 6, players : 0, unsigned : 0, hit : '0.000', space : '71.500', cap: '71.500' },
-      pickData   : { Y15: [], Y16: [], Y17: [], Y18: [] },
-      viewData   : { active : 'loading', last : '', next : '' },
-      shareData  : { name : '', link : '', view : 'input', text: '' },
-      dragData   : { type : '', group : '', index : '', pos : '' },
-      notify     : { label : '', msg : '' }
-    };
-  },
-
-  getDefaultProps: function() {
-    return {
-      minPlayers : 6,
-      maxPlayers : 5,
-      altLines   : ['FR', 'FB', 'DR', 'DB', 'GR', 'GB'],
-      altTiles   : ['FR1', 'FR2', 'FR3', 'FB1', 'FB2', 'FB3', 'DR1', 'DR2', 'DB1', 'DB2', 'GR1', 'GR2', 'GB1', 'GB2']
-    };
-  },
+  getInitialState: function() { return State; },
 
   componentDidMount: function() {
     var id = this.getRosterId();
     if (id) {
-      Socket.emit('get roster', id);
+      socket.emit('get roster', id);
       onboard = false;
     } else {
       $(window).on('load', function() { this.changeView('teams'); }.bind(this));
       if (/cc_loaded/.test(document.cookie)) { onboard = false; }
       else { document.cookie = 'cc_loaded=1'; }
     }
-    Socket.on('load team', this.loadTeam);
-    Socket.on('load trade team', this.loadTradeTeam);
-    Socket.on('load picks', this.loadPicks);
-    Socket.on('load roster', this.loadRoster);
-    Socket.on('roster saved', this.confirmShare);
+    socket.on('load team', this.loadTeam);
+    socket.on('load trade team', this.loadTradeTeam);
+    socket.on('load picks', this.loadPicks);
+    socket.on('load roster', this.loadRoster);
+    socket.on('roster saved', this.confirmShare);
   },
 
 
@@ -171,8 +134,8 @@ var App = React.createClass({
 
   changeTeam: function(id) {
     this.changeView('loading');
-    Socket.emit('get team', id);
-    Socket.emit('get picks', id);
+    socket.emit('get team', id);
+    socket.emit('get picks', id);
     UI.resetViewScroll();
   },
 
@@ -272,7 +235,7 @@ var App = React.createClass({
   },
 
   saveRoster: function(name) { // TODO: if (!this.isCleanTeam()) » Verify Active Team
-    if (this.state.playerData.inplay.length >= this.props.minPlayers) {
+    if (this.state.playerData.inplay.length >= League.min_roster_size) {
       var data = {
         name       : name,
         activeTeam : this.state.playerData.team,
@@ -287,7 +250,7 @@ var App = React.createClass({
       shareData.view = 'loading';
       shareData.text = this.buildTextRoster();
       this.setState({ shareData : shareData });
-      this.setTimeout(() => { Socket.emit('save roster', data); }, Timers.save);
+      this.setTimeout(() => { socket.emit('save roster', data); }, Timers.save);
     } else { this.notifyUser('tip', Messages.error.min_players); }
   },
 
@@ -373,9 +336,7 @@ var App = React.createClass({
 // Trade
 // --------------------------------------------------
 
-  changeTradeTeam: function(id) {
-    Socket.emit('get trade team', id);
-  },
+  changeTradeTeam: function(id) { socket.emit('get trade team', id); },
 
   loadTradeTeam: function(data) {
     if (data && data !== 'error') {
@@ -514,7 +475,7 @@ var App = React.createClass({
   },
 
   verifyTradePlayer: function(action, salary) {
-    if (this.state.tradeData.user.length + this.state.tradeData.picks.user.length === this.props.maxPlayers) {
+    if (this.state.tradeData.user.length + this.state.tradeData.picks.user.length === League.max_trade_size) {
       UI.showActionMessage('trade', Messages.trade.max_players);
       return false;
     } else if (/(created|acquired)/.test(action) || /UFA/.test(salary)) {
@@ -992,7 +953,7 @@ var App = React.createClass({
   },
 
   isAltLine: function(id) {
-    var line = this.props.altLines.indexOf(id.substr(0, 2));
+    var line = altLines.indexOf(id.substr(0, 2));
     if (line === -1) { return false; }
     else if (line % 2) { return 'benched'; }
     else { return 'ir'; }
@@ -1011,7 +972,7 @@ var App = React.createClass({
   loadAltLines: function() {
     var id, x;
     for (x = 0; x < 6; x++) {
-      id = this.props.altLines[x];
+      id = altLines[x];
       if (this.state.altLines[id]) { this.showAltLine(id); }
     }
   },
@@ -1019,7 +980,7 @@ var App = React.createClass({
   updateAltLines: function() {
     var lineData = this.state.altLines, line, pos, tile, x, y;
     for (x = 0; x < 6; x++) {
-      line = this.props.altLines[x];
+      line = altLines[x];
       if (lineData[line]) {
         pos = x < 2 ? 3 : 2;
         for (y = pos; y > 0; y--) { // TODO: Don't do reverse array scans

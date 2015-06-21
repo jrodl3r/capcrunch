@@ -1,26 +1,22 @@
 'use strict'; require('newrelic');
 
-var express     = require('express'),
-    app         = express(),
-    server      = require('http').createServer(app),
-    io          = require('socket.io').listen(server, { 'transports': ['websocket'] }),
-    compression = require('compression'),
-    path        = require('path'),
-    moment      = require('moment-timezone'),
-    timestamp   = 'MMMM Do YYYY, h:mm:ss a',
-    timezone    = 'America/New_York',
-    mongoose    = require('mongoose'),
-    Team        = require('./models/team.js'),
-    Picks       = require('./models/picks.js'),
-    Roster      = require('./models/roster.js'),
-    env         = process.env.NODE_ENV || 'development',
-    port        = process.env.PORT || 3000;
+var http      = require('http'),
+    path      = require('path'),
+    express   = require('express'),
+    app       = express(),
+    server    = require('http').createServer(app),
+    io        = require('socket.io').listen(server),
+    gzip      = require('compression'),
+    mongoose  = require('mongoose'),
+    Team      = require('./models/team.js'),
+    Picks     = require('./models/picks.js'),
+    Roster    = require('./models/roster.js'),
+    moment    = require('moment-timezone'),
+    timestamp = 'MMMM Do YYYY, h:mm:ss a',
+    timezone  = 'America/New_York',
+    env       = process.env.NODE_ENV || 'development',
+    port      = process.env.PORT || 3000;
 
-
-// Connect
-// --------------------------------------------------
-
-server.listen(port);
 
 if (env === 'development') {
   mongoose.connect('mongodb://localhost/cc', function(err) {
@@ -35,29 +31,20 @@ if (env === 'development') {
 }//else if (env === 'testing'){}
 
 
-// Config
-// --------------------------------------------------
-
-app.use(compression());
+app.use(gzip());
 app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: 10000000 }));
-
-
-// Routes
-// --------------------------------------------------
 
 app.get('/', function(req, res) {
   console.log('User Connected (' + moment.tz(timezone).format(timestamp) + ')');
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
+
 app.get('/:roster', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 
-// Events
-// --------------------------------------------------
-
-io.sockets.on('connection', function(socket) {
+io.on('connection', function(socket) {
 
   // load team
   socket.on('get team', function(id) {
@@ -95,11 +82,8 @@ io.sockets.on('connection', function(socket) {
             };
             socket.emit('load trade team', team);
             console.log('Trade Team Loaded: ' + id + ' (' + moment.tz(timezone).format(timestamp) + ')');
-          }
-        });
-
-      }
-    });
+          }});
+      }});
   });
 
   // load draft picks
@@ -110,8 +94,7 @@ io.sockets.on('connection', function(socket) {
         console.error(err || 'Load Picks Failed: ' + id + ' (' + moment.tz(timezone).format(timestamp) + ')');
       } else {
         socket.emit('load picks', data[0]);
-      }
-    });
+      }});
   });
 
   // load roster
@@ -123,8 +106,7 @@ io.sockets.on('connection', function(socket) {
       } else {
         socket.emit('load roster', data[0]);
         console.log('Roster Loaded: ' + data[0].name + ' [' + data[0].id + '] (' + moment.tz(timezone).format(timestamp) + ')');
-      }
-    });
+      }});
   });
 
   // save roster
@@ -145,13 +127,13 @@ io.sockets.on('connection', function(socket) {
             } else {
               socket.emit('roster saved', 'success', data.id);
               console.log('Roster Saved: ' + data.name + ' [' + data.id + '] (' + moment.tz(timezone).format(timestamp) + ')');
-            }
-          });
-        }
-      });
+            }});
+        }});
     } else {
       socket.emit('roster saved', 'error');
       console.error('Roster Name/ID Error');
-    }
-  });
+    }});
 });
+
+
+server.listen(port);
