@@ -313,18 +313,15 @@ var UI = {
       sc.onreadystatechange = sc.onload = function() {
         if (!loaded) {
           client = new ZeroClipboard(document.getElementById('text-share'), {swfPath: 'https://s3.amazonaws.com/capcrunch/js/zc.swf'});
-          client.on('ready', function(event) {//console.log('zc');
+          client.on('ready', function(event) {
             client.on('copy', function(event) {
               event.clipboardData.setData('text/plain', event.target.getAttribute('data-clip'));
             });
             client.on('aftercopy', function(event) {
-              console.log(event.data['text/plain']);
               $('#text-share .copy-label').text('Roster copied to clipboard');
               $('#text-share i').attr('class', 'fa fa-check');
-              // TODO: setTimeout to revert/delay 2x copies x5s
             });
           });
-          client.on('error', function(event) { ZeroClipboard.destroy(); console.log('zc error (' + event.name + ') ' + event.message); });
         } loaded = true;
       };
       document.getElementsByTagName('head')[0].appendChild(sc);

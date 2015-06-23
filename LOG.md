@@ -163,6 +163,13 @@ Post-Launch Rebuild
 
 
 ---------------------------------------------------------------
+## Share
+---------------------------------------------------------------
+- 'confirm active team (on dirty roster)'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
 ## Panels
 ---------------------------------------------------------------
 - 'drag-to-vertically-reorder panels (ex: move forwards panel below defense)' [?]
@@ -188,9 +195,6 @@ Post-Launch Rebuild
 
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
----------------------------------------------------------------
-- 'share: confirm active team (on dirty roster)'
-- 'share: cleanup layout + x-browser issues'
 ---------------------------------------------------------------
 - 'capstats + notify: cleanup, merge layout + display logic'
 - 'capstats: dynamic positioning slide+fade-in/out'

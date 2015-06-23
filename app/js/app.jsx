@@ -120,7 +120,10 @@ var App = React.createClass({
       lineData  : { $set: lineData },
       panelData : { $set: panelData },
       dragData  : { $set: { type : '', group : '', index : '', pos : '' }}
-    }), function() { UI.autoUpdatePanels(); });
+    }), function() {
+      UI.autoUpdatePanels();
+      if (this.state.shareData.view === 'success') { this.resetShare(); }
+    });
   },
 
   clearDrop: function() {
@@ -250,7 +253,7 @@ var App = React.createClass({
     // }));
   },
 
-  shareRoster: function(name, type) { // TODO: if (!this.isCleanTeam()) » Verify Active Team
+  shareRoster: function(name, type) { // TODO: !isCleanTeam » Verify Active Team
     if (this.state.playerData.inplay.length >= League.min_roster_size) {
       var shareData = this.state.shareData;
       name = name || this.state.teamData.name;
@@ -290,6 +293,10 @@ var App = React.createClass({
     var shareData = this.state.shareData;
     shareData.view = 'input';
     this.setState({ shareData : shareData });
+    setTimeout(function() {
+      $('#text-share .copy-label').text('Copy text-only roster to clipboard');
+      $('#text-share i').attr('class', 'fa fa-pencil');
+    }, Timers.action);
   },
 
   getRosterId: function() {
@@ -855,7 +862,7 @@ var App = React.createClass({
     player.group = this.state.dragData.group;
     player.status = altStatus || 'inplay';
     playerData[player.status].push(player);
-    if (unsigned) { playerData.unsigned.push(player); }
+    if (unsigned && player.team === this.state.playerData.team) { playerData.unsigned.push(player); }
     if (!playerData.team) { playerData.team = player.team; }
     this.setState(update(this.state, {
       capData    : { $set: capData },

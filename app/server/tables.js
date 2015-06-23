@@ -32,8 +32,8 @@ var Table = {
 
       // Benched
       } else if (x == 4 && (roster.FB1.status !== 'empty' || roster.FB2.status !== 'empty' || roster.FB3.status !== 'empty')) {
-        label = type === 'basic' ? 'Benched: ' : '[BN] ';
-        clip = clip + label;
+        // label = type === 'basic' ? 'Bench: ' : '[BN] ';
+        clip = clip + '[Bench] ';
         for (y = 0; y < 3; y++) {
           key = 'FB' + (y + 1);
           if (roster[key].status !== 'empty') {
@@ -47,8 +47,8 @@ var Table = {
 
       // Injured
       } else if (x == 5 && (roster.FR1.status !== 'empty' || roster.FR2.status !== 'empty' || roster.FR3.status !== 'empty')) {
-        label = type === 'basic' ? 'Injured: ' : '[IR] ';
-        clip = clip + label;
+        // label = type === 'basic' ? 'Injured: ' : '[IR] ';
+        clip = clip + '[IR] ';
         for (y = 0; y < 3; y++) {
           key = 'FR' + (y + 1);
           if (roster[key].status !== 'empty') {
@@ -78,8 +78,8 @@ var Table = {
 
       // Benched
       } else if (x == 3 && (roster.DB1.status !== 'empty' || roster.DB2.status !== 'empty')) {
-        label = type === 'basic' ? 'Benched: ' : '[BN] ';
-        clip = clip + label;
+        // label = type === 'basic' ? 'Bench: ' : '[BN] ';
+        clip = clip + '[Bench] ';
         for (y = 0; y < 2; y++) {
           key = 'DB' + (y + 1);
           if (roster[key].status !== 'empty') {
@@ -93,8 +93,8 @@ var Table = {
 
       // Injured
       } else if (x == 4 && (roster.DR1.status !== 'empty' || roster.DR2.status !== 'empty')) {
-        label = type === 'basic' ? 'Injured: ' : '[IR] ';
-        clip = clip + label;
+        // label = type === 'basic' ? 'Injured: ' : '[IR] ';
+        clip = clip + '[IR] ';
         for (y = 0; y < 2; y++) {
           key = 'DR' + (y + 1);
           if (roster[key].status && roster[key].status !== 'empty') {
@@ -124,8 +124,8 @@ var Table = {
 
       // Benched
       } else if (x == 1 && (roster.GB1.status !== 'empty' || roster.GB2.status !== 'empty')) {
-        label = type === 'basic' ? 'Benched: ' : '[BN] ';
-        clip = clip + label;
+        // label = type === 'basic' ? 'Bench: ' : '[BN] ';
+        clip = clip + '[Bench] ';
         for (y = 0; y < 2; y++) {
           key = 'GB' + (y + 1);
           if (roster[key].status !== 'empty') {
@@ -139,8 +139,8 @@ var Table = {
 
       // Injured
       } else if (x == 2 && (roster.GR1.status !== 'empty' || roster.GR2.status !== 'empty')) {
-        label = type === 'basic' ? 'Injured: ' : '[IR] ';
-        clip = clip + label;
+        // label = type === 'basic' ? 'Injured: ' : '[IR] ';
+        clip = clip + '[IR] ';
         for (y = 0; y < 2; y++) {
           key = 'GR' + (y + 1);
           if (roster[key].status && roster[key].status !== 'empty') {
