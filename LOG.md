@@ -2,12 +2,12 @@
 ---------------------------------------------------------------
 #### LATER (Technical) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
-- 'React initial DOM loading SSR (VERY Complicated/Extensive)'
+- 'React initial DOM loading SSR (*Complicated/Extensive)'
 - 'upgrade Mongolab'
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
 ---------------------------------------------------------------
-- 'on-before-unload clear + restore state (socket/cookies?)'
+- 'on-before-unload clear + restore state (socket/cookies?) <-- NO. what about socket.emit(session.state), localStorage... [?]'
 - 'gulp asset management + optimization (fonts, images)'
 - 'checkout SpeedCurve, GTMetrix'
 - 'error pages (h5bp, devcenter.heroku.com/articles/error-pages#customize-pages)'
@@ -75,7 +75,7 @@ Post-Launch Rebuild
 - 'Backspace key refresh/back-page-nav...Grr!'
 - 'Occasional missed list-item dragstart'
 - 'tile drag-end on trades hover sticking + not queuing (BN/Hodgson)'
-- 'tile drag-end not removing player'
+- 'tile drag-end not removing player [on only overview panel?]'
 ---------------------------------------------------------------
 
 
@@ -189,7 +189,6 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'share: text roster w/ actions summary builder'
 - 'share: confirm active team (on dirty roster)'
 - 'share: cleanup layout + x-browser issues'
 ---------------------------------------------------------------
@@ -203,15 +202,16 @@ Post-Launch Rebuild
 - 'options: reusable menu layout + logic (overview/actions/capstats/header)'
 - 'notify: update messages (acquired players, UFAs, picks, etc)'
 - 'footer layout + display logic'
-
+---------------------------------------------------------------
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [v0.9.3] !!!!!
-
+---------------------------------------------------------------
 - 'free agents: setup agents db collection'
 - 'free agents: list + add UFA players'
 - 'free agents: filter by team'
 - 'free agents: sort by previous salary'
 ---------------------------------------------------------------
 - 'limited mobile support (enable shared/payroll, disable panels)'
+- 'express: setup team + payroll routes (ex: /buf, /buf-payroll) [!]'
 - 'browser navigation management (back/forward/history)'
 - 'setup view tracking google analytics'
 
@@ -220,6 +220,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'share: text roster w/ actions summary builder'
 - 'cleanup state + props, update socket + express'
 - 'share: copy text roster w/ zeroClipboard logic'
 - 'share: twitter + facebook social sharing + layout tweaks'

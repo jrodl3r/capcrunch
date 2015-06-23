@@ -16,20 +16,24 @@ var State = {
     G1L: { status: 'empty' }, G1R: { status: 'empty' },
     GB1: { status: 'empty' }, GB2: { status: 'empty' },
     GR1: { status: 'empty' }, GR2: { status: 'empty' }},
-  teamData   : { id : '', name : '',
-    cap      : { players: '', hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
-    players  : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] }},
-  playerData : { team : '', inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], unsigned : [], signed : [], created : [] },
-  altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },
-  tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [], picks : { Y15: [], Y16: [], Y17: [], Y18: [] }},
-  tradeData  : { trades : [], user : [], league : [], players : { user : [], league : [] }, picks : { user : [], league : [] }},
-  panelData  : { active : 'trades', loading : false, engaged : false, enabled : true },
-  capData    : { year : 6, players : 0, unsigned : 0, hit : '0.000', space : '71.500', cap: '71.500' },
+  teamData   : { id: '', name: '',
+    cap      : { players: '', hit: '', space: '', forwards: '', defensemen: '', goaltenders: '', other: '', inactive: '' },
+    players  : { forwards: [], defensemen: [], goaltenders: [], other: [], inactive: [] }},
+  playerData : { team: '', inplay: [], benched: [], ir: [], cleared: [], traded: [], acquired: [], unsigned: [], signed: [], created: [] },
+  altLines   : { FR: false, FB: false, DR: false, DB: false, GR: false, GB: false },
+  tradeTeam  : { id: '', forwards: [], defensemen: [], goaltenders: [], inactive: [], picks: { Y15: [], Y16: [], Y17: [], Y18: [] }},
+  tradeData  : { trades: [], user: [], league: [], players: { user: [], league: [] }, picks: { user: [], league: [] }},
+  panelData  : { active: 'trades', loading: false, engaged: false, enabled: true },
+  capData    : { year: 6, players: 0, unsigned: 0, hit: '0.000', space: '71.500', cap: '71.500' },
   pickData   : { Y15: [], Y16: [], Y17: [], Y18: [] },
-  viewData   : { active : 'loading', last : '', next : '' },
-  shareData  : { name : '', link : '', view : 'input', text: '' },
-  dragData   : { type : '', group : '', index : '', pos : '' },
-  notify     : { label : '', msg : '' }
+  viewData   : { active: 'loading', last: '', next: '' },
+  shareData  : { name: '', link: '', view: 'input', text: '', type: '' },
+  dragData   : { type: '', group: '', index: '', pos: '' },
+  notify     : { label: '', msg: '' }
 };
 
 module.exports = State;
+
+// F1L : { contract: ['','','','','','','','','','','','','','',''], caphit: '', capnum: '', lastname: '', firstname: '', id: '', image: '', jersey: '', nation: '', position: '', shot: '', team: '', status: 'empty', age: '', bonus: '' },
+//       F1C : { contract: ['','','','','','','','','','','','','','',''], caphit: '', capnum: '', lastname: '', firstname: '', id: '', image: '', jersey: '', nation: '', position: '', shot: '', team: '', status: 'empty', age: '', bonus: '' },
+//       F1R : { contract: ['','','','','','','','','','','','','','',''], caphit: '', capnum: '', lastname: '', firstname: '', id: '', image: '', jersey: '', nation: '', position: '', shot: '', team: '', status: 'empty', age: '', bonus: '' },

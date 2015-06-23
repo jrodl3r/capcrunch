@@ -15,9 +15,10 @@ var SharePanel = React.createClass({
 
   saveRoster: function(e) {
     e.preventDefault();
-    var name = document.getElementById('roster-name').value || this.props.shareData.name || this.props.teamName;
+    var name = document.getElementById('roster-name').value || this.props.shareData.name || this.props.teamName,
+        type = 'basic'; // TODO: Add Text-Roster-Type (basic|full|markdown)
     document.getElementById('share-button').className = 'clicked';
-    this.props.saveRoster(name);
+    this.props.shareRoster(name, type);
     this.setTimeout(() => {
       document.getElementById('share-button').className = '';
     }, 1000);
@@ -33,7 +34,7 @@ var SharePanel = React.createClass({
 
   sharePopup: function(e) {
     e.preventDefault();
-    var url   = encodeURIComponent(document.location),
+    var url   = encodeURIComponent(this.props.shareData.link),
         title = encodeURIComponent(document.title),
         type  = e.currentTarget.getAttribute('data-type'), h = 380, w = 560,
         lpos  = (window.screen.width/2) - ((w/2) + 10),
@@ -52,18 +53,16 @@ var SharePanel = React.createClass({
 
   render: function() {
 
-    var placeholder = this.props.shareData.name || this.props.teamName,
+    var pholder = this.props.shareData.name || this.props.teamName,
         title   = encodeURIComponent(document.title),
-        url     = encodeURIComponent(document.location),
+        url     = encodeURIComponent(this.props.shareData.link || document.location.origin),
         tw_link = 'http://twitter.com/share?text=' + title + '%20%C2%BB&url=' + url + '&hashtags=capcrunch,nhl',
         fb_link = 'http://www.facebook.com/sharer.php?u=' + url + '&t=CapCrunch';
 
     return (
       <div id="share">
         <form id="share-form" className={ this.props.shareData.view === 'input' ? 'active' : '' } onSubmit={this.saveRoster}>
-          <input id="roster-name" type="text" placeholder={ placeholder ? placeholder : 'Roster Name' }
-            onKeyPress={this.checkRosterNameInput}
-            onPaste={UI.blockAction} />
+          <input id="roster-name" type="text" placeholder={ pholder ? pholder : 'Roster Name' } onKeyPress={this.checkRosterNameInput} onPaste={UI.blockAction} />
           <button id="share-button" onClick={this.saveRoster}>Share</button>
         </form>
         <div id="share-dialog" className={ this.props.shareData.view === 'loading' || this.props.shareData.view === 'success' ? 'active' : '' }>
@@ -80,8 +79,8 @@ var SharePanel = React.createClass({
               <i className="fa fa-twitter"></i> Share on Twitter</a>
             <a id="facebook-share" href={fb_link} data-type="fb" onClick={this.sharePopup} target="_blank">
               <i className="fa fa-facebook"></i> Share on Facebook</a>
-            <a id="text-share" data-clipboard-text={this.props.shareData.text}><i className="fa fa-pencil"></i>
-              <span className="copy-label">Copy text-only roster to clipboard</span></a>
+            <a id="text-share" data-clip={this.props.shareData.text}>
+              <i className="fa fa-pencil"></i><span className="copy-label">Copy text-only roster to clipboard</span></a>
           </div>
         </div>
       </div>

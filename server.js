@@ -8,6 +8,7 @@ var http      = require('http'),
     io        = require('socket.io').listen(server),
     gzip      = require('compression'),
     mongoose  = require('mongoose'),
+    Table     = require('./app/server/tables.js'),
     Team      = require('./models/team.js'),
     Picks     = require('./models/picks.js'),
     Roster    = require('./models/roster.js'),
@@ -33,12 +34,10 @@ if (env === 'development') {
 
 app.use(gzip());
 app.use('/', express.static(path.join(__dirname, '/public'), { maxAge: 10000000 }));
-
 app.get('/', function(req, res) {
   console.log('User Connected (' + moment.tz(timezone).format(timestamp) + ')');
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
-
 app.get('/:roster', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
@@ -110,7 +109,7 @@ io.on('connection', function(socket) {
   });
 
   // save roster
-  socket.on('save roster', function(data) {
+  socket.on('save roster', function(data, type) {
     if (data && data.name) {
       data.name_id = data.name.replace(/\s/g, '').toLowerCase();
       Roster.count({ name_id : data.name_id }, function(count_err, count) {
@@ -119,13 +118,14 @@ io.on('connection', function(socket) {
           console.error(count_err);
         } else {
           data.id = count ? data.name_id + count : data.name_id;
+          data.text = Table.build(data, type);
           var new_roster = new Roster(data);
           new_roster.save(function(err) {
             if (err) {
               socket.emit('roster saved', 'error');
               console.error(err);
             } else {
-              socket.emit('roster saved', 'success', data.id);
+              socket.emit('roster saved', 'success', data);
               console.log('Roster Saved: ' + data.name + ' [' + data.id + '] (' + moment.tz(timezone).format(timestamp) + ')');
             }});
         }});
@@ -134,6 +134,5 @@ io.on('connection', function(socket) {
       console.error('Roster Name/ID Error');
     }});
 });
-
 
 server.listen(port);

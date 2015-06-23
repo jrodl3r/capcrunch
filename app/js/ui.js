@@ -6,8 +6,9 @@ var Timers   = require('./static/timers.js'),
 var UI = {
 
   team_loaded : false,
-  msg_timeout : null,
+  zc_loaded   : false,
   panel_state : [false, false, false, false],
+  msg_timeout : null,
 
   init: function() {
     UI.detect();
@@ -306,27 +307,29 @@ var UI = {
   },
 
   loader: function(type) {
-    if (type === 'zc') {
-      var sc = document.createElement('script'), loaded;
+    if (type === 'zc' && !UI.zc_loaded) {
+      var sc = document.createElement('script'), client, loaded;
       sc.setAttribute('src', '/js/vendor/zc.js');
       sc.onreadystatechange = sc.onload = function() {
         if (!loaded) {
-          // console.log('executing zc');
-          var client = new ZeroClipboard(document.getElementById('text-share'), {swfPath: 'https://s3.amazonaws.com/capcrunch/js/zc.swf'});
-          client.on('ready', function(readyEvent) {
-            // console.log('executing zc is ready!');
-            client.on('aftercopy', function(e) {
-              console.log('Copied text to clipboard: ' + e.data['text/plain']);
-              // $('#text-share .copy-label')
-                // check-mark icon... Roster copied to clipboard
-              // <i className="fa fa-check"></i>
+          client = new ZeroClipboard(document.getElementById('text-share'), {swfPath: 'https://s3.amazonaws.com/capcrunch/js/zc.swf'});
+          client.on('ready', function(event) {//console.log('zc');
+            client.on('copy', function(event) {
+              event.clipboardData.setData('text/plain', event.target.getAttribute('data-clip'));
+            });
+            client.on('aftercopy', function(event) {
+              console.log(event.data['text/plain']);
+              $('#text-share .copy-label').text('Roster copied to clipboard');
+              $('#text-share i').attr('class', 'fa fa-check');
+              // TODO: setTimeout to revert/delay 2x copies x5s
             });
           });
+          client.on('error', function(event) { ZeroClipboard.destroy(); console.log('zc error (' + event.name + ') ' + event.message); });
         } loaded = true;
       };
       document.getElementsByTagName('head')[0].appendChild(sc);
-    }
-    // else if (type === 'onboard') {
+      UI.zc_loaded = true;
+    } // else if (type === 'onboard') {
     //   var st, rule = '#onboard{background:url(https://s3.amazonaws.com/capcrunch/img/onboard-top.svg) top left no-repeat,url(https://s3.amazonaws.com/capcrunch/img/onboard-actions.svg) bottom/46% no-repeat;}';
     // }
     // st = (function() {

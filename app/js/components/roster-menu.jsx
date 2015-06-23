@@ -15,7 +15,7 @@ var RosterMenu = React.createClass({
           teamName={this.props.teamData.name}
           shareData={this.props.shareData}
           resetShare={this.props.resetShare}
-          saveRoster={this.props.saveRoster} />
+          shareRoster={this.props.shareRoster} />
         <OverviewPanel
           changeView={this.props.changeView}
           dragType={this.props.dragData.type}

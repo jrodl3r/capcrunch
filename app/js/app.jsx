@@ -214,15 +214,14 @@ var App = React.createClass({
   loadRoster: function(res) {
     if (res && res !== 'error') {
       var data = res;
-      var updateData = update(this.state, {
-        rosterData : { $set: data.rosterData },
-        playerData : { $set: data.playerData },
-        shareData  : { name : { $set: data.name }},
-        altLines   : { $set: data.altLines },
-        capData    : { $set: data.capData },
-        tradeData  : { trades : { $set: data.tradeData }}
-      });
-      this.setState(updateData, function() {
+      this.setState(update(this.state, {
+        rosterData : {$set: data.rosterData},
+        playerData : {$set: data.playerData},
+        shareData  : { name: {$set: data.name}},
+        altLines   : {$set: data.altLines},
+        capData    : {$set: data.capData},
+        tradeData  : { trades: {$set: data.tradeData}}
+      }), function() {
         this.changeTeam(data.activeTeam);
         this.loadAltLines();
         UI.clearHover();
@@ -234,61 +233,52 @@ var App = React.createClass({
     }
   },
 
-  saveRoster: function(name) { // TODO: if (!this.isCleanTeam()) » Verify Active Team
+  resetRoster: function() {
+    // var roster = this.state.rosterData, pos;
+    // for (pos in roster) {
+    //   if (roster.hasOwnProperty(pos)) { roster[pos] = { status: 'empty' }; }
+    // }
+    // playerData.team = '';
+    // playerData.inplay = [];
+    // playerData.ir = [];
+    // playerData.benched = [];
+    // playerData.cleared = []; // TODO: playerData.cleared.map(  if ( player.team === this.state.teamData.id ) player.status = 'injured'  )
+    // this.setState(update(this.state, {
+    //   rosterData : {$set: roster},
+    //   playerData : {$set: playerData},
+    //   capData    : {$set: { year: 6, hit: '0.000', space: '71.500' }}
+    // }));
+  },
+
+  shareRoster: function(name, type) { // TODO: if (!this.isCleanTeam()) » Verify Active Team
     if (this.state.playerData.inplay.length >= League.min_roster_size) {
-      var data = {
-        name       : name,
-        activeTeam : this.state.playerData.team,
-        playerData : this.state.playerData,
-        rosterData : this.state.rosterData,
-        altLines   : this.state.altLines,
-        capData    : this.state.capData,
-        tradeData  : this.state.tradeData.trades
-      };
       var shareData = this.state.shareData;
-      shareData.name = name || this.state.teamData.name;
+      name = name || this.state.teamData.name;
+      shareData.name = name;
+      shareData.type = type;
       shareData.view = 'loading';
-      shareData.text = this.buildTextRoster();
-      this.setState({ shareData : shareData });
-      this.setTimeout(() => { socket.emit('save roster', data); }, Timers.save);
+      this.setState({ shareData : shareData }, function() {
+        var data = {
+          name       : name,
+          activeTeam : this.state.playerData.team,
+          playerData : this.state.playerData,
+          rosterData : this.state.rosterData,
+          altLines   : this.state.altLines,
+          capData    : this.state.capData,
+          tradeData  : this.state.tradeData.trades
+        };
+        this.setTimeout(() => { socket.emit('save roster', data, type); }, Timers.save);
+      });
     } else { this.notifyUser('tip', Messages.error.min_players); }
   },
 
-  buildTextRoster: function() {
-    UI.loader('zc');
-    return 'build-text-roster';
-  },
-
-  resetRoster: function() {
-    var playerData = this.state.playerData, updateData,
-        roster = this.state.rosterData, pos;
-    for (pos in roster) {
-      if (roster.hasOwnProperty(pos)) { roster[pos] = { status : 'empty' }; }
-    }
-    playerData.team = '';
-    playerData.inplay = [];
-    playerData.ir = [];
-    playerData.benched = [];
-    playerData.cleared = []; // TODO: « forEach » if ( player.team === this.state.teamData.id ) player.status = 'injured'
-    updateData = update(this.state, {
-      rosterData : { $set: roster },
-      playerData : { $set: playerData },
-      capData    : { $set: { year : 6, hit : '0.000', space : '69.000' }}
-    });
-    this.setState(updateData);
-  },
-
-  getRosterId: function() {
-    var id = decodeURI(location.pathname.substr(1));
-    return id ? id : false;
-  },
-
-  confirmShare: function(res, id) {
+  confirmShare: function(res, data) {
     if (res === 'success') {
-      var link = 'http://' + location.host + '/' + id;
       var shareData = this.state.shareData;
-      shareData.link = link;
-      shareData.view = res;
+      shareData.link = 'http://' + location.host + '/' + data.id;
+      shareData.view = 'success';
+      shareData.text = data.text;
+      UI.loader('zc');
       this.setState({ shareData : shareData });
     } else {
       this.resetShare();
@@ -302,34 +292,39 @@ var App = React.createClass({
     this.setState({ shareData : shareData });
   },
 
+  getRosterId: function() {
+    var id = decodeURI(location.pathname.substr(1));
+    return id ? id : false;
+  },
+
   updateCapStats: function(type, salary, cap) {
-    var capUpdate = cap || this.state.capData;
+    var data = cap || this.state.capData;
     if (type === 'add') {
-      capUpdate.players = capUpdate.players + 1;
+      data.players = data.players + 1;
       if (salary !== 'unsigned') {
-        capUpdate.hit = (parseFloat(capUpdate.hit) + parseFloat(salary)).toFixed(3);
-        capUpdate.space = (parseFloat(capUpdate.space) - parseFloat(salary)).toFixed(3);
+        data.hit = (parseFloat(data.hit) + parseFloat(salary)).toFixed(3);
+        data.space = (parseFloat(data.space) - parseFloat(salary)).toFixed(3);
       }}
     else if (type === 'remove') {
-      capUpdate.players = capUpdate.players - 1;
+      data.players = data.players - 1;
       if (salary !== 'unsigned') {
-        capUpdate.hit = (parseFloat(capUpdate.hit) - parseFloat(salary)).toFixed(3);
-        capUpdate.space = (parseFloat(capUpdate.space) + parseFloat(salary)).toFixed(3);
+        data.hit = (parseFloat(data.hit) - parseFloat(salary)).toFixed(3);
+        data.space = (parseFloat(data.space) + parseFloat(salary)).toFixed(3);
       }}
     else if (type == 'signed') {
-      capUpdate.hit = (parseFloat(capUpdate.hit) + parseFloat(salary)).toFixed(3);
-      capUpdate.space = (parseFloat(capUpdate.space) - parseFloat(salary)).toFixed(3);
-      capUpdate.unsigned = capUpdate.unsigned - 1;
+      data.hit = (parseFloat(data.hit) + parseFloat(salary)).toFixed(3);
+      data.space = (parseFloat(data.space) - parseFloat(salary)).toFixed(3);
+      data.unsigned = data.unsigned - 1;
     } else if (type === 'undo-signed') {
-      capUpdate.hit = (parseFloat(capUpdate.hit) - parseFloat(salary)).toFixed(3);
-      capUpdate.space = (parseFloat(capUpdate.space) + parseFloat(salary)).toFixed(3);
-      capUpdate.unsigned = capUpdate.unsigned + 1;
+      data.hit = (parseFloat(data.hit) - parseFloat(salary)).toFixed(3);
+      data.space = (parseFloat(data.space) + parseFloat(salary)).toFixed(3);
+      data.unsigned = data.unsigned + 1;
     }
     if (salary === 'unsigned') {
-      if (type === 'add') { capUpdate.unsigned = capUpdate.unsigned + 1; }
-      else { capUpdate.unsigned = capUpdate.unsigned - 1; }
+      if (type === 'add') { data.unsigned = data.unsigned + 1; }
+      else { data.unsigned = data.unsigned - 1; }
     }
-    return capUpdate;
+    return data;
   },
 
 
@@ -1028,7 +1023,7 @@ var App = React.createClass({
               tradeData={this.state.tradeData}
               playerData={this.state.playerData}
               shareData={this.state.shareData}
-              saveRoster={this.saveRoster}
+              shareRoster={this.shareRoster}
               resetShare={this.resetShare}
               createPlayer={this.createPlayer}
               undoCreate={this.undoCreate}
