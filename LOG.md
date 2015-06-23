@@ -196,16 +196,16 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
+- 'options: reusable menu layout + logic (overview/actions/capstats/header)'
+- 'notify: update messages (acquired players, UFAs, picks, etc)'
+- 'footer layout + display logic'
+---------------------------------------------------------------
 - 'capstats + notify: cleanup, merge layout + display logic'
 - 'capstats: dynamic positioning slide+fade-in/out'
   - 'show if not visible on-mouse-off-grid'
   - 'show if not visible on-scroll-end'
   - 'hide if visible on-drag-start + mouse-over-grid'
   - 'hide on-scroll-up'
----------------------------------------------------------------
-- 'options: reusable menu layout + logic (overview/actions/capstats/header)'
-- 'notify: update messages (acquired players, UFAs, picks, etc)'
-- 'footer layout + display logic'
 ---------------------------------------------------------------
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [v0.9.3] !!!!!
 ---------------------------------------------------------------

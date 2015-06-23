@@ -270,6 +270,11 @@
     text-shadow: 0 1px 0 rgba(0,0,0, .35);
   }
 
+  &.disabled:hover, &.disabled span, &.disabled i {
+    color: rgba(255,255,255, .3);
+    cursor: default;
+  }
+
   i {
     font-size: 14px;
     position: relative;

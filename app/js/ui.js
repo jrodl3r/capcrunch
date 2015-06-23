@@ -322,6 +322,11 @@ var UI = {
               $('#text-share i').attr('class', 'fa fa-check');
             });
           });
+          client.on('error', function(event) {
+            $('#text-share').addClass('disabled');
+            $('#text-share .copy-label').text('Copy text-only roster disabled (No Flash)');
+            ZeroClipboard.destroy();
+          });
         } loaded = true;
       };
       document.getElementsByTagName('head')[0].appendChild(sc);
