@@ -37,6 +37,13 @@
 
 
 
+##### Footer
+------------------------------------------------------------------
+ Credit ⋮ What's Next? ⋮ Support + Feedback     CAPCRUNCH ⋮ v0.9.3
+------------------------------------------------------------------
+
+
+
 ---------------------------------------------------------------
 ## REFACTOR »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
@@ -147,13 +154,6 @@ Post-Launch Rebuild
 
 
 ---------------------------------------------------------------
-##### Footer
--------------------------------------------------------------------------------------------
- Help ⋮ Credits ⋮ What's Next? ⋮ Feedback    some rights reserved CAPCRUNCH © 2015 ⋮ v1.0.3
--------------------------------------------------------------------------------------------
-
-
----------------------------------------------------------------
 ##### Free Agents DB
 ---------------------------------------------------------------
 - 'store expiring 2015 contracts'
@@ -193,12 +193,12 @@ Post-Launch Rebuild
 
 
 
+
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
 ---------------------------------------------------------------
-- 'options: reusable menu layout + logic (overview/actions/capstats/header)'
-- 'notify: update messages (acquired players, UFAs, picks, etc)'
-- 'footer layout + display logic'
+- 'update data'
+- 'send emails + forum posts....'
 ---------------------------------------------------------------
 - 'capstats + notify: cleanup, merge layout + display logic'
 - 'capstats: dynamic positioning slide+fade-in/out'
@@ -206,6 +206,8 @@ Post-Launch Rebuild
   - 'show if not visible on-scroll-end'
   - 'hide if visible on-drag-start + mouse-over-grid'
   - 'hide on-scroll-up'
+- 'notify: update messages (acquired players, UFAs, picks, etc)'
+- 'options: reusable menu layout + logic (overview/actions/capstats/header)'
 ---------------------------------------------------------------
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [v0.9.3] !!!!!
 ---------------------------------------------------------------
@@ -224,6 +226,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'footer layout + display logic'
 - 'share: text roster w/ actions summary builder'
 - 'cleanup state + props, update socket + express'
 - 'share: copy text roster w/ zeroClipboard logic'

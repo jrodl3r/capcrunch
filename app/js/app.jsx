@@ -1070,7 +1070,7 @@ var App = React.createClass({
               onTriggerDragEnter={this.handleTriggerDragEnter} />
           </div>
         </div>
-        <Footer />
+        <Footer activeView={this.state.viewData.active} />
       </div>
     );
   }

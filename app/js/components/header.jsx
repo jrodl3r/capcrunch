@@ -24,7 +24,7 @@ var Header = React.createClass({
     return (
       <header>
         <div className="inner">
-          <div className="beta-tag">beta <span className="version">0.9.2</span></div>
+          <div className="beta-tag">beta <span className="version">0.9.3</span></div>
           <img height="43" width="230" src="img/logo.svg" />
           <div id="notify" className={ this.props.notify.label ? 'active ' + this.props.notify.label : '' }>{this.props.notify.msg}</div>
           <nav id="team-menu" className={ this.props.activeView === 'roster' || this.props.activeView === 'payroll' ? 'active' : '' }>
