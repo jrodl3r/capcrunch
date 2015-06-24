@@ -209,8 +209,6 @@ Post-Launch Rebuild
 - 'notify: update messages (acquired players, UFAs, picks, etc)'
 - 'options: reusable menu layout + logic (overview/actions/capstats/header)'
 ---------------------------------------------------------------
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [v0.9.3] !!!!!
----------------------------------------------------------------
 - 'free agents: setup agents db collection'
 - 'free agents: list + add UFA players'
 - 'free agents: filter by team'
