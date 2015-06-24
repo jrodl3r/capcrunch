@@ -13,7 +13,7 @@ var Footer = React.createClass({
             <ul id="credits">
               <li>Payroll &amp; Player Info » <a href="http://nhlnumbers.com" target="_blank">NHLNumbers.com</a></li>
               <li>Picks &amp; Trade Details » <a href="http://prosportstransactions.com/hockey/DraftTrades/Years" target="_blank">Pro Sports Transactions</a></li>
-              <li>Player Bios &amp; Images » <a href="http://tsn.ca" target="_blank">TSN</a></li>
+              <li>Player Info &amp; Images » <a href="http://tsn.ca" target="_blank">TSN</a></li>
               <li>Arena BG Image » <a href="http://hockey.fantasysports.yahoo.com" target="_blank">Yahoo</a></li>
             </ul>
           </li>
