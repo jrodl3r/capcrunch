@@ -24,7 +24,7 @@ var State = {
   tradeTeam  : { id: '', forwards: [], defensemen: [], goaltenders: [], inactive: [], picks: { Y15: [], Y16: [], Y17: [], Y18: [] }},
   tradeData  : { trades: [], user: [], league: [], players: { user: [], league: [] }, picks: { user: [], league: [] }},
   panelData  : { active: 'trades', loading: false, engaged: false, enabled: true },
-  capData    : { year: 6, players: 0, unsigned: 0, hit: '0.000', space: '71.500', cap: '71.500' },
+  capData    : { year: 6, players: 0, unsigned: 0, hit: '0.000', space: '71.400', cap: '71.400' },
   pickData   : { Y15: [], Y16: [], Y17: [], Y18: [] },
   viewData   : { active: 'loading', last: '', next: '' },
   shareData  : { name: '', link: '', view: 'input', text: '', type: '' },

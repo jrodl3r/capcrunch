@@ -195,10 +195,7 @@ Post-Launch Rebuild
 
 
 ---------------------------------------------------------------
-#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.3] »
----------------------------------------------------------------
-- 'update data'
-- 'send emails + forum posts....'
+#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.4] »
 ---------------------------------------------------------------
 - 'capstats + notify: cleanup, merge layout + display logic'
 - 'capstats: dynamic positioning slide+fade-in/out'
@@ -224,6 +221,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'salary cap to 71.4M'
 - 'footer layout + display logic'
 - 'share: text roster w/ actions summary builder'
 - 'cleanup state + props, update socket + express'
