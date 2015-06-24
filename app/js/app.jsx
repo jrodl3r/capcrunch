@@ -154,13 +154,10 @@ var App = React.createClass({
         if (playerData.team === teamData.id) {
           if (tradeData.trades.length) { teamData = this.loadTradeData(teamData, 'loading'); } // Action Data (traded/acquired)
           panelData.enabled = this.isCleanTeam(teamData.id);
-          if (panelData.enabled) { panelData.active = 'trades'; }
         } else { // Passive Action Data (hide players acquired by active team)
           if (tradeData.trades.length) { teamData = this.loadTradeData(teamData, 'loading', 'passive'); }
-          if (panelData.enabled) {
-            panelData.enabled = false; // TODO: Prompt User Trades Disabled
-            panelData.active = 'createplayer';
-          }}}
+          if (panelData.enabled) { panelData.enabled = false; } // TODO: Prompt User Trades Disabled
+        }}
       this.resetTradeData('active'); // TODO: Prompt User Clearing Trade
       this.setState({ teamData : teamData }, function() {
         this.changeView('roster');
@@ -862,7 +859,7 @@ var App = React.createClass({
     player.group = this.state.dragData.group;
     player.status = altStatus || 'inplay';
     playerData[player.status].push(player);
-    if (unsigned && player.team === this.state.playerData.team) { playerData.unsigned.push(player); }
+    if (unsigned && (player.team === this.state.playerData.team || !this.state.playerData.team)) { playerData.unsigned.push(player); }
     if (!playerData.team) { playerData.team = player.team; }
     this.setState(update(this.state, {
       capData    : { $set: capData },
