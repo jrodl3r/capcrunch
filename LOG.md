@@ -2,12 +2,11 @@
 ---------------------------------------------------------------
 #### LATER (Technical) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
-- 'React initial DOM loading SSR (*Complicated/Extensive)'
+- 'React initial DOM loading SSR (**Complicated/Extensive)'
 - 'upgrade Mongolab'
 - 'node jade view engine'
 - 'unit testing (Jest / Jasmine)'
 ---------------------------------------------------------------
-- 'on-before-unload clear + restore state (socket/cookies?) <-- NO. what about socket.emit(session.state), localStorage... [?]'
 - 'gulp asset management + optimization (fonts, images)'
 - 'checkout SpeedCurve, GTMetrix'
 - 'error pages (h5bp, devcenter.heroku.com/articles/error-pages#customize-pages)'
@@ -117,13 +116,15 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 ## GM Overview 🏆
 ---------------------------------------------------------------
-|   You have 3 Unsigned Players  ⋮  1 Created  ⋮  2 Trades     |
+|   2 Unsigned   ⋮   3 Signed   ⋮   1 Created   ⋮   2 Trades   |
 ---------------------------------------------------------------
 - 'morphs into status persistent HUD when not engaged'
-- 'auto-expands to full-height on mouse-over'
+- 'auto-expands on mouse-over'
+- 'sort all items in chronological order'
+- 'add IR-cleared players'
 ---------------------------------------------------------------
 - 'sign-n-trade + sign FA drop-area (drop unsigned from player list to sign w/out adding to roster)'
-- 'buy-out drop-area (drop signed players to buy-out or edit player info/salary/etc)'
+- 'sign / buy-out / edit player (info/salary/etc) drop-area (kill remove-player)'
 ---------------------------------------------------------------
 
 
@@ -166,15 +167,25 @@ Post-Launch Rebuild
 ## Share
 ---------------------------------------------------------------
 - 'confirm active team (on dirty roster)'
+- 'text roster output options (lines, salary, Markdown)'
+- 'no-flash copy text roster fallback (textarea modal)'
 ---------------------------------------------------------------
 
 
 ---------------------------------------------------------------
-## Panels
+## Shared Roster
 ---------------------------------------------------------------
-- 'drag-to-vertically-reorder panels (ex: move forwards panel below defense)' [?]
-- 'obfuscated list slides into view on scroll-end' [?]
+- 'player-panel onboard-cover (prompt user to vote, reset, etc)'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+## Panels          (Share|Overview|Active|Inactive|Transctions)
+---------------------------------------------------------------
+- 'drag-to-vertically-reorder panels (ex: move forwards panel below defense)' [X]
 - 'player details/info icon click/hover' [?]
+- 'dynamic list positioning on scroll-end (slide up/down based on view height, etc)'
+- 'combine (F/D/G) into single Active players tabbed panel'
 ---------------------------------------------------------------
 
 
@@ -206,15 +217,20 @@ Post-Launch Rebuild
 - 'notify: update messages (acquired players, UFAs, picks, etc)'
 - 'options: reusable menu layout + logic (overview/actions/capstats/header)'
 ---------------------------------------------------------------
-- 'free agents: setup agents db collection'
+- 'free agents: setup UFA/RFA db'
 - 'free agents: list + add UFA players'
 - 'free agents: filter by team'
 - 'free agents: sort by previous salary'
+- 'free agents: sign UFA players'
+- 'free agents: offer-sheet RFA players'
 ---------------------------------------------------------------
 - 'limited mobile support (enable shared/payroll, disable panels)'
-- 'express: setup team + payroll routes (ex: /buf, /buf-payroll) [!]'
-- 'browser navigation management (back/forward/history)'
-- 'setup view tracking google analytics'
+- 'express: setup team, picks + payroll routes (/info, /buf, /buf-payroll, /buf-picks)'
+- 'browser navigation control (back/forward/history...on-before-unload)'
+- 'setup view tracking google analytics + remove console logging'
+---------------------------------------------------------------
+- 'document + fully-automate team payroll data update logic'
+- 'nudge drag-n-drop splash graphic down (away from Overview)'
 
 
 
