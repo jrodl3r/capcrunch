@@ -12,41 +12,61 @@
 
   button {
     width: 70px;
-    color: #CACACA;
-    line-height: 100%;
-    font-size: 14px;
+    padding: 0;
+    color: #BBB;
+    font-size: 13px;
     font-weight: bold;
-    background: linear-gradient(to top, #272727 0%, #595959);
+    background: linear-gradient(to left, #484848 0%, #333);
     border: none;
-    box-shadow: 0 0 10px 0 rgba(0,0,0, .75);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    box-shadow: 0 0 10px 0 rgba(0,0,0, .95);
+    opacity: .7;
+    cursor: default;
 
-    &:hover {
-      color: #EEE;
-      background: linear-gradient(to top, #222 0%, #666);
-      box-shadow: 0 0 10px 0 rgba(0,0,0, .95);
-    }
-
+    &:hover, &:active { text-shadow: 0 0 1px rgba(0,0,0, .5); }
+    &:hover { opacity: 1; cursor: default; }
+    &:active { color: #888; opacity: .7; transition: 0s; }
     &.clicked { cursor: default; }
   }
+
+  &:hover #roster-name { opacity: .95; }
 }
 
 #roster-name {
-  width: 220px;
+  width: 230px;
   padding: 0 10px;
-  margin-right: 10px;
   color: #181818;
   font-size: 15px;
   line-height: 32px;
   background: linear-gradient(to top, #6A6A6A 0%, #A5A5A5);
   border: 0;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
   box-shadow: 0 0 10px 0 rgba(0,0,0, .75);
+  opacity: .85;
+  transition: .3s;
 
-  &::placeholder { color: #303030; }
+  &::placeholder { color: #393939; }
   &:hover { background: linear-gradient(to top, #666 0%, #AAA); }
-  &:focus { box-shadow: 0 0 15px 0 rgba(0,0,0, .95); }
+
+  &:focus {
+    box-shadow: 0 0 15px 0 rgba(0,0,0, .95);
+    opacity: 1;
+
+    &::placeholder { color: #666; }
+  }
+}
+
+#share-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
 }
 
 #share-form {
+  position: relative;
   opacity: 0;
   transition: opacity .4s ease-out;
 

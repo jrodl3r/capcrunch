@@ -62,7 +62,9 @@ var SharePanel = React.createClass({
     return (
       <div id="share">
         <form id="share-form" className={ this.props.shareData.view === 'input' ? 'active' : '' } onSubmit={this.saveRoster}>
-          <input id="roster-name" type="text" placeholder={ pholder ? pholder : 'Roster Name' } onKeyPress={this.checkRosterNameInput} onPaste={UI.blockAction} />
+          <input id="roster-name" type="text" spellCheck="false"
+            placeholder={ pholder ? pholder : 'Roster Name' }
+            onKeyPress={this.checkRosterNameInput} onPaste={UI.blockAction} />
           <button id="share-button" onClick={this.saveRoster}>Share</button>
         </form>
         <div id="share-dialog" className={ this.props.shareData.view === 'loading' || this.props.shareData.view === 'success' ? 'active' : '' }>

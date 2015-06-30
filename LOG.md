@@ -169,6 +169,7 @@ Post-Launch Rebuild
 - 'confirm active team (on dirty roster)'
 - 'text roster output options (lines, salary, Markdown)'
 - 'no-flash copy text roster fallback (textarea modal)'
+- 'remove submit timer delay'
 ---------------------------------------------------------------
 
 
@@ -186,6 +187,18 @@ Post-Launch Rebuild
 - 'player details/info icon click/hover' [?]
 - 'dynamic list positioning on scroll-end (slide up/down based on view height, etc)'
 - 'combine (F/D/G) into single Active players tabbed panel'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+## Admin
+---------------------------------------------------------------
+- 'setup admin login + default view'
+- 'user connection + view stats'
+- 'bulk payroll upload (download updated json db file)'
+- 'individual player salary add + edit'
+- 'individual draft pick add + edit'
+- 'document + fully-automate team payroll data update logic'
 ---------------------------------------------------------------
 
 
@@ -228,9 +241,10 @@ Post-Launch Rebuild
 - 'express: setup team, picks + payroll routes (/info, /buf, /buf-payroll, /buf-picks)'
 - 'browser navigation control (back/forward/history...on-before-unload)'
 - 'setup view tracking google analytics + remove console logging'
----------------------------------------------------------------
-- 'document + fully-automate team payroll data update logic'
 - 'nudge drag-n-drop splash graphic down (away from Overview)'
+---------------------------------------------------------------
+- 'speed-up overall view + state transition responsiveness'
+
 
 
 
