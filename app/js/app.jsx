@@ -121,7 +121,6 @@ var App = React.createClass({
       panelData : { $set: panelData },
       dragData  : { $set: { type : '', group : '', index : '', pos : '' }}
     }), function() {
-      UI.autoUpdatePanels();
       if (this.state.shareData.view === 'success') { this.resetShare(); }
     });
   },
@@ -161,8 +160,6 @@ var App = React.createClass({
       this.resetTradeData('active'); // TODO: Prompt User Clearing Trade
       this.setState({ teamData : teamData }, function() {
         this.changeView('roster');
-        if (playerData.team === teamData.id) { UI.autoUpdatePanels(); }
-        else { UI.expandPanels(); }
       });
     } else {
       this.changeView('teams');
@@ -395,7 +392,7 @@ var App = React.createClass({
         tradeData  : { $set: tradeData },
         playerData : { $set: playerData },
         panelData  : { loading : { $set: false }}
-      }), function() { UI.autoUpdatePanels(); });
+      }));
       UI.clearAction('trade-executed');
       UI.resetPanelScroll();
     }, Timers.confirm);
@@ -460,7 +457,6 @@ var App = React.createClass({
       else if (type === 'user-pick') { tradeData.picks.user.splice(index, 1); }
       else if (type === 'league-pick') { tradeData.picks.league.splice(index, 1); }
       this.setState({ tradeData : tradeData }, function() {
-        UI.autoUpdatePanels();
         this.verifyTrade();
       });
     }, Timers.item);

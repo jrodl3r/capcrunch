@@ -69,9 +69,7 @@ var PlayersPanel = React.createClass({
 
     return (
       <div id={this.props.panelId} className={ this.props.playerType === 'goaltenders' ? 'panel short player-list' : 'panel player-list' }>
-        <div className="title">{this.props.panelTitle}
-          <a onClick={UI.togglePanelView}><i className="fa fa-chevron-up"></i></a>
-        </div>
+        <div className="title">{this.props.panelTitle}</div>
     { this.props.playerGroup.length
       ? <div className="inner">
       { this.props.playerType === 'inactive' && this.props.createdData

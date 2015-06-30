@@ -203,9 +203,7 @@ var GMPanel = React.createClass({
 
     return (
       <div id="overview" className={ active ? loaded + 'active panel' : 'panel' }>
-        <div className="title">GM Overview
-          <a onClick={UI.togglePanelView}><i className="fa fa-chevron-up"></i></a>
-        </div>
+        <div className="title">GM Overview</div>
         <div className="inner">
           { this.props.unsigned.length ? this.listUnsigned() : null }
           { this.props.signed.length ? this.listSigned() : null }

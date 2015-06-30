@@ -17,14 +17,6 @@
   transition: height .4s, min-height 0s;
   transform: translateZ(0);
 
-  &.collapsed {
-    height: $panel-titlebar-height !important;
-    min-height: 0 !important;
-
-    .loading-list, .remove-player { opacity: 0; }
-    .title { color: #585858; }
-  }
-
   .inner {
     width: 300px;
     color: #777;
