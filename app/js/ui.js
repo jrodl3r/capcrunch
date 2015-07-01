@@ -209,9 +209,9 @@ var UI = {
 
   clearDrag: function() {
     $('.clicked').removeClass('clicked');
-    $('.list-drag-cover').removeClass('active');
+    $('.drag-cover.active').removeClass('active');
     $('.remove-player').removeClass('active hover');
-    $('#trade-drop-area').removeClass('hover');
+    $('#trade-drop-area.hover').removeClass('hover');
   },
 
   clearHover: function() {

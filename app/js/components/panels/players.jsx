@@ -66,35 +66,21 @@ var PlayersPanel = React.createClass({
   },
 
   render: function() {
+    var panelType = /(inactive|prospects)/.test(this.props.view) ? 'inactive' : 'active';
 
     return (
-      <div id={this.props.panelId} className={ this.props.playerType === 'goaltenders' ? 'panel short player-list' : 'panel player-list' }>
-        <div className="title">{this.props.panelTitle}</div>
-    { this.props.playerGroup.length
-      ? <div className="inner">
-      { this.props.playerType === 'inactive' && this.props.createdData
-        ? <ul>{ this.props.createdData.length && this.props.createdData[0].team === this.props.activeTeam
-                ? this.buildPlayerList(this.props.createdData, 'created') : null }
-              {this.buildPlayerList(this.props.playerGroup, this.props.playerType)}</ul>
-        : <ul>{this.buildPlayerList(this.props.playerGroup, this.props.playerType)}</ul> }
-        </div> : null }
-        <div className={ this.props.panelData.engaged ? 'list-drag-cover active' : 'list-drag-cover' }
-          onDragEnter={this.props.onListDragEnter}
-          onDragOver={UI.dropEffect}></div>
-        <div className={ this.props.panelData.loading ? 'loading-list active' : 'loading-list' }>
-          <i className="fa fa-cog fa-spin"></i> Loading
-        </div>
-        <div className={ this.props.dragType === 'tile' ? 'remove-player active' : 'remove-player' }>
-          <i className="fa fa-rotate-left"></i> Remove Player
-          <div className="cover"
-            onDragOver={UI.dropEffect}
-            onDragEnter={this.props.onRemoveDragEnter}
-            onDragLeave={this.props.onRemoveDragLeave}>
-          </div>
-        </div>
+      <div id={this.props.panelId} className={ this.props.panelData[panelType] === this.props.view ? 'active player-list panel' : 'player-list panel' }>
+      { this.props.playerData.length
+        ? <div className="inner">
+            <ul>{this.buildPlayerList(this.props.playerData, this.props.playerType)}</ul>
+          </div> : null }
       </div>
     );
   }
 });
-
+// { this.props.playerType === 'inactive' && this.props.createdData
+// ? <ul>{ this.props.createdData.length && this.props.createdData[0].team === this.props.activeTeam
+//         ? this.buildPlayerList(this.props.createdData, 'created') : null }
+//       {this.buildPlayerList(this.props.playerData, this.props.playerType)}</ul>
+// : <ul>{this.buildPlayerList(this.props.playerData, this.props.playerType)}</ul> }
 module.exports = PlayersPanel;

@@ -6,7 +6,7 @@
 
   input, button {
     float: left;
-    height: 32px;
+    height: 31px;
     border-radius: $border-radius;
   }
 
@@ -22,10 +22,9 @@
     border-bottom-left-radius: 0;
     box-shadow: 0 0 10px 0 rgba(0,0,0, .95);
     opacity: .7;
-    cursor: default;
 
     &:hover, &:active { text-shadow: 0 0 1px rgba(0,0,0, .5); }
-    &:hover { opacity: 1; cursor: default; }
+    &:hover { opacity: 1; }
     &:active { color: #888; opacity: .7; transition: 0s; }
     &.clicked { cursor: default; }
   }
@@ -68,12 +67,12 @@
 #share-form {
   position: relative;
   opacity: 0;
-  transition: opacity .4s ease-out;
+  transition: opacity .35s ease-out;
 
   &.active {
     height: auto;
     opacity: 1;
-    transition: opacity .4s .55s ease-out;
+    transition: opacity .35s .4s ease-out;
   }
 }
 
@@ -85,18 +84,17 @@
   height: 0;
   margin-top: -32px;
   box-shadow: 0 0 15px 0 rgba(0,0,0, .25) inset, 0 0 15px 0 rgba(0,0,0, .25);
-  background: rgba(255,255,255, 0.125);
+  background: rgba(255,255,255, .125);
   border-radius: $border-radius;
   opacity: 0;
-  // overflow: hidden;
-  overflow: visible;
-  transition: opacity .25s, height .5s .25s;
+  overflow: hidden;
+  transition: opacity .35s, height .35s .2s;
   transition-timing-function: ease-out;
 
   &.active {
     height: $share-height;
     opacity: 1;
-    transition: opacity .5s .5s, height .5s;
+    transition: opacity .35s .35s, height .35s;
   }
 }
 
@@ -137,13 +135,13 @@
   height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: opacity .25s, height .5s .25s;
+  transition: opacity .25s, height .35s .25s;
   transition-timing-function: ease-out;
 
   &.active {
     height: $share-height;
     opacity: 1;
-    transition: opacity .5s .5s, height 0s .5s;
+    transition: opacity .35s .35s, height 0s .35s;
   }
 
   h3, p {
@@ -156,7 +154,7 @@
 
   h3 {
     margin: 10px 0 5px;
-    color: #BBB;
+    color: rgba(187,187,187, .8);
     font-size: 17px;
     text-shadow: 0 1px 2px rgba(0,0,0, .4);
   }
@@ -175,22 +173,23 @@
     border: 0;
     border-radius: $alt-border-radius;
     box-shadow: 0 0 5px 0 rgba(255,255,255, 0.1), 0 0 1px rgba(255,255,255, .05) inset;
-    transition: 1s;
+    transition: .5s;
+    cursor: pointer;
 
     &:hover, &:focus {
       color: #111;
-      background: rgba(238,238,238, 0.1);
-      box-shadow: 0 0 1px rgba(255,255,255, .05) inset;
+      background: rgba(238,238,238, 0.125);
     }
   }
 }
 
 #share-close {
   position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 13px;
+  top: 0;
+  right: 0;
+  padding: 8px 10px;
   color: rgba(255,255,255, .15);
+  font-size: 13px;
 
   &:hover {
     color: rgba(255,255,255, .35);
@@ -200,9 +199,9 @@
 
 #share-link {
   position: absolute;
-  top: 65px;
+  top: 64px;
   left: 15px;
-  height: 32px;
+  height: 33px;
   width: 30px;
   color: #888;
   line-height: 36px;
@@ -243,6 +242,7 @@
     color: rgba(255,255,255, .5);
     text-shadow: 0 1px 1px rgba(51,86,148, .25);
     box-shadow: 0 0 10px rgba(255,255,255, .15), 0 0 1px rgba(0,0,0, .15) inset;
+    transition: 0s;
 
     i {
       color: rgba(255,255,255, .5);

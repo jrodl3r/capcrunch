@@ -14,28 +14,33 @@ var ActionsPanel = React.createClass({
     this.props.changeView('teams');
   },
 
+  changeTab: function(e) {
+    e.preventDefault();
+    var tab = e.currentTarget.getAttribute('data-tab');
+    this.props.changePanelTab('actions', tab);
+  },
+
   render: function() {
 
     var userCount   = this.props.tradeData.user.length + this.props.tradeData.picks.user.length,
         leagueCount = this.props.tradeData.league.length + this.props.tradeData.picks.league.length,
-        activeTab   = this.props.panelData.active + '-active',
+        activeTab   = this.props.panelData.actions + '-active',
         tradeSize   = userCount > leagueCount ? ' trade-size-' + userCount : ' trade-size-' + leagueCount,
         activePanel = activeTab === 'trades' ? activeTab + tradeSize : activeTab;
 
     return (
       <div id="actions" className={ this.props.panelData.loading ? 'panel loading' : 'panel' }>
-        <div className="title">Transactions</div>
         <div className={ 'inner ' + activePanel + tradeSize }>
           <ul id="actions-menu">
             <li>
-              <a id="trades-tab" data-tab="trades" className={ this.props.panelData.active === 'trades' ? 'active' : '' }
-                onClick={this.props.toggleActionsTab}>Trades</a></li>
+              <a id="trades-tab" data-tab="trades" className={ this.props.panelData.actions === 'trades' ? 'active' : '' }
+                onClick={this.changeTab}>Trades</a></li>
             <li>
-              <a id="freeagents-tab" data-tab="freeagents" className={ this.props.panelData.active === 'freeagents' ? 'active' : '' }
-                onClick={this.props.toggleActionsTab}>Free Agents</a></li>
+              <a id="freeagents-tab" data-tab="freeagents" className={ this.props.panelData.actions === 'freeagents' ? 'active' : '' }
+                onClick={this.changeTab}>Free Agents</a></li>
             <li>
-              <a id="createplayer-tab" data-tab="createplayer" className={ this.props.panelData.active === 'createplayer' ? 'active' : '' }
-                onClick={this.props.toggleActionsTab}>Create Player</a></li>
+              <a id="createplayer-tab" data-tab="createplayer" className={ this.props.panelData.actions === 'createplayer' ? 'active' : '' }
+                onClick={this.changeTab}>Create Player</a></li>
           </ul>
           <Trades
             tradeSize={tradeSize}
@@ -52,8 +57,8 @@ var ActionsPanel = React.createClass({
             addTradePlayer={this.props.addTradePlayer}
             removeTradePlayer={this.props.removeTradePlayer}
             onTradeDragEnter={this.props.onTradeDragEnter} />
-          <FreeAgents activeTab={this.props.panelData.active} />
-          <CreatePlayer activeTab={this.props.panelData.active} createPlayer={this.props.createPlayer} />
+          <FreeAgents activeTab={this.props.panelData.actions} />
+          <CreatePlayer activeTab={this.props.panelData.actions} createPlayer={this.props.createPlayer} />
           <div id="actions-drag-cover"
             className={ this.props.dragType ? 'active' : '' }
             onDragEnter={this.props.onTradeDragEnter}

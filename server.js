@@ -118,6 +118,7 @@ io.on('connection', function(socket) {
           console.error(count_err);
         } else {
           data.id = count ? data.name_id + count : data.name_id;
+          data.name = count ? data.name.replace(/\s/g, '') + count : data.name;
           data.text = Table.build(data, type);
           var new_roster = new Roster(data);
           new_roster.save(function(err) {

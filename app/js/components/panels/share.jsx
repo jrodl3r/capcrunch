@@ -9,10 +9,6 @@ var SharePanel = React.createClass({
 
   mixins: [TimerMixin],
 
-  componentDidUpdate: function() {
-    if (!$('#roster-name').val()) { $('#roster-name').val(this.props.shareData.name); }
-  },
-
   saveRoster: function(e) {
     e.preventDefault();
     var name = document.getElementById('roster-name').value || this.props.shareData.name,
@@ -21,7 +17,7 @@ var SharePanel = React.createClass({
     this.props.shareRoster(name, type);
     this.setTimeout(() => {
       document.getElementById('share-button').className = '';
-    }, 1000);
+    }, 500);
   },
 
   checkRosterNameInput: function(e) {
@@ -66,9 +62,7 @@ var SharePanel = React.createClass({
     return (
       <div id="share">
         <form id="share-form" className={ this.props.shareData.view === 'input' ? 'active' : '' } onSubmit={this.saveRoster}>
-          <input id="roster-name" type="text" spellCheck="false"
-            placeholder={ pholder ? pholder : 'Roster Name' }
-            onKeyPress={this.checkRosterNameInput} onPaste={UI.blockAction} />
+          <input id="roster-name" type="text" spellCheck="false" placeholder={pholder} onKeyPress={this.checkRosterNameInput} onPaste={UI.blockAction} />
           <button id="share-button" onClick={this.saveRoster}>Share</button>
         </form>
         <div id="share-dialog" className={ this.props.shareData.view === 'loading' || this.props.shareData.view === 'success' ? 'active' : '' }>

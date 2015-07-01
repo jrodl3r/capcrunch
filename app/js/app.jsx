@@ -7,15 +7,15 @@ var TeamGrid   = require('./components/team-grid.jsx'),
     Header     = require('./components/header.jsx'),
     Footer     = require('./components/footer.jsx'),
     Payroll    = require('./components/payroll.jsx'),
-    RosterGrid = require('./components/roster.jsx'),
-    RosterMenu = require('./components/roster-menu.jsx'),
+    Roster     = require('./components/roster.jsx'),
+    Menu       = require('./components/menu.jsx'),
+    UI         = require('./ui.js'),
+    State      = require('./state.js'),
     Teams      = require('./static/teams.js'),
     League     = require('./static/league.js'),
     Messages   = require('./static/messages.js'),
     Timers     = require('./static/timers.js'),
     TimerMixin = require('react-timer-mixin'),
-    State      = require('./state.js'),
-    UI         = require('./ui.js'),
     update     = React.addons.update,
     socket     = io();
 
@@ -51,16 +51,14 @@ var App = React.createClass({
 // --------------------------------------------------
 
   changeView: function(view) {
-    var active = this.state.viewData.active;
-    var last = this.state.viewData.last;
-    var next = active === 'teams' && last === 'payroll' ? 'payroll' : null;
-    if (this.state.viewData.next && view === 'roster') { view = 'payroll'; }
+    var viewData = this.state.viewData,
+        active = viewData.active,
+        next = active === 'teams' && viewData.last === 'payroll' ? 'payroll' : null;
+    if (viewData.next && view === 'roster') { view = 'payroll'; }
     if (view !== active) {
-      var viewData = update(this.state.viewData, {
-        active : { $set: view },
-        last   : { $set: active },
-        next   : { $set: next }
-      });
+      viewData.last = active;
+      viewData.active = view;
+      viewData.next = next;
       this.setState({ viewData : viewData }, function() {
         if (view === 'roster') {
           UI.resetPanelScroll();
@@ -77,17 +75,13 @@ var App = React.createClass({
   changePanelView: function(view) {
     var panelData = this.state.panelData;
     if (view === 'loading') { panelData.loading = true; }
-    else { panelData.active = view; }
     this.setState({ panelData : panelData });
   },
 
-  toggleActionsTab: function(e) {
-    var tab = e.currentTarget.getAttribute('data-tab');
-    e.preventDefault();
-    if (tab !== this.state.panelData.active) {
-      var panelData = update(this.state.panelData, { active : { $set: tab } });
-      this.setState({ panelData : panelData });
-    }
+  changePanelTab: function(panel, tab) {
+    var panelData = this.state.panelData;
+    panelData[panel] = tab;
+    this.setState({ panelData : panelData });
   },
 
   notifyUser: function(label, msg) {
@@ -253,7 +247,6 @@ var App = React.createClass({
       var shareData = this.state.shareData,
           nameIndex = this.state.teamData.name.split(' ');
       name = name || nameIndex[nameIndex.length - 1];
-      shareData.name = name;
       shareData.type = type;
       shareData.view = 'loading';
       this.setState({ shareData : shareData }, function() {
@@ -277,6 +270,7 @@ var App = React.createClass({
       shareData.link = 'http://' + location.host + '/' + data.id;
       shareData.view = 'success';
       shareData.text = data.text;
+      shareData.name = data.name;
       UI.loader('zc');
       this.setState({ shareData : shareData });
     } else {
@@ -1013,7 +1007,7 @@ var App = React.createClass({
               capData={this.state.capData}
               teamData={this.state.teamData}
               pickData={this.state.pickData} />
-            <RosterMenu
+            <Menu
               capData={this.state.capData}
               viewData={this.state.viewData}
               changeView={this.changeView}
@@ -1048,8 +1042,8 @@ var App = React.createClass({
               onRemoveDragLeave={this.handleRemoveDragLeave}
               onTradeDragEnter={this.handleTradeDragEnter}
               onTradeDragLeave={this.handleTradeDragLeave}
-              onToggleActionsTab={this.toggleActionsTab} />
-            <RosterGrid
+              changePanelTab={this.changePanelTab} />
+            <Roster
               activeView={this.state.viewData.active}
               capData={this.state.capData}
               dragData={this.state.dragData}

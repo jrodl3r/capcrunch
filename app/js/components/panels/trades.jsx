@@ -185,7 +185,7 @@ var Trades = React.createClass({
   render: function() {
 
     return (
-      <div id="trades" className={ this.props.panelData.active === 'trades' ? 'tab-area active' + this.props.tradeSize : 'tab-area' }>
+      <div id="trades" className={ this.props.panelData.actions === 'trades' ? 'tab-area active' + this.props.tradeSize : 'tab-area' }>
         <div className="inner">
           <p id="trade-player-msg">{Messages.trade.heading}</p>
           <div id="trade-drop-area">Drop Players</div>

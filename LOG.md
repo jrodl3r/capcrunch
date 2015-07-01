@@ -220,7 +220,8 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.4] »
 ---------------------------------------------------------------
-- 'combine F/D/G panels into single tabbed Active Players'
+- 'roster menu revamp phase-2: cleanup overview + actions panels'
+---------------------------------------------------------------
 - 'capstats + notify: cleanup, merge layout + display logic'
 - 'capstats: dynamic positioning slide+fade-in/out'
   - 'show if not visible on-mouse-off-grid'
@@ -251,6 +252,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'roster menu revamp phase-1: setup tabbed active + inactive panels'
 - 'salary cap to 71.4M'
 - 'footer layout + display logic'
 - 'share: text roster w/ actions summary builder'

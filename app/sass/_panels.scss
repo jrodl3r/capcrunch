@@ -5,12 +5,17 @@
   text-align: center;
 }
 
+#active, #inactive {
+  position: relative;
+  height: 229px;
+}
+
 .panel {
   position: relative;
   float: left;
   width: 300px;
   margin-bottom: $page-spacing;
-  background: rgba(23,24,25, .7);
+  background: rgba(23,24,25, .85);
   border-radius: $border-radius;
   box-shadow: 0 0 2px 0 rgba(123,123,123, .1) inset;
   overflow: hidden;
@@ -26,57 +31,108 @@
     border-bottom-left-radius: 3px;
   }
 
-  .title {
-    height: $panel-titlebar-height;
-    margin-bottom: 1px;
-    line-height: $panel-titlebar-height;
-    color: #838383;
-    font-size: 13px;
-    font-weight: bold;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
-    background: linear-gradient(to top, #151515 0%, #232323);
-    cursor: default;
-    transition: .3s;
+  // .title {
+  //   height: $panel-titlebar-height;
+  //   margin-bottom: 1px;
+  //   line-height: $panel-titlebar-height;
+  //   color: #838383;
+  //   font-size: 13px;
+  //   font-weight: bold;
+  //   border-top-left-radius: $border-radius;
+  //   border-top-right-radius: $border-radius;
+  //   background: linear-gradient(to top, #151515 0%, #232323);
+  //   cursor: default;
+  //   transition: .3s;
+  // }
+}
 
-    a {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 33px;
-      width: 40px;
-      color: #3F3F3F;
-      font-weight: bold;
-      line-height: 28px;
-      cursor: pointer;
-      transition: color .4s;
+.tab-bar {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: 30px;
+  width: 300px;
 
-      &:hover {
-        color: #666;
-        text-shadow: 0 0 3px rgba(0,0,0, .75);
-      }
-
-      &.active i { transform: translateX(-2px) translateY(2px) rotate(180deg); }
-
-      i {
-        font-size: 11px;
-        transition: transform .15s ease-out;
-        transform: translateZ(0) rotate(0deg);
-      }
-    }
+  li {
+    flex-grow: 1;
+    justify-content: center;
   }
 
-  .list-drag-cover {
-    display: none;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 300px;
+  a {
+    display: flex;
+    justify-content: center;
+    color: rgba(255,255,255, .3);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 30px;
+    text-shadow: 0 0 2px rgba(0,0,0, .4);
+    background: linear-gradient(to top, transparent 0%, rgba(255,255,255, .15) 100%);
+    transition: .15s;
+
+    &:hover {
+      color: rgba(255,255,255, .5);
+      transition: .5s;
+    }
 
     &.active {
-      z-index: 3;
-      display: block;
+      color: rgba(255,255,255, .45);
+      background: none;
+      cursor: default;
+      transition: .25s;
     }
+
+    &.disabled {
+      // color: rgba(0,0,0, .45);
+      color: rgba(255,255,255, .18);
+      text-shadow: none;
+      cursor: default;
+    }
+  }
+}
+
+.player-list {
+  position: absolute;
+  top: 30px;
+  height: 0;
+  margin-bottom: 0;
+  background: none;
+  opacity: 0;
+  transition: opacity .25s, height 0s .25s;
+
+  &.active {
+    height: 198px;
+    opacity: 1;
+    overflow-y: scroll;
+    transition: opacity .25s, height 0s;
+  }
+
+  ul {
+    position: relative;
+    top: 0;
+    float: left;
+    width: 300px;
+    padding: 0 1px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    transform: translateZ(0);
+
+    .moz & {
+      width: 317px;
+      padding-right: 16px;
+    }
+  }
+}
+
+.drag-cover {
+  display: none;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 300px;
+
+  &.active {
+    z-index: 3;
+    display: block;
   }
 }
 
