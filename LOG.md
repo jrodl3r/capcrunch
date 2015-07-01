@@ -186,7 +186,6 @@ Post-Launch Rebuild
 - 'drag-to-vertically-reorder panels (ex: move forwards panel below defense)' [X]
 - 'player details/info icon click/hover' [?]
 - 'dynamic list positioning on scroll-end (slide up/down based on view height, etc)'
-- 'combine (F/D/G) into single Active players tabbed panel'
 ---------------------------------------------------------------
 
 
@@ -221,6 +220,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.4] »
 ---------------------------------------------------------------
+- 'combine F/D/G panels into single tabbed Active Players'
 - 'capstats + notify: cleanup, merge layout + display logic'
 - 'capstats: dynamic positioning slide+fade-in/out'
   - 'show if not visible on-mouse-off-grid'

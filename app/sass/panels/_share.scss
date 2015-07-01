@@ -168,18 +168,19 @@
     margin: 0 0 10px 15px;
     padding-right: 10px;
     padding-left: 30px;
-    color: #363636;
+    color: #333;
     font-size: 14px;
     font-weight: bold;
-    background: rgba(238,238,238, 0.2) linear-gradient(to top, rgba(136, 136, 136, 0) 100%, rgba(204, 204, 204, 0.1) 0%);
+    background: rgba(238,238,238, 0.15);
     border: 0;
-    box-shadow: 0 0 10px 0 rgba(255,255,255, 0.15), 0 0 1px rgba(0,0,0, .1) inset;
+    border-radius: $alt-border-radius;
+    box-shadow: 0 0 5px 0 rgba(255,255,255, 0.1), 0 0 1px rgba(255,255,255, .05) inset;
+    transition: 1s;
 
-    &:hover {
-      text-shadow: 0 0 5px rgba(255,255,255, .2);
-      background: rgba(255,255,255, .15);
-      box-shadow: 0 0 6px 0 rgba(255,255,255, .18), 0 0 1px rgba(0,0,0, .1) inset;
+    &:hover, &:focus {
       color: #111;
+      background: rgba(238,238,238, 0.1);
+      box-shadow: 0 0 1px rgba(255,255,255, .05) inset;
     }
   }
 }
@@ -203,12 +204,12 @@
   left: 15px;
   height: 32px;
   width: 30px;
-  color: #999;
+  color: #888;
   line-height: 36px;
   text-align: center;
 
   &:hover {
-    color: #111;
+    color: #999;
     text-shadow: 0 0 5px rgba(255,255,255, .2);
   }
 }
@@ -227,7 +228,7 @@
   text-decoration: none;
   text-shadow: 0 1px 1px rgba(51,86,148, .75);
   border: 0;
-  border-radius: $border-radius;
+  border-radius: $alt-border-radius;
   box-shadow: 0 0 10px rgba(255,255,255, .2), 0 0 1px rgba(0,0,0, .15) inset;
 
   &:hover {

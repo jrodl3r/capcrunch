@@ -9,6 +9,7 @@ var TeamGrid   = require('./components/team-grid.jsx'),
     Payroll    = require('./components/payroll.jsx'),
     RosterGrid = require('./components/roster.jsx'),
     RosterMenu = require('./components/roster-menu.jsx'),
+    Teams      = require('./static/teams.js'),
     League     = require('./static/league.js'),
     Messages   = require('./static/messages.js'),
     Timers     = require('./static/timers.js'),
@@ -249,8 +250,9 @@ var App = React.createClass({
 
   shareRoster: function(name, type) { // TODO: !isCleanTeam » Verify Active Team
     if (this.state.playerData.inplay.length >= League.min_roster_size) {
-      var shareData = this.state.shareData;
-      name = name || this.state.teamData.name;
+      var shareData = this.state.shareData,
+          nameIndex = this.state.teamData.name.split(' ');
+      name = name || nameIndex[nameIndex.length - 1];
       shareData.name = name;
       shareData.type = type;
       shareData.view = 'loading';

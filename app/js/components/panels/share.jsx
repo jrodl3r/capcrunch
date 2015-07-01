@@ -15,7 +15,7 @@ var SharePanel = React.createClass({
 
   saveRoster: function(e) {
     e.preventDefault();
-    var name = document.getElementById('roster-name').value || this.props.shareData.name || this.props.teamName,
+    var name = document.getElementById('roster-name').value || this.props.shareData.name,
         type = 'basic'; // TODO: Add Text-Roster-Type (basic|full|markdown)
     document.getElementById('share-button').className = 'clicked';
     this.props.shareRoster(name, type);
@@ -44,6 +44,10 @@ var SharePanel = React.createClass({
     else { var link = 'http://twitter.com/share?text=' + title + '%20%C2%BB&url=' + url + '&hashtags=capcrunch,nhl'; }
     window.open(link, 'sharer', setup);
     return false;
+  },
+
+  selectURL: function(e) {
+    e.target.select();
   },
 
   closeShare: function(e) {
@@ -76,7 +80,7 @@ var SharePanel = React.createClass({
             <a id="share-link" target="_blank" href={this.props.shareData.link}><i className="fa fa-link"></i></a>
             <h3>Show off your GM skills...</h3>
             <p>Share your roster with friends for the win.</p>
-            <input id="share-url" type="text" value={this.props.shareData.link} readOnly />
+            <input id="share-url" type="text" value={this.props.shareData.link} onClick={this.selectURL} readOnly />
             <a id="twitter-share" href={tw_link} data-type="tw" onClick={this.sharePopup} target="_blank">
               <i className="fa fa-twitter"></i> Share on Twitter</a>
             <a id="facebook-share" href={fb_link} data-type="fb" onClick={this.sharePopup} target="_blank">

@@ -270,22 +270,25 @@ var UI = {
       sc.setAttribute('src', '/js/vendor/zc.js');
       sc.onreadystatechange = sc.onload = function() {
         if (!loaded) {
-          client = new ZeroClipboard(document.getElementById('text-share'), {swfPath: 'https://s3.amazonaws.com/capcrunch/js/zc.swf'});
-          client.on('ready', function(event) {
-            client.on('copy', function(event) {
-              event.clipboardData.setData('text/plain', event.target.getAttribute('data-clip'));
+          setTimeout(function() {
+            client = new ZeroClipboard(document.getElementById('text-share'), {swfPath: 'https://s3.amazonaws.com/capcrunch/js/zc.swf'});
+            client.on('ready', function(event) {
+              client.on('copy', function(event) {
+                event.clipboardData.setData('text/plain', event.target.getAttribute('data-clip'));
+              });
+              client.on('aftercopy', function(event) {
+                $('#text-share .copy-label').text('Roster copied to clipboard');
+                $('#text-share i').attr('class', 'fa fa-check');
+              });
             });
-            client.on('aftercopy', function(event) {
-              $('#text-share .copy-label').text('Roster copied to clipboard');
-              $('#text-share i').attr('class', 'fa fa-check');
+            client.on('error', function(event) {
+              $('#text-share').addClass('disabled');
+              $('#text-share .copy-label').text('Copy text-only roster disabled (No Flash)');
+              ZeroClipboard.destroy();
             });
-          });
-          client.on('error', function(event) {
-            $('#text-share').addClass('disabled');
-            $('#text-share .copy-label').text('Copy text-only roster disabled (No Flash)');
-            ZeroClipboard.destroy();
-          });
-        } loaded = true;
+            loaded = true;
+          }, Timers.confirm);
+        }
       };
       document.getElementsByTagName('head')[0].appendChild(sc);
       UI.zc_loaded = true;
