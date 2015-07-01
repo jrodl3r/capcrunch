@@ -264,7 +264,7 @@ var App = React.createClass({
           capData    : this.state.capData,
           tradeData  : this.state.tradeData.trades
         };
-        this.setTimeout(() => { socket.emit('save roster', data, type); }, Timers.save);
+        socket.emit('save roster', data, type);
       });
     } else { this.notifyUser('tip', Messages.error.min_players); }
   },
