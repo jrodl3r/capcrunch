@@ -5,27 +5,27 @@ var UI = require('../../ui.js');
 var GMPanel = React.createClass({
 
   componentDidUpdate: function () {
-    var haveItems = this.props.created.length + this.props.signed.length + this.props.unsigned.length + this.props.trades.length, height = 34, x;
-    if (this.props.trades.length) {
-      height = height + 28;
-      for (x = 0; x < this.props.trades.length; x++) {
-        height = height + 28 + (Math.max(this.props.trades[x].user.length + this.props.trades[x].picks.user.length, this.props.trades[x].league.length + this.props.trades[x].picks.league.length) * 20);
-      }}
-    if (haveItems && this.props.userTeam && this.props.userTeam !== this.props.activeTeam) {
-      $('#overview').css('height', 180);
-    } else {
-      if (haveItems > 1) {
-        if (this.props.signed.length) { height = height + 28 + (this.props.signed.length * 33); }
-        if (this.props.unsigned.length) { height = height + 28 + (this.props.unsigned.length * 33); }
-        if (this.props.created.length) { height = height + 28 + (this.props.created.length * 33); }
-        $('#overview').css('height', height);
-      } else if (haveItems === 1) {
-        if (this.props.trades.length) {
-          $('#overview').css('height', height);
-        } else { $('#overview').css('height', 95); }
-      } else { $('#overview').css('height', 0); }
-    }
-    $('.confirm-slider.active').not('.enagaged').removeClass('active');
+    // var haveItems = this.props.created.length + this.props.signed.length + this.props.unsigned.length + this.props.trades.length, height = 34, x;
+    // if (this.props.trades.length) {
+    //   height = height + 28;
+    //   for (x = 0; x < this.props.trades.length; x++) {
+    //     height = height + 28 + (Math.max(this.props.trades[x].user.length + this.props.trades[x].picks.user.length, this.props.trades[x].league.length + this.props.trades[x].picks.league.length) * 20);
+    //   }}
+    // if (haveItems && this.props.userTeam && this.props.userTeam !== this.props.activeTeam) {
+    //   $('#overview').css('height', 180);
+    // } else {
+    //   if (haveItems > 1) {
+    //     if (this.props.signed.length) { height = height + 28 + (this.props.signed.length * 33); }
+    //     if (this.props.unsigned.length) { height = height + 28 + (this.props.unsigned.length * 33); }
+    //     if (this.props.created.length) { height = height + 28 + (this.props.created.length * 33); }
+    //     $('#overview').css('height', height);
+    //   } else if (haveItems === 1) {
+    //     if (this.props.trades.length) {
+    //       $('#overview').css('height', height);
+    //     } else { $('#overview').css('height', 95); }
+    //   } else { $('#overview').css('height', 0); }
+    // }
+    // $('.confirm-slider.active').not('.enagaged').removeClass('active');
   },
 
   listUnsigned: function() {
@@ -198,12 +198,18 @@ var GMPanel = React.createClass({
 
 
   render: function() {
-    var active  = this.props.trades.length + this.props.created.length + this.props.signed.length + this.props.unsigned.length,
-        loaded  = active > 1 ? 'loaded ' : '';
-
+    // var active = this.props.trades.length + this.props.created.length + this.props.signed.length + this.props.unsigned.length,
+    //     loaded = active > 1 ? 'loaded ' : '';
+// <div id="overview" className={ active ? loaded + 'active panel' : 'panel' }>
     return (
-      <div id="overview" className={ active ? loaded + 'active panel' : 'panel' }>
+      <div id="overview" className="active panel">
         <div className="title">GM Overview</div>
+        <ul className="summary">
+          <li>{this.props.unsigned.length} Unsigned</li>
+          <li>{this.props.signed.length} Signed</li>
+          <li>{this.props.created.length} Created</li>
+          <li>{this.props.trades.length} Trades</li>
+        </ul>
         <div className="inner">
           { this.props.unsigned.length ? this.listUnsigned() : null }
           { this.props.signed.length ? this.listSigned() : null }

@@ -37,3 +37,19 @@ module.exports = State;
 // F1L : { contract: ['','','','','','','','','','','','','','',''], caphit: '', capnum: '', lastname: '', firstname: '', id: '', image: '', jersey: '', nation: '', position: '', shot: '', team: '', status: 'empty', age: '', bonus: '' },
 //       F1C : { contract: ['','','','','','','','','','','','','','',''], caphit: '', capnum: '', lastname: '', firstname: '', id: '', image: '', jersey: '', nation: '', position: '', shot: '', team: '', status: 'empty', age: '', bonus: '' },
 //       F1R : { contract: ['','','','','','','','','','','','','','',''], caphit: '', capnum: '', lastname: '', firstname: '', id: '', image: '', jersey: '', nation: '', position: '', shot: '', team: '', status: 'empty', age: '', bonus: '' },
+
+// REFACTOR..
+// teamInfo   : { id : '', name : '' },
+// teamCap    : { players: '', hit : '', space : '', forwards : '', defensemen : '', goaltenders : '', other : '', inactive : '' },
+// teamData   : { forwards : [], defensemen : [], goaltenders : [], other : [], inactive : [] },
+// tradeTeam  : { id : '', forwards : [], defensemen : [], goaltenders : [], inactive : [] },
+// tradeData  : { trades : [], user_list : [], league_list : [] },
+// tradeItems : { user : [], league : [] },
+// userInfo   : { team: '', name : '', link : '' },
+// userData   : { inplay : [], benched : [], ir : [], cleared : [], traded : [], acquired : [], created : [] },
+// altLines   : { FR : false, FB : false, DR : false, DB : false, GR : false, GB : false },
+// capData    : { year : 6, hit : '0.000', space : '71.000' },
+// viewData   : { active : 'loading', last : '', next : '' },
+// panelData  : { active : 'trades', loading : false, engaged : false, enabled : true, share : false },
+// dragData   : { type : '', group : '', index : '' },
+// notify     : { label : '', msg : '' }

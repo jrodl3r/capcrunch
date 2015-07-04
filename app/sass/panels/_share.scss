@@ -16,16 +16,16 @@
     color: #BBB;
     font-size: 13px;
     font-weight: bold;
-    background: linear-gradient(to left, #484848 0%, #333);
+    background: linear-gradient(to left, #666 0%, #262626);//linear-gradient(to left, #525252 0%, #333)
     border: none;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    box-shadow: 0 0 10px 0 rgba(0,0,0, .95);
+    box-shadow: 0 0 10px 0 rgba(0,0,0, .6);
     opacity: .7;
 
-    &:hover, &:active { text-shadow: 0 0 1px rgba(0,0,0, .5); }
-    &:hover { opacity: 1; }
-    &:active { color: #888; opacity: .7; transition: 0s; }
+    &:hover, &:active { color: #EEE; text-shadow: 0 0 1px rgba(0,0,0, .6); }
+    &:hover { background: linear-gradient(to left, #666 0%, #373737); opacity: 1; }
+    &:active { color: #888; opacity: .75; transition: .01s; }
     &.clicked { cursor: default; }
   }
 
@@ -42,7 +42,7 @@
   border: 0;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  box-shadow: 0 0 10px 0 rgba(0,0,0, .75);
+  box-shadow: 0 0 10px 0 rgba(0,0,0, .5);
   opacity: .85;
   transition: .3s;
 
@@ -50,7 +50,7 @@
   &:hover { background: linear-gradient(to top, #666 0%, #AAA); }
 
   &:focus {
-    box-shadow: 0 0 15px 0 rgba(0,0,0, .95);
+    box-shadow: 0 0 15px 0 rgba(0,0,0, .6);
     opacity: 1;
 
     &::placeholder { color: #666; }
@@ -67,12 +67,12 @@
 #share-form {
   position: relative;
   opacity: 0;
-  transition: opacity .35s ease-out;
+  transition: opacity .4s ease-out;
 
   &.active {
     height: auto;
     opacity: 1;
-    transition: opacity .35s .4s ease-out;
+    transition: opacity .4s .4s ease-out;
   }
 }
 
@@ -88,13 +88,13 @@
   border-radius: $border-radius;
   opacity: 0;
   overflow: hidden;
-  transition: opacity .35s, height .35s .2s;
+  transition: opacity .4s, height .5s .2s;
   transition-timing-function: ease-out;
 
   &.active {
     height: $share-height;
     opacity: 1;
-    transition: opacity .35s .35s, height .35s;
+    transition: opacity .4s .4s, height .5s;
   }
 }
 
@@ -111,7 +111,7 @@
   overflow: hidden;
   align-items: center;
   justify-content: center;
-  transition: opacity .35s, height 0s .35s;
+  transition: opacity .4s, height 0s .4s;
   transition-timing-function: ease-out;
 
   &.active {
@@ -135,13 +135,13 @@
   height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: opacity .25s, height .35s .25s;
+  transition: opacity .4s, height .5s .2s;
   transition-timing-function: ease-out;
 
   &.active {
     height: $share-height;
     opacity: 1;
-    transition: opacity .35s .35s, height 0s .35s;
+    transition: opacity .4s .4s, height 0s .4s;
   }
 
   h3, p {
@@ -304,6 +304,3 @@
     padding-right: 14px;
   }
 }
-
-// TODO: Roster-Text - "Style" Toggle/Switch (''/simple|full|md)
-// TODO: Roster-Text - Preview / Manual-Copy modal

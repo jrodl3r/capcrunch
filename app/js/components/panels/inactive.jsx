@@ -8,22 +8,24 @@ var Inactive = React.createClass({
   changeTab: function(e) {
     e.preventDefault();
     var tab = e.currentTarget.getAttribute('data-tab');
-    this.props.changePanelTab('inactive', tab);
+    if (!/disabled/.test(e.currentTarget.className)) {
+      this.props.changePanelTab('inactive', tab);
+    }
   },
 
   render: function() {
+    var created = this.props.panelData.inactive === 'created' ? 'active' : '';
 
     return (
       <div id="inactive" className="panel">
         <ul id="inactive-menu" className="tab-bar">
           <li>
-            <a id="signed-tab" data-tab="inactive" className={ this.props.panelData.inactive === 'inactive' ? 'active' : '' }
-              onClick={this.changeTab}>Inactive</a></li>
+            <a id="signed-tab" data-tab="inactive" onClick={this.changeTab}
+              className={ this.props.panelData.inactive === 'inactive' ? 'active' : '' }>Inactive</a></li>
+          <li><a id="prospects-tab" data-tab="prospects" className="disabled">Prospects</a></li>
           <li>
-            <a id="prospects-tab" data-tab="prospects" className={ this.props.panelData.inactive === 'prospects' ? 'active' : '' }
-              onClick={this.changeTab}>Prospects</a></li>
-          <li>
-            <a id="created-tab" data-tab="created" className={ this.props.panelData.inactive === 'created' ? 'active' : 'disabled' }>Created</a></li>
+            <a id="created-tab" data-tab="created" onClick={this.changeTab}
+              className={ this.props.playerData.created.length ? created : 'disabled' }>Created</a></li>
         </ul>
         <div className="inner">
           <Players panelId="inactive-list" playerType="inactive" view="inactive"

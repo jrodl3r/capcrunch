@@ -1,5 +1,6 @@
 #actions {
   margin-bottom: 0;
+  background: rgba(23,24,25, .95);
   transform: translateZ(0);
 
   &.loading { background: #000; }
@@ -59,38 +60,35 @@
     height: 26px;
     margin-bottom: 15px;
     padding: 0 3px 0 10px;
-    color: #212121;
+    color: #666;
     font-size: inherit;
     font-weight: inherit;
     line-height: 24px;
-    background: #888;
+    background: #3D3D3D;
     border: 0;
     border-radius: 5px;
     box-shadow: none;
     transition: .35s;
 
     &::placeholder { color: #616161; }
-    &:focus { background: #AAA; }
-    &:hover {
-      color: #111;
-      background: #999;
-    }
+    &.active, &:hover, &:focus {
+      color: #222;
+      background: #555;
+      box-shadow: 0 0 5px 0 rgba(0,0,0, .2);
 
-    &.active {
-      color: #111;
-      background: #777;
+      &::placeholder { color: #222; }
     }
 
     &.disabled, &.disabled:hover {
-      color: #555;
-      background: #777;
+      color: #515151;
+      background: #323232;
     }
 
     &.missing {
-      color: #000;
-      background: #AAA;
-      box-shadow: 0 0 10px rgba(255,255,255, .5);
-      transition: .1s;
+      color: #111;
+      background: #999;
+      box-shadow: 0 0 5px rgba(255,255,255, .3);
+      transition: .15s;
     }
   }
 
@@ -103,20 +101,29 @@
     height: 30px;
     width: 160px;
     margin: 0 auto;
-    color: rgba(255,255,255, .35);
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: 24px;
-    text-shadow: none;
-    background: linear-gradient(to top, #272727 0%, #595959);
+
+    color: rgba(160,160,160, .5);
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 0 0 1px rgba(0,0,0, .15);
+    background: linear-gradient(to top, #383838 0%, #484848);
+    box-shadow: 0 0 10px 0 rgba(0,0,0, .25);
+
+    // color: rgba(255,255,255, .35);
+    // font-size: inherit;
+    // font-weight: inherit;
+    // line-height: 24px;
+    // text-shadow: none;
+    // background: linear-gradient(to top, #272727 0%, #595959);
     border: none;
-    border-radius: $border-radius;
+    border-radius: $alt-border-radius;
     cursor: default;
     transition: .35s;
 
     &.enabled:hover, &.enabled:focus {
       color: rgba(255,255,255, .5);
-      text-shadow: 0 1px 1px rgba(0,0,0, .3);
+      // text-shadow: 0 1px 1px rgba(0,0,0, .3);
+      text-shadow: 0 0 1px rgba(0,0,0, .5);
       background: linear-gradient(to top, #444 0%, #666);
       box-shadow: 0 3px 2px rgba(0,0,0, .35), 0 0 1px rgba(255,255,255, .15) inset;
       cursor: pointer;
@@ -257,19 +264,19 @@
   height: 40px;
   width: 270px;
   margin: 0 auto 15px;
-  color: rgba(255,255,255, .15);
+  color: rgba(255,255,255, .13);
   line-height: 37px;
-  border: 1px dashed rgba(255,255,255, .1);
-  border-radius: $border-radius;
-  background: rgba(0,0,0, .15);
+  border: 1px dashed rgba(255,255,255, .08);
+  border-radius: $alt-border-radius;
+  background: linear-gradient(to top, rgba(0,0,0, .2) 0%, rgba(0,0,0, .3) 100%);
   cursor: default;
   transition: .35s;
 
   &.hover {
-    color: rgba(255,255,255, .35);
+    color: rgba(255,255,255, .25);
     text-shadow: 0 3px 7px rgba(0,0,0, .35);
-    background: rgba(23,24,25, .5);
-    box-shadow: 0 5px 40px 0 rgba(0,0,0, .5) inset;
+    background: linear-gradient(to top, rgba(0,0,0, .225) 0%, rgba(0,0,0, .325) 100%);
+    box-shadow: 0 5px 40px 0 rgba(0,0,0, .25) inset;
   }
 }
 
@@ -316,7 +323,7 @@
     color: rgba(255,255,255, .05);
     background: rgba(255,255,255, .03);
     border: 1px dashed rgba(255,255,255, .1);
-    border-radius: $border-radius;
+    border-radius: $alt-border-radius;
     box-shadow: 0 0 30px rgba(255,255,255, .03) inset;
     overflow: hidden;
     cursor: default;

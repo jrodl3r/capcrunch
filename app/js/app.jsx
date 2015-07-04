@@ -81,7 +81,10 @@ var App = React.createClass({
   changePanelTab: function(panel, tab) {
     var panelData = this.state.panelData;
     panelData[panel] = tab;
-    this.setState({ panelData : panelData });
+    this.setState({ panelData : panelData }, function() {
+      tab = '#' + tab + '-list';
+      UI.resetPanelScroll(tab);
+    });
   },
 
   notifyUser: function(label, msg) {
@@ -557,7 +560,9 @@ var App = React.createClass({
 // --------------------------------------------------
 
   createPlayer: function(data) {
-    var playerData = this.state.playerData, player = data;
+    var panelData = this.state.panelData,
+        playerData = this.state.playerData,
+        player = data;
     this.changePanelView('loading');
     player.team = playerData.team || this.state.teamData.id;
     player.action = 'created';
@@ -569,12 +574,14 @@ var App = React.createClass({
     this.setTimeout(() => {
       playerData.created.push(player);
       if (!playerData.team) { playerData.team = player.team; }
+      panelData.loading = false;
+      panelData.inactive = 'created';
       this.setState(update(this.state, {
-        panelData  : { loading : { $set: false }},
-        playerData : { $set: playerData }
+        panelData  : {$set: panelData},
+        playerData : {$set: playerData}
       }));
       UI.clearAction('create');
-      UI.resetPanelScroll('inactive');
+      UI.resetPanelScroll();
     }, Timers.confirm);
   },
 
@@ -762,11 +769,12 @@ var App = React.createClass({
   },
 
   handleTradeDragEnter: function() {
+    var panelData = this.state.panelData;
     dropData.last = null;
     if (dropData.action !== 'trade') {
       dropData.action = 'trade';
-      if (this.state.panelData.active !== 'trades') {
-        var panelData = update(this.state.panelData, { active : { $set: 'trades' }});
+      if (panelData.actions !== 'trades') {
+        panelData.actions = 'trades';
         this.setState({ panelData : panelData });
       }
       document.getElementById('trade-drop-area').className = 'hover';

@@ -66,10 +66,10 @@ var PlayersPanel = React.createClass({
   },
 
   render: function() {
-    var panelType = /(inactive|prospects)/.test(this.props.view) ? 'inactive' : 'active';
+    var type = /(inactive|prospects|created)/.test(this.props.view) ? 'inactive' : 'active';
 
     return (
-      <div id={this.props.panelId} className={ this.props.panelData[panelType] === this.props.view ? 'active player-list panel' : 'player-list panel' }>
+      <div id={this.props.panelId} className={ this.props.panelData[type] === this.props.view ? 'active player-list panel' : 'player-list panel' }>
       { this.props.playerData.length
         ? <div className="inner">
             <ul>{this.buildPlayerList(this.props.playerData, this.props.playerType)}</ul>
@@ -78,9 +78,5 @@ var PlayersPanel = React.createClass({
     );
   }
 });
-// { this.props.playerType === 'inactive' && this.props.createdData
-// ? <ul>{ this.props.createdData.length && this.props.createdData[0].team === this.props.activeTeam
-//         ? this.buildPlayerList(this.props.createdData, 'created') : null }
-//       {this.buildPlayerList(this.props.playerData, this.props.playerType)}</ul>
-// : <ul>{this.buildPlayerList(this.props.playerData, this.props.playerType)}</ul> }
+
 module.exports = PlayersPanel;

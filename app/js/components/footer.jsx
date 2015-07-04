@@ -3,27 +3,27 @@
 var Footer = React.createClass({
 
   render: function() {
+    var status = !/(teams|loading)/.test(this.props.activeView) ? 'active ' : '';
+
     return (
-      <footer className={ !/(teams|loading)/.test(this.props.activeView) ? 'active' : '' }>
+      <footer className={ this.props.activeView === 'payroll' ? status + 'alt' : status }>
         <div className="logo">
-          CAP<span className="alt">CRUNCH</span><span className="divider">&#8942;</span><span className="version">v0.9.3</span>
+          <span className="cap">CAP</span>CRUNCH<span className="divider">&#8942;</span><span className="version">0.9.3</span>
         </div>
         <ul>
           <li className="credits">Credits
             <ul id="credits">
-              <li>Payroll &amp; Player Info » <a href="http://nhlnumbers.com" target="_blank">NHLNumbers.com</a></li>
-              <li>Picks &amp; Trade Details » <a href="http://prosportstransactions.com/hockey/DraftTrades/Years" target="_blank">Pro Sports Transactions</a></li>
-              <li>Player Info &amp; Images » <a href="http://tsn.ca" target="_blank">TSN</a></li>
-              <li>Arena BG Image » <a href="http://hockey.fantasysports.yahoo.com" target="_blank">Yahoo</a></li>
+              <li><a href="http://prosportstransactions.com/hockey/DraftTrades/Years" title="Draft Picks" target="_blank">Pro Sports Transactions</a></li>
+              <li><a href="http://nhlnumbers.com" title="Team Payrolls" target="_blank">NHLNumbers.com</a></li>
+              <li><a href="http://tsn.ca" title="Player Photos" target="_blank">TSN.ca</a></li>
             </ul>
           </li>
           <li className="divider">&#8942;</li>
           <li className="nextup">What&#39;s Next?
             <ul id="nextup">
-              <li>Sign Free Agents (UFA&#39;s + Offer-sheets)</li>
-              <li>Always-Visible <strong>Cap Stats HUD</strong> w/ Integrated User Alerts + Settings Menu</li>
-              <li><strong>Tabbed Active Players Panel</strong> (combine F/D/G for better visibility)</li>
-              <li>Mobile + Touch Support</li>
+              <li>New Cap Stats + Settings Menu</li>
+              <li>Offer-Sheet + Sign Free Agents</li>
+              <li>Mobile / Touch Support</li>
             </ul>
           </li>
           <li className="divider">&#8942;</li>

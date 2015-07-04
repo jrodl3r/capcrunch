@@ -31,16 +31,16 @@ var ActionsPanel = React.createClass({
     return (
       <div id="actions" className={ this.props.panelData.loading ? 'panel loading' : 'panel' }>
         <div className={ 'inner ' + activePanel + tradeSize }>
-          <ul id="actions-menu">
+          <ul id="actions-menu" className="tab-bar">
             <li>
               <a id="trades-tab" data-tab="trades" className={ this.props.panelData.actions === 'trades' ? 'active' : '' }
-                onClick={this.changeTab}>Trades</a></li>
+                onClick={this.changeTab}>Trade</a></li>
             <li>
               <a id="freeagents-tab" data-tab="freeagents" className={ this.props.panelData.actions === 'freeagents' ? 'active' : '' }
-                onClick={this.changeTab}>Free Agents</a></li>
+                onClick={this.changeTab}>Sign</a></li>
             <li>
               <a id="createplayer-tab" data-tab="createplayer" className={ this.props.panelData.actions === 'createplayer' ? 'active' : '' }
-                onClick={this.changeTab}>Create Player</a></li>
+                onClick={this.changeTab}>Create</a></li>
           </ul>
           <Trades
             tradeSize={tradeSize}

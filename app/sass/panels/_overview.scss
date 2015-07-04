@@ -5,7 +5,26 @@
   opacity: 0;
   transition: opacity .4s .35s, height .4s .75s, margin .4s .75s;
 
-  .title { background: linear-gradient(to top, rgba(21,21,21, .03) 0%, rgba(60,60,60, .5)); }
+  &.active {
+    height: 75px;
+    margin-bottom: 20px;
+    opacity: 1;
+    transition: opacity .4s .75s, height .4s .35s, margin .4s .35s;
+
+    > .inner { height: auto; }
+  }
+
+  &.loaded { transition: height .4s; }
+
+  .title {
+    color: rgba(100,100,100, 1);
+    height: 30px;
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 0 0 1px rgba(0,0,0, .75);
+    line-height: 30px;
+    background: linear-gradient(to top, rgba(21,21,21, .03) 0%, rgba(60,60,60, .5));
+  }
 
   > .inner {
     max-height: 191px;
@@ -19,16 +38,10 @@
     }
   }
 
-  &.active {
-    height: 95px;
-    margin-bottom: 20px;
-    opacity: 1;
-    transition: opacity .4s .75s, height .4s .35s, margin .4s .35s;
+  .summary {
+    display: flex;
 
-    > .inner { height: auto; }
   }
-
-  &.loaded { transition: height .4s; }
 
   input, select {
     margin: 4px 0 0;

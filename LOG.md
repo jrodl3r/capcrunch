@@ -220,7 +220,8 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.4] »
 ---------------------------------------------------------------
-- 'roster menu revamp phase-2: cleanup overview + actions panels'
+- 'roster menu revamp phase-3: cleanup overview + actions panels'
+- 'roster menu revamp phase-4: naildown '
 ---------------------------------------------------------------
 - 'capstats + notify: cleanup, merge layout + display logic'
 - 'capstats: dynamic positioning slide+fade-in/out'
@@ -252,6 +253,7 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'roster menu revamp phase-2: tabbed player panels + nav update + ui refresh'
 - 'roster menu revamp phase-1: setup tabbed active + inactive panels'
 - 'salary cap to 71.4M'
 - 'footer layout + display logic'

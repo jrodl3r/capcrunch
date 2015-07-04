@@ -8,6 +8,8 @@ var UI = {
   team_loaded : false,
   zc_loaded   : false,
   msg_timeout : null,
+  arena_bg    : 'url(http://s3.amazonaws.com/capcrunch/img/bg-arena.jpg)',
+  rink_bg     : 'url(../img/bg-rink.jpg)',
 
   init: function() {
     UI.detect();
@@ -53,11 +55,13 @@ var UI = {
       $('#payroll .inner').css('height', table_height);
       $('#app .wrap').css('height', full_height);
       $('#team-select').removeClass('clicked');
+      $('html').css('background-image', UI.arena_bg);
     }, 100);
   },
 
   resetViewHeight: function() {
     $('#payroll .inner, #app .wrap').css('height', 'auto');
+    $('html').css('background-image', UI.rink_bg);
   },
 
   resetViewScroll: function() {
@@ -71,11 +75,9 @@ var UI = {
   },
 
   resetPanelScroll: function(panel) {
-    if (panel) {
-      panel = '#' + panel + '-list ul';
-      if ($(panel).scrollTop()) { $(panel).scrollTo({ endY: 0, duration: 750 }); }
-    } else {
-      $('#overview > .inner, #forwards-list ul, #defense-list ul, #goalies-list ul, #inactive-list ul').scrollTo({ endY: 0, duration: 650 });
+    panel = panel || '.active.player-list';
+    if ($(panel).scrollTop()) {
+      $(panel).scrollTo({ endY: 0, duration: 250 });
     }
     $('#team-select').removeClass('clicked');
   },

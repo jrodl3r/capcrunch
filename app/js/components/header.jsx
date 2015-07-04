@@ -20,6 +20,7 @@ var Header = React.createClass({
   },
 
   render: function() {
+    var status = /(roster|payroll)/.test(this.props.activeView) ? 'active ' : '';
 
     return (
       <header>
@@ -27,7 +28,7 @@ var Header = React.createClass({
           <div className="beta-tag">beta <span className="version">0.9.3</span></div>
           <img height="43" width="230" src="img/logo.svg" />
           <div id="notify" className={ this.props.notify.label ? 'active ' + this.props.notify.label : '' }>{this.props.notify.msg}</div>
-          <nav id="team-menu" className={ this.props.activeView === 'roster' || this.props.activeView === 'payroll' ? 'active' : '' }>
+          <nav id="team-menu" className={ this.props.activeView === 'payroll' ? status + ' alt' : status }>
             <ul>
               <li>
                 <div id="team-select" data-view="teams" onClick={this.changeView}>
@@ -43,19 +44,19 @@ var Header = React.createClass({
                 <a id="roster-link" data-view="roster" className={ this.props.activeView === 'roster' ? 'active' : '' }
                   onClick={this.changeView}><i className="fa fa-trophy"></i>Roster</a>
               </li>
-              <li id="tools-link"><a><i className="fa fa-server"></i>Tools</a></li>
-              <li>
+              <li className={ this.props.activeView !== 'roster' ? 'disabled' : null }>
                 <a id="help-link"
                   onMouseOver={ this.props.activeView === 'roster' ? UI.showOnboard : null }
                   onMouseLeave={ this.props.activeView === 'roster' ? UI.hideOnboard : null }>
                   <i className="fa fa-question-circle"></i>Help</a>
               </li>
             </ul>
-            <a id="video-demo-link"><i className="fa fa-film"></i>Watch Video Guide</a>
           </nav>
         </div>
       </header>
     );
+// <li id="tools-link"><a><i className="fa fa-server"></i>Tools</a></li>
+// <a id="video-demo-link"><i className="fa fa-film"></i>Watch Video Guide</a>
   }
 });
 

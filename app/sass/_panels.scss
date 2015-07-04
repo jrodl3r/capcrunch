@@ -7,7 +7,7 @@
 
 #active, #inactive {
   position: relative;
-  height: 229px;
+  height: 233px;
 }
 
 .panel {
@@ -15,7 +15,7 @@
   float: left;
   width: 300px;
   margin-bottom: $page-spacing;
-  background: rgba(23,24,25, .85);
+  background: rgba(20,21,22, .85);
   border-radius: $border-radius;
   box-shadow: 0 0 2px 0 rgba(123,123,123, .1) inset;
   overflow: hidden;
@@ -50,7 +50,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  height: 30px;
+  height: 34px;
   width: 300px;
 
   li {
@@ -61,30 +61,30 @@
   a {
     display: flex;
     justify-content: center;
-    color: rgba(255,255,255, .3);
+    color: rgba(182,182,182, .3);
     font-size: 12px;
-    font-weight: 400;
-    line-height: 30px;
+    font-weight: bold;
+    line-height: 34px;
     text-shadow: 0 0 2px rgba(0,0,0, .4);
-    background: linear-gradient(to top, transparent 0%, rgba(255,255,255, .15) 100%);
+    // background: linear-gradient(to top, transparent 0%, rgba(255,255,255, .15) 100%);
     transition: .15s;
 
     &:hover {
-      color: rgba(255,255,255, .5);
+      // color: rgba(255,255,255, .5);
+      color: rgba(120,120,120, .8);
       transition: .5s;
     }
 
     &.active {
-      color: rgba(255,255,255, .45);
-      background: none;
+      // color: rgba(120,120,120, .8);
+      color: rgba(255,255,255, .5);
+      background: linear-gradient(to top, transparent 0%, rgba(0,0,0, .28) 100%);
       cursor: default;
       transition: .25s;
     }
 
-    &.disabled {
-      // color: rgba(0,0,0, .45);
-      color: rgba(255,255,255, .18);
-      text-shadow: none;
+    &.disabled, &.disabled:hover {
+      color: rgba(182,182,182, .3);
       cursor: default;
     }
   }
@@ -92,7 +92,7 @@
 
 .player-list {
   position: absolute;
-  top: 30px;
+  top: 34px;
   height: 0;
   margin-bottom: 0;
   background: none;

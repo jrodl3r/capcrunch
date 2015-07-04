@@ -1,15 +1,12 @@
 html {
   height: 100%;
-  background-color: #1C1D21; //#15161A
-  background-image: url(../img/dark.jpg); //url($img-url + 'dark.jpg');
+  background-color: #151726;
+  background-image: url(../img/bg-rink.jpg); //url($img-url + 'bg.jpg');
   background-attachment: fixed;
-  background-size: 100% auto;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
-}
-
-@media (max-width: 1500px) {
-  html { background-size: 1500px auto; }
+  transition: background-image 1s ease-in-out;
 }
 
 body {
@@ -102,10 +99,6 @@ ul {
   }
 }
 
-
-// Splash Views
-// --------------------------------------------------
-
 #loading {
   position: fixed;
   z-index: 99;
@@ -115,8 +108,8 @@ ul {
   width: 200px;
   margin-top: -50px;
   margin-left: -100px;
-  color: #000;
-  font-size: 26px;
+  color: #FFF;
+  font-size: 29px;
   font-weight: 500;
   text-align: center;
   line-height: 100px;
@@ -131,11 +124,13 @@ ul {
     transition: opacity .1s, height 0s;
   }
 
-  i {
+  span {
     position: relative;
-    top: 4px;
-    left: -6px;
+    top: -3px;
+    left: 8px;
   }
+
+  i { font-size: 28px; }
 }
 
 #unsupported {
