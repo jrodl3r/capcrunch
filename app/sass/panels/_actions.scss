@@ -140,54 +140,6 @@
   }
 }
 
-
-// Menu
-// --------------------------------------------------
-
-// #actions-menu {
-//   position: relative;
-//   height: $actions-menu-height;
-//   width: 300px;
-//   margin-left: 1px;
-//   transition: .3s;
-
-//   li {
-//     float: left;
-//     height: $actions-menu-height;
-//     width: 100px;
-//     margin: 0;
-//     line-height: $actions-menu-height;
-//   }
-
-//   a {
-//     float: left;
-//     height: inherit;
-//     width: 100%;
-//     color: #666;
-//     font-size: 11px;
-//     line-height: inherit;
-//     text-align: center;
-//     text-decoration: none;
-//     cursor: pointer;
-//     background: linear-gradient(to top, rgba(21,21,21, .68) 0%, rgba(35,35,35, .1) 100%);
-//     transition: .3s;
-
-//     &:hover {
-//       color: #888;
-//       text-shadow: 0 1px 2px rgba(0,0,0, .3);
-//     }
-
-//     &.active, &.active:hover {
-//       color: #999;
-//       text-shadow: 0 1px 2px rgba(0,0,0, .3);
-//       background: linear-gradient(to bottom, rgba(255,255,255, .1) 20%, transparent 70%, transparent 100%);
-//       cursor: default;
-//     }
-//   }
-
-//   .loading & { opacity: .25; }
-// }
-
 .tab-area {
   height: 0;
   opacity: 0;

@@ -114,9 +114,11 @@ Post-Launch Rebuild
 
 
 ---------------------------------------------------------------
-## GM Overview 🏆
+##                      GM Overview                       ⚙  ##
 ---------------------------------------------------------------
-|   2 Unsigned   ⋮   3 Signed   ⋮   1 Created   ⋮   2 Trades   |
+|   2 Unsigned ⋮ 3 Signed ⋮ 1 Created ⋮ 2 Trades  (2 Players)  |
+---------------------------------------------------------------
+| [ (»» HIT 68.382 »»»»»»»»»» SPACE 4.613 »»)   CAP 71.400M ] |
 ---------------------------------------------------------------
 - 'morphs into status persistent HUD when not engaged'
 - 'auto-expands on mouse-over'
@@ -221,7 +223,12 @@ Post-Launch Rebuild
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.4] »
 ---------------------------------------------------------------
 - 'roster menu revamp phase-3: cleanup overview + actions panels'
-- 'roster menu revamp phase-4: naildown '
+- 'roster menu revamp phase-4: naildown player-list tab + panel layout'
+- 'roster menu revamp phase-5: create-player form elements'
+  - http://codepen.io/mweint/pen/vmdrF, http://codepen.io/ahmadalfy/pen/pbLtw
+  - 'position + shot radio buttons (defaults: R / C)'
+  - 'jersey, salary + duration sliders (defaults: __ / 0.000 / 1)'
+- 'create player-list empty view'
 ---------------------------------------------------------------
 - 'capstats + notify: cleanup, merge layout + display logic'
 - 'capstats: dynamic positioning slide+fade-in/out'

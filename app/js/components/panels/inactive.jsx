@@ -11,6 +11,11 @@ var Inactive = React.createClass({
     if (!/disabled/.test(e.currentTarget.className)) {
       this.props.changePanelTab('inactive', tab);
     }
+    if (e.currentTarget.className !== 'disabled') {
+      if (tab === 'inactive') { $('#inactive-menu li.tracker').css('left', '4.5%').css('width', '69px'); }
+      // else if (tab === 'prospects') { $('#active-menu li.tracker').css('left', 'XX%').css('width', 'XXpx'); }
+      else { $('#inactive-menu li.tracker').css('left', '72.5%').css('width', '68px'); }
+    }
   },
 
   render: function() {
@@ -26,6 +31,7 @@ var Inactive = React.createClass({
           <li>
             <a id="created-tab" data-tab="created" onClick={this.changeTab}
               className={ this.props.playerData.created.length ? created : 'disabled' }>Created</a></li>
+          <li className="tracker"></li>
         </ul>
         <div className="inner">
           <Players panelId="inactive-list" playerType="inactive" view="inactive"

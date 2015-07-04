@@ -311,7 +311,7 @@ var App = React.createClass({
         data.hit = (parseFloat(data.hit) - parseFloat(salary)).toFixed(3);
         data.space = (parseFloat(data.space) + parseFloat(salary)).toFixed(3);
       }}
-    else if (type == 'signed') {
+    else if (type === 'signed') {
       data.hit = (parseFloat(data.hit) + parseFloat(salary)).toFixed(3);
       data.space = (parseFloat(data.space) - parseFloat(salary)).toFixed(3);
       data.unsigned = data.unsigned - 1;
@@ -464,7 +464,7 @@ var App = React.createClass({
   verifyTrade: function() {
     if ((this.state.tradeData.user.length + this.state.tradeData.picks.user.length) &&
         (this.state.tradeData.league.length + this.state.tradeData.picks.league.length)) {
-      $('#trade-player-button').addClass('enabled'); }
+    $('#trade-player-button').addClass('enabled'); }
     else { $('#trade-player-button').removeClass('enabled'); }
   },
 

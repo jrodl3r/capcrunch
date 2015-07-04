@@ -77,7 +77,7 @@ var UI = {
   resetPanelScroll: function(panel) {
     panel = panel || '.active.player-list';
     if ($(panel).scrollTop()) {
-      $(panel).scrollTo({ endY: 0, duration: 250 });
+      $(panel).scrollTo({ endY: 0, duration: 500 });
     }
     $('#team-select').removeClass('clicked');
   },
@@ -93,6 +93,7 @@ var UI = {
       $('#create-player-shot, #create-player-position, #create-player-duration').attr('class', '').val('0');
       $('#create-player-confirm').attr('class', 'transaction-confirm');
       $('#create-player-button').attr('class', '');
+      $('#inactive-menu li.tracker').css('left', '72.5%').css('width', '68px');
     } else {
       $('#trade-player-select').val('0');
       $('#add-trade-player').attr('class', 'add-button');
@@ -274,7 +275,7 @@ var UI = {
         if (!loaded) {
           setTimeout(function() {
             client = new ZeroClipboard(document.getElementById('text-share'), {swfPath: 'https://s3.amazonaws.com/capcrunch/js/zc.swf'});
-            client.on('ready', function(event) {
+            client.on('ready', function(e) {
               client.on('copy', function(event) {
                 event.clipboardData.setData('text/plain', event.target.getAttribute('data-clip'));
               });

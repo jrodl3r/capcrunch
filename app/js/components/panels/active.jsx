@@ -9,6 +9,9 @@ var Active = React.createClass({
     e.preventDefault();
     var tab = e.currentTarget.getAttribute('data-tab');
     this.props.changePanelTab('active', tab);
+    if (tab === 'forwards') { $('#active-menu li.tracker').css('left', '4.5%').css('width', '82px'); }
+    else if (tab === 'defense') { $('#active-menu li.tracker').css('left', '40%').css('width', '72px'); }
+    else { $('#active-menu li.tracker').css('left', '73.5%').css('width', '65px'); }
   },
 
   render: function() {
@@ -25,6 +28,7 @@ var Active = React.createClass({
           <li>
             <a id="goalies-tab" data-tab="goalies" className={ this.props.panelData.active === 'goalies' ? 'active' : '' }
               onClick={this.changeTab}>Goalies</a></li>
+          <li className="tracker"></li>
         </ul>
         <div className="inner">
           <Players panelId="forwards-list" playerType="forwards" view="forwards"

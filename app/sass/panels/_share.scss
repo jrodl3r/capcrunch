@@ -13,9 +13,6 @@
   button {
     width: 70px;
     padding: 0;
-    color: #BBB;
-    font-size: 13px;
-    font-weight: bold;
     background: linear-gradient(to left, #666 0%, #262626);//linear-gradient(to left, #525252 0%, #333)
     border: none;
     border-top-left-radius: 0;
@@ -62,6 +59,9 @@
   top: 0;
   right: 0;
   z-index: 10;
+  color: #EEE;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 #share-form {
