@@ -52,59 +52,59 @@ var PayrollTable = React.createClass({
       <table id="payroll-table">
         <thead>
           <tr className="header">
-            <th className="first"></th><th className="num">Cap Num</th><th className="hit">Cap Hit</th><th className="year">09/10</th>
-            <th className="year">10/11</th><th className="year">11/12</th><th className="year">12/13</th><th className="year">13/14</th>
-            <th className="year">14/15</th><th className="year cur">15/16</th><th className="year">16/17</th><th className="year">17/18</th>
-            <th className="year">18/19</th><th className="year">19/20</th><th className="year">20/21</th><th className="year">21/22</th>
-            <th className="year">22/23</th><th className="year last">23/24</th>
+            <th className="first"></th><th className="num">Cap Num</th><th className="hit">Cap Hit</th>
+            <th className="year">2009</th><th className="year">2010</th><th className="year">2011</th><th className="year">2012</th>
+            <th className="year">2013</th><th className="year">2014</th><th className="year cur">2015</th><th className="year">2016</th>
+            <th className="year">2017</th><th className="year">2018</th><th className="year">2019</th><th className="year">2020</th>
+            <th className="year">2021</th><th className="year">2022</th><th className="year last">2023</th>
           </tr>
         </thead>
         <tbody>
           <tr className="title forwards">
             <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Forwards</td>
             <td className="num"></td><td className="hit">{this.props.teamData.cap.forwards}</td>
-            <td className="year">09/10</td><td className="year">10/11</td><td className="year">11/12</td><td className="year">12/13</td>
-            <td className="year">13/14</td><td className="year">14/15</td><td className="year cur">15/16</td><td className="year">16/17</td>
-            <td className="year">17/18</td><td className="year">18/19</td><td className="year">19/20</td><td className="year">20/21</td>
-            <td className="year">21/22</td><td className="year">22/23</td><td className="year last">23/24</td>
+            <td className="year">2009</td><td className="year">2010</td><td className="year">2011</td><td className="year">2012</td>
+            <td className="year">2013</td><td className="year">2014</td><td className="year cur">2015</td><td className="year">2016</td>
+            <td className="year">2017</td><td className="year">2018</td><td className="year">2019</td><td className="year">2020</td>
+            <td className="year">2021</td><td className="year">2022</td><td className="year last">2023</td>
           </tr>
           {this.playerGroup(this.props.teamData.players.forwards)}
           <tr className="title defensemen">
             <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Defensemen</td>
             <td className="num"></td><td className="hit">{this.props.teamData.cap.defensemen}</td>
-            <td className="year">09/10</td><td className="year">10/11</td><td className="year">11/12</td><td className="year">12/13</td>
-            <td className="year">13/14</td><td className="year">14/15</td><td className="year cur">15/16</td><td className="year">16/17</td>
-            <td className="year">17/18</td><td className="year">18/19</td><td className="year">19/20</td><td className="year">20/21</td>
-            <td className="year">21/22</td><td className="year">22/23</td><td className="year last">23/24</td>
+            <td className="year">2009</td><td className="year">2010</td><td className="year">2011</td><td className="year">2012</td>
+            <td className="year">2013</td><td className="year">2014</td><td className="year cur">2015</td><td className="year">2016</td>
+            <td className="year">2017</td><td className="year">2018</td><td className="year">2019</td><td className="year">2020</td>
+            <td className="year">2021</td><td className="year">2022</td><td className="year last">2023</td>
           </tr>
           {this.playerGroup(this.props.teamData.players.defensemen)}
           <tr className="title goaltenders">
             <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Goalies</td>
             <td className="num"></td><td className="hit">{this.props.teamData.cap.goaltenders}</td>
-            <td className="year">09/10</td><td className="year">10/11</td><td className="year">11/12</td><td className="year">12/13</td>
-            <td className="year">13/14</td><td className="year">14/15</td><td className="year cur">15/16</td><td className="year">16/17</td>
-            <td className="year">17/18</td><td className="year">18/19</td><td className="year">19/20</td><td className="year">20/21</td>
-            <td className="year">21/22</td><td className="year">22/23</td><td className="year last">23/24</td>
+            <td className="year">2009</td><td className="year">2010</td><td className="year">2011</td><td className="year">2012</td>
+            <td className="year">2013</td><td className="year">2014</td><td className="year cur">2015</td><td className="year">2016</td>
+            <td className="year">2017</td><td className="year">2018</td><td className="year">2019</td><td className="year">2020</td>
+            <td className="year">2021</td><td className="year">2022</td><td className="year last">2023</td>
           </tr>
           {this.playerGroup(this.props.teamData.players.goaltenders)}
       { this.props.teamData.players.other.length
         ? <tr className="title other">
             <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Other</td>
             <td className="num"></td><td className="hit">{this.props.teamData.cap.other}</td>
-            <td className="year">09/10</td><td className="year">10/11</td><td className="year">11/12</td><td className="year">12/13</td>
-            <td className="year">13/14</td><td className="year">14/15</td><td className="year cur">15/16</td><td className="year">16/17</td>
-            <td className="year">17/18</td><td className="year">18/19</td><td className="year">19/20</td><td className="year">20/21</td>
-            <td className="year">21/22</td><td className="year">22/23</td><td className="year last">23/24</td>
+            <td className="year">2009</td><td className="year">2010</td><td className="year">2011</td><td className="year">2012</td>
+            <td className="year">2013</td><td className="year">2014</td><td className="year cur">2015</td><td className="year">2016</td>
+            <td className="year">2017</td><td className="year">2018</td><td className="year">2019</td><td className="year">2020</td>
+            <td className="year">2021</td><td className="year">2022</td><td className="year last">2023</td>
           </tr> : null }
           { this.props.teamData.players.other.length ? this.playerGroup(this.props.teamData.players.other) : null }
           <tr className="title inactive">
             <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Inactive</td>
             <td className="num"></td>
             { this.props.teamData.cap.inactive === '0.000' ? <td className="hit zero">-</td> : <td className="hit">{this.props.teamData.cap.inactive}</td> }
-            <td className="year">09/10</td><td className="year">10/11</td><td className="year">11/12</td><td className="year">12/13</td>
-            <td className="year">13/14</td><td className="year">14/15</td><td className="year cur">15/16</td><td className="year">16/17</td>
-            <td className="year">17/18</td><td className="year">18/19</td><td className="year">19/20</td><td className="year">20/21</td>
-            <td className="year">21/22</td><td className="year">22/23</td><td className="year last">23/24</td>
+            <td className="year">2009</td><td className="year">2010</td><td className="year">2011</td><td className="year">2012</td>
+            <td className="year">2013</td><td className="year">2014</td><td className="year cur">2015</td><td className="year">2016</td>
+            <td className="year">2017</td><td className="year">2018</td><td className="year">2019</td><td className="year">2020</td>
+            <td className="year">2021</td><td className="year">2022</td><td className="year last">2023</td>
           </tr>
           {this.playerGroup(this.props.teamData.players.inactive)}
           <tr className="title other">
@@ -118,6 +118,10 @@ var PayrollTable = React.createClass({
       </table>
     );
   }
+// <th className="year">2009</th><th className="year">2010</th><th className="year">2011</th><th className="year">2012</th>
+// <th className="year">2013</th><th className="year">2014</th><th className="year cur">2015</th><th className="year">2016</th>
+// <th className="year">2017</th><th className="year">2018</th><th className="year">2019</th><th className="year">2020</th>
+// <th className="year">2021</th><th className="year">2022</th><th className="year last">2023</th>
 });
 
 module.exports = PayrollTable;

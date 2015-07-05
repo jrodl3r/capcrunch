@@ -14,7 +14,7 @@ var PicksTable = React.createClass({
           if (parseInt(pick.round) === round) {
             if (pick.status === 'acquired' || pick.status === 'acquired-cond') {
               info = '<p><span class="pick-title">Acquired from ' + pick.from.id + ': </span>' + pick.from.info;
-              if (pick.from.orig) { info = info + '&nbsp; <span class="pick-title">(Originally acquired from ' + pick.from.orig + ')</span></p>' }
+              if (pick.from.orig) { info = info + '&nbsp; <span class="pick-title">(Originally acquired from ' + pick.from.orig + ')</span></p>'; }
               else { info = info + '</p>'; }
             } else if (pick.status === 'traded' || pick.status === 'traded-cond') {
               info = '<p><span class="pick-title">Traded to ' + pick.to.id + ': </span>' + pick.to.info + '</p>';
@@ -27,7 +27,7 @@ var PicksTable = React.createClass({
             if (round > 5) {
               pos = 'bottom ';
               if (info.length > 230 && info.length < 379) { pos = pos + 'tall '; }
-              else if (info.length >= 380 && info.length < 420) { pos = pos + 'tall-mid ';}
+              else if (info.length >= 380 && info.length < 420) { pos = pos + 'tall-mid '; }
               else if (info.length >= 420 && info.length < 500) { pos = pos + 'taller '; }
               else if (info.length >= 500 && info.length < 600) { pos = pos + 'large '; }
               else if (info.length >= 600) { pos = pos + 'larger '; }
@@ -51,7 +51,7 @@ var PicksTable = React.createClass({
               </span>
             );
           }
-        }.bind(this)) }
+        }) }
       </td>
     );
   },
