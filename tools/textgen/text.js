@@ -1,8 +1,11 @@
 'use strict';
 
+// Generate Text Rosters
+// ----------------------
+
 // TODO: setup other types [basic|full|markdown]
 
-var Table = {
+var Text = {
 
   // build basic text roster
   build: function(data, type) {
@@ -21,7 +24,7 @@ var Table = {
         label = type === 'basic' ? '' : '[L' + (x + 1) + '] ';
         clip = clip + label;
         for (y = 0; y < 3; y++) {
-          if (!y) { pos = '[-- LW --]'; } else if (y == 2) { pos = '[-- RW --]'; } else { pos = '[-- C --]'; }
+          if (!y) { pos = '[-- LW --]'; } else if (y === 2) { pos = '[-- RW --]'; } else { pos = '[-- C --]'; }
           key = 'F' + (x + 1) + posf[y];
           if (roster[key].status !== 'empty') {
             salary = !/(UFA|RFA)/.test(roster[key].contract[6]) ? roster[key].capnum : roster[key].contract[6];
@@ -31,7 +34,7 @@ var Table = {
         } clip = clip + '\n';
 
       // Benched
-      } else if (x == 4 && (roster.FB1.status !== 'empty' || roster.FB2.status !== 'empty' || roster.FB3.status !== 'empty')) {
+      } else if (x === 4 && (roster.FB1.status !== 'empty' || roster.FB2.status !== 'empty' || roster.FB3.status !== 'empty')) {
         // label = type === 'basic' ? 'Bench: ' : '[BN] ';
         clip = clip + '[Bench] ';
         for (y = 0; y < 3; y++) {
@@ -46,7 +49,7 @@ var Table = {
         clip = clip + '\n';
 
       // Injured
-      } else if (x == 5 && (roster.FR1.status !== 'empty' || roster.FR2.status !== 'empty' || roster.FR3.status !== 'empty')) {
+      } else if (x === 5 && (roster.FR1.status !== 'empty' || roster.FR2.status !== 'empty' || roster.FR3.status !== 'empty')) {
         // label = type === 'basic' ? 'Injured: ' : '[IR] ';
         clip = clip + '[IR] ';
         for (y = 0; y < 3; y++) {
@@ -77,7 +80,7 @@ var Table = {
         } clip = clip + '\n';
 
       // Benched
-      } else if (x == 3 && (roster.DB1.status !== 'empty' || roster.DB2.status !== 'empty')) {
+      } else if (x === 3 && (roster.DB1.status !== 'empty' || roster.DB2.status !== 'empty')) {
         // label = type === 'basic' ? 'Bench: ' : '[BN] ';
         clip = clip + '[Bench] ';
         for (y = 0; y < 2; y++) {
@@ -92,7 +95,7 @@ var Table = {
         clip = clip + '\n';
 
       // Injured
-      } else if (x == 4 && (roster.DR1.status !== 'empty' || roster.DR2.status !== 'empty')) {
+      } else if (x === 4 && (roster.DR1.status !== 'empty' || roster.DR2.status !== 'empty')) {
         // label = type === 'basic' ? 'Injured: ' : '[IR] ';
         clip = clip + '[IR] ';
         for (y = 0; y < 2; y++) {
@@ -123,7 +126,7 @@ var Table = {
         } clip = clip + '\n';
 
       // Benched
-      } else if (x == 1 && (roster.GB1.status !== 'empty' || roster.GB2.status !== 'empty')) {
+      } else if (x === 1 && (roster.GB1.status !== 'empty' || roster.GB2.status !== 'empty')) {
         // label = type === 'basic' ? 'Bench: ' : '[BN] ';
         clip = clip + '[Bench] ';
         for (y = 0; y < 2; y++) {
@@ -138,7 +141,7 @@ var Table = {
         clip = clip + '\n';
 
       // Injured
-      } else if (x == 2 && (roster.GR1.status !== 'empty' || roster.GR2.status !== 'empty')) {
+      } else if (x === 2 && (roster.GR1.status !== 'empty' || roster.GR2.status !== 'empty')) {
         // label = type === 'basic' ? 'Injured: ' : '[IR] ';
         clip = clip + '[IR] ';
         for (y = 0; y < 2; y++) {
@@ -195,7 +198,7 @@ var Table = {
         });
         t.picks.user.forEach(function(p, i) {
           if (t.user.length || i) { clip = clip + ', 20' + p.year + ' ' + p.label + ' Round'; }
-          else { clip = clip + '20' + p.year + ' ' + p.label + 'Round' }
+          else { clip = clip + '20' + p.year + ' ' + p.label + 'Round'; }
         });
         clip = clip + '\n   For: ';
         t.league.forEach(function(p, i) {
@@ -204,7 +207,7 @@ var Table = {
         });
         t.picks.league.forEach(function(p, i) {
           if (t.user.length || i) { clip = clip + ', 20' + p.year + ' ' + p.label + ' Round'; }
-          else { clip = clip + '20' + p.year + ' ' + p.label + 'Round' }
+          else { clip = clip + '20' + p.year + ' ' + p.label + 'Round'; }
         });
       });
       clip = clip + '\n';
@@ -220,4 +223,4 @@ var Table = {
   }
 };
 
-module.exports = Table;
+module.exports = Text;

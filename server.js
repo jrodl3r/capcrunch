@@ -8,10 +8,10 @@ var http      = require('http'),
     io        = require('socket.io').listen(server),
     gzip      = require('compression'),
     mongoose  = require('mongoose'),
-    Table     = require('./app/server/tables.js'),
     Team      = require('./models/team.js'),
     Picks     = require('./models/picks.js'),
     Roster    = require('./models/roster.js'),
+    textgen   = require('./tools/textgen/text.js'),
     moment    = require('moment-timezone'),
     timestamp = 'MMMM Do YYYY, h:mm:ss a',
     timezone  = 'America/New_York',
@@ -119,7 +119,7 @@ io.on('connection', function(socket) {
         } else {
           data.id = count ? data.name_id + count : data.name_id;
           data.name = count ? data.name.replace(/\s/g, '') + count : data.name;
-          data.text = Table.build(data, type);
+          data.text = textgen.build(data, type);
           var new_roster = new Roster(data);
           new_roster.save(function(err) {
             if (err) {
