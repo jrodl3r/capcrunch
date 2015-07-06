@@ -71,12 +71,11 @@ var Roster = React.createClass({
       else if (this.props.dragData.pos === 'G') { dragGroup = 'goaltenders'; }
       else { dragGroup = 'forwards'; }
     }
-
+// <CapStats activeView="roster" capData={this.props.capData} />
     return (
       <div id="roster"
         className={ this.props.activeView === 'roster' ? 'section active' : 'section' }
         onDragEnter={this.props.onGridDragEnter}>
-        <CapStats activeView="roster" capData={this.props.capData} />
         <div id="forwards" className="grid">
           <div className="header">
             <div className="left">LW</div>

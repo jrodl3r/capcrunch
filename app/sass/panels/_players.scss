@@ -19,7 +19,11 @@
   &.engaged { opacity: .3; }
   &.inplay { animation: hide_row .35s ease-out; }
   &.traded {
-    .item { background: none; }
+    .item {
+      background: none;
+      opacity: .5;
+    }
+
     .name, .shot, .position, .salary { color: #575757; }
     .handle { visibility: hidden; }
   }
@@ -163,11 +167,13 @@
     right: 0;
     height: 23px;
     width: 15px;
-    background: url($img-url + 'drag-handle-player-tile.svg') center center no-repeat;
+    background: url($img-url + 'drag-grip.svg') center center no-repeat;
     background-size: 5px;
     opacity: .35;
   }
 }
+
+.saf .item .handle { background-size: 4px; }
 
 .tag {
   float: right;
@@ -180,5 +186,5 @@
   &.injured { color: #E09191; background: #A01313; }
   &.benched { color: #999; background: #323232; }
   &.created, &.signed { color: #CCC; background: #117C1B; }
-  &.traded { color: #999; background: #212121; }
+  &.traded { color: #999; background: #121212; }
 }

@@ -239,6 +239,7 @@
     }
 
     &.last { padding-right: 0; }
+    &.odd { background-color: rgba(0,0,0, .2); }
   }
 
   th {
@@ -253,9 +254,6 @@
   td {
     padding: 5px 0 6px;
     line-height: 25px;
-
-    // &.first { background: rgba(0,0,0, .25); }
-    &.odd { background-color: rgba(0,0,0, .05); }
   }
 
   .pick {

@@ -2,20 +2,31 @@
 ---------------------------------------------------------------
 #### LATER (Technical) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
-- 'React initial DOM loading SSR (**Complicated/Extensive)'
-- 'upgrade Mongolab'
-- 'node jade view engine'
-- 'unit testing (Jest / Jasmine)'
+- 'React SSR (initial DOM load » Really that complicated?)'
+- 'NEW Build System: Webpack w/ Code-Splitting (ondemand) + Hotloading'
+- 'asset versioning (to prevent expires/cacheing issues)'
+- 'signed cookies for AWS asset access restriction (prevent hotlinking)'
 ---------------------------------------------------------------
-- 'gulp asset management + optimization (fonts, images)'
+- 'error pages (h5bp, https://goo.gl/72HoM9)'
 - 'checkout SpeedCurve, GTMetrix'
-- 'error pages (h5bp, devcenter.heroku.com/articles/error-pages#customize-pages)'
+- 'unit testing (Jest / Jasmine)'
+- 'upgrade Mongolab'
 ---------------------------------------------------------------
 
 
 
 ---------------------------------------------------------------
-#### LATER (Features) »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+#### View + URL Management »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+- 'setup view/location/url management (express, react-router)'
+- 'setup team, picks + payroll routes (/info, /buf, /buf-payroll, /buf-picks)'
+- 'browser navigation control (back/forward/history...on-before-unload)'
+- 'setup view tracking google analytics + remove console logging'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+#### LATER »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
 - 'tools: buyout calculator'
 - 'tools: draft board'
@@ -23,40 +34,31 @@
   - 'social/friend draft-challenges (all-time/allstar/legend drafts)'
 - 'roster: minor team roster/lineup'
 - 'roster: special teams (PP1/PP2/PK1/PK2) layout + logic'
-- 'share: message-board sharing widget (dynamic image generator)'
 - 'team-select: fix svg + static team list order (COL/CLB+NAS/NJD)'
 - 'minimum browser spec check + splash (zepto)'
-- 'static dropData to state [?]'
+---------------------------------------------------------------
 - 'team logo strip on team-select hover (quicker team change)'
-- 'pre-cache team + player images on team select' [really?]
+- 'pre-cache team + player images on team select'
 - 'update window.location on team-select (ex: capcrunch.io/BUF) (don't F w/ location)
 - 'player image pre-loading (slow connection factor...)'
 - 'onboarding/intro animation (solitare deal animation)'
 ---------------------------------------------------------------
-
-
-
-##### Footer
-------------------------------------------------------------------
- Credit ⋮ What's Next? ⋮ Support + Feedback     CAPCRUNCH ⋮ v0.9.3
-------------------------------------------------------------------
+- 'limited mobile support (enable shared/payroll, disable panels)'
+- 'convert dropData (etc) to state + props'
+---------------------------------------------------------------
 
 
 
 ---------------------------------------------------------------
 ## REFACTOR »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
-Post-Launch Rebuild
----------------------------------------------------------------
 - 'Eradicate Object + Array Mutation'
 - 'Flatten Deep-Nested Objects'
 - 'Homogenize Objects + Arrays'
 - 'Optimize + Simplify Functions'
-
 ---------------------------------------------------------------
 - 'Must start small, from basic load team + add/remove players, and work our way up (too complex to refactor in place!)'
 - 'immutable js + revamp object + array system (undo/redo/etc) [maybe not necessary..]'
-
 - 'splicing the teamData players on trades is not good. Refactor.'
 - 'change view logic does not need to be that complex...'
 - 'convert array push + splice to direct/fixed size array ops'
@@ -76,78 +78,28 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 ## BUGS »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'backspace refresh / back-button-action...Grr!'
+- 'random + double-click missed item drag-start'
+- 'tile hover-stuck + not queuing (on-queue-trade-drag-end..BN)'
+---------------------------------------------------------------
 - 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
 - 'FF: view height not 100% accurate after changing team'
-- 'Backspace key refresh/back-page-nav...Grr!'
-- 'Occasional missed list-item dragstart'
-- 'tile drag-end on trades hover sticking + not queuing (BN/Hodgson)'
-- 'tile drag-end not removing player [on only overview panel?]'
----------------------------------------------------------------
-
-
-
----------------------------------------------------------------
-## Grid
----------------------------------------------------------------
-- 'IR players cap calculation (count, payroll)'
 ---------------------------------------------------------------
 
 
 ---------------------------------------------------------------
-## Roster
+## Admin
 ---------------------------------------------------------------
-- 'obfuscated group slides into view (list-item-clicked)'
-- 'player: swap-tiles drop action'
-- 'player button/icons/menu: [ info | edit | buyout | +IR | +BN ]'
----------------------------------------------------------------
-- 'shrink player name on bench/ir lines if status tag count > 2'
----------------------------------------------------------------
-
-
----------------------------------------------------------------
-## Payroll
----------------------------------------------------------------
-- 'fade-in years for group on scroll-end (if header not visible)'
-- 'player details/info on click/hover'
-- 'year column sorting'
+- 'setup admin login + view logic'
+- 'analytics: user connection + view stats'
+- 'tools: bulk payroll upload/update/export (json)'
+- 'tools: individual player salary add/edit/export'
+- 'tools: individual draft pick add/edit/export'
 ---------------------------------------------------------------
 
 
 ---------------------------------------------------------------
-##                      GM Overview                       ⚙  ##
----------------------------------------------------------------
-|   2 Unsigned ⋮ 3 Signed ⋮ 1 Created ⋮ 2 Trades  (2 Players)  |
----------------------------------------------------------------
-| [ (»» HIT 68.382 »»»»»»»»»» SPACE 4.613 »»)   CAP 71.400M ] |
----------------------------------------------------------------
-- 'morphs into status persistent HUD when not engaged'
-- 'auto-expands on mouse-over'
-- 'sort all items in chronological order'
-- 'add IR-cleared players'
----------------------------------------------------------------
-- 'sign-n-trade + sign FA drop-area (drop unsigned from player list to sign w/out adding to roster)'
-- 'sign / buy-out / edit player (info/salary/etc) drop-area (kill remove-player)'
----------------------------------------------------------------
-
-
----------------------------------------------------------------
-## Transactions
----------------------------------------------------------------
-- 'free-agents panel (data + layout + logic)'
-- 'longer, tiered contracts (add-salary-row button)'
----------------------------------------------------------------
-- 'create: add age, image url + team (auto-select)'
-- 'create: players goto F/D/G panel (makes sense)'
----------------------------------------------------------------
-- 'trade: parlay picks, show acquire picks on user-pick-list [prob not]'
-- 'trade: add bag-o-pucks below draft picks'
-- 'trade: asset + salary summary breakdown'
-- 'trade: cap violation/overage check + warning' [?]
----------------------------------------------------------------
-
-
----------------------------------------------------------------
-##### Help Guide
+## Help
 ---------------------------------------------------------------
 - 'record HD video guide w/ roster building walkthrough'
 - 'setup help view instructions + support info'
@@ -157,54 +109,25 @@ Post-Launch Rebuild
 
 
 ---------------------------------------------------------------
-##### Free Agents DB
+##  ⚙                   GM Overview                          ##
 ---------------------------------------------------------------
-- 'store expiring 2015 contracts'
-- 'diff + store all existing UFA/RFA players'
-- 'diff + merge expired contracts into that...'
+|   2 Unsigned ⋮ 3 Signed ⋮ 1 Created ⋮ 2 Trades  (2 Players)  |
 ---------------------------------------------------------------
-
-
+| [ (»» HIT 68.382 »»»»»»»»»» SPACE 4.613 »»)   CAP 71.400M ] |
 ---------------------------------------------------------------
-## Share
+- 'morphs into persistent status HUD when not engaged'
+- 'auto-expands on user action + mouse-over'
 ---------------------------------------------------------------
-- 'confirm active team (on dirty roster)'
-- 'text roster output options (lines, salary, Markdown)'
-- 'no-flash copy text roster fallback (textarea modal)'
-- 'remove submit timer delay'
----------------------------------------------------------------
-
-
----------------------------------------------------------------
-## Shared Roster
----------------------------------------------------------------
-- 'player-panel onboard-cover (prompt user to vote, reset, etc)'
+- 'sign-n-trade + sign FA drop-area (drop unsigned from player list to sign w/out adding to roster)'
+- 'sign / buy-out / edit player (info/salary/etc) drop-area (kill remove-player)'
+- 'IR players cap calculation (count, payroll)'
+- 'sort all items in chronological order'
+- 'add IR-cleared players'
 ---------------------------------------------------------------
 
 
 ---------------------------------------------------------------
-## Panels          (Share|Overview|Active|Inactive|Transctions)
----------------------------------------------------------------
-- 'drag-to-vertically-reorder panels (ex: move forwards panel below defense)' [X]
-- 'player details/info icon click/hover' [?]
-- 'dynamic list positioning on scroll-end (slide up/down based on view height, etc)'
----------------------------------------------------------------
-
-
----------------------------------------------------------------
-## Admin
----------------------------------------------------------------
-- 'setup admin login + default view'
-- 'user connection + view stats'
-- 'bulk payroll upload (download updated json db file)'
-- 'individual player salary add + edit'
-- 'individual draft pick add + edit'
-- 'document + fully-automate team payroll data update logic'
----------------------------------------------------------------
-
-
----------------------------------------------------------------
-## Options
+#### Options & Settings
 ---------------------------------------------------------------
 - 'reusable vertical dropdown options menu'
 - 'delayed hover reveal/appear'
@@ -217,43 +140,117 @@ Post-Launch Rebuild
 ---------------------------------------------------------------
 
 
+---------------------------------------------------------------
+## Actions
+---------------------------------------------------------------
+- 'longer, tiered contracts (add-salary-row button)'
+- 'trade: asset + salary summary breakdown'
+---------------------------------------------------------------
+- 'trade: parlay picks, show acquire picks on user-pick-list'
+- 'trade: add bag-o-pucks below draft picks'
+- 'trade: cap violation/overage check + warning'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+##### Sign (Free Agents + Offer-Sheets)
+---------------------------------------------------------------
+- 'setup panel layout + display logic'
+---------------------------------------------------------------
+- 'data: store expiring 2015 contracts'
+- 'data: diff + store all existing UFA/RFA players'
+- 'data: diff + merge expired contracts into that...'
+---------------------------------------------------------------
+- 'setup UFA/RFA db'
+- 'list + add UFA players'
+- 'filter by team'
+- 'sort by previous salary'
+- 'sign UFA players'
+- 'offer-sheet RFA players'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+##### Create
+---------------------------------------------------------------
+- 'should be way simpler... defaults + UI (http://goo.gl/VBhcSv, http://goo.gl/ZZkLAk)'
+- 'replace native form selectors with custom sliders + radios '
+- 'position + shot radios (defaults: R / C)'
+- 'jersey/salary/duration sliders (defaults: __ / 0.000 / 1)'
+---------------------------------------------------------------
+- 'add age, image url + team (auto-select)'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+## Roster
+---------------------------------------------------------------
+- 'grid slides-up (if player group obfuscated on-list-item-drag-start) [see: Panels]'
+- 'swap/replace tile on-drop (list/tile items)'
+- 'shrink player name on bench/ir lines if status tag count > 2'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+## Payroll             ** Update Cap-Stats after GM Overview **
+---------------------------------------------------------------
+- 'fade-in years for group on scroll-end (if header not visible)'
+---------------------------------------------------------------
+- 'player info bubble on jersey/name/info-icon hover [see: Panels]'
+- 'ability to change current year/view'
+- 'year column sorting'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+## Share
+---------------------------------------------------------------
+- 'confirm active team (on dirty roster)'
+- 'text roster output options (lines, salary, Markdown)'
+- 'no-flash copy text roster fallback (textarea modal)'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+## Shared Roster
+---------------------------------------------------------------
+- 'onboard: prompt user to vote or create own roster'
+- 'onboard: player panels minified'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+## Notify
+---------------------------------------------------------------
+- 'NEW above-roster-grid floating layout + logic (slide + fade-in/out, fixed)'
+- 'update messages (acquired players, UFAs, picks, etc)'
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+## Panels             [Share|Overview|Active|Inactive|Actions]
+---------------------------------------------------------------
+- 'player-list auto-expand (on hover) + contract (on drag-start, mouse-exit)'
+- 'overview panel auto-expand/contract (hover / drag, mouse-exit)'
+- 'slide-down active panel + minify-actions (if obfuscated on-scroll-end)'
+- 'roster grid slide-up (if player group obfuscated on-drag-start) [see: Roster]'
+- 'player-list empty view (create, goalies, etc)'
+---------------------------------------------------------------
+- 'block page-scrolling on-mouse-over player list'
+- 'player info bubble on jersey/name/info-icon hover'
+---------------------------------------------------------------
+
 
 
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.4] »
 ---------------------------------------------------------------
-- 'roster menu revamp phase-3: cleanup overview + actions panels'
-- 'roster menu revamp phase-4: naildown player-list tab + panel layout'
-- 'roster menu revamp phase-5: create-player form elements'
-  - http://codepen.io/mweint/pen/vmdrF, http://codepen.io/ahmadalfy/pen/pbLtw
-  - 'position + shot radio buttons (defaults: R / C)'
-  - 'jersey, salary + duration sliders (defaults: __ / 0.000 / 1)'
-- 'create player-list empty view'
+- 'roster menu revamp phase-3: cleanup overview + actions panels + payroll capstats'
 ---------------------------------------------------------------
-- 'capstats + notify: cleanup, merge layout + display logic'
-- 'capstats: dynamic positioning slide+fade-in/out'
-  - 'show if not visible on-mouse-off-grid'
-  - 'show if not visible on-scroll-end'
-  - 'hide if visible on-drag-start + mouse-over-grid'
-  - 'hide on-scroll-up'
-- 'notify: update messages (acquired players, UFAs, picks, etc)'
-- 'options: reusable menu layout + logic (overview/actions/capstats/header)'
----------------------------------------------------------------
-- 'free agents: setup UFA/RFA db'
-- 'free agents: list + add UFA players'
-- 'free agents: filter by team'
-- 'free agents: sort by previous salary'
-- 'free agents: sign UFA players'
-- 'free agents: offer-sheet RFA players'
----------------------------------------------------------------
-- 'limited mobile support (enable shared/payroll, disable panels)'
-- 'express: setup team, picks + payroll routes (/info, /buf, /buf-payroll, /buf-picks)'
-- 'browser navigation control (back/forward/history...on-before-unload)'
-- 'setup view tracking google analytics + remove console logging'
 - 'nudge drag-n-drop splash graphic down (away from Overview)'
+- 'load all splash graphics ondemand (post-load)'
 ---------------------------------------------------------------
-- 'speed-up overall view + state transition responsiveness'
-
+- 'document + fully-automate payroll data update process'
 
 
 

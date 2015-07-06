@@ -265,7 +265,7 @@ footer {
   a, li > span {
     float: left;
     padding: 0 8px;
-    color: rgb(32,32,32);
+    color: #262626;
     text-decoration: none;
     text-shadow: 0 0 10px rgba(255,255,255, .4);
     transition: .35s ease-out;
@@ -294,7 +294,10 @@ footer {
     width: 160px;
   }
 
-  .divider { color: rgba(255,255,255, .5); }
+  .divider {
+    color: rgb(56,142,230);
+    text-shadow: 0 0 2px rgba(255,255,255, .25);
+  }
 
   .logo {
     float: right;

@@ -1,5 +1,6 @@
 #roster {
   width: 640px;
+  margin-top: 20px;
 
   .inner { float: left; }
   .cap-stats { margin: 30px 0; }
@@ -10,7 +11,6 @@
     width: inherit;
     margin-top: 0;
     margin-bottom: 0;
-    background: rgba(225,225,225, .15);
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     transform: translateZ(0);
@@ -21,7 +21,8 @@
     }
 
     &#forwards .header {
-      background: linear-gradient(to top, rgba(0,0,0, .6) 0%, rgba(0,0,0, .35) 100%);
+      padding-top: 1px;
+      background: linear-gradient(to top, rgba(0,0,0, .6) 0%, rgba(0,0,0, .1) 100%);
       border-top-left-radius: $border-radius;
       border-top-right-radius: $border-radius;
     }
@@ -39,20 +40,21 @@
   .header {
     float: left;
     width: 100%;
-    height: 33px;
+    height: 35px;
+    padding-top: 5px;
     padding-left: 11px;
-    color: #595959;
+    color: rgba(169,169,169, .5);
     font-size: 11px;
     font-weight: bold;
     line-height: 33px;
     text-align: center;
+    text-shadow: 0 0 3px rgba(0,0,0, .3);
 
     .left, .center, .right { height: inherit; line-height: inherit; }
   }
 }
 
 #defense, #goalies {
-  background: rgba(0,0,0, .6);
   border-radius: 0;
 
 
@@ -77,16 +79,21 @@
 
 #goalies {
   margin-bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0, .4) 0%, rgba(0,0,0, .6) 100%);
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
 
   & > .inner {
-    padding-bottom: 50px;
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
+    padding-bottom: 75px;
+    background: none;
   }
 
-  .header { text-indent: -125px; }
+  .header {
+    text-indent: -125px;
+    background: none;
+  }
 }
 
 .line {
@@ -96,8 +103,8 @@
   width: 618px;
   margin-bottom: 10px;
   margin-left: 11px;
-  background: linear-gradient(to top, rgba(136,136,136, .06) 0%, rgba(206,206,206, .06));
-  -webkit-box-shadow: 0 0 30px rgba(255,255,255, .1) inset;
+  background: linear-gradient(to top, rgba(195,195,195, .1) 0%, rgba(76,76,76, .15));
+  box-shadow: 0 0 30px rgba(255,255,255, .1) inset;
   border-radius: $alt-border-radius;
 
   &.ir, &.bench {
@@ -124,6 +131,7 @@
       height: 40px;
       font-size: 10px;
       line-height: 40px;
+      text-shadow: 0 0 3px rgba(0,0,0, .3);
     }
   }
 
@@ -153,7 +161,7 @@
 
   .left, .center, .right {
     margin-top: 5px;
-    background: rgba(255,255,255, 0.1);
+    background: rgba(255,255,255, .15);
     border-radius: $border-radius;
   }
 }
@@ -174,7 +182,7 @@
     font-weight: bold;
     line-height: 24px;
     text-align: center;
-    background: rgba(0,0,0, .15);
+    background: rgba(0,0,0, .2);
     border-radius: $border-radius;
     opacity: 1;
     transform: translateZ(0);
@@ -201,19 +209,20 @@
   position: relative;
   height: 60px;
   width: 192px;
+  background: transparent;
   border-radius: $border-radius;
-  -webkit-box-shadow: 0 0 4px 0 rgba(0,0,0, .1) inset;
+  box-shadow: 0 0 4px 0 rgba(0,0,0, .2) inset;
   -webkit-transform: translateZ(0);
   transition: .25s ease-out;
 
-  .dragging &:not(.active) {
+  .dragging & {
     background: rgba(255,255,255, .05);
-    -webkit-box-shadow: none;
+    box-shadow: 0 0 4px 0 transparent inset;
   }
 
-  &.hover:not(.active) {
+  &.hover {
     background: rgba(255,255,255, .2);
-    -webkit-box-shadow: none;
+    box-shadow: 0 0 4px 0 transparent inset;
   }
 }
 
@@ -223,8 +232,8 @@
   border-radius: $alt-border-radius;
   opacity: 0;
   overflow: hidden;
-  -webkit-box-shadow: 0 0 2px 0 rgba(0,0,0, .25);
-  -webkit-transform: translateZ(0);
+  // box-shadow: 0 0 2px 0 rgba(0,0,0, .25);
+  transform: translateZ(0);
   transition: opacity .3s, height 0s .3s, color .3s;
   transition-timing-function: ease-out;
 
@@ -403,7 +412,7 @@
     float: right;
     height: 60px;
     width: 16px;
-    background: url($img-url + 'drag-handle-player-tile.svg');
+    background: url($img-url + 'drag-grip.svg');
     background-position:  4px center;
     background-repeat: no-repeat;
     background-size: 40% 70%;
@@ -423,6 +432,8 @@
         background-size: 26%;
       }
     }
+
+    .saf & { background-size: 38% 70%; }
   }
 
   .bg {

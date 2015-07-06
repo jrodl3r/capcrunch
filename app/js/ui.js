@@ -9,7 +9,7 @@ var UI = {
   zc_loaded   : false,
   msg_timeout : null,
   arena_bg    : 'url(http://s3.amazonaws.com/capcrunch/img/bg-arena.jpg)',
-  rink_bg     : 'url(../img/bg-rink.jpg)',
+  rink_bg     : 'url(http://s3.amazonaws.com/capcrunch/img/bg-rink.jpg)',
 
   init: function() {
     UI.detect();
@@ -52,16 +52,20 @@ var UI = {
     setTimeout(function() {
       var table_height = $('#payroll-table').height(),
           full_height = table_height + 92;
-      $('#payroll .inner').css('height', table_height);
-      $('#app .wrap').css('height', full_height);
-      $('#team-select').removeClass('clicked');
-      $('html').css('background-image', UI.arena_bg);
+      requestAnimationFrame(function () {
+        $('#payroll .inner').css('height', table_height);
+        $('#app .wrap').css('height', full_height);
+        $('#team-select.clicked').removeClass('clicked');
+        $('html').css('background-image', UI.arena_bg);
+      });
     }, 100);
   },
 
   resetViewHeight: function() {
-    $('#payroll .inner, #app .wrap').css('height', 'auto');
-    $('html').css('background-image', UI.rink_bg);
+    requestAnimationFrame(function () {
+      $('#payroll .inner, #app .wrap').css('height', 'auto');
+      $('html').css('background-image', UI.rink_bg);
+    });
   },
 
   resetViewScroll: function() {
@@ -249,15 +253,19 @@ var UI = {
   },
 
   showOnboard: function() {
-    $('#onboard').css('height', $(window).height() - 100);
-    $('#onboard, #help-link').addClass('hover');
-    $('#app > .wrap').addClass('onboarding');
+    requestAnimationFrame(function () {
+      $('#onboard').css('height', $(window).height() - 100);
+      $('#onboard, #help-link').addClass('hover');
+      $('#app > .wrap').addClass('onboarding');
+    });
   },
 
   hideOnboard: function() {
-    $('#onboard').css('height', 0);
-    $('#onboard, #help-link').removeClass('hover');
-    $('#app > .wrap').removeClass('onboarding');
+    requestAnimationFrame(function () {
+      $('#onboard').css('height', 0);
+      $('#onboard, #help-link').removeClass('hover');
+      $('#app > .wrap').removeClass('onboarding');
+    });
   },
 
   showDisabledSplash: function() {
