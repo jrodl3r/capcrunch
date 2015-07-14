@@ -212,7 +212,7 @@ var App = React.createClass({
       this.setState(update(this.state, {
         rosterData : {$set: data.rosterData},
         playerData : {$set: data.playerData},
-        shareData  : { name: {$set: data.name}},
+        shareData  : { name: {$set: data.name}, link: {$set: decodeURI(location.href)}},
         altLines   : {$set: data.altLines},
         capData    : {$set: data.capData},
         tradeData  : { trades: {$set: data.tradeData}}
@@ -264,6 +264,7 @@ var App = React.createClass({
         };
         socket.emit('save roster', data, type);
       });
+      UI.clearClick('share-button');
     } else { this.notifyUser('tip', Messages.error.min_players); }
   },
 

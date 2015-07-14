@@ -5,7 +5,7 @@ var Timers = {
   notify  : 4000,
   save    : 1000,
   confirm : 1000,
-  onboard : 3500,
+  onboard : 2500,
   loading : 750,
   action  : 500,
   intro   : 350,

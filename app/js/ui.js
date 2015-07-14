@@ -225,6 +225,13 @@ var UI = {
     $('.player.active').removeClass('hover');
   },
 
+  clearClick: function (id) {
+    $('#' + id).attr('class', 'clicked');
+    setTimeout(() => {
+      $('#' + id).attr('class', '');
+    }, Timers.action);
+  },
+
   dropEffect: function(e) {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';

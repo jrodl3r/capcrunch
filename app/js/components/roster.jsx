@@ -66,12 +66,13 @@ var Roster = React.createClass({
 
   render: function() {
     var dragGroup = this.props.dragData.group;
+
     if (this.props.dragData.pos) {
       if (this.props.dragData.pos === 'D') { dragGroup = 'defensemen'; }
       else if (this.props.dragData.pos === 'G') { dragGroup = 'goaltenders'; }
       else { dragGroup = 'forwards'; }
     }
-// <CapStats activeView="roster" capData={this.props.capData} />
+
     return (
       <div id="roster"
         className={ this.props.activeView === 'roster' ? 'section active' : 'section' }

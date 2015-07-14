@@ -19,6 +19,8 @@ var Menu = React.createClass({
           resetShare={this.props.resetShare}
           shareRoster={this.props.shareRoster} />
         <Overview
+          capData={this.props.capData}
+          shareData={this.props.shareData}
           changeView={this.props.changeView}
           dragType={this.props.dragData.type}
           activeTeam={this.props.teamData.id}

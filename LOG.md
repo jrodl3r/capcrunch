@@ -111,13 +111,14 @@
 ---------------------------------------------------------------
 ##  ⚙                   GM Overview                          ##
 ---------------------------------------------------------------
-|   2 Unsigned ⋮ 3 Signed ⋮ 1 Created ⋮ 2 Trades  (2 Players)  |
+|  2 Unsigned ⋮ 3 Signed ⋮ 1 Created ⋮ 2 Trades    23 Players  |
 ---------------------------------------------------------------
 | [ (»» HIT 68.382 »»»»»»»»»» SPACE 4.613 »»)   CAP 71.400M ] |
 ---------------------------------------------------------------
 - 'morphs into persistent status HUD when not engaged'
 - 'auto-expands on user action + mouse-over'
 ---------------------------------------------------------------
+- 'cap hit + space odometer transitions'
 - 'sign-n-trade + sign FA drop-area (drop unsigned from player list to sign w/out adding to roster)'
 - 'sign / buy-out / edit player (info/salary/etc) drop-area (kill remove-player)'
 - 'IR players cap calculation (count, payroll)'
@@ -245,7 +246,8 @@
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.4] »
 ---------------------------------------------------------------
-- 'roster menu revamp phase-3: cleanup overview + actions panels + payroll capstats'
+- 'cleanup overview panel'
+- 'revamp actions panels + payroll capstats'
 ---------------------------------------------------------------
 - 'nudge drag-n-drop splash graphic down (away from Overview)'
 - 'load all splash graphics ondemand (post-load)'
@@ -257,6 +259,7 @@
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'revamp overview panel'
 - 'roster menu revamp phase-2: tabbed player panels + nav update + ui refresh'
 - 'roster menu revamp phase-1: setup tabbed active + inactive panels'
 - 'salary cap to 71.4M'

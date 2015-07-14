@@ -1,0 +1,317 @@
+@keyframes add_trade_item {
+  0% { height: 0; opacity: 0; }
+  25% { height: $trade-player-item-height / 2; opacity: 0; }
+  50% { height: $trade-player-item-height; opacity: 0; }
+  75% { height: $trade-player-item-height; opacity: .5; }
+  100% { height: $trade-player-item-height; opacity: 1; }
+}
+
+#trades {
+
+  &.tab-area.active { height: 100%; }
+
+  button { width: 125px; }
+
+  .list-placeholder li {
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    color: rgba(255,255,255, .3);
+    font-size: 10px;
+    line-height: 20px;
+    text-align: center;
+    background: none;
+    opacity: 1;
+    overflow: visible;
+    transition: .4s;
+    position: absolute;
+    top: 50%;
+
+    div {
+      position: relative;
+      top: -50%;
+    }
+  }
+}
+
+#trade-drop-area {
+  position: relative;
+  height: 40px;
+  width: 270px;
+  margin: 0 auto 15px;
+  color: rgba(255,255,255, .13);
+  line-height: 37px;
+  border: 1px dashed rgba(255,255,255, .08);
+  border-radius: $alt-border-radius;
+  background: linear-gradient(to top, rgba(0,0,0, .2) 0%, rgba(0,0,0, .3) 100%);
+  cursor: default;
+  transition: .35s;
+
+  &.hover {
+    color: rgba(255,255,255, .25);
+    text-shadow: 0 3px 7px rgba(0,0,0, .35);
+    background: linear-gradient(to top, rgba(0,0,0, .225) 0%, rgba(0,0,0, .325) 100%);
+    box-shadow: 0 5px 40px 0 rgba(0,0,0, .25) inset;
+  }
+}
+
+#trade-team-select {
+  width: 70px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+#trade-player-select {
+  width: 155px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+}
+
+#trade-breakdown {
+  position: relative;
+  float: left;
+  height: $trade-breakdown-height;
+  width: 270px;
+  margin-left: 15px;
+  transition: .3s;
+
+  .trade-size-3 & {
+    height: $trade-breakdown-height + $trade-player-item;
+    > ul { height: $trade-breakdown-height + $trade-player-item; }
+  }
+
+  .trade-size-4 & {
+    height: $trade-breakdown-height + ($trade-player-item * 2);
+    > ul { height: $trade-breakdown-height + ($trade-player-item * 2); }
+  }
+
+  .trade-size-5 & {
+    height: $trade-breakdown-height + ($trade-player-item * 3);
+    > ul { height: $trade-breakdown-height + ($trade-player-item * 3); }
+  }
+
+  > ul {
+    float: left;
+    height: $trade-breakdown-height;
+    width: 120px;
+    padding: 4px;
+    color: rgba(255,255,255, .05);
+    background: rgba(255,255,255, .03);
+    border: 1px dashed rgba(255,255,255, .1);
+    border-radius: $alt-border-radius;
+    box-shadow: 0 0 30px rgba(255,255,255, .03) inset;
+    overflow: hidden;
+    cursor: default;
+    transition: .25s;
+
+    &:first-of-type { margin-right: 30px; }
+
+    &.active {
+      background: rgba(255,255,255, .07);
+      border-color: transparent;
+      box-shadow: 0 0 30px rgba(255,255,255, .03) inset;
+    }
+
+    li {
+      float: left;
+      height: 0;
+      width: 110px;
+      margin-bottom: 0;
+      padding: 0;
+      text-align: left;
+      font-size: 0;
+      background: linear-gradient(to right, #222 0%, #111 100%);
+      border-radius: $border-radius;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity .3s, height .4s;
+
+      &.active {
+        height: $trade-player-item-height;
+        margin-bottom: $trade-player-item-margin;
+        padding: 5px 5px 5px 8px;
+        color: #888;
+        font-size: 10px;
+        text-shadow: 0 1px 2px rgba(0,0,0, .3);
+        opacity: 1;
+        transition: opacity .45s, height .4s;
+
+        a {
+          height: 14px;
+          width: 14px;
+          font-size: 9px;
+          line-height: 14px;
+          opacity: 1;
+          transition: all 0s;
+        }
+      }
+
+      &.add-item { animation: add_trade_item .4s ease-out; }
+      &:last-of-type { margin-bottom: 0; }
+
+      > span {
+        float: left;
+        height: 14px;
+        line-height: 14px;
+
+        &.lastname {
+          width: 70px;
+          padding-left: 2px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      a {
+        float: right;
+        height: 0;
+        width: 0;
+        margin-bottom: 0;
+        padding: 1px 0 0;
+        color: rgba(255,255,255, .3);
+        font-size: 0;
+        line-height: 0;
+        text-align: center;
+        opacity: 0;
+        overflow: hidden;
+        transition: all 0s;
+
+        &:hover {
+          color: rgba(255,255,255, .5);
+          cursor: pointer;
+        }
+      }
+
+      .year {
+        margin-left: 3px;
+        color: #555;
+      }
+    }
+  }
+}
+
+#user-picks {
+  position: absolute;
+  z-index: 2;
+  bottom: 52px;
+  left: 10px;
+  width: 180px;
+  overflow-x: hidden;
+}
+
+.user-picks-button {
+  float: left;
+  height: 23px;
+  margin-top: 25px;
+  padding: 0 6px;
+  color: #333;
+  line-height: 28px;
+  background-color: #888;
+  border-radius: 5px;
+  cursor: default;
+
+  &:hover {
+    color: #111;
+    background: #999;
+  }
+
+  i {
+    font-size: 14px;
+    cursor: default;
+  }
+}
+
+#user-picks-list {
+  height: 0;
+  width: 180px;
+  padding-bottom: 0;
+  background: #151515;
+  border-radius: $border-radius;
+  box-shadow: 1px 0 10px rgba(0,0,0, .5);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  opacity: 0;
+  transform: translateZ(0);
+  transition: opacity .25s, height 0s .25s;
+
+  .moz & {
+    width: 197px;
+    padding-right: 16px;
+  }
+
+  &.active {
+    height: 220px;
+    padding-bottom: 15px;
+    opacity: 1;
+    transition: opacity .25s, height 0s, padding 0s;
+  }
+
+  li {
+    float: left;
+    height: 20px;
+    width: 171px;
+    margin-bottom: 2px;
+    margin-left: 4px;
+    padding-left: 5px;
+    color: #888;
+    font-size: 10px;
+    text-align: left;
+    line-height: 20px;
+    background-color: rgba(255,255,255, .08);
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: .25s;
+
+    &:hover {
+      color: #EEE;
+      background-color: rgba(255,255,255, .15);
+    }
+  }
+
+  .picks-title {
+    height: 14px;
+    margin: 5px 0 15px 12px;
+    padding: 5px 0;
+    color: #555;
+    font-size: 12px;
+    line-height: 14px;
+    background: none;
+
+    &:hover {
+      color: #555;
+      background: none;
+    }
+  }
+
+  .disabled, .disabled:hover, .inplay, .inplay:hover {
+    color: #424242;
+    background: none;
+    cursor: default;
+  }
+
+  .inplay, .inplay:hover { background-color: rgba(255,255,255, .04); }
+
+  i {
+    float: right;
+    margin: 5px 6px 0 0;
+    font-size: 11px;
+  }
+}
+
+.trade-marker {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  height: 30px;
+  width: 30px;
+  margin: auto;
+  color: #616161;
+  font-size: 16px;
+  line-height: 30px;
+  transition: .3s;
+
+  &.active {
+    color: #919191;
+    text-shadow: 0 0 5px rgba(0,0,0, .25);
+  }
+}

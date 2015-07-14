@@ -13,11 +13,7 @@ var SharePanel = React.createClass({
     e.preventDefault();
     var name = document.getElementById('roster-name').value || this.props.shareData.name,
         type = 'basic'; // TODO: Add Text-Roster-Type (basic|full|markdown)
-    document.getElementById('share-button').className = 'clicked';
     this.props.shareRoster(name, type);
-    this.setTimeout(() => {
-      document.getElementById('share-button').className = '';
-    }, 500);
   },
 
   checkRosterNameInput: function(e) {
@@ -33,18 +29,17 @@ var SharePanel = React.createClass({
     var url   = encodeURIComponent(this.props.shareData.link),
         title = encodeURIComponent(document.title),
         type  = e.currentTarget.getAttribute('data-type'), h = 380, w = 560,
-        lpos  = (window.screen.width/2) - ((w/2) + 10),
-        tpos  = (window.screen.height/2) - ((h/2) + 50),
-        setup = 'status=no,height=' + h + ',width=' + w + ',resizable=yes,left=' + lpos + ',top=' + tpos + ',screenX=' + lpos + ',screenY=' + tpos + ',toolbar=no,menubar=no,scrollbars=no,location=no,directories=no';
-    if (type === 'fb') { var link = 'http://www.facebook.com/sharer.php?u=' + url + '&t=CapCrunch'; }
-    else { var link = 'http://twitter.com/share?text=' + title + '%20%C2%BB&url=' + url + '&hashtags=capcrunch,nhl'; }
+        lpos  = (window.screen.width / 2) - ((w / 2) + 10),
+        tpos  = (window.screen.height / 2) - ((h / 2) + 50),
+        setup = 'status=no,height=' + h + ',width=' + w + ',resizable=yes,left=' + lpos + ',top=' + tpos + ',screenX=' + lpos + ',screenY=' + tpos + ',toolbar=no,menubar=no,scrollbars=no,location=no,directories=no',
+        link;
+    if (type === 'fb') { link = 'http://www.facebook.com/sharer.php?u=' + url + '&t=CapCrunch'; }
+    else { link = 'http://twitter.com/share?text=' + title + '%20%C2%BB&url=' + url + '&hashtags=capcrunch,nhl'; }
     window.open(link, 'sharer', setup);
     return false;
   },
 
-  selectURL: function(e) {
-    e.target.select();
-  },
+  selectURL: function(e) { e.target.select(); },
 
   closeShare: function(e) {
     e.preventDefault();

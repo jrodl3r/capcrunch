@@ -25,12 +25,12 @@ var Inactive = React.createClass({
       <div id="inactive" className="panel">
         <ul id="inactive-menu" className="tab-bar">
           <li>
-            <a id="signed-tab" data-tab="inactive" onClick={this.changeTab}
-              className={ this.props.panelData.inactive === 'inactive' ? 'active' : '' }>Inactive</a></li>
+            <a id="signed-tab" data-tab="inactive" className={ this.props.panelData.inactive === 'inactive' ? 'active' : '' }
+              onClick={this.changeTab}>Inactive</a></li>
           <li><a id="prospects-tab" data-tab="prospects" className="disabled">Prospects</a></li>
           <li>
-            <a id="created-tab" data-tab="created" onClick={this.changeTab}
-              className={ this.props.playerData.created.length ? created : 'disabled' }>Created</a></li>
+            <a id="created-tab" data-tab="created" className={ this.props.playerData.created.length ? created : 'disabled' }
+              onClick={this.changeTab}>Created</a></li>
           <li className="tracker"></li>
         </ul>
         <div className="inner">

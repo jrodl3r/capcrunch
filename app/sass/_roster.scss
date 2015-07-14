@@ -1,6 +1,5 @@
 #roster {
   width: 640px;
-  margin-top: 20px;
 
   .inner { float: left; }
   .cap-stats { margin: 30px 0; }
@@ -9,23 +8,10 @@
     position: relative;
     float: left;
     width: inherit;
-    margin-top: 0;
     margin-bottom: 0;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     transform: translateZ(0);
-
-    &#forwards > .inner {
-      padding-bottom: 15px;
-      background: rgba(0,0,0, .6);
-    }
-
-    &#forwards .header {
-      padding-top: 1px;
-      background: linear-gradient(to top, rgba(0,0,0, .6) 0%, rgba(0,0,0, .1) 100%);
-      border-top-left-radius: $border-radius;
-      border-top-right-radius: $border-radius;
-    }
   }
 
   .left, .center, .right {
@@ -51,6 +37,22 @@
     text-shadow: 0 0 3px rgba(0,0,0, .3);
 
     .left, .center, .right { height: inherit; line-height: inherit; }
+  }
+}
+
+#forwards {
+  margin-top: 20px;
+
+  > .inner {
+    padding-bottom: 15px;
+    background: rgba(0,0,0, .6);
+  }
+
+  .header {
+    padding-top: 1px;
+    background: linear-gradient(to top, rgba(0,0,0, .6) 0%, rgba(0,0,0, .25) 100%);
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
   }
 }
 
@@ -86,7 +88,7 @@
   border-bottom-right-radius: $border-radius;
 
   & > .inner {
-    padding-bottom: 75px;
+    padding-bottom: 86px;
     background: none;
   }
 

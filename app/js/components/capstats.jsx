@@ -42,7 +42,7 @@ var CapStats = React.createClass({
         ? <div className="unsigned value overage">
             {this.props.capData.unsigned}&nbsp;Unsigned Player { this.props.capData.unsigned > 1 ? <span>s</span> : null }
           </div>
-      : <div className="salary-cap"><span>Salary Cap <span className="value">{ this.props.capData.cap || this.props.league }</span></span></div> }
+        : <div className="salary-cap"><span>Salary Cap <span className="value">{ this.props.capData.cap || this.props.league }</span></span></div> }
       </div>
     );
   }

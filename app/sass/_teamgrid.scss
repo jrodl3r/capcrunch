@@ -83,19 +83,19 @@
 
 #grid-reminder {
   position: absolute;
-  top: -100px;
-  right: -30px;
+  top: 0;
+  right: 0;
   height: 100px;
   width: 240px;
   background: url($img-url + 'select-team-splash.svg') no-repeat;
-  background-size: 90%;
+  background-size: 100%;
   opacity: 0;
-  transform: translateZ(0);
+  transform: translateZ(0) translateY(-130px) translateX(30px) scale(.6, .6);
 
   &.active {
     opacity: .6;
-    transform: translateY(30px) translateX(-30px) scale(1.2, 1.2);
-    transition: all .4s 1.5s ease-out;
+    transform: translateY(-70px) translateX(10px) scale(1.2, 1.2);
+    transition: all .4s 1s ease-in;
   }
 
   &.disabled {

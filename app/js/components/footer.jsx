@@ -21,8 +21,8 @@ var Footer = React.createClass({
           <li className="divider">&#8942;</li>
           <li className="nextup">What&#39;s Next?
             <ul id="nextup">
-              <li>New Cap Stats + Settings Menu</li>
               <li>Offer-Sheet + Sign Free Agents</li>
+              <li>User + Roster Settings Menus</li>
               <li>Mobile / Touch Support</li>
             </ul>
           </li>
