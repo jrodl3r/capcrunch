@@ -20,8 +20,8 @@ var TeamGrid   = require('./components/team-grid.jsx'),
     socket     = io();
 
 var dropData = { origin: '', cur: '', last: null, action: '' },
-    altLines = ['FR', 'FB', 'DR', 'DB', 'GR', 'GB'],
-    onboard  = true;
+    altLines = ['FR', 'FB', 'DR', 'DB', 'GR', 'GB'];//,
+    // onboard  = true;
 
 var App = React.createClass({
 
@@ -33,11 +33,11 @@ var App = React.createClass({
     var id = this.getRosterId();
     if (id) {
       socket.emit('get roster', id);
-      onboard = false;
+      // onboard = false;
     } else {
       $(window).on('load', function() { this.changeView('teams'); }.bind(this));
-      if (/cc_loaded/.test(document.cookie)) { onboard = false; }
-      else { document.cookie = 'cc_loaded=1'; }
+      // if (/cc_loaded/.test(document.cookie)) { onboard = false; }
+      // else { document.cookie = 'cc_loaded=1'; }
     }
     socket.on('load team', this.loadTeam);
     socket.on('load trade team', this.loadTradeTeam);
@@ -62,10 +62,11 @@ var App = React.createClass({
       this.setState({ viewData : viewData }, function() {
         if (view === 'roster') {
           UI.resetPanelScroll();
-          if (onboard && !this.state.playerData.team) {
-            UI.loadOnboard();
-            onboard = false;
-          }}
+          // if (onboard && !this.state.playerData.team) {
+          //   UI.loadOnboard();
+          //   onboard = false;
+          // }
+        }
         if (view === 'payroll') { UI.updateViewHeight(); }
         else if (active === 'payroll') { UI.resetViewHeight(); }
       });
