@@ -95,7 +95,7 @@
   &.active {
     opacity: .6;
     transform: translateY(-70px) translateX(10px) scale(1.2, 1.2);
-    transition: all .4s 1s ease-in;
+    transition: all .5s 2s ease-in;
   }
 
   &.disabled {

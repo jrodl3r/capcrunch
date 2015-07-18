@@ -311,19 +311,13 @@ footer {
   &.alt {
 
     a, li > span {
-      color: rgba(255,255,255, .6);
-      text-shadow: 0 0 5px rgba(0,0,0, .7);
+      color: rgba(255,255,255, .65);
+      text-shadow: 0 0 5px rgba(0,0,0, .9);
 
-      &:hover {
-        // color: rgba(0,0,0, .8);
-        // text-shadow: 0 0 10px #FFF;
-        text-shadow: 0 0 5px rgba(0,0,0, .7);
-        color: rgb(56,142,230);
-        // text-shadow: 0 0 5px rgba(56,142,230, .85);
-      }
+      &:hover { color: rgb(56,142,230); }
     }
 
-    .divider { color: rgb(32,32,32); }
+    .divider { color: rgb(56,142,230); }
 
     .logo {
       color: rgba(255,255,255, .5);
