@@ -17,7 +17,7 @@ var UI = {
   },
 
   load: function () {
-    $('#grid-reminder, #grid-svg, #team-grid, header .inner').addClass('active');
+    $('#grid-reminder, #grid-svg, #team-grid, header').addClass('active');
     UI.resetViewScroll();
   },
 

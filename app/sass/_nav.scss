@@ -9,16 +9,17 @@ header {
   min-width: $page-width;
   margin: 0 auto;
   background: linear-gradient(to top, transparent 0%, rgba(0,0,0, .5) 100%);
+  opacity: 0;
+  transition: .35s;
+
+  &.active { opacity: 1; }
 
   .inner {
     position: relative;
     height: 30px;
     width: $content-width;
     margin: 25px auto 0;
-    opacity: 0;
     transition: .35s;
-
-    &.active { opacity: 1; }
   }
 
   img {
@@ -252,7 +253,7 @@ footer {
   opacity: 0;
   cursor: default;
 
-  &.active { opacity: 1; }
+  // &.active { opacity: 1; }
 
   ul {
     position: relative;
