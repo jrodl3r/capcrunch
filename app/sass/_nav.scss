@@ -77,7 +77,7 @@ nav {
     display: block;
     height: 40px;
     margin-top: -1px;
-    padding: 0 24px;
+    padding: 0 30px 0 25px;
     line-height: inherit;
     color: #AAA;
     font-size: 15px;
@@ -166,8 +166,7 @@ nav {
   float: right;
   height: 24px;
   width: 180px;
-  margin-top: 3px;
-  margin-left: 20px;
+  margin: 3px 3px 0 8px;
   padding-left: 8px;
   color: #000;
   font-size: 12px;
@@ -200,6 +199,8 @@ nav {
 }
 
 #notify {
+  display: none;
+  
   float: left;
   height: 30px;
   width: 370px;

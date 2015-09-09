@@ -90,7 +90,10 @@ var PayrollTable = React.createClass({
       { this.props.teamData.players.other.length
         ? <tr className="title other">
             <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Other</td>
-            <td className="num"></td><td className="hit">{this.props.teamData.cap.other}</td>
+            <td className="num"></td>
+        { this.props.teamData.cap.inactive === '0.000'
+          ? <td className="hit zero">-</td>
+          : <td className="hit">{this.props.teamData.cap.other}</td> }
             <td className="year">2009</td><td className="year">2010</td><td className="year">2011</td><td className="year">2012</td>
             <td className="year">2013</td><td className="year">2014</td><td className="year cur">2015</td><td className="year">2016</td>
             <td className="year">2017</td><td className="year">2018</td><td className="year">2019</td><td className="year">2020</td>
@@ -100,24 +103,27 @@ var PayrollTable = React.createClass({
           <tr className="title inactive">
             <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Inactive</td>
             <td className="num"></td>
-            { this.props.teamData.cap.inactive === '0.000' ? <td className="hit zero">-</td> : <td className="hit">{this.props.teamData.cap.inactive}</td> }
+        { this.props.teamData.cap.inactive === '0.000'
+          ? <td className="hit zero">-</td>
+          : <td className="hit">{this.props.teamData.cap.inactive}</td> }
             <td className="year">2009</td><td className="year">2010</td><td className="year">2011</td><td className="year">2012</td>
             <td className="year">2013</td><td className="year">2014</td><td className="year cur">2015</td><td className="year">2016</td>
             <td className="year">2017</td><td className="year">2018</td><td className="year">2019</td><td className="year">2020</td>
             <td className="year">2021</td><td className="year">2022</td><td className="year last">2023</td>
           </tr>
           {this.playerGroup(this.props.teamData.players.inactive)}
-          <tr className="title other">
-            <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Draft Picks</td>
-            <td colSpan="17"></td>
-          </tr>
-          <tr className="picks-row">
-            <PicksTable activeView={this.props.activeView} pickData={this.props.pickData} />
-          </tr>
         </tbody>
       </table>
     );
   }
+// <tr className="title other">
+//   <td className="first"><span className="title-icon"><i className="marker fa fa-angle-double-down"></i></span>Draft Picks</td>
+//   <td colSpan="17"></td>
+// </tr>
+// <tr className="picks-row">
+//   <PicksTable activeView={this.props.activeView} pickData={this.props.pickData} />
+// </tr>
+
 // <th className="year">2009</th><th className="year">2010</th><th className="year">2011</th><th className="year">2012</th>
 // <th className="year">2013</th><th className="year">2014</th><th className="year cur">2015</th><th className="year">2016</th>
 // <th className="year">2017</th><th className="year">2018</th><th className="year">2019</th><th className="year">2020</th>

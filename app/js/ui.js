@@ -139,16 +139,16 @@ var UI = {
     }
   },
 
-  showOverviewConfirm: function (e) {
-    e.preventDefault();
-    $('.confirm-slider.active').removeClass('active');
-    $('#' + e.target.getAttribute('data-target')).addClass('active');
-  },
+  // showOverviewConfirm: function (e) {
+  //   e.preventDefault();
+  //   $('.confirm-slider.active').removeClass('active');
+  //   $('#' + e.target.getAttribute('data-target')).addClass('active');
+  // },
 
-  hideOverviewConfirm: function (e) {
-    e.preventDefault();
-    $('#' + e.target.getAttribute('data-target')).removeClass('active');
-  },
+  // hideOverviewConfirm: function (e) {
+  //   e.preventDefault();
+  //   $('#' + e.target.getAttribute('data-target')).removeClass('active');
+  // },
 
   formatSalary: function(e) {
     var str = e.target.value;

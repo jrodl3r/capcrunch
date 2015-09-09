@@ -261,6 +261,7 @@
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'general layout + nav cleanup'
 - 'cleanup panels'
 - 'revamp overview panel'
 - 'roster menu revamp phase-2: tabbed player panels + nav update + ui refresh'
