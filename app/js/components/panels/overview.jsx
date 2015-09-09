@@ -4,37 +4,66 @@ var UI = require('../../ui.js');
 
 var Overview = React.createClass({
 
-  componentDidUpdate: function () {
-    this.updateCapMeter();
-    if ($('#overview').hasClass('active')) {
-      $('#overview').css('height', this.getExpandedHeight());
-    }
-    $('.confirm-slider.active').not('.enagaged').removeClass('active');
-  },
-
   componentDidMount: function () {
     if (this.props.shareData.link) {
       this.updateCapMeter();
-      if ($('#overview').hasClass('active')) {
-        $('#overview').css('height', this.getExpandedHeight());
+      this.updateOverview();
+      // TODO: Animate Capbar (Shared View)
+        // if (this.props.capData.players && this.props.shareData.link) {...}
+    }
+  },
+
+  componentDidUpdate: function () {
+    this.updateCapMeter();
+    this.updateOverview();
+  },
+
+  updateOverview: function () {
+    var overview = 86, unsigned = 0, signed = 0, trades = 0, created = 0,
+        heading = 24, action_item = 33, trade_item = 20, spacing = 9, user, league, height, x;
+    if (this.props.unsigned.length) { unsigned = heading + (this.props.unsigned.length * action_item); }
+    $('#overview .unsigned.group').css('height', unsigned);
+    if (this.props.signed.length) { signed = heading + (this.props.signed.length * action_item); }
+    $('#overview .signed.group').css('height', signed);
+    if (this.props.created.length) { created = heading + (this.props.created.length * action_item); }
+    $('#overview .created.group').css('height', created);
+    if (this.props.trades.length) {
+      trades = heading;
+      for (x = 0; x < this.props.trades.length; x++) {
+        user = this.props.trades[x].user.length + this.props.trades[x].picks.user.length;
+        league = this.props.trades[x].league.length + this.props.trades[x].picks.league.length;
+        trades = trades + trade_item + (Math.max(user, league) * trade_item) + spacing;
       }
     }
+    height = unsigned + signed + created + trades + overview;
+    $('#overview .trades.group').css('height', trades);
+    if (height > overview) { $('#overview').addClass('engaged').css('height', height); }
+    else { $('#overview').removeClass('engaged').css('height', overview); }
+    $('.confirm-slider.active').not('.engaged').removeClass('active');
+    $('.confirm-slider input, .confirm-slider select').removeClass('active');
+  },
+
+  updateCapMeter: function () {
+    var bar = Math.ceil(this.props.capData.hit * 3);
+    bar = bar <= 215 ? bar : 215;
+    $('#capbar .inner, #capbar .fx, #capbar .glow').css('width', bar);
+    if (bar < 141) { $('#capbar .space.outside').css('left', bar); }
+    else { $('#capbar .space.inside').css('left', 'initial'); }
   },
 
   listUnsigned: function() {
     var count = 0;
-    // <div className="heading">{this.props.unsigned.length} Unsigned</div>
     return (
-      <div className="unsigned">
+      <div>
         <div className="heading">Unsigned</div>
         <ul className="list">
           { this.props.unsigned.map(function(player, i) {
             count = count + 2;
             return (
-              <li key={ i + player.id } className="item">
-                <span className="status">{player.contract[6]}</span>
-                <span className="name">{player.lastname}, {player.firstname}</span>
-                <a className="button" data-target={ 'sign-confirm-' + player.id } onClick={UI.showOverviewConfirm}>Sign</a>
+              <li key={i} className="item">
+              <span className="status">{/(UFA|RFA)/.test(player.prev_contract) ? player.prev_contract : player.contract[6] }</span>
+                <span className="name">{player.firstname} {player.lastname}</span>
+                <a className="button" data-target={ 'sign-confirm-' + player.id } onClick={this.showConfirm}>Sign</a>
                 <div id={ 'sign-confirm-' + player.id } className="confirm-slider unsigned">
                   <input className="sign-player-salary" type="number" step="0.100" min="0.100" max="99.999" placeholder="Salary" tabIndex={ i * count + 1 }
                     onKeyPress={UI.checkPlayerSalaryInput}
@@ -49,10 +78,10 @@ var Overview = React.createClass({
                     <option value="4">4 years</option>
                     <option value="5">5 years</option>
                   </select>
+                  <a className="button rounded cancel" data-target={ 'sign-confirm-' + player.id } tabIndex={ i * count + 4 }
+                     onClick={this.hideConfirm}>Cancel</a>
                   <a className="button rounded sign" data-id={player.id} data-index={i} tabIndex={ i * count + 3 } onClick={this.signPlayer}
                      onKeyDown={this.triggerSignPlayer}>Sign</a>
-                  <a className="button rounded cancel" data-target={ 'sign-confirm-' + player.id } tabIndex={ i * count + 4 }
-                     onClick={UI.hideOverviewConfirm}>Cancel</a>
                 </div>
               </li>
             );
@@ -81,7 +110,11 @@ var Overview = React.createClass({
         index = e.target.getAttribute('data-index'),
         salary = $('#sign-confirm-' + id + ' input').val(),
         duration = $('#sign-confirm-' + id + ' select').val();
-    $('#sign-confirm-' + id).addClass('enagaged');
+    if (salary && duration !== '0') {
+      $('.confirm-slider.active').removeClass('active enagaged');
+      $('.confirm-slider input, .confirm-slider select').removeClass('active');
+      $('.confirm-slider .button.sign.enabled').removeClass('enabled');
+    }
     this.props.signPlayer(id, index, salary, duration);
   },
 
@@ -89,21 +122,28 @@ var Overview = React.createClass({
 
   listSigned: function() {
     return (
-      <div className="signed">
+      <div>
         <div className="heading">Signed</div>
         <ul className="list">
           { this.props.signed.map(function(player, i) {
             return (
-              <li key={ i + player.id } className="item">
+              <li key={i} className="item">
                 <span className="status">{player.position}</span>
-                <span className="name">{player.lastname}, {player.firstname}</span>
-                <span className="salary">{player.contract[6]} <span>/</span> {player.duration}yr</span>
-                <a className="button" data-target={ 'unsign-confirm-' + player.id } onClick={UI.showOverviewConfirm}>Undo</a>
+                <span className="name">{player.firstname} {player.lastname}</span>
+                <span className="salary">
+                  <span className="at">&#64;</span> {parseFloat(player.contract[6])}
+                  <span className="currency">M</span>
+                  <span className="years">
+                    <span className="times"> &#215; </span>
+                    <span className="duration">{player.duration}</span>yr{ player.duration > 1 ? 's' : '' }
+                  </span>
+                </span>
+                <a className="button undo" data-target={ 'unsign-confirm-' + player.id } onClick={this.showConfirm}>Undo</a>
                 <div id={ 'unsign-confirm-' + player.id } className="confirm-slider">
                   <span className="confirm-text">Are you sure?</span>
-                  <a data-id={player.id} data-index={i} onClick={this.props.undoSigning}>Yes</a>
+                  <a data-id={player.id} data-index={i} onClick={this.undoSigning}>Yes</a>
                   <span className="confirm-divider"> / </span>
-                  <a data-target={ 'unsign-confirm-' + player.id } onClick={UI.hideOverviewConfirm}>No</a>
+                  <a data-target={ 'unsign-confirm-' + player.id } onClick={this.hideConfirm}>No</a>
                 </div>
               </li>
             );
@@ -113,23 +153,35 @@ var Overview = React.createClass({
     );
   },
 
+  undoSigning: function (e) {
+    $('.confirm-slider.active').removeClass('active enagaged');
+    this.props.undoSigning(e);
+  },
+
   listCreated: function() {
     return (
-      <div className="created">
+      <div>
         <div className="heading">Created</div>
         <ul className="list">
           { this.props.created.map(function(player, i) {
             return (
-              <li key={ i + player.id } className="item">
+              <li key={i} className="item">
                 <span className="status">{player.position}</span>
-                <span className="name">{player.lastname}, {player.firstname}</span>
-                <span className="salary">{player.contract[6]} <span>/</span> {player.duration}yr</span>
-                <a className="button" data-target={ 'undo-confirm-' + player.id } onClick={UI.showOverviewConfirm}>Undo</a>
+                <span className="name">{player.firstname} {player.lastname}</span>
+                <span className="salary">
+                  <span className="at">&#64;</span> {parseFloat(player.contract[6])}
+                  <span className="currency">M</span>
+                  <span className="years">
+                    <span className="times"> &#215; </span>
+                    <span className="duration">{player.duration}</span>yr{ player.duration > 1 ? 's' : '' }
+                  </span>
+                </span>
+                <a className="button undo" data-target={ 'undo-confirm-' + player.id } onClick={this.showConfirm}>Undo</a>
                 <div id={ 'undo-confirm-' + player.id } className="confirm-slider">
                   <span className="confirm-text">Are you sure?</span>
                   <a data-id={player.id} onClick={this.props.undoCreate}>Yes</a>
                   <span className="confirm-divider"> / </span>
-                  <a data-target={ 'undo-confirm-' + player.id } onClick={UI.hideOverviewConfirm}>No</a>
+                  <a data-target={ 'undo-confirm-' + player.id } onClick={this.hideConfirm}>No</a>
                 </div>
               </li>
             );
@@ -141,7 +193,7 @@ var Overview = React.createClass({
 
   listTrades: function() {
     return (
-      <div className="trades">
+      <div>
         <div className="heading">Trades</div>
         <ul className="list">
           { this.props.trades.map(function(trade, i) {
@@ -154,7 +206,7 @@ var Overview = React.createClass({
                     return <li key={ j + player.id }>{player.firstname.charAt(0)}. {player.lastname}</li>;
                   }) }
                   { trade.picks.user.map(function(pick, x) {
-                    return <li key={pick.id}>{pick.label} Round <span className="year">{ '20' + pick.year }</span></li>;
+                    return <li key={pick.id} className="pick">{pick.label} Round <span className="year">{ '20' + pick.year }</span></li>;
                   }) }
                 </ul>
                 <ul className="league">
@@ -163,15 +215,15 @@ var Overview = React.createClass({
                     return <li key={ k + player.id }>{player.firstname.charAt(0)}. {player.lastname}</li>;
                   }) }
                   { trade.picks.league.map(function(pick, y) {
-                    return <li key={pick.id}>{pick.label} Round <span className="year">{ '20' + pick.year }</span></li>;
+                    return <li key={pick.id} className="pick">{pick.label} Round <span className="year">{ '20' + pick.year }</span></li>;
                   }) }
                 </ul>
-                <a className="button" data-target={ 'undo-confirm-' + i } onClick={UI.showOverviewConfirm}>Undo</a>
+                <a className="button undo" data-target={ 'undo-confirm-' + i } onClick={this.showConfirm}>Undo</a>
                 <div id={ 'undo-confirm-' + i } className="confirm-slider">
                   <span className="confirm-text">Are you sure?</span>
                   <a data-index={i} onClick={this.props.undoTrade}>Yes</a>
                   <span className="confirm-divider"> / </span>
-                  <a data-target={ 'undo-confirm-' + i } onClick={UI.hideOverviewConfirm}>No</a>
+                  <a data-target={ 'undo-confirm-' + i } onClick={this.hideConfirm}>No</a>
                 </div>
               </li>
             );
@@ -181,6 +233,20 @@ var Overview = React.createClass({
     );
   },
 
+  hideConfirm: function (e) {
+    e.preventDefault();
+    $('.confirm-slider.active').removeClass('active');
+  },
+
+  showConfirm: function (e) {
+    e.preventDefault();
+    $('.confirm-slider.active, .confirm-slider input, .confirm-slider select').removeClass('active');
+    $('.confirm-slider .button.sign.enabled').removeClass('enabled');
+    $('.confirm-slider .sign-player-salary').val('');
+    $('.confirm-slider .sign-player-duration').val(0);
+    $('#' + e.target.getAttribute('data-target')).addClass('active engaged');
+  },
+
   changeView: function(e) {
     e.preventDefault();
     $('#team-grid div.active').removeClass('active');
@@ -188,117 +254,64 @@ var Overview = React.createClass({
     this.props.changeView('teams');
   },
 
-  showExpandedView: function () {
-    var height = this.getExpandedHeight();
-    if (height > 66 && !this.props.shareData.link) {
-      $('#overview').attr('class', 'panel active').css('height', height);
-    }
-  },
+  // showExpandedView: function () {
+  //   var height = this.getExpandedHeight();
+  //   if (height > overview_height && !this.props.shareData.link) {
+  //     $('#overview').attr('class', 'panel active').css('height', height);
+  //   }
+  // },
 
-  hideExpandedView: function () {
-    if (!this.props.shareData.link) {
-      $('#overview').attr('class', 'panel').css('height', 88);
-    }
-  },
-
-  // if (this.props.trades.length) {
-  //   height = height + 28;
-  //   for (x = 0; x < this.props.trades.length; x++) {
-  //     height = height + 28 + (Math.max(this.props.trades[x].user.length + this.props.trades[x].picks.user.length, this.props.trades[x].league.length + this.props.trades[x].picks.league.length) * 20);
-  //   }}
-  // if (haveItems && this.props.userTeam && this.props.userTeam !== this.props.activeTeam) {
-  //   $('#overview').css('height', 180);
-  // } else {
-  //   if (haveItems > 1) {
-  //     if (this.props.signed.length) { height = height + 28 + (this.props.signed.length * 33); }
-  //     if (this.props.unsigned.length) { height = height + 28 + (this.props.unsigned.length * 33); }
-  //     if (this.props.created.length) { height = height + 28 + (this.props.created.length * 33); }
-  //     $('#overview').css('height', height);
-  //   } else if (haveItems === 1) {
-  //     if (this.props.trades.length) {
-  //       $('#overview').css('height', height);
-  //     } else { $('#overview').css('height', 95); }
-  //   } else { $('#overview').css('height', 0); }
-  // }
-  // $('.confirm-slider.active').not('.enagaged').removeClass('active');
-
-  getExpandedHeight: function () {
-    var overview = 66, title = 26, height = 0, x;
-    if (this.props.unsigned.length) {
-      height = title + (this.props.unsigned.length * 33);
-    }
-    if (this.props.signed.length) {
-      height = height + title + (this.props.signed.length * 33);
-    }
-    if (this.props.created.length) {
-      height = height + title + (this.props.signed.length * 33);
-    }
-    if (this.props.trades.length) {
-      height = height + title;
-      for (x = 0; x < this.props.trades.length; x++) {
-        height = height + (Math.max(this.props.trades[x].user.length + this.props.trades[x].picks.user.length, this.props.trades[x].league.length + this.props.trades[x].picks.league.length) * 20);
-      }
-    }
-    return overview + height;
-  },
-
-  updateCapMeter: function () {
-    var bar = Math.ceil(this.props.capData.hit * 3);
-    bar = bar <= 215 ? bar : 215;
-    $('#capbar .inner, #capbar .fx, #capbar .glow').css('width', bar);
-    if (bar < 140) { $('#capbar .space.outside').css('left', bar); }
-    else { $('#capbar .space.inside').css('left', 'initial'); }
-  },
-
+  // hideExpandedView: function () {
+  //   if (!this.props.shareData.link) {
+  //     $('#overview').attr('class', 'panel').css('height', 90);
+  //   }
+  // },
 
   render: function() {
-    var cap_size = this.props.capData.hit * 3,
+    var gm_status = this.props.capData.players ? ' active' : '',
+        cap_size = this.props.capData.hit * 3,
         show_hit = cap_size >= 60,
-        space_inside = cap_size >= 140 ? ' active' : '',
-        space_outside = cap_size < 140 ? ' active' : ' disabled',
-        show_unsigned = this.props.unsigned.length ? ' wide' : '';
+        cap_inside = cap_size >= 140 ? ' active' : '',
+        cap_outside = cap_size < 140 ? ' active' : ' disabled';
 
     return (
-      <div id="overview" className={ this.props.shareData.link ? 'panel active' : 'panel' }
-        onMouseEnter={this.showExpandedView} onMouseLeave={this.hideExpandedView}>
+      <div id="overview" className={ this.props.shareData.link ? 'panel shared active' : 'panel' + gm_status }>
         <div className="title">GM Overview</div>
-        <ul className="summary">
-      { this.props.unsigned.length
-        ? <li className="unsigned">
-            <span className="num">{this.props.unsigned.length} </span> Unsigned
-          </li> : null }
-          <li className={ this.props.signed.length ? 'active' : '' }>
-            <span className="num">{this.props.signed.length} </span> Signed
-          </li>
-          <li className={ this.props.trades.length ? 'active' : '' }>
-            <span className="num">{this.props.trades.length} </span>
-            Trade{!this.props.trades.length || this.props.trades.length > 1 ? 's' : ''}
-          </li>
-          <li className={ this.props.created.length ? 'active' : '' }>
-            <span className="num">{this.props.created.length} </span> Created
-          </li>
-          <li className={ this.props.capData.players ? 'players active' + show_unsigned : 'players inactive' }>
-            <span className="num">{ this.props.capData.players ? this.props.capData.players : 'No' } </span>
-            Player{ !this.props.capData.players || this.props.capData.players > 1 ? 's' : ''}
-          </li>
-          <li className="shade"></li>
-        </ul>
+        <div className={ this.props.capData.players ? 'roster_size active' : 'roster_size' }>
+          <span className="num">{this.props.capData.players ? this.props.capData.players : 1 } </span>
+          Player{ this.props.capData.players > 1 ? 's' : null }
+        </div>
         <div id="capbar">
+          <ul id="roster_info">
+            <li className={this.props.unsigned.length ? 'unsigned active' : 'unsigned' }>
+              <span className="num">{this.props.unsigned.length}</span> <span>Unsigned</span>
+            </li>
+            <li className={ this.props.signed.length ? 'active' : '' }>
+              <span className="num">{this.props.signed.length} </span> <span>Signed</span>
+            </li>
+            <li className={ this.props.trades.length ? 'active' : '' }>
+              <span className="num">{this.props.trades.length} </span>
+              <span>Trade{!this.props.trades.length || this.props.trades.length > 1 ? 's' : ''}</span>
+            </li>
+            <li className={ this.props.created.length ? 'active' : '' }>
+              <span className="num">{this.props.created.length} </span> <span>Created</span>
+            </li>
+          </ul>
           <div className="outer">
             <div className="inner">
               <span className={ show_hit ? 'hit active' : 'hit' }>
                 <span className="label">Hit</span> { this.props.capData.hit }
               </span>
           { this.props.capData.space > 0
-            ? <span className={ 'space inside' + space_inside }>
+            ? <span className={ 'space inside' + cap_inside }>
                 <span className="label">Space</span> { this.props.capData.space }
               </span>
-            : <span className={ 'space overage inside' + space_inside }>
+            : <span className={ 'space overage inside' + cap_inside }>
                 <span className="label">Cap Overage</span> { this.props.capData.space }
               </span> }
               <div className="bar"></div>
             </div>
-            <span className={ this.props.capData.hit !== '0.000' ? 'space outside enabled' + space_outside : 'space outside' + space_outside }>
+            <span className={ this.props.capData.hit !== '0.000' ? 'space outside enabled' + cap_outside : 'space outside' + cap_outside }>
               <span className="label">Space</span> { this.props.capData.space }
             </span>
             <span className="cap">
@@ -310,15 +323,16 @@ var Overview = React.createClass({
           <div className="shade"></div>
         </div>
         <div className="inner">
-          { this.props.unsigned.length ? this.listUnsigned() : null }
-          { this.props.signed.length ? this.listSigned() : null }
-          { this.props.created.length ? this.listCreated() : null }
-          { this.props.trades.length ? this.listTrades() : null }
+          <div className={ this.props.unsigned.length ? 'unsigned active group' : 'unsigned group' }>{this.listUnsigned()}</div>
+          <div className={ this.props.signed.length ? 'signed active group' : 'signed group' }>{this.listSigned()}</div>
+          <div className={ this.props.created.length ? 'created active group' : 'created group' }>{this.listCreated()}</div>
+          <div className={ this.props.trades.length ? 'trades active group' : 'trades group' }>{this.listTrades()}</div>
         </div>
       </div>
     );
   }
 });
+// onMouseEnter={this.showExpandedView} onMouseLeave={this.hideExpandedView}
 // <div id="overview-disabled-cover"
 //   className={ this.props.userTeam && this.props.userTeam !== this.props.activeTeam ? 'active' : '' }>
 //   <span className="info-bubble"><strong>Allstar-Mode</strong> is enabled whenenver the active team does not match your roster players.</span>

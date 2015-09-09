@@ -2,7 +2,7 @@
   position: inherit;
   float: left;
   width: inherit;
-  margin: 20px 0;
+  margin: 10px 0 20px 0;
 
   input, button {
     float: left;
@@ -18,7 +18,7 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     box-shadow: 0 0 10px 0 rgba(0,0,0, .6);
-    opacity: .7;
+    opacity: .8;
 
     &:hover, &:active { color: #EEE; text-shadow: 0 0 1px rgba(0,0,0, .6); }
     &:hover { background: linear-gradient(to left, #666 0%, #373737); opacity: 1; }
@@ -40,7 +40,7 @@
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   box-shadow: 0 0 10px 0 rgba(0,0,0, .5);
-  opacity: .85;
+  opacity: .9;
   transition: .3s;
 
   &::placeholder { color: #393939; }

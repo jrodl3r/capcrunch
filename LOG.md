@@ -150,6 +150,7 @@
 - 'trade: parlay picks, show acquire picks on user-pick-list'
 - 'trade: add bag-o-pucks below draft picks'
 - 'trade: cap violation/overage check + warning'
+- 'trade: kill plus button - just add player on select'
 ---------------------------------------------------------------
 
 
@@ -246,8 +247,9 @@
 ---------------------------------------------------------------
 #### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.4] »
 ---------------------------------------------------------------
-- 'cleanup overview panel'
-- 'revamp actions panels + payroll capstats'
+- 'revamp actions panels'
+- 'revamp payroll header + capstats'
+- 'notifications'
 ---------------------------------------------------------------
 - 'nudge drag-n-drop splash graphic down (away from Overview)'
 - 'load all splash graphics ondemand (post-load)'
@@ -259,6 +261,7 @@
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'cleanup panels'
 - 'revamp overview panel'
 - 'roster menu revamp phase-2: tabbed player panels + nav update + ui refresh'
 - 'roster menu revamp phase-1: setup tabbed active + inactive panels'

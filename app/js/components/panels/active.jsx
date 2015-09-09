@@ -17,7 +17,7 @@ var Active = React.createClass({
   render: function() {
 
     return (
-      <div id="active" className="panel">
+      <div id="active" className={ this.props.panelData.loading ? 'panel disengaged' : 'panel' }>
         <ul id="active-menu" className="tab-bar">
           <li>
             <a id="forwards-tab" data-tab="forwards" className={ this.props.panelData.active === 'forwards' ? 'active' : '' }
@@ -68,14 +68,14 @@ var Active = React.createClass({
             onItemDragStart={this.props.onItemDragStart}
             onItemDragEnd={this.props.onItemDragEnd} />
         </div>
-        <div className={ this.props.panelData.engaged ? 'drag-cover active' : 'drag-cover' }
+        <div className={ this.props.panelData.loading || this.props.panelData.engaged ? 'drag-cover active' : 'drag-cover' }
           onDragEnter={this.props.onListDragEnter}
           onDragOver={UI.dropEffect}></div>
         <div className={ this.props.panelData.loading ? 'loading-list active' : 'loading-list' }>
           <i className="fa fa-cog fa-spin"></i> Loading
         </div>
         <div className={ this.props.dragType === 'tile' ? 'remove-player active' : 'remove-player' }>
-          <i className="fa fa-rotate-left"></i> Remove Player
+          <i className="fa fa-rotate-left"></i> Remove
           <div className="cover"
             onDragOver={UI.dropEffect}
             onDragEnter={this.props.onRemoveDragEnter}

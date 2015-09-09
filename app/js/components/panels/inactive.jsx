@@ -22,7 +22,7 @@ var Inactive = React.createClass({
     var created = this.props.panelData.inactive === 'created' ? 'active' : '';
 
     return (
-      <div id="inactive" className="panel">
+      <div id="inactive" className={ this.props.panelData.loading ? 'panel disengaged' : 'panel' }>
         <ul id="inactive-menu" className="tab-bar">
           <li>
             <a id="signed-tab" data-tab="inactive" className={ this.props.panelData.inactive === 'inactive' ? 'active' : '' }
@@ -74,14 +74,14 @@ var Inactive = React.createClass({
             onItemDragStart={this.props.onItemDragStart}
             onItemDragEnd={this.props.onItemDragEnd} />
         </div>
-        <div className={ this.props.panelData.engaged ? 'drag-cover active' : 'drag-cover' }
+        <div className={ this.props.panelData.loading || this.props.panelData.engaged ? 'drag-cover active' : 'drag-cover' }
           onDragEnter={this.props.onListDragEnter}
           onDragOver={UI.dropEffect}></div>
         <div className={ this.props.panelData.loading ? 'loading-list active' : 'loading-list' }>
           <i className="fa fa-cog fa-spin"></i> Loading
         </div>
         <div className={ this.props.dragType === 'tile' ? 'remove-player active' : 'remove-player' }>
-          <i className="fa fa-rotate-left"></i> Remove Player
+          <i className="fa fa-rotate-left"></i> Remove
           <div className="cover"
             onDragOver={UI.dropEffect}
             onDragEnter={this.props.onRemoveDragEnter}

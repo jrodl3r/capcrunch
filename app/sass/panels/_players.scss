@@ -14,10 +14,10 @@
   line-height: $panel-list-item-height;
   overflow: hidden;
   -webkit-transform: translateZ(0);
-  animation: add_row .35s ease-out;
+  animation: add_row .25s ease-out;
 
   &.engaged { opacity: .3; }
-  &.inplay { animation: hide_row .35s ease-out; }
+  &.inplay { animation: hide_row .25s ease-out; }
   &.traded {
     .item {
       background: none;
@@ -35,7 +35,7 @@
 
 .row:not(.inplay) ~ .row:not(.inplay) {
   box-shadow: 0 1px 0 rgba(0,0,0, .15) inset;
-  transition: height .35s, box-shadow 0s;
+  transition: height .25s, box-shadow 0s;
 }
 
 .item {//cursor: grab;
@@ -55,7 +55,7 @@
 
     .jersey { color: #666; }
     .name { color: #BBB; }
-    .handle { opacity: .5; }
+    .handle { opacity: .65; }
     .bg {
       box-shadow: 0 1px 0 rgba(0,0,0, .15) inset;
       opacity: .5;
@@ -169,7 +169,7 @@
     width: 15px;
     background: url($img-url + 'drag-grip.svg') center center no-repeat;
     background-size: 5px;
-    opacity: .35;
+    opacity: .5;
   }
 }
 

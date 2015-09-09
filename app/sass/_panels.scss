@@ -19,7 +19,7 @@
   border-radius: $border-radius;
   box-shadow: 0 0 10px 0 rgba(0,0,0, .25) inset;
   overflow: hidden;
-  transition: height .4s, min-height 0s;
+  transition: height .4s, min-height 0s, opacity .25s;
   transform: translateZ(0);
 
   .inner {
@@ -29,6 +29,10 @@
     font-weight: bold;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
+  }
+
+  &.disengaged {
+    opacity: .9;
   }
 }
 
@@ -154,10 +158,10 @@
   top: 0;
   height: 0;
   width: 300px;
-  color: rgba(255,255,255, .2);
+  color: rgba(255,255,255, .25);
   font-size: 18px;
   font-weight: 500;
-  background: rgba(23,24,25, .8);
+  background: rgba(23,24,25, .85);
   border-radius: $border-radius;
   box-shadow: 0 0 100px 0 rgba(0,0,0, .5) inset;
   opacity: 0;
@@ -187,19 +191,19 @@
   z-index: 3;
   height: 100%;
   opacity: 1;
-  transition: opacity .4s, height 0s, color .4s, box-shadow .4s;
+  transition: opacity .2s, height 0s, color .2s, box-shadow .2s;
 
   &.hover {
-    color: rgba(255,255,255, .4);
+    color: rgba(255,255,255, .45);
     background: rgba(23,24,25, .9);
     box-shadow: 0 0 120px 0 rgba(0,0,0, .8) inset;
-    transition: .5s ease-out;
+    transition: .4s ease-out;
   }
 }
 
 .loading-list {
-  background: rgba(23,24,25, .95);
-  transition: opacity .3s .2s, height 0s .5s;
+  background: rgba(23,24,25, .85);
+  transition: opacity .2s .2s, height 0s .4s;
 
   i {
     position: relative;
