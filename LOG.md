@@ -245,7 +245,22 @@
 
 
 ---------------------------------------------------------------
-#### NOW »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»» [v0.9.4] »
+#### TOP PRIORITY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+---------------------------------------------------------------
+- 'replace add-trade-player button with select-action'
+- 'cleanup payroll header: team logo + cap stats'
+- 'make team-select top-fade-down modal + gausian-blur content'
+- 'cleanup page-state transitions (loading on panels, not fullscreen)'
+- 'mobile touch/drag-n-drop support'
+- 'drag/drop-replace/swap player tiles'
+- 'replace loading splash with rotating icon (no text)'
+- 'prevent back navigation - prompt user?'
+- 'make blank player image transparent-bg + darker silhouette'
+
+
+---------------------------------------------------------------
+#### [v0.9.3] »»»»»»»»»»»»»»»»»:««««««««««««««««« [v0.9.4] »»
+---------------------------------------------------------------
 ---------------------------------------------------------------
 - 'revamp actions panels'
 - 'revamp payroll header + capstats'
