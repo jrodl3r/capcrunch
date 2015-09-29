@@ -78,8 +78,10 @@
     }
 
     &.disabled, &.disabled:hover {
-      color: #515151;
-      background: #323232;
+      // color: #515151;
+      // background: #323232;
+      color: #555;
+      background: #353535;
     }
 
     &.missing {

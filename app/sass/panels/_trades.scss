@@ -11,6 +11,7 @@
   &.tab-area.active { height: 100%; }
 
   button { width: 125px; }
+  select { margin-bottom: 16px; }
 
   .list-placeholder li {
     height: 20px;
@@ -57,14 +58,12 @@
 
 #trade-team-select {
   width: 70px;
-  margin-bottom: 15px;
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 #trade-player-select {
-  width: 155px;
-  margin-bottom: 15px;
-  margin-left: 10px;
+  width: 183px;
+  margin-left: 14px;
 }
 
 #trade-breakdown {
@@ -308,6 +307,7 @@
   color: #616161;
   font-size: 16px;
   line-height: 30px;
+  text-indent: 1px;
   transition: .3s;
 
   &.active {
