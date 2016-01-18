@@ -2,16 +2,17 @@
 // ======================================================
 // COMMANDS :
 // ------------------------------------------------------
-//          » TYPE=get node app.js     | (Get HMTL)
-//          » TYPE=save node app.js    | (Save JSON)
-//          » TYPE=info node app.js    | (Player Info)
-//          » TYPE=info-i node app.js  | (Inactive Player Info)
-//          » TYPE=images node app.js  | (Player Images)
-//          » TYPE=merge node app.js   | (Merge JSON)
-//          » TYPE=merge-c node app.js | (Merge Shot+Image)
-//          » TYPE=log node app.js     | (Log Missing Info)
-//          » TYPE=build node app.js   | (Build Teams DB)
-//          » TYPE=c node app.js       | (Custom/Misc Update)
+//    » TYPE=update node app.js  | (Update)
+//    » TYPE=get node app.js     | (Get HMTL)
+//    » TYPE=save node app.js    | (Save JSON)
+//    » TYPE=info node app.js    | (Player Info)
+//    » TYPE=info-i node app.js  | (Inactive Player Info)
+//    » TYPE=images node app.js  | (Player Images)
+//    » TYPE=merge node app.js   | (Merge JSON)
+//    » TYPE=merge-c node app.js | (Merge Shot+Image)
+//    » TYPE=log node app.js     | (Log Missing Info)
+//    » TYPE=build node app.js   | (Build Teams DB)
+//    » TYPE=c node app.js       | (Custom/Misc Update)
 // ------------------------------------------------------
 'use strict';
 
@@ -51,6 +52,31 @@ var request     = require('request'),
     position    = /(Position: )(Left|Center|Right|Defence|Goaltender)/,
     interval, stream, image, title, href, url, key, i, j, k, l, $, db = [];
 
+
+// Update Team + Payroll Data & Build DB-JSON
+function update() {
+
+  var update_dir = 'data/foo';
+
+  // setup new folder for team data
+  var stats = fs.fstatSync(update_dir);
+  // fs.stat(update_dir, function (fs_err, stats) {
+    // if (!fs_err) {
+      // if (!stats.isDirectory()) {
+      //   console.log('foo!!')
+      //   // fs.mkdirSync(update_dir);
+      // }
+    // } else { return console.error(fs_err); }
+  // });
+
+  console.log(stats.isDirectory());
+  
+
+  //getPayrolls();
+  // then...
+}
+
+
 // Download Payroll Data (HTML)
 function getPayrolls() {
 
@@ -70,7 +96,7 @@ function getPayrolls() {
     });
   } else {
     cur_team = 0;
-    console.log('Finished Get!');
+    console.log('Finished Getting Team Payrolls!');
   }
 }
 
@@ -638,7 +664,9 @@ function convertNumbers() {
 
 
 // Tasks
-if (TYPE === 'get') {
+if (TYPE === 'update') {
+  update();
+} else if (TYPE === 'get') {
   getPayrolls();
 } else if (TYPE === 'save') {
   interval = setInterval(savePayrolls, 1000);
