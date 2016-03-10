@@ -13,9 +13,12 @@ node_modules
 /public/css/*.css*
 /public/js/*.js*
 /public/*.html
-/tools/payrolls/data
-/tools/payrolls/img
+/tools/updater/_*
+/tools/updater/current.json
+/tools/updater/data
+/tools/updater/img
 /tools/picks/data
 /*.html
 temp*
 newrelic_agent.log
+npm-debug.log

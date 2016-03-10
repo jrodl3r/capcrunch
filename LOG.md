@@ -8,6 +8,7 @@
 - 'signed cookies for AWS asset access restriction (prevent hotlinking)'
 ---------------------------------------------------------------
 - 'error pages (h5bp, https://goo.gl/72HoM9)'
+- 'analytics: user connection + view stats'
 - 'checkout SpeedCurve, GTMetrix'
 - 'unit testing (Jest / Jasmine)'
 - 'upgrade Mongolab'
@@ -28,8 +29,8 @@
 ---------------------------------------------------------------
 #### LATER »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
-- 'tools: buyout calculator'
-- 'tools: draft board'
+- 'gm-tools: buyout calculator'
+- 'gm-tools: draft board'
   - 'simulate drafts'
   - 'social/friend draft-challenges (all-time/allstar/legend drafts)'
 - 'roster: minor team roster/lineup'
@@ -84,17 +85,6 @@
 ---------------------------------------------------------------
 - 'FF: dragend sticking-hover issue (https://bugzilla.mozilla.org/show_bug.cgi?id=666864)'
 - 'FF: view height not 100% accurate after changing team'
----------------------------------------------------------------
-
-
----------------------------------------------------------------
-## Admin
----------------------------------------------------------------
-- 'setup admin login + view logic'
-- 'analytics: user connection + view stats'
-- 'tools: bulk payroll upload/update/export (json)'
-- 'tools: individual player salary add/edit/export'
-- 'tools: individual draft pick add/edit/export'
 ---------------------------------------------------------------
 
 
@@ -268,14 +258,13 @@
 ---------------------------------------------------------------
 - 'nudge drag-n-drop splash graphic down (away from Overview)'
 - 'load all splash graphics ondemand (post-load)'
----------------------------------------------------------------
-- 'document + fully-automate payroll data update process'
 
 
 
 ---------------------------------------------------------------
 #### READY »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
+- 'document + fully-automate payroll data update process'
 - 'general layout + nav cleanup'
 - 'cleanup panels'
 - 'revamp overview panel'

@@ -1,11 +1,20 @@
 {
   "name": "capcrunch-updater",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "John Rodler <john@jrod.io>",
   "main": "app.js",
   "dependencies": {
     "cheerio": "^0.18.0",
+    "cli": "^0.11.2",
+    "fs-extra": "^0.26.5",
+    "nhlpimg": "^1.0.4",
+    "prompt": "^1.0.0",
     "request": "^2.56.0",
-    "mkdirp": "^0.5.1"
+    "shelljs": "^0.6.0"
+  },
+  "scripts": {
+    "new": "TYPE=new node update.js",
+    "recycle": "TYPE=recycle node update.js",
+    "push": "TYPE=push node update.js"
   }
 }
