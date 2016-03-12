@@ -113,7 +113,7 @@ gulp.task('sass', function() {
 
 gulp.task('jade', function() {
   return gulp.src('app/templates/*.jade')
-    .pipe($.jade())
+    .pipe($.jade({ locals: { dev: env.dev }}))
     .on('error', logError)
     .pipe(gulp.dest('public'))
     .pipe($.if(env.dev, $.size({ title: 'jade' })))
