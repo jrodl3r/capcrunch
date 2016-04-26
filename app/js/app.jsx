@@ -19,7 +19,7 @@ var TeamGrid   = require('./components/team-grid.jsx'),
     update     = React.addons.update,
     socket     = io();
 
-var dropData = { origin: '', cur: '', last: null, action: '' },
+var dropData = { origin: '', cur: '', last: null, action: '', swap: '' },
     altLines = ['FR', 'FB', 'DR', 'DB', 'GR', 'GB'];//,
     // onboard  = true;
 
@@ -125,7 +125,7 @@ var App = React.createClass({
   },
 
   clearDrop: function() {
-    dropData = { origin : '', cur : '', last : null, action : '' };
+    dropData = { origin : '', cur : '', last : null, action : '', swap: '' };
     UI.clearDrag();
   },
 
@@ -736,17 +736,19 @@ var App = React.createClass({
   },
 
   handleItemDragEnd: function(e) {
-    var player, noaction = false;
-    if (dropData.cur && dropData.cur === dropData.last) { this.addPlayer(); }
+    var noaction = false,
+        player = this.state.dragData.group === 'created'
+          ? this.state.playerData.created[this.state.dragData.index]
+          : this.state.teamData.players[this.state.dragData.group][this.state.dragData.index];
+    if (dropData.cur && dropData.cur === dropData.last) { this.addPlayer(player); }
     else if (dropData.action === 'trade') {
-      player = this.state.dragData.group === 'created'
-        ? this.state.playerData.created[this.state.dragData.index]
-        : this.state.teamData.players[this.state.dragData.group][this.state.dragData.index];
       if (this.verifyTradePlayer(player.action, player.contract[this.state.capData.year])) {
         player.group = this.state.dragData.group;
         this.addTradePlayer('user', player);
       } else { noaction = true; }
-    } else { noaction = true; }
+    } /*else if (dropData.action === 'swap') {
+      this.swapListPlayers();
+    }*/ else { noaction = true; }
     if (noaction) {
       e.currentTarget.parentNode.className = 'row';
       e.currentTarget.className = 'item';
@@ -804,6 +806,10 @@ var App = React.createClass({
       e.currentTarget.className = 'tile hover';
       dropData.action = this.isAltLine(id);
       dropData.cur = id;
+    } else {
+      e.currentTarget.className = 'tile active hover';
+      dropData.action = 'swap';
+      dropData.swap = id;
     }
     dropData.last = id;
   },
@@ -844,16 +850,15 @@ var App = React.createClass({
         if (this.verifyTradePlayer(this.state.rosterData[dropData.origin].action, this.state.rosterData[dropData.origin].contract[this.state.capData.year])) {
           this.removePlayer('trading');
         }
+      } else if (dropData.action === 'swap') {
+        this.swapPlayers();
       } else { this.clearDrag(); }
     } else { this.clearDrag(); }
     this.clearDrop();
   },
 
-  addPlayer: function() {
-    var player = this.state.dragData.group === 'created'
-      ? this.state.playerData.created[this.state.dragData.index]
-      : this.state.teamData.players[this.state.dragData.group][this.state.dragData.index],
-        unsigned = player.capnum === '0.000' ? true : false,
+  addPlayer: function(player) {
+    var unsigned = player.capnum === '0.000' ? true : false,
         altStatus = this.isAltLine(dropData.cur),
         playerData = this.state.playerData,
         capData = unsigned ? this.updateCapStats('add', 'unsigned') : this.updateCapStats('add', player.capnum);
@@ -917,7 +922,7 @@ var App = React.createClass({
         altStatus = this.isAltLine(dropData.cur),
         player = rosterData[dropData.origin], index, updateData;
     if (altStatus) {
-      if (altStatus !== player.status) {
+      if (player.status !== altStatus) {
         index = playerData[player.status].map(function(p){ return p.id; }).indexOf(player.id);
         playerData[player.status].splice(index, 1);
         playerData[altStatus].push(player);
@@ -936,6 +941,56 @@ var App = React.createClass({
       rosterData : { $set: rosterData }
     });
     this.setState(updateData, function() { this.clearDrag(); });
+  },
+
+  swapPlayers: function() {
+    var playerData = this.state.playerData,
+        rosterData = this.state.rosterData,
+        altStatus = this.isAltLine(dropData.swap),
+        altStatusOrigin = this.isAltLine(dropData.origin),
+        player = rosterData[dropData.origin],
+        swap = rosterData[dropData.swap], index, updateData;
+    if (altStatus) { // going to ir/bench
+      if (player.status !== altStatus) {
+        index = playerData[player.status].map(function(p){ return p.id; }).indexOf(player.id);
+        playerData[player.status].splice(index, 1);
+        playerData[altStatus].push(player);
+        player.status = altStatus;
+      }
+      if (!altStatusOrigin) { // and coming from starting lineup
+        index = playerData[swap.status].map(function(p){ return p.id; }).indexOf(swap.id);
+        playerData[swap.status].splice(index, 1);
+        playerData.inplay.push(swap);
+        swap.status = 'inplay';
+      }
+    }
+    if (altStatusOrigin) { // coming from ir/bench
+      if (swap.status !== altStatusOrigin) {
+        index = playerData[swap.status].map(function(p){ return p.id; }).indexOf(swap.id);
+        playerData[swap.status].splice(index, 1);
+        playerData[altStatusOrigin].push(swap);
+        swap.status = altStatusOrigin;
+      }
+      if (!altStatus) { // and going to starting lineup
+        index = playerData[player.status].map(function(p){ return p.id; }).indexOf(player.id);
+        playerData[player.status].splice(index, 1);
+        playerData.inplay.push(player);
+        player.status = 'inplay';
+      }
+    }
+    rosterData[dropData.origin] = swap;
+    rosterData[dropData.swap] = player;
+    updateData = update(this.state, {
+      rosterData : { $set: rosterData }
+    });
+    this.setState(updateData, function() { this.clearDrag(); });
+  },
+
+  swapListPlayers: function(player) {
+    
+      // TODO Setup List/Roster Swaps
+
+
   },
 
 
