@@ -2,6 +2,40 @@
 #### NOTES »»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 ---------------------------------------------------------------
 
+## Heroku Config Vars
+---------------------------------------------------------------
+MONGOLAB_URI: "username:password"
+
+
+## Local DB Backup
+---------------------------------------------------------------
+$ mongoexport -d cc -c teams -o backup.json (-v --pretty)
+$ mongoexport -d cc -c picks -o picks.json
+
+
+## Local DB Rebuild + Import
+---------------------------------------------------------------
+$ mongo --shell
+$ use cc
+$ db.teams.drop()
+$ db.createCollection('teams')
+$ exit
+$ mongoimport --db cc --collection teams --type json --file db.json --jsonArray
+
+
+## Prod DB Backup
+---------------------------------------------------------------
+$ mongoexport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p PASSWORD -o backup.json
+
+
+## Prod DB Import
+---------------------------------------------------------------
+$ mongoimport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p PASSWORD --file teams.json
+$ mongoimport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c picks -u heroku_app35105999 -p PASSWORD --file picks.json
+
+
+
+
 
 ---------------------------------------------------------------
 #### TEXT ROSTERS
@@ -158,41 +192,6 @@ Can you beat my roster? » http://capcrunch.io/myteam99
 //╟──────┼─────┼──────╢
 //║ frob │ bar │ quuz ║
 //╚══════╧═════╧══════╝
-
-
-
-
-
-
-
-
-
-
-## Local DB Backup
----------------------------------------------------------------
-$ mongoexport -d cc -c teams -o backup.json (-v --pretty)
-$ mongoexport -d cc -c picks -o picks.json
-
-
-## Local DB Rebuild + Import
----------------------------------------------------------------
-$ mongo --shell
-$ use cc
-$ db.teams.drop()
-$ db.createCollection('teams')
-$ exit
-$ mongoimport --db cc --collection teams --type json --file db.json --jsonArray
-
-
-## Prod DB Backup
----------------------------------------------------------------
-$ mongoexport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p nmqh43ko5r8p3qkgjull6p0v1a -o backup.json
-
-
-## Prod DB Import
----------------------------------------------------------------
-$ mongoimport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c teams -u heroku_app35105999 -p nmqh43ko5r8p3qkgjull6p0v1a --file teams.json
-$ mongoimport -h ds043348.mongolab.com:43348 -d heroku_app35105999 -c picks -u heroku_app35105999 -p nmqh43ko5r8p3qkgjull6p0v1a --file picks.json
 
 
 
